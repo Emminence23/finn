@@ -23,3 +23,15 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - BSE stays dropped (403). NSE `attchmntText` gives a free, usable subject line per filing.
 - Gemini key added. Probed every listed model with a one-line request instead of trusting the model list: several returned 404 (not available to new users), 429 (no free quota) or 503/504 (overloaded). Chose fast=`gemini-3.5-flash-lite`, mid=`gemini-3.5-flash`, strong=`gemini-4-hydrogen`.
 - **Bug found:** the first probe hung indefinitely because the Gemini client had no timeout. Fixed with a 120s timeout plus exponential-backoff retries on 429/5xx in the Gemini adapter.
+
+## Phase 2: Push + Network
+- **Rules first, LLM second:** a keyword/category rule table decides 454 of 517 filings with no LLM call. Only ambiguous filings, plus categories whose materiality depends on content, go to batched triage (10 per call), which covered 229 items.
+- **The LLM transcribes and code calculates:** for results filings the model only copies line items from the PDF. Code computes EBITDA (PBT + finance costs + D&A − other income), QoQ and YoY, then cross-checks revenue, PBT and PAT against screener.in at 1% tolerance. Result: 18 cards; most match, and two banks differ only on PAT (consolidated vs standalone basis, with the differences shown on the card rather than hidden).
+- **Bug found by the cross-check:** bank revenue never matched screener. Banks report "interest earned" as the top line, NBFCs don't. Added `interest_earned` to the schema and decide bank-vs-NBFC in code from the balance sheet (a "Deposits" row). The first fix wrongly turned Bajaj Finance and Chola into banks and was corrected.
+- **Graceful degradation:** the Infosys extraction kept hitting Gemini 503s (overload), so the card falls back to screener's numbers and is labelled that way.
+- **The AI corrected the golden set:** the hand-built fixture had Anup Bagchi in the wrong role. The extractor said he is HDFC Bank's new MD & CEO, and the PDF confirmed it, so the fixture was fixed rather than the model "corrected".
+- **People-extraction eval (`python -m app.intel.eval_people`):**
+  - v1 scored roles 5/7, prior employers 7/18, schools 3/11. The CG Power filing is a long board outcome, and its two SMP profiles sit after the results statement, past the first 8 pages.
+  - v2 sends page 1 plus the pages that mention appointments or profiles. It also normalises role strings in the scorer (CEO and "Chief Executive Officer" are the same role).
+  - v2 scores people 7/7, roles 7/7, prior employers 17/18, schools 8/10.
+- **The network graph is pure code:** paths, overlaps, who-can-help and reconnect nudges never send contact data to an LLM (privacy, §6.4).

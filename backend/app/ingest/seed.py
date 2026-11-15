@@ -241,6 +241,9 @@ def main() -> None:
         seed_fundamentals(db)
         seed_network(db)
         seed_alert_rules(db)
+    from app.intel.enrich import apply_enrichment
+
+    log.info("enrichment applied to %d announcements", apply_enrichment())
     log.info("seed complete")
 
 

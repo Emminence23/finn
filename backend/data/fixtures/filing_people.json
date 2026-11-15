@@ -11,13 +11,23 @@
       "announcement_id": "106812169",
       "bio": "Chartered Accountant, Cost Accountant and Company Secretary with 22+ years in finance (accounting, reporting, audit, control).",
       "roles": [
-        {"company": "Pfizer Limited", "start_year": null, "end_year": null},
-        {"company": "Hindustan Unilever Limited", "start_year": null, "end_year": null},
-        {"company": "Vedanta Resources Limited", "start_year": null, "end_year": null}
+        {
+          "company": "Pfizer Limited",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Hindustan Unilever Limited",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Vedanta Resources Limited",
+          "start_year": null,
+          "end_year": null
+        }
       ],
-      "education": [
-        {"school": "Institute of Chartered Accountants of India", "program": "CA"}
-      ]
+      "education": []
     },
     {
       "id": "fp_vn_srivatsan_hdfcbank",
@@ -29,11 +39,22 @@
       "announcement_id": "106850382",
       "bio": "~34 years of experience, ~25 in BFSI and ~10 in compliance and regulatory inspection. Led Retail Banking Compliance and Regulatory Inspection for 8+ years.",
       "roles": [
-        {"company": "ICICI Bank Limited", "title": "Head - Compliance: Overseas Banking and Subsidiaries & Data Privacy Officer", "start_year": null, "end_year": 2026}
+        {
+          "company": "ICICI Bank Limited",
+          "title": "Head - Compliance: Overseas Banking and Subsidiaries & Data Privacy Officer",
+          "start_year": null,
+          "end_year": 2026
+        }
       ],
       "education": [
-        {"school": "PSG College of Technology", "program": "Post Graduate, Business Administration"},
-        {"school": "Sri Venkateshwara University", "program": "B.Tech"}
+        {
+          "school": "PSG College of Technology",
+          "program": "Post Graduate, Business Administration"
+        },
+        {
+          "school": "Sri Venkateshwara University",
+          "program": "B.Tech"
+        }
       ]
     },
     {
@@ -46,16 +67,46 @@
       "announcement_id": "106826232",
       "bio": "26+ years of global leadership across services, digital transformation, engineering, product development and business management. Most recently VP - Services at Tetra Pak AB, Sweden.",
       "roles": [
-        {"company": "Tetra Pak", "title": "Vice President - Services", "start_year": null, "end_year": 2026},
-        {"company": "Ingersoll Rand", "start_year": null, "end_year": null},
-        {"company": "Subros", "start_year": null, "end_year": null},
-        {"company": "Behr", "start_year": null, "end_year": null},
-        {"company": "General Motors", "start_year": null, "end_year": null}
+        {
+          "company": "Tetra Pak",
+          "title": "Vice President - Services",
+          "start_year": null,
+          "end_year": 2026
+        },
+        {
+          "company": "Ingersoll Rand",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Subros",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Behr",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "General Motors",
+          "start_year": null,
+          "end_year": null
+        }
       ],
       "education": [
-        {"school": "University of Michigan", "program": "MBA, Strategy and Finance"},
-        {"school": "University of Illinois", "program": "MS, Mechanical Engineering"},
-        {"school": "IIT Guwahati", "program": "B.Tech, Mechanical Engineering"}
+        {
+          "school": "University of Michigan",
+          "program": "MBA, Strategy and Finance"
+        },
+        {
+          "school": "University of Illinois",
+          "program": "MS, Mechanical Engineering"
+        },
+        {
+          "school": "IIT Guwahati",
+          "program": "B.Tech, Mechanical Engineering"
+        }
       ]
     },
     {
@@ -68,15 +119,41 @@
       "announcement_id": "106826232",
       "bio": "20+ years at GIC, Eaton, Whirlpool, Honeywell and Bosch across industrial automation, consumer electronics, embedded systems and connected products. 30+ patents and disclosures.",
       "roles": [
-        {"company": "GIC", "start_year": null, "end_year": null},
-        {"company": "Eaton", "start_year": null, "end_year": null},
-        {"company": "Whirlpool", "start_year": null, "end_year": null},
-        {"company": "Honeywell", "start_year": null, "end_year": null},
-        {"company": "Bosch", "start_year": null, "end_year": null}
+        {
+          "company": "GIC",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Eaton",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Whirlpool",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Honeywell",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Bosch",
+          "start_year": null,
+          "end_year": null
+        }
       ],
       "education": [
-        {"school": "BITS Pilani", "program": null},
-        {"school": "Symbiosis", "program": null}
+        {
+          "school": "BITS Pilani",
+          "program": null
+        },
+        {
+          "school": "Symbiosis",
+          "program": null
+        }
       ]
     },
     {
@@ -89,38 +166,69 @@
       "announcement_id": "106807358",
       "bio": "24+ years in HR across renewable energy, manufacturing, technology, supply chain, shared services and consumer durables. Previously Sr. VP & Head HR at Avaada Manufacturing (solar cells and modules); led HR re-engineering for IPO readiness.",
       "roles": [
-        {"company": "Avaada Manufacturing", "title": "Sr. Vice President & Head HR", "start_year": null, "end_year": 2026}
+        {
+          "company": "Avaada Manufacturing",
+          "title": "Sr. Vice President & Head HR",
+          "start_year": null,
+          "end_year": 2026
+        }
       ],
       "education": [
-        {"school": "Indraprastha University", "program": "Master's in Human Resources (Gold Medal)"}
+        {
+          "school": "Indraprastha University",
+          "program": "Master's in Human Resources (Gold Medal)"
+        }
       ]
     },
     {
       "id": "fp_anup_bagchi_hdfcbank",
       "name": "Anup Bagchi",
       "symbol": "HDFCBANK",
-      "role": "Director",
+      "role": "Managing Director & CEO (in place of Sashidhar Jagdishan)",
       "direction": "incoming",
-      "effective": "2026-10-01",
+      "effective": "2026-10-27",
       "announcement_id": "106805308",
-      "bio": "Three decades across banking, capital markets, wealth management and insurance. Member of the ICICI Group since 1992 (treasury, retail, wholesale and investment banking, digital financial services); former CEO & MD of an ICICI group company.",
+      "bio": "Three decades across banking, capital markets, wealth management and insurance. In the ICICI Group since 1992 (treasury, retail, wholesale and investment banking, digital financial services); former CEO & MD of an ICICI group company. RBI approved his appointment as HDFC Bank MD & CEO for 3 years from October 27, 2026.",
       "roles": [
-        {"company": "ICICI Group", "start_year": 1992, "end_year": null}
+        {
+          "company": "ICICI Group",
+          "start_year": 1992,
+          "end_year": null
+        }
       ],
-      "education": []
+      "education": [
+        {
+          "school": "IIM Bangalore",
+          "program": "Management"
+        },
+        {
+          "school": "IIT Kanpur",
+          "program": "Engineering"
+        }
+      ]
     },
     {
       "id": "fp_rajiv_dube_trent",
       "name": "Rajiv Dube",
       "symbol": "TRENT",
-      "role": "Non-Executive Director",
+      "role": "Additional Director (Non-Executive, Non-Independent)",
       "direction": "incoming",
       "effective": "2026-10-30",
       "announcement_id": "106834503",
       "bio": "40+ years across the Tata and Aditya Birla groups. Began on the shop floor of Tata Motors and rose to President of its car business; then nearly nine years as executive director on the Aditya Birla group board.",
       "roles": [
-        {"company": "Tata Motors Limited", "title": "President, Passenger Car Business", "start_year": null, "end_year": null},
-        {"company": "Aditya Birla Group", "title": "Executive Director, Group Board", "start_year": null, "end_year": null}
+        {
+          "company": "Tata Motors Limited",
+          "title": "President, Passenger Car Business",
+          "start_year": null,
+          "end_year": null
+        },
+        {
+          "company": "Aditya Birla Group",
+          "title": "Executive Director, Group Board",
+          "start_year": null,
+          "end_year": null
+        }
       ],
       "education": []
     }

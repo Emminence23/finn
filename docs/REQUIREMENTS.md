@@ -279,7 +279,7 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 |---|---|---|---|
 | M0 Setup | 0 | NFR-07, NFR-10 | ✅ Envs build; tickers verified |
 | M1 Data | 1 | §5 sources, FR-NET-01, NFR-02, NFR-11 | ✅ `make seed` fills SQLite from fixtures in ~2.5s |
-| M2 Push + Network | 2 | FR-PUSH-01..06, FR-CARD-01..05, FR-ALERT-01..05, FR-NET-02..05, 07 | `/digest` returns ranked, enriched cards; unit tests green |
+| M2 Push + Network | 2 | FR-PUSH-01..06, FR-CARD-01..05, FR-ALERT-01..05, FR-NET-02..05, 07 | ✅ `/digest` returns ranked, enriched cards; people eval 7/7 roles, 17/18 employers |
 | M3 Pull | 3 | FR-PULL-01..05, 10, 11, FR-NET-03 inside Pull | Promise scorecard for 4 research companies plus 1 unseen ticker live |
 | M4 Frontend | 4 | FR-APP-01..05, all UI surfaces | The demo script runs on a 375px viewport |
 | M5 Deploy | 5 | NFR-01, NFR-07, FR-APP-04 | Public URLs work on a real phone |

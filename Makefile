@@ -1,4 +1,4 @@
-.PHONY: setup api web seed snapshot test lint fmt check
+.PHONY: setup api web seed snapshot enrich test lint fmt check
 
 setup:            ## install all dependencies
 	cd backend && uv sync
@@ -15,6 +15,9 @@ snapshot:         ## refresh fixtures from live sources (NSE, Yahoo, screener)
 
 seed:             ## load fixtures into SQLite
 	cd backend && uv run python -m app.ingest.seed
+
+enrich:           ## LLM enrichment of filings -> fixtures/enrichment.json (cached)
+	cd backend && uv run python -m app.intel.enrich
 
 test:
 	cd backend && uv run pytest -q

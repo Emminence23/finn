@@ -3,6 +3,7 @@
 default_provider: gemini
 
 tasks:
+  triage_filings:      {tier: fast}
   classify_filing:     {tier: fast}
   summarise_filing:    {tier: fast}
   extract_results:     {tier: fast}
