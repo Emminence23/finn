@@ -1,0 +1,77 @@
+import pytest
+from pydantic import BaseModel
+
+from app.db import session
+from app.llm.base import LLMError, LLMResponse
+from app.llm.router import LLMRouter
+
+
+class Out(BaseModel):
+    category: str
+
+
+class FakeProvider:
+    name = "fake"
+    supports_pdf = False
+
+    def __init__(self, replies):
+        self.replies = list(replies)
+        self.calls = 0
+
+    def complete(self, req):
+        self.calls += 1
+        return LLMResponse(text=self.replies.pop(0), input_tokens=100, output_tokens=10)
+
+    def list_models(self):
+        return ["fake-1"]
+
+
+@pytest.fixture
+def router(monkeypatch):
+    monkeypatch.setenv("LLM_MODEL_GEMINI_FAST", "fake-model")
+    return LLMRouter()
+
+
+def test_route_uses_yaml_default_and_env_model_override(router):
+    r = router.route("classify_filing")
+    assert (r.provider, r.model, r.tier) == ("gemini", "fake-model", "fast")
+
+
+def test_per_task_provider_override(router, monkeypatch):
+    monkeypatch.setenv("LLM_PROVIDER_CLASSIFY_FILING", "anthropic")
+    assert router.route("classify_filing").model == "claude-haiku-5-5"
+
+
+def test_unconfigured_model_fails_loudly(router):
+    with pytest.raises(LLMError, match="no model configured"):
+        router.route("promise_vs_delivery")  # gemini strong tier is TBD
+
+
+def test_structured_output_is_cached(router):
+    fake = FakeProvider(['{"category": "results"}'])
+    router._providers["gemini"] = fake
+    a = router.run("classify_filing", system="s", prompt="p", schema=Out)
+    b = router.run("classify_filing", system="s", prompt="p", schema=Out)
+    assert a == b == Out(category="results")
+    assert fake.calls == 1
+    with session() as db:
+        hits = [r["cache_hit"] for r in db.execute("SELECT cache_hit FROM llm_calls ORDER BY id")]
+    assert hits == [0, 1]
+
+
+def test_invalid_json_retries_once_then_succeeds(router):
+    fake = FakeProvider(["not json", '```json\n{"category": "M&A"}\n```'])
+    router._providers["gemini"] = fake
+    assert router.run("classify_filing", system="s", prompt="p", schema=Out).category == "M&A"
+    assert fake.calls == 2
+
+
+def test_gives_up_after_two_invalid_outputs(router):
+    router._providers["gemini"] = FakeProvider(["nope", "still nope"])
+    with pytest.raises(LLMError, match="failed after retries"):
+        router.run("classify_filing", system="s", prompt="p", schema=Out)
+
+
+def test_missing_key_message_is_actionable(router):
+    with pytest.raises(LLMError, match="GEMINI_API_KEY is not set"):
+        router.provider("gemini")

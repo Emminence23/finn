@@ -1,0 +1,21 @@
+# Render blueprint: FastAPI backend on the free plan. Frontend deploys to Vercel separately.
+services:
+  - type: web
+    name: finn-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: FINN_DEMO_PASSCODE
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false

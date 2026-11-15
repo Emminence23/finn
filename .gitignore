@@ -1,0 +1,26 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.pytest_cache/
+
+# node
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.vercel
+
+# data / caches (large PDFs and raw LLM responses stay local)
+backend/cache/
+*.log
+.DS_Store
+
+# local DB is rebuilt from fixtures by `make seed`
+backend/data/*.db*

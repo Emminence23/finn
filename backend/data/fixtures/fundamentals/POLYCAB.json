@@ -1,0 +1,1419 @@
+{
+ "name": "Polycab India Ltd",
+ "about": "Polycab is India’s leading manufacturers of cables and wires and allied products such as uPVC conduits and lugs and glands. We have a range of cables and wires for practically every application. More recently Polycab has also launched a wide range of consumer electrical products like Fans, Switches, Switchgear, LED lights and Luminaries, Solar Inverters, and Pumps.",
+ "top_ratios": {
+  "Market Cap": "₹ 1,19,121 Cr.",
+  "Current Price": "₹ 7,904",
+  "High / Low": "₹ 10,129 / 6,660",
+  "Stock P/E": "37.7",
+  "Book Value": "₹ 869",
+  "Dividend Yield": "0.59 %",
+  "ROCE": "33.2 %",
+  "ROE": "23.6 %",
+  "Face Value": "₹ 10.0"
+ },
+ "is_financial": false,
+ "tables": {
+  "quarters": {
+   "Sales": {
+    "2023-09": 4218.0,
+    "2023-12": 4340.0,
+    "2024-03": 5592.0,
+    "2024-06": 4698.0,
+    "2024-09": 5498.0,
+    "2024-12": 5226.0,
+    "2025-03": 6986.0,
+    "2025-06": 5906.0,
+    "2025-09": 6477.0,
+    "2025-12": 7636.0,
+    "2026-03": 8864.0,
+    "2026-06": 8210.0,
+    "2026-09": 9899.0
+   },
+   "YoY Sales growth": {
+    "2023-09": 27.0,
+    "2023-12": 17.0,
+    "2024-03": 29.0,
+    "2024-06": 21.0,
+    "2024-09": 30.0,
+    "2024-12": 20.0,
+    "2025-03": 25.0,
+    "2025-06": 26.0,
+    "2025-09": 18.0,
+    "2025-12": 46.0,
+    "2026-03": 27.0,
+    "2026-06": 39.0,
+    "2026-09": 53.0
+   },
+   "Expenses": {
+    "2023-09": 3609.0,
+    "2023-12": 3771.0,
+    "2024-03": 4830.0,
+    "2024-06": 4115.0,
+    "2024-09": 4867.0,
+    "2024-12": 4506.0,
+    "2025-03": 5960.0,
+    "2025-06": 5048.0,
+    "2025-09": 5456.0,
+    "2025-12": 6670.0,
+    "2026-03": 7703.0,
+    "2026-06": 7074.0,
+    "2026-09": 8476.0
+   },
+   "Operating Profit": {
+    "2023-09": 609.0,
+    "2023-12": 570.0,
+    "2024-03": 762.0,
+    "2024-06": 583.0,
+    "2024-09": 632.0,
+    "2024-12": 720.0,
+    "2025-03": 1025.0,
+    "2025-06": 858.0,
+    "2025-09": 1021.0,
+    "2025-12": 966.0,
+    "2026-03": 1161.0,
+    "2026-06": 1136.0,
+    "2026-09": 1422.0
+   },
+   "OPM %": {
+    "2023-09": 14.0,
+    "2023-12": 13.0,
+    "2024-03": 14.0,
+    "2024-06": 12.0,
+    "2024-09": 11.0,
+    "2024-12": 14.0,
+    "2025-03": 15.0,
+    "2025-06": 15.0,
+    "2025-09": 16.0,
+    "2025-12": 13.0,
+    "2026-03": 13.0,
+    "2026-06": 14.0,
+    "2026-09": 14.0
+   },
+   "Other Income": {
+    "2023-09": 35.0,
+    "2023-12": 71.0,
+    "2024-03": 54.0,
+    "2024-06": 58.0,
+    "2024-09": 76.0,
+    "2024-12": 25.0,
+    "2025-03": 48.0,
+    "2025-06": 80.0,
+    "2025-09": 45.0,
+    "2025-12": 50.0,
+    "2026-03": 60.0,
+    "2026-06": 105.0,
+    "2026-09": 88.0
+   },
+   "Interest": {
+    "2023-09": 27.0,
+    "2023-12": 32.0,
+    "2024-03": 24.0,
+    "2024-06": 41.0,
+    "2024-09": 45.0,
+    "2024-12": 50.0,
+    "2025-03": 33.0,
+    "2025-06": 51.0,
+    "2025-09": 48.0,
+    "2025-12": 69.0,
+    "2026-03": 75.0,
+    "2026-06": 80.0,
+    "2026-09": 94.0
+   },
+   "Depreciation": {
+    "2023-09": 60.0,
+    "2023-12": 62.0,
+    "2024-03": 66.0,
+    "2024-06": 67.0,
+    "2024-09": 72.0,
+    "2024-12": 79.0,
+    "2025-03": 80.0,
+    "2025-06": 86.0,
+    "2025-09": 97.0,
+    "2025-12": 106.0,
+    "2026-03": 98.0,
+    "2026-06": 103.0,
+    "2026-09": 111.0
+   },
+   "Profit before tax": {
+    "2023-09": 557.0,
+    "2023-12": 546.0,
+    "2024-03": 725.0,
+    "2024-06": 533.0,
+    "2024-09": 590.0,
+    "2024-12": 617.0,
+    "2025-03": 961.0,
+    "2025-06": 801.0,
+    "2025-09": 921.0,
+    "2025-12": 842.0,
+    "2026-03": 1049.0,
+    "2026-06": 1058.0,
+    "2026-09": 1306.0
+   },
+   "Tax %": {
+    "2023-09": 23.0,
+    "2023-12": 24.0,
+    "2024-03": 24.0,
+    "2024-06": 25.0,
+    "2024-09": 25.0,
+    "2024-12": 25.0,
+    "2025-03": 24.0,
+    "2025-06": 25.0,
+    "2025-09": 25.0,
+    "2025-12": 25.0,
+    "2026-03": 25.0,
+    "2026-06": 25.0,
+    "2026-09": 24.0
+   },
+   "Net Profit": {
+    "2023-09": 430.0,
+    "2023-12": 417.0,
+    "2024-03": 553.0,
+    "2024-06": 402.0,
+    "2024-09": 445.0,
+    "2024-12": 464.0,
+    "2025-03": 734.0,
+    "2025-06": 600.0,
+    "2025-09": 693.0,
+    "2025-12": 630.0,
+    "2026-03": 786.0,
+    "2026-06": 797.0,
+    "2026-09": 990.0
+   },
+   "EPS in Rs": {
+    "2023-09": 28.37,
+    "2023-12": 27.49,
+    "2024-03": 36.34,
+    "2024-06": 26.34,
+    "2024-09": 29.24,
+    "2024-12": 30.42,
+    "2025-03": 48.31,
+    "2025-06": 39.34,
+    "2025-09": 45.54,
+    "2025-12": 41.3,
+    "2026-03": 51.33,
+    "2026-06": 52.07,
+    "2026-09": 64.86
+   }
+  },
+  "annual_pl": {
+   "Sales": {
+    "2015-03": 4707.0,
+    "2016-03": 5202.0,
+    "2017-03": 5500.0,
+    "2018-03": 6770.0,
+    "2019-03": 7986.0,
+    "2020-03": 8830.0,
+    "2021-03": 8792.0,
+    "2022-03": 12204.0,
+    "2023-03": 14108.0,
+    "2024-03": 18039.0,
+    "2025-03": 22408.0,
+    "2026-03": 28884.0,
+    "TTM": 34609.0
+   },
+   "Sales growth": {
+    "2015-03": 18.0,
+    "2016-03": 11.0,
+    "2017-03": 6.0,
+    "2018-03": 23.0,
+    "2019-03": 18.0,
+    "2020-03": 11.0,
+    "2021-03": -0.0,
+    "2022-03": 39.0,
+    "2023-03": 16.0,
+    "2024-03": 28.0,
+    "2025-03": 24.0,
+    "2026-03": 29.0,
+    "TTM": 41.0
+   },
+   "Expenses": {
+    "2015-03": 4266.0,
+    "2016-03": 4710.0,
+    "2017-03": 5020.0,
+    "2018-03": 6041.0,
+    "2019-03": 7035.0,
+    "2020-03": 7701.0,
+    "2021-03": 7681.0,
+    "2022-03": 10940.0,
+    "2023-03": 12265.0,
+    "2024-03": 15548.0,
+    "2025-03": 19445.0,
+    "2026-03": 24870.0,
+    "TTM": 29923.0
+   },
+   "Operating Profit": {
+    "2015-03": 442.0,
+    "2016-03": 492.0,
+    "2017-03": 480.0,
+    "2018-03": 729.0,
+    "2019-03": 950.0,
+    "2020-03": 1129.0,
+    "2021-03": 1111.0,
+    "2022-03": 1264.0,
+    "2023-03": 1843.0,
+    "2024-03": 2492.0,
+    "2025-03": 2964.0,
+    "2026-03": 4013.0,
+    "TTM": 4686.0
+   },
+   "OPM %": {
+    "2015-03": 9.0,
+    "2016-03": 9.0,
+    "2017-03": 9.0,
+    "2018-03": 11.0,
+    "2019-03": 12.0,
+    "2020-03": 13.0,
+    "2021-03": 13.0,
+    "2022-03": 10.0,
+    "2023-03": 13.0,
+    "2024-03": 14.0,
+    "2025-03": 13.0,
+    "2026-03": 14.0,
+    "TTM": 14.0
+   },
+   "Other Income": {
+    "2015-03": 5.0,
+    "2016-03": 32.0,
+    "2017-03": 75.0,
+    "2018-03": 65.0,
+    "2019-03": 64.0,
+    "2020-03": 91.0,
+    "2021-03": 164.0,
+    "2022-03": 161.0,
+    "2023-03": 133.0,
+    "2024-03": 221.0,
+    "2025-03": 204.0,
+    "2026-03": 229.0,
+    "TTM": 304.0
+   },
+   "Interest": {
+    "2015-03": 108.0,
+    "2016-03": 147.0,
+    "2017-03": 66.0,
+    "2018-03": 94.0,
+    "2019-03": 117.0,
+    "2020-03": 50.0,
+    "2021-03": 43.0,
+    "2022-03": 35.0,
+    "2023-03": 60.0,
+    "2024-03": 108.0,
+    "2025-03": 169.0,
+    "2026-03": 243.0,
+    "TTM": 317.0
+   },
+   "Depreciation": {
+    "2015-03": 98.0,
+    "2016-03": 111.0,
+    "2017-03": 128.0,
+    "2018-03": 133.0,
+    "2019-03": 141.0,
+    "2020-03": 161.0,
+    "2021-03": 176.0,
+    "2022-03": 202.0,
+    "2023-03": 209.0,
+    "2024-03": 245.0,
+    "2025-03": 298.0,
+    "2026-03": 386.0,
+    "TTM": 417.0
+   },
+   "Profit before tax": {
+    "2015-03": 241.0,
+    "2016-03": 265.0,
+    "2017-03": 361.0,
+    "2018-03": 567.0,
+    "2019-03": 756.0,
+    "2020-03": 1010.0,
+    "2021-03": 1056.0,
+    "2022-03": 1188.0,
+    "2023-03": 1707.0,
+    "2024-03": 2359.0,
+    "2025-03": 2701.0,
+    "2026-03": 3613.0,
+    "TTM": 4256.0
+   },
+   "Tax %": {
+    "2015-03": 32.0,
+    "2016-03": 30.0,
+    "2017-03": 36.0,
+    "2018-03": 37.0,
+    "2019-03": 34.0,
+    "2020-03": 24.0,
+    "2021-03": 16.0,
+    "2022-03": 23.0,
+    "2023-03": 25.0,
+    "2024-03": 24.0,
+    "2025-03": 24.0,
+    "2026-03": 25.0,
+    "TTM": null
+   },
+   "Net Profit": {
+    "2015-03": 164.0,
+    "2016-03": 185.0,
+    "2017-03": 233.0,
+    "2018-03": 359.0,
+    "2019-03": 500.0,
+    "2020-03": 766.0,
+    "2021-03": 886.0,
+    "2022-03": 917.0,
+    "2023-03": 1282.0,
+    "2024-03": 1803.0,
+    "2025-03": 2046.0,
+    "2026-03": 2708.0,
+    "TTM": 3202.0
+   },
+   "EPS in Rs": {
+    "2015-03": 11.64,
+    "2016-03": 13.09,
+    "2017-03": 16.48,
+    "2018-03": 25.35,
+    "2019-03": 35.39,
+    "2020-03": 50.97,
+    "2021-03": 59.15,
+    "2022-03": 60.8,
+    "2023-03": 84.8,
+    "2024-03": 118.75,
+    "2025-03": 134.28,
+    "2026-03": 177.48,
+    "TTM": 209.56
+   },
+   "Dividend Payout %": {
+    "2015-03": 9.0,
+    "2016-03": 13.0,
+    "2017-03": 6.0,
+    "2018-03": 0.0,
+    "2019-03": 8.0,
+    "2020-03": 14.0,
+    "2021-03": 17.0,
+    "2022-03": 23.0,
+    "2023-03": 24.0,
+    "2024-03": 25.0,
+    "2025-03": 26.0,
+    "2026-03": 26.0,
+    "TTM": null
+   }
+  },
+  "balance_sheet": {
+   "Equity Capital": {
+    "2015-03": 141.0,
+    "2016-03": 141.0,
+    "2017-03": 141.0,
+    "2018-03": 141.0,
+    "2019-03": 141.0,
+    "2020-03": 149.0,
+    "2021-03": 149.0,
+    "2022-03": 149.0,
+    "2023-03": 150.0,
+    "2024-03": 150.0,
+    "2025-03": 150.0,
+    "2026-03": 151.0,
+    "2026-09": 151.0
+   },
+   "Reserves": {
+    "2015-03": 1489.0,
+    "2016-03": 1642.0,
+    "2017-03": 1853.0,
+    "2018-03": 2206.0,
+    "2019-03": 2706.0,
+    "2020-03": 3688.0,
+    "2021-03": 4605.0,
+    "2022-03": 5394.0,
+    "2023-03": 6481.0,
+    "2024-03": 8037.0,
+    "2025-03": 9678.0,
+    "2026-03": 11858.0,
+    "2026-09": 12943.0
+   },
+   "Borrowings": {
+    "2015-03": 546.0,
+    "2016-03": 796.0,
+    "2017-03": 856.0,
+    "2018-03": 800.0,
+    "2019-03": 272.0,
+    "2020-03": 157.0,
+    "2021-03": 282.0,
+    "2022-03": 118.0,
+    "2023-03": 191.0,
+    "2024-03": 161.0,
+    "2025-03": 202.0,
+    "2026-03": 236.0,
+    "2026-09": 272.0
+   },
+   "Other Liabilities": {
+    "2015-03": 1138.0,
+    "2016-03": 1296.0,
+    "2017-03": 1729.0,
+    "2018-03": 1300.0,
+    "2019-03": 2509.0,
+    "2020-03": 1967.0,
+    "2021-03": 1978.0,
+    "2022-03": 1750.0,
+    "2023-03": 2602.0,
+    "2024-03": 3718.0,
+    "2025-03": 3718.0,
+    "2026-03": 8220.0,
+    "2026-09": 10429.0
+   },
+   "Total Liabilities": {
+    "2015-03": 3314.0,
+    "2016-03": 3875.0,
+    "2017-03": 4579.0,
+    "2018-03": 4448.0,
+    "2019-03": 5628.0,
+    "2020-03": 5961.0,
+    "2021-03": 7015.0,
+    "2022-03": 7412.0,
+    "2023-03": 9424.0,
+    "2024-03": 12066.0,
+    "2025-03": 13749.0,
+    "2026-03": 20465.0,
+    "2026-09": 23795.0
+   },
+   "Fixed Assets": {
+    "2015-03": 822.0,
+    "2016-03": 985.0,
+    "2017-03": 1128.0,
+    "2018-03": 1197.0,
+    "2019-03": 1276.0,
+    "2020-03": 1422.0,
+    "2021-03": 1870.0,
+    "2022-03": 1675.0,
+    "2023-03": 2067.0,
+    "2024-03": 2338.0,
+    "2025-03": 3011.0,
+    "2026-03": 3740.0,
+    "2026-09": 3979.0
+   },
+   "CWIP": {
+    "2015-03": 179.0,
+    "2016-03": 138.0,
+    "2017-03": 165.0,
+    "2018-03": 136.0,
+    "2019-03": 193.0,
+    "2020-03": 241.0,
+    "2021-03": 99.0,
+    "2022-03": 375.0,
+    "2023-03": 251.0,
+    "2024-03": 578.0,
+    "2025-03": 708.0,
+    "2026-03": 1139.0,
+    "2026-09": 1401.0
+   },
+   "Investments": {
+    "2015-03": 0.0,
+    "2016-03": 0.0,
+    "2017-03": 33.0,
+    "2018-03": 32.0,
+    "2019-03": 29.0,
+    "2020-03": 65.0,
+    "2021-03": 635.0,
+    "2022-03": 773.0,
+    "2023-03": 1350.0,
+    "2024-03": 1822.0,
+    "2025-03": 1749.0,
+    "2026-03": 3405.0,
+    "2026-09": 4032.0
+   },
+   "Other Assets": {
+    "2015-03": 2312.0,
+    "2016-03": 2752.0,
+    "2017-03": 3253.0,
+    "2018-03": 3083.0,
+    "2019-03": 4130.0,
+    "2020-03": 4232.0,
+    "2021-03": 4411.0,
+    "2022-03": 4588.0,
+    "2023-03": 5756.0,
+    "2024-03": 7328.0,
+    "2025-03": 8280.0,
+    "2026-03": 12180.0,
+    "2026-09": 14383.0
+   },
+   "Total Assets": {
+    "2015-03": 3314.0,
+    "2016-03": 3875.0,
+    "2017-03": 4579.0,
+    "2018-03": 4448.0,
+    "2019-03": 5628.0,
+    "2020-03": 5961.0,
+    "2021-03": 7015.0,
+    "2022-03": 7412.0,
+    "2023-03": 9424.0,
+    "2024-03": 12066.0,
+    "2025-03": 13749.0,
+    "2026-03": 20465.0,
+    "2026-09": 23795.0
+   }
+  },
+  "cash_flow": {
+   "Cash from Operating Activity": {
+    "2015-03": 150.0,
+    "2016-03": 221.0,
+    "2017-03": 296.0,
+    "2018-03": 362.0,
+    "2019-03": 1230.0,
+    "2020-03": 244.0,
+    "2021-03": 1252.0,
+    "2022-03": 512.0,
+    "2023-03": 1428.0,
+    "2024-03": 1296.0,
+    "2025-03": 1809.0,
+    "2026-03": 3811.0
+   },
+   "Cash from Investing Activity": {
+    "2015-03": -173.0,
+    "2016-03": -247.0,
+    "2017-03": -295.0,
+    "2018-03": -188.0,
+    "2019-03": -408.0,
+    "2020-03": -262.0,
+    "2021-03": -1012.0,
+    "2022-03": -427.0,
+    "2023-03": -1203.0,
+    "2024-03": -752.0,
+    "2025-03": -1239.0,
+    "2026-03": -2850.0
+   },
+   "Cash from Financing Activity": {
+    "2015-03": 15.0,
+    "2016-03": 45.0,
+    "2017-03": -10.0,
+    "2018-03": -190.0,
+    "2019-03": -651.0,
+    "2020-03": 11.0,
+    "2021-03": -175.0,
+    "2022-03": -201.0,
+    "2023-03": -227.0,
+    "2024-03": -387.0,
+    "2025-03": -628.0,
+    "2026-03": -799.0
+   },
+   "Net Cash Flow": {
+    "2015-03": -8.0,
+    "2016-03": 20.0,
+    "2017-03": -8.0,
+    "2018-03": -15.0,
+    "2019-03": 171.0,
+    "2020-03": -7.0,
+    "2021-03": 66.0,
+    "2022-03": -116.0,
+    "2023-03": -2.0,
+    "2024-03": 157.0,
+    "2025-03": -59.0,
+    "2026-03": 162.0
+   },
+   "Free Cash Flow": {
+    "2015-03": -52.0,
+    "2016-03": -26.0,
+    "2017-03": 18.0,
+    "2018-03": 179.0,
+    "2019-03": 949.0,
+    "2020-03": -45.0,
+    "2021-03": 1061.0,
+    "2022-03": -8.0,
+    "2023-03": 969.0,
+    "2024-03": 438.0,
+    "2025-03": 853.0,
+    "2026-03": 2340.0
+   },
+   "CFO/EBITDA": {
+    "2015-03": 48.0,
+    "2016-03": 69.0,
+    "2017-03": 83.0,
+    "2018-03": 69.0,
+    "2019-03": 148.0,
+    "2020-03": 48.0,
+    "2021-03": 134.0,
+    "2022-03": 67.0,
+    "2023-03": 98.0,
+    "2024-03": 75.0,
+    "2025-03": 82.0,
+    "2026-03": 117.0
+   }
+  },
+  "ratios": {
+   "Debtor Days": {
+    "2015-03": 84.0,
+    "2016-03": 95.0,
+    "2017-03": 80.0,
+    "2018-03": 70.0,
+    "2019-03": 61.0,
+    "2020-03": 59.0,
+    "2021-03": 60.0,
+    "2022-03": 39.0,
+    "2023-03": 32.0,
+    "2024-03": 41.0,
+    "2025-03": 42.0,
+    "2026-03": 48.0
+   },
+   "Inventory Days": {
+    "2015-03": 95.0,
+    "2016-03": 94.0,
+    "2017-03": 134.0,
+    "2018-03": null,
+    "2019-03": 128.0,
+    "2020-03": 116.0,
+    "2021-03": 113.0,
+    "2022-03": 86.0,
+    "2023-03": 104.0,
+    "2024-03": 105.0,
+    "2025-03": 86.0,
+    "2026-03": 99.0
+   },
+   "Days Payable": {
+    "2015-03": 101.0,
+    "2016-03": 101.0,
+    "2017-03": 120.0,
+    "2018-03": null,
+    "2019-03": 97.0,
+    "2020-03": 82.0,
+    "2021-03": 77.0,
+    "2022-03": 48.0,
+    "2023-03": 72.0,
+    "2024-03": 82.0,
+    "2025-03": 64.0,
+    "2026-03": 108.0
+   },
+   "Cash Conversion Cycle": {
+    "2015-03": 78.0,
+    "2016-03": 88.0,
+    "2017-03": 94.0,
+    "2018-03": 70.0,
+    "2019-03": 91.0,
+    "2020-03": 94.0,
+    "2021-03": 96.0,
+    "2022-03": 77.0,
+    "2023-03": 65.0,
+    "2024-03": 65.0,
+    "2025-03": 64.0,
+    "2026-03": 39.0
+   },
+   "Working Capital Days": {
+    "2015-03": 86.0,
+    "2016-03": 94.0,
+    "2017-03": 96.0,
+    "2018-03": 57.0,
+    "2019-03": 45.0,
+    "2020-03": 71.0,
+    "2021-03": 67.0,
+    "2022-03": 67.0,
+    "2023-03": 58.0,
+    "2024-03": 59.0,
+    "2025-03": 54.0,
+    "2026-03": 30.0
+   },
+   "ROCE %": {
+    "2015-03": 17.0,
+    "2016-03": 17.0,
+    "2017-03": 16.0,
+    "2018-03": 22.0,
+    "2019-03": 28.0,
+    "2020-03": 29.0,
+    "2021-03": 23.0,
+    "2022-03": 21.0,
+    "2023-03": 27.0,
+    "2024-03": 31.0,
+    "2025-03": 30.0,
+    "2026-03": 33.0
+   }
+  }
+ },
+ "quarterly_headline": [
+  {
+   "period": "2023-09",
+   "revenue": 4218.0,
+   "ebitda": 609.0,
+   "pbt": 557.0,
+   "pat": 430.0
+  },
+  {
+   "period": "2023-12",
+   "revenue": 4340.0,
+   "ebitda": 570.0,
+   "pbt": 546.0,
+   "pat": 417.0
+  },
+  {
+   "period": "2024-03",
+   "revenue": 5592.0,
+   "ebitda": 762.0,
+   "pbt": 725.0,
+   "pat": 553.0
+  },
+  {
+   "period": "2024-06",
+   "revenue": 4698.0,
+   "ebitda": 583.0,
+   "pbt": 533.0,
+   "pat": 402.0
+  },
+  {
+   "period": "2024-09",
+   "revenue": 5498.0,
+   "ebitda": 632.0,
+   "pbt": 590.0,
+   "pat": 445.0
+  },
+  {
+   "period": "2024-12",
+   "revenue": 5226.0,
+   "ebitda": 720.0,
+   "pbt": 617.0,
+   "pat": 464.0
+  },
+  {
+   "period": "2025-03",
+   "revenue": 6986.0,
+   "ebitda": 1025.0,
+   "pbt": 961.0,
+   "pat": 734.0
+  },
+  {
+   "period": "2025-06",
+   "revenue": 5906.0,
+   "ebitda": 858.0,
+   "pbt": 801.0,
+   "pat": 600.0
+  },
+  {
+   "period": "2025-09",
+   "revenue": 6477.0,
+   "ebitda": 1021.0,
+   "pbt": 921.0,
+   "pat": 693.0
+  },
+  {
+   "period": "2025-12",
+   "revenue": 7636.0,
+   "ebitda": 966.0,
+   "pbt": 842.0,
+   "pat": 630.0
+  },
+  {
+   "period": "2026-03",
+   "revenue": 8864.0,
+   "ebitda": 1161.0,
+   "pbt": 1049.0,
+   "pat": 786.0
+  },
+  {
+   "period": "2026-06",
+   "revenue": 8210.0,
+   "ebitda": 1136.0,
+   "pbt": 1058.0,
+   "pat": 797.0
+  },
+  {
+   "period": "2026-09",
+   "revenue": 9899.0,
+   "ebitda": 1422.0,
+   "pbt": 1306.0,
+   "pat": 990.0
+  }
+ ],
+ "documents": [
+  {
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report 2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/ff6bcced-1327-449f-8a82-6fd651a0124f.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2025",
+   "label": "Annual Report 2025",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/82657cf0-b6b8-4b01-bb68-9f477d451107.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2025",
+   "label": "Annual Report 2025",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/82657cf0-b6b8-4b01-bb68-9f477d451107.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2024",
+   "label": "Annual Report 2024",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/15cfd6ff-d07d-43c9-9a6e-1e27379e210e.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2024",
+   "label": "Annual Report 2024",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/15cfd6ff-d07d-43c9-9a6e-1e27379e210e.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2023",
+   "label": "Annual Report 2023",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/f7eb069d-805f-4511-bfa1-82c48213554b.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2022",
+   "label": "Annual Report 2022",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/542652/73173542652.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2021",
+   "label": "Annual Report 2021",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/542652/68678542652.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2020",
+   "label": "Annual Report 2020",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/542652/5426520320.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2019",
+   "label": "Annual Report 2019",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/542652/5426520319.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=77b6d277-0ffc-440d-ba8a-2bd9bc3dc43e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a940f987-41db-4848-8f35-4b6c8a8f5b47.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://cms.polycab.com/media/uv1fhcgd/10047550.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e47a217c-cefa-4ff6-8e34-6bbd07d42b13.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=52abf6f5-8a9d-4914-8ed1-725361e6832b.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://cms.polycab.com/media/pzqbdhgu/earning-call-recording-q12027.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-05",
+   "label": "May 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f66f17ac-c40f-4309-afca-3e66af0956a0.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-05",
+   "label": "May 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0f586954-cf4c-4a5c-b179-8fb4a3cf55a9.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c54bf2c3-22fa-45e1-bf1a-2194e7b46183.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c54bf2c3-22fa-45e1-bf1a-2194e7b46183.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9b665a82-e6f7-42aa-8d23-b4cc3572bac1.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://cms.polycab.com/media/op5fvhwy/7fdfdc6a-e755-4c7b-9cb9-9e1726d39b77.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-10",
+   "label": "Oct 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7a5825e0-67d1-41af-96e0-d78387aaba8d.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-10",
+   "label": "Oct 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fa70b8fd-18f7-41c1-a693-91318de87262.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-10",
+   "label": "Oct 2025",
+   "url": "https://cms.polycab.com/media/1n5lk0la/q2fy26-earnings-call-recording.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0d06e9ad-0c88-4d9a-beda-c76de11b708e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a3dc7ce9-b962-4ef9-a23d-3c317a94d9cb.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://youtu.be/64RdzBj_USk?si=gE3F56BbAW-x8MdL"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-05",
+   "label": "May 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1e7d3683-7379-48ce-a40a-e47134b88d29.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-05",
+   "label": "May 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4ed9a91c-39e6-4b29-89f1-6e8d029a819f.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-05",
+   "label": "May 2025",
+   "url": "http://cms.polycab.com/media/j3zp1ksj/earnings-call-audio-recording-2025-q4.mp3"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-05",
+   "label": "May 2025",
+   "url": "https://cms.polycab.com/media/j3zp1ksj/earnings-call-audio-recording-2025-q4.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9d82915d-6c71-4abd-aec3-92a79e44d003.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=14dbaf25-6e16-4942-a0e2-2404d069a177.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://cms.polycab.com/media/gazc3l3f/earnings-call-audio-q3-fy25.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-10",
+   "label": "Oct 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c39a9044-b650-4caf-bb23-d2f68807f9a5.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-10",
+   "label": "Oct 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e4f490ef-910a-4457-9bc7-ce987a2204c2.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-10",
+   "label": "Oct 2024",
+   "url": "https://polycab.com/wp-content/uploads/2021/07/Earnings-call-audio-recording-Q2-FY25.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=01b51cd7-c6de-4248-853d-dbd110295bf1.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a500b1f4-fa28-4c5b-80c0-67f2b64c6f55.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://polycab.com/wp-content/uploads/2021/07/Audio-Q1-FY25.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-05",
+   "label": "May 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=07d28a91-b18e-451c-aca9-fb3588bb36ec.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-05",
+   "label": "May 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b09347d2-d034-4c84-a553-c5e45fff0e7e.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-05",
+   "label": "May 2024",
+   "url": "https://polycab.com/wp-content/uploads/2021/07/POL0220240510152552.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=798798ef-1490-4498-8a21-af5bc579df5b.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=52241587-77db-4a5a-abee-00d0b64ed3c6.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://polycab.com/wp-content/uploads/2021/07/Q3-FY24.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=dee0274e-2f50-4d66-a36b-1fe41e93090b.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6cffbf11-74bb-4057-814f-a30bdadb9b63.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://polycab.com/wp-content/uploads/2021/07/Earnings-Call-Audio-Recording-Q2-FY24.mp3"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-07",
+   "label": "Jul 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=868b80e1-8dfd-4261-8b25-d1e5ebbcf454.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-07",
+   "label": "Jul 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2fadf5a1-a3ff-4095-b526-99313c02803d.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-05",
+   "label": "May 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e5f6cb4e-6115-4716-800b-d045fa0b8080.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-05",
+   "label": "May 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c3b678c2-c9a8-4a37-a2b8-8c99c2a3a59c.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-01",
+   "label": "Jan 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=45a3db4e-c553-4267-b26c-8acf18861819.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-01",
+   "label": "Jan 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d9c3303e-79d0-4e69-80b4-32a753ea637f.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-10",
+   "label": "Oct 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=be6d1749-80f0-4fa6-8f94-15af0b08a9eb.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-10",
+   "label": "Oct 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7ded81b5-80bd-487a-961e-b813354bfa72.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-10",
+   "label": "Oct 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6314ae06-38d3-41a2-94db-a168660af2d3.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-07",
+   "label": "Jul 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5fdceae5-b66d-45fb-bcf1-2c409269912c.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-07",
+   "label": "Jul 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0fa9f4e3-39a9-426a-9aee-0d08b6eb1163.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-05",
+   "label": "May 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fa22b1da-cfb2-44d6-a905-629e9a847aa3.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-05",
+   "label": "May 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b0f9aeee-00d6-4d96-8203-1d09901e34e3.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-02",
+   "label": "Feb 2022",
+   "url": "https://polycab.com/wp-content/uploads/2021/07/Polycab-India-Limited_Q3FY22-Earnings-Call-Transcript.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-01",
+   "label": "Jan 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7ddbf8b5-15eb-4096-a02f-dacb25df610e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-01",
+   "label": "Jan 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d44afd31-58d6-4413-a0c3-d719c33be9de.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-01",
+   "label": "Jan 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c5235ff2-5c8e-4ec1-abdd-b640e681fcde.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-10",
+   "label": "Oct 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=16beb944-40a7-46a9-bafe-b8221c004548.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-10",
+   "label": "Oct 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a16cf649-c481-4f00-81fc-c121c81b7323.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-10",
+   "label": "Oct 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cc00d729-063c-46c9-8a02-f66f2bed5582.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-08",
+   "label": "Aug 2021",
+   "url": "https://polycab.com/wp-content/uploads/2021/07/Polycab-India-Limited_Q1FY22-Earnings-Call-Transcript.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-07",
+   "label": "Jul 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ef742466-5000-4409-9ae0-d5bb7563a71a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-07",
+   "label": "Jul 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8f8883de-277e-4a20-85a2-47b22cd09b6e.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-06",
+   "label": "Jun 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=13f46cca-7bb8-4abe-b619-417552c60c53.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-06",
+   "label": "Jun 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e82c4951-4f67-41f0-8abc-8e44810b3288.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-01",
+   "label": "Jan 2021",
+   "url": "https://polycab.com/wp-content/uploads/2021/02/Polycab-India-Limited_Q3FY21-Earnings-Call-Transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-01",
+   "label": "Jan 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=54f16bad-1cbd-4c38-a684-f631d7ce26fa.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-12",
+   "label": "Dec 2020",
+   "url": "https://polycab.com/wp-content/uploads/2020/10/Polycab-India-Limited_Q2FY21-Earnings-Call-Transcript.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-10",
+   "label": "Oct 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f650aeb7-b259-41e2-b0cf-91a51dea2e03.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-10",
+   "label": "Oct 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b3f1af9b-9231-419e-9907-c58b6869b519.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-07",
+   "label": "Jul 2020",
+   "url": "https://polycab.com/wp-content/uploads/2020/06/Polycab-India-Ltd-Q4FY20-Earnings-Call-Transcript-1.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-07",
+   "label": "Jul 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7c15890c-3ca6-472d-93fe-f56ea57d9efc.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-06",
+   "label": "Jun 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e7949321-2d9d-4980-9d51-10bfea483e23.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-06",
+   "label": "Jun 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=422997bb-ffb2-4feb-b484-3412abae9dfd.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-01",
+   "label": "Jan 2020",
+   "url": "https://polycab.com/wp-content/uploads/2020/02/Polycab-India-Ltd-Q3FY20-Earnings-Call-Transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-01",
+   "label": "Jan 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4edb4a71-2956-4e9a-83e8-00d3bd8d12a1.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2019-10",
+   "label": "Oct 2019",
+   "url": "https://polycab.com/wp-content/uploads/2020/01/Earnings-Call-Transcript_Q2_2020.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-10",
+   "label": "Oct 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b09c8b1e-12ab-4eed-8866-be5ff52ab07b.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2019-07",
+   "label": "Jul 2019",
+   "url": "https://polycab.com/wp-content/uploads/2020/01/Earnings-Call-Transcript_Q1_2020.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-07",
+   "label": "Jul 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=41c7b6c6-f10c-4a8e-801f-a3b3abe8566e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-06",
+   "label": "Jun 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d965cbf9-cdf4-47b5-a11a-22d6d8c73421.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-06",
+   "label": "Jun 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=43fb7c46-4dcf-4209-ad6c-6a546810bba3.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-06",
+   "label": "Jun 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7a04c4d2-8e50-437f-acb8-4aaaf961d175.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-06",
+   "label": "Jun 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ca091abf-cf49-4059-a29d-bec77c6bb208.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2019-06",
+   "label": "Jun 2019",
+   "url": "https://polycab.com/wp-content/uploads/2020/01/Earnings-Call-Transcript_Q4_2019.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-06",
+   "label": "Jun 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0bf4c1c6-ede4-4f63-90c4-c31debe87c50.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-05",
+   "label": "May 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fcaf4f42-50dc-4be9-9f5f-5411aa0f3981.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-05",
+   "label": "May 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=15a470b5-6a94-4080-b6d0-9835d4597be8.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-05",
+   "label": "May 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b649ab10-1715-436a-bda9-672ce3eefbb8.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-05",
+   "label": "May 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fa5c90f5-7a06-4e21-9272-fa6aa1a3638f.pdf"
+  }
+ ],
+ "symbol": "POLYCAB",
+ "basis": "consolidated",
+ "source_url": "https://www.screener.in/company/POLYCAB/consolidated/"
+}

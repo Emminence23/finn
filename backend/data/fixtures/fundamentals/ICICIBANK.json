@@ -1,0 +1,1464 @@
+{
+ "name": "ICICI Bank Ltd",
+ "about": "ICICI Bank is the second-largest private sector bank in India offering a diversified portfolio of financial products and services to retail, SME and corporate customers. The Bank has an extensive network of branches, ATMs and other touch-points.The ICICI group has presence in businesses like life and general insurance, housing finance, primary dealership, etc, through its subsidiaries and associates. [1]",
+ "top_ratios": {
+  "Market Cap": "₹ 11,37,213 Cr.",
+  "Current Price": "₹ 1,584",
+  "High / Low": "₹ 1,617 / 1,188",
+  "Stock P/E": "19.2",
+  "Book Value": "₹ 540",
+  "Dividend Yield": "0.76 %",
+  "ROCE": "7.18 %",
+  "ROE": "15.9 %",
+  "Face Value": "₹ 2.00"
+ },
+ "is_financial": true,
+ "tables": {
+  "quarters": {
+   "Revenue": {
+    "2023-09": 38938.0,
+    "2023-12": 40865.0,
+    "2024-03": 42607.0,
+    "2024-06": 44582.0,
+    "2024-09": 46326.0,
+    "2024-12": 47037.0,
+    "2025-03": 48387.0,
+    "2025-06": 49080.0,
+    "2025-09": 48181.0,
+    "2025-12": 48364.0,
+    "2026-03": 49594.0,
+    "2026-06": 52241.0,
+    "2026-09": 55992.0
+   },
+   "YoY Revenue growth": {
+    "2023-09": 35.0,
+    "2023-12": 29.0,
+    "2024-03": 24.0,
+    "2024-06": 20.0,
+    "2024-09": 19.0,
+    "2024-12": 15.0,
+    "2025-03": 14.0,
+    "2025-06": 10.0,
+    "2025-09": 4.0,
+    "2025-12": 3.0,
+    "2026-03": 2.0,
+    "2026-06": 6.0,
+    "2026-09": 16.0
+   },
+   "Interest": {
+    "2023-09": 17908.0,
+    "2023-12": 19409.0,
+    "2024-03": 20424.0,
+    "2024-06": 21122.0,
+    "2024-09": 22225.0,
+    "2024-12": 22633.0,
+    "2025-03": 23047.0,
+    "2025-06": 23090.0,
+    "2025-09": 22017.0,
+    "2025-12": 21874.0,
+    "2026-03": 22047.0,
+    "2026-06": 23064.0,
+    "2026-09": 25656.0
+   },
+   "Expenses": {
+    "2023-09": 24560.0,
+    "2023-12": 24929.0,
+    "2024-03": 30604.0,
+    "2024-06": 29387.0,
+    "2024-09": 32221.0,
+    "2024-12": 33510.0,
+    "2025-03": 37588.0,
+    "2025-06": 31991.0,
+    "2025-09": 35065.0,
+    "2025-12": 37154.0,
+    "2026-03": 41823.0,
+    "2026-06": 35318.0,
+    "2026-09": 39390.0
+   },
+   "Financing Profit": {
+    "2023-09": -3530.0,
+    "2023-12": -3473.0,
+    "2024-03": -8421.0,
+    "2024-06": -5927.0,
+    "2024-09": -8120.0,
+    "2024-12": -9106.0,
+    "2025-03": -12248.0,
+    "2025-06": -6002.0,
+    "2025-09": -8901.0,
+    "2025-12": -10664.0,
+    "2026-03": -14276.0,
+    "2026-06": -6141.0,
+    "2026-09": -9055.0
+   },
+   "Financing Margin %": {
+    "2023-09": -9.0,
+    "2023-12": -8.0,
+    "2024-03": -20.0,
+    "2024-06": -13.0,
+    "2024-09": -18.0,
+    "2024-12": -19.0,
+    "2025-03": -25.0,
+    "2025-06": -12.0,
+    "2025-09": -18.0,
+    "2025-12": -22.0,
+    "2026-03": -29.0,
+    "2026-06": -12.0,
+    "2026-09": -16.0
+   },
+   "Other Income": {
+    "2023-09": 18690.0,
+    "2023-12": 18615.0,
+    "2024-03": 24575.0,
+    "2024-06": 22688.0,
+    "2024-09": 26617.0,
+    "2024-12": 27589.0,
+    "2025-03": 31361.0,
+    "2025-06": 25496.0,
+    "2025-09": 27966.0,
+    "2025-12": 28418.0,
+    "2026-03": 35020.0,
+    "2026-06": 27448.0,
+    "2026-09": 32169.0
+   },
+   "Depreciation": {
+    "2023-09": 0.0,
+    "2023-12": 0.0,
+    "2024-03": 0.0,
+    "2024-06": 0.0,
+    "2024-09": 0.0,
+    "2024-12": 0.0,
+    "2025-03": 0.0,
+    "2025-06": 0.0,
+    "2025-09": 0.0,
+    "2025-12": 0.0,
+    "2026-03": 0.0,
+    "2026-06": 0.0,
+    "2026-09": 0.0
+   },
+   "Profit before tax": {
+    "2023-09": 15160.0,
+    "2023-12": 15142.0,
+    "2024-03": 16154.0,
+    "2024-06": 16761.0,
+    "2024-09": 18496.0,
+    "2024-12": 18483.0,
+    "2025-03": 19113.0,
+    "2025-06": 19494.0,
+    "2025-09": 19065.0,
+    "2025-12": 17754.0,
+    "2026-03": 20744.0,
+    "2026-06": 21307.0,
+    "2026-09": 23115.0
+   },
+   "Tax %": {
+    "2023-09": 25.0,
+    "2023-12": 26.0,
+    "2024-03": 26.0,
+    "2024-06": 26.0,
+    "2024-09": 25.0,
+    "2024-12": 25.0,
+    "2025-03": 25.0,
+    "2025-06": 26.0,
+    "2025-09": 25.0,
+    "2025-12": 24.0,
+    "2026-03": 25.0,
+    "2026-06": 24.0,
+    "2026-09": 25.0
+   },
+   "Net Profit": {
+    "2023-09": 11351.0,
+    "2023-12": 11515.0,
+    "2024-03": 12200.0,
+    "2024-06": 12463.0,
+    "2024-09": 13906.0,
+    "2024-12": 13847.0,
+    "2025-03": 14354.0,
+    "2025-06": 14456.0,
+    "2025-09": 14318.0,
+    "2025-12": 13481.0,
+    "2026-03": 15681.0,
+    "2026-06": 16276.0,
+    "2026-09": 17389.0
+   },
+   "EPS in Rs": {
+    "2023-09": 15.56,
+    "2023-12": 15.76,
+    "2024-03": 16.62,
+    "2024-06": 16.62,
+    "2024-09": 18.38,
+    "2024-12": 18.25,
+    "2025-03": 18.96,
+    "2025-06": 19.0,
+    "2025-09": 18.7,
+    "2025-12": 17.53,
+    "2026-03": 20.61,
+    "2026-06": 21.52,
+    "2026-09": 22.75
+   },
+   "Gross NPA %": {
+    "2023-09": null,
+    "2023-12": null,
+    "2024-03": null,
+    "2024-06": null,
+    "2024-09": null,
+    "2024-12": null,
+    "2025-03": null,
+    "2025-06": null,
+    "2025-09": null,
+    "2025-12": null,
+    "2026-03": null,
+    "2026-06": null,
+    "2026-09": null
+   },
+   "Net NPA %": {
+    "2023-09": null,
+    "2023-12": null,
+    "2024-03": null,
+    "2024-06": null,
+    "2024-09": null,
+    "2024-12": null,
+    "2025-03": null,
+    "2025-06": null,
+    "2025-09": null,
+    "2025-12": null,
+    "2026-03": null,
+    "2026-06": null,
+    "2026-09": null
+   }
+  },
+  "annual_pl": {
+   "Revenue": {
+    "2015-03": 54964.0,
+    "2016-03": 59294.0,
+    "2017-03": 60940.0,
+    "2018-03": 62162.0,
+    "2019-03": 71982.0,
+    "2020-03": 84836.0,
+    "2021-03": 89163.0,
+    "2022-03": 95407.0,
+    "2023-03": 121067.0,
+    "2024-03": 159516.0,
+    "2025-03": 186331.0,
+    "2026-03": 195218.0,
+    "TTM": 206190.0
+   },
+   "Revenue growth": {
+    "2015-03": 11.0,
+    "2016-03": 8.0,
+    "2017-03": 3.0,
+    "2018-03": 2.0,
+    "2019-03": 16.0,
+    "2020-03": 18.0,
+    "2021-03": 5.0,
+    "2022-03": 7.0,
+    "2023-03": 27.0,
+    "2024-03": 32.0,
+    "2025-03": 17.0,
+    "2026-03": 5.0,
+    "TTM": 7.0
+   },
+   "Interest": {
+    "2015-03": 32318.0,
+    "2016-03": 33996.0,
+    "2017-03": 34836.0,
+    "2018-03": 34262.0,
+    "2019-03": 39178.0,
+    "2020-03": 44666.0,
+    "2021-03": 42659.0,
+    "2022-03": 41167.0,
+    "2023-03": 50543.0,
+    "2024-03": 74108.0,
+    "2025-03": 89028.0,
+    "2026-03": 89029.0,
+    "TTM": 92641.0
+   },
+   "Expenses": {
+    "2015-03": 38766.0,
+    "2016-03": 52252.0,
+    "2017-03": 63841.0,
+    "2018-03": 72806.0,
+    "2019-03": 83775.0,
+    "2020-03": 85361.0,
+    "2021-03": 91309.0,
+    "2022-03": 80798.0,
+    "2023-03": 87864.0,
+    "2024-03": 99560.0,
+    "2025-03": 130078.0,
+    "2026-03": 142971.0,
+    "TTM": 153685.0
+   },
+   "Financing Profit": {
+    "2015-03": -16120.0,
+    "2016-03": -26955.0,
+    "2017-03": -37737.0,
+    "2018-03": -44906.0,
+    "2019-03": -50971.0,
+    "2020-03": -45190.0,
+    "2021-03": -44805.0,
+    "2022-03": -26558.0,
+    "2023-03": -17341.0,
+    "2024-03": -14152.0,
+    "2025-03": -32775.0,
+    "2026-03": -36782.0,
+    "TTM": -40136.0
+   },
+   "Financing Margin %": {
+    "2015-03": -29.0,
+    "2016-03": -45.0,
+    "2017-03": -62.0,
+    "2018-03": -72.0,
+    "2019-03": -71.0,
+    "2020-03": -53.0,
+    "2021-03": -50.0,
+    "2022-03": -28.0,
+    "2023-03": -14.0,
+    "2024-03": -9.0,
+    "2025-03": -18.0,
+    "2026-03": -19.0,
+    "TTM": -19.0
+   },
+   "Other Income": {
+    "2015-03": 35252.0,
+    "2016-03": 42102.0,
+    "2017-03": 52458.0,
+    "2018-03": 56807.0,
+    "2019-03": 59325.0,
+    "2020-03": 64950.0,
+    "2021-03": 72174.0,
+    "2022-03": 62129.0,
+    "2023-03": 65112.0,
+    "2024-03": 76522.0,
+    "2025-03": 108255.0,
+    "2026-03": 116900.0,
+    "TTM": 123056.0
+   },
+   "Depreciation": {
+    "2015-03": 798.0,
+    "2016-03": 843.0,
+    "2017-03": 912.0,
+    "2018-03": 922.0,
+    "2019-03": 946.0,
+    "2020-03": 1171.0,
+    "2021-03": 1340.0,
+    "2022-03": 1330.0,
+    "2023-03": 1515.0,
+    "2024-03": 1935.0,
+    "2025-03": 2627.0,
+    "2026-03": 3061.0,
+    "TTM": 0.0
+   },
+   "Profit before tax": {
+    "2015-03": 18334.0,
+    "2016-03": 14304.0,
+    "2017-03": 13809.0,
+    "2018-03": 10978.0,
+    "2019-03": 7408.0,
+    "2020-03": 18589.0,
+    "2021-03": 26028.0,
+    "2022-03": 34241.0,
+    "2023-03": 46256.0,
+    "2024-03": 60434.0,
+    "2025-03": 72854.0,
+    "2026-03": 77057.0,
+    "TTM": 82920.0
+   },
+   "Tax %": {
+    "2015-03": 29.0,
+    "2016-03": 24.0,
+    "2017-03": 18.0,
+    "2018-03": 17.0,
+    "2019-03": 23.0,
+    "2020-03": 40.0,
+    "2021-03": 22.0,
+    "2022-03": 25.0,
+    "2023-03": 26.0,
+    "2024-03": 26.0,
+    "2025-03": 25.0,
+    "2026-03": 25.0,
+    "TTM": null
+   },
+   "Net Profit": {
+    "2015-03": 12942.0,
+    "2016-03": 10927.0,
+    "2017-03": 11340.0,
+    "2018-03": 9100.0,
+    "2019-03": 5689.0,
+    "2020-03": 11225.0,
+    "2021-03": 20364.0,
+    "2022-03": 26538.0,
+    "2023-03": 35461.0,
+    "2024-03": 46081.0,
+    "2025-03": 54569.0,
+    "2026-03": 57936.0,
+    "TTM": 62827.0
+   },
+   "EPS in Rs": {
+    "2015-03": 19.2,
+    "2016-03": 15.92,
+    "2017-03": 15.9,
+    "2018-03": 12.0,
+    "2019-03": 6.6,
+    "2020-03": 14.78,
+    "2021-03": 26.58,
+    "2022-03": 36.14,
+    "2023-03": 48.74,
+    "2024-03": 63.02,
+    "2025-03": 71.65,
+    "2026-03": 75.71,
+    "TTM": 82.41
+   },
+   "Dividend Payout %": {
+    "2015-03": 24.0,
+    "2016-03": 29.0,
+    "2017-03": 14.0,
+    "2018-03": 12.0,
+    "2019-03": 15.0,
+    "2020-03": 0.0,
+    "2021-03": 8.0,
+    "2022-03": 14.0,
+    "2023-03": 16.0,
+    "2024-03": 16.0,
+    "2025-03": 15.0,
+    "2026-03": 16.0,
+    "TTM": null
+   }
+  },
+  "balance_sheet": {
+   "Equity Capital": {
+    "2015-03": 1160.0,
+    "2016-03": 1163.0,
+    "2017-03": 1165.0,
+    "2018-03": 1286.0,
+    "2019-03": 1289.0,
+    "2020-03": 1295.0,
+    "2021-03": 1383.0,
+    "2022-03": 1390.0,
+    "2023-03": 1397.0,
+    "2024-03": 1405.0,
+    "2025-03": 1425.0,
+    "2026-03": 1432.0,
+    "2026-09": 1436.0
+   },
+   "Reserves": {
+    "2015-03": 83545.0,
+    "2016-03": 92948.0,
+    "2017-03": 103467.0,
+    "2018-03": 109344.0,
+    "2019-03": 112964.0,
+    "2020-03": 121665.0,
+    "2021-03": 156204.0,
+    "2022-03": 180663.0,
+    "2023-03": 213101.0,
+    "2024-03": 254739.0,
+    "2025-03": 312481.0,
+    "2026-03": 361628.0,
+    "2026-09": 386226.0
+   },
+   "Deposits": {
+    "2015-03": 478042.0,
+    "2016-03": 482401.0,
+    "2017-03": 530204.0,
+    "2018-03": 585796.0,
+    "2019-03": 681317.0,
+    "2020-03": 800784.0,
+    "2021-03": 959940.0,
+    "2022-03": 1091366.0,
+    "2023-03": 1210832.0,
+    "2024-03": 1443580.0,
+    "2025-03": 1641637.0,
+    "2026-03": 1830020.0,
+    "2026-09": 2091539.0
+   },
+   "Borrowing": {
+    "2015-03": 119165.0,
+    "2016-03": 189054.0,
+    "2017-03": 170670.0,
+    "2018-03": 229402.0,
+    "2019-03": 210324.0,
+    "2020-03": 213852.0,
+    "2021-03": 143900.0,
+    "2022-03": 161603.0,
+    "2023-03": 189062.0,
+    "2024-03": 207428.0,
+    "2025-03": 218883.0,
+    "2026-03": 220264.0,
+    "2026-09": 295561.0
+   },
+   "Other Liabilities": {
+    "2015-03": 144167.0,
+    "2016-03": 153190.0,
+    "2017-03": 180219.0,
+    "2018-03": 198453.0,
+    "2019-03": 232899.0,
+    "2020-03": 239696.0,
+    "2021-03": 312385.0,
+    "2022-03": 317616.0,
+    "2023-03": 344099.0,
+    "2024-03": 456911.0,
+    "2025-03": 467815.0,
+    "2026-03": 501153.0,
+    "2026-09": 518191.0
+   },
+   "Total Liabilities": {
+    "2015-03": 826079.0,
+    "2016-03": 918756.0,
+    "2017-03": 985725.0,
+    "2018-03": 1124281.0,
+    "2019-03": 1238794.0,
+    "2020-03": 1377292.0,
+    "2021-03": 1573812.0,
+    "2022-03": 1752637.0,
+    "2023-03": 1958490.0,
+    "2024-03": 2364063.0,
+    "2025-03": 2642241.0,
+    "2026-03": 2914498.0,
+    "2026-09": 3292953.0
+   },
+   "Fixed Assets": {
+    "2015-03": 5871.0,
+    "2016-03": 8713.0,
+    "2017-03": 9338.0,
+    "2018-03": 9465.0,
+    "2019-03": 9660.0,
+    "2020-03": 10409.0,
+    "2021-03": 10809.0,
+    "2022-03": 10707.0,
+    "2023-03": 11070.0,
+    "2024-03": 15714.0,
+    "2025-03": 24272.0,
+    "2026-03": 27970.0,
+    "2026-09": 17540.0
+   },
+   "CWIP": {
+    "2015-03": 0.0,
+    "2016-03": 0.0,
+    "2017-03": 0.0,
+    "2018-03": 0.0,
+    "2019-03": 0.0,
+    "2020-03": 0.0,
+    "2021-03": 0.0,
+    "2022-03": 0.0,
+    "2023-03": 0.0,
+    "2024-03": 0.0,
+    "2025-03": 0.0,
+    "2026-03": 0.0,
+    "2026-09": 0.0
+   },
+   "Investments": {
+    "2015-03": 274311.0,
+    "2016-03": 286044.0,
+    "2017-03": 304373.0,
+    "2018-03": 372208.0,
+    "2019-03": 398201.0,
+    "2020-03": 443473.0,
+    "2021-03": 536579.0,
+    "2022-03": 567098.0,
+    "2023-03": 639552.0,
+    "2024-03": 827163.0,
+    "2025-03": 886377.0,
+    "2026-03": 870720.0,
+    "2026-09": 948728.0
+   },
+   "Other Assets": {
+    "2015-03": 545897.0,
+    "2016-03": 623999.0,
+    "2017-03": 672013.0,
+    "2018-03": 742608.0,
+    "2019-03": 830933.0,
+    "2020-03": 923411.0,
+    "2021-03": 1026424.0,
+    "2022-03": 1174833.0,
+    "2023-03": 1307868.0,
+    "2024-03": 1521186.0,
+    "2025-03": 1731593.0,
+    "2026-03": 2015808.0,
+    "2026-09": 2326686.0
+   },
+   "Total Assets": {
+    "2015-03": 826079.0,
+    "2016-03": 918756.0,
+    "2017-03": 985725.0,
+    "2018-03": 1124281.0,
+    "2019-03": 1238794.0,
+    "2020-03": 1377292.0,
+    "2021-03": 1573812.0,
+    "2022-03": 1752637.0,
+    "2023-03": 1958490.0,
+    "2024-03": 2364063.0,
+    "2025-03": 2642241.0,
+    "2026-03": 2914498.0,
+    "2026-09": 3292953.0
+   }
+  },
+  "cash_flow": {
+   "Cash from Operating Activity": {
+    "2015-03": -12273.0,
+    "2016-03": 23645.0,
+    "2017-03": 52636.0,
+    "2018-03": 19383.0,
+    "2019-03": 48671.0,
+    "2020-03": 79565.0,
+    "2021-03": 138015.0,
+    "2022-03": 58111.0,
+    "2023-03": -3771.0,
+    "2024-03": 157284.0,
+    "2025-03": 122805.0,
+    "2026-03": 67325.0
+   },
+   "Cash from Investing Activity": {
+    "2015-03": -13175.0,
+    "2016-03": -12060.0,
+    "2017-03": -1711.0,
+    "2018-03": -50551.0,
+    "2019-03": -30282.0,
+    "2020-03": -42095.0,
+    "2021-03": -63631.0,
+    "2022-03": -40007.0,
+    "2023-03": -67689.0,
+    "2024-03": -144737.0,
+    "2025-03": -77140.0,
+    "2026-03": -11708.0
+   },
+   "Cash from Financing Activity": {
+    "2015-03": 24827.0,
+    "2016-03": 5814.0,
+    "2017-03": -35470.0,
+    "2018-03": 39676.0,
+    "2019-03": -19997.0,
+    "2020-03": 2992.0,
+    "2021-03": -54667.0,
+    "2022-03": 17451.0,
+    "2023-03": 24791.0,
+    "2024-03": 13765.0,
+    "2025-03": 5589.0,
+    "2026-03": -4661.0
+   },
+   "Net Cash Flow": {
+    "2015-03": -621.0,
+    "2016-03": 17399.0,
+    "2017-03": 15455.0,
+    "2018-03": 8508.0,
+    "2019-03": -1608.0,
+    "2020-03": 40462.0,
+    "2021-03": 19718.0,
+    "2022-03": 35555.0,
+    "2023-03": -46669.0,
+    "2024-03": 26312.0,
+    "2025-03": 51255.0,
+    "2026-03": 50957.0
+   },
+   "Free Cash Flow": {
+    "2015-03": -13481.0,
+    "2016-03": 22867.0,
+    "2017-03": 51334.0,
+    "2018-03": 18367.0,
+    "2019-03": 47570.0,
+    "2020-03": 77717.0,
+    "2021-03": 136339.0,
+    "2022-03": 56369.0,
+    "2023-03": -5951.0,
+    "2024-03": 153676.0,
+    "2025-03": 118100.0,
+    "2026-03": 63778.0
+   }
+  },
+  "ratios": {
+   "ROE %": {
+    "2015-03": 15.0,
+    "2016-03": 11.0,
+    "2017-03": 10.0,
+    "2018-03": 7.0,
+    "2019-03": 4.0,
+    "2020-03": 8.0,
+    "2021-03": 13.0,
+    "2022-03": 15.0,
+    "2023-03": 17.0,
+    "2024-03": 19.0,
+    "2025-03": 18.0,
+    "2026-03": 16.0
+   }
+  }
+ },
+ "quarterly_headline": [
+  {
+   "period": "2023-09",
+   "revenue": 38938.0,
+   "ebitda": null,
+   "pbt": 15160.0,
+   "pat": 11351.0
+  },
+  {
+   "period": "2023-12",
+   "revenue": 40865.0,
+   "ebitda": null,
+   "pbt": 15142.0,
+   "pat": 11515.0
+  },
+  {
+   "period": "2024-03",
+   "revenue": 42607.0,
+   "ebitda": null,
+   "pbt": 16154.0,
+   "pat": 12200.0
+  },
+  {
+   "period": "2024-06",
+   "revenue": 44582.0,
+   "ebitda": null,
+   "pbt": 16761.0,
+   "pat": 12463.0
+  },
+  {
+   "period": "2024-09",
+   "revenue": 46326.0,
+   "ebitda": null,
+   "pbt": 18496.0,
+   "pat": 13906.0
+  },
+  {
+   "period": "2024-12",
+   "revenue": 47037.0,
+   "ebitda": null,
+   "pbt": 18483.0,
+   "pat": 13847.0
+  },
+  {
+   "period": "2025-03",
+   "revenue": 48387.0,
+   "ebitda": null,
+   "pbt": 19113.0,
+   "pat": 14354.0
+  },
+  {
+   "period": "2025-06",
+   "revenue": 49080.0,
+   "ebitda": null,
+   "pbt": 19494.0,
+   "pat": 14456.0
+  },
+  {
+   "period": "2025-09",
+   "revenue": 48181.0,
+   "ebitda": null,
+   "pbt": 19065.0,
+   "pat": 14318.0
+  },
+  {
+   "period": "2025-12",
+   "revenue": 48364.0,
+   "ebitda": null,
+   "pbt": 17754.0,
+   "pat": 13481.0
+  },
+  {
+   "period": "2026-03",
+   "revenue": 49594.0,
+   "ebitda": null,
+   "pbt": 20744.0,
+   "pat": 15681.0
+  },
+  {
+   "period": "2026-06",
+   "revenue": 52241.0,
+   "ebitda": null,
+   "pbt": 21307.0,
+   "pat": 16276.0
+  },
+  {
+   "period": "2026-09",
+   "revenue": 55992.0,
+   "ebitda": null,
+   "pbt": 23115.0,
+   "pat": 17389.0
+  }
+ ],
+ "documents": [
+  {
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report 2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/01c30537-c969-4503-bbae-a07d51eb09a5.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2025",
+   "label": "Annual Report 2025",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/d80c4401-bed9-4aa4-b532-00255b963376.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2024",
+   "label": "Annual Report 2024",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/9d5f21fd-9b1e-42e5-a48b-84d2623f293c.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2023",
+   "label": "Annual Report 2023",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/f68c72c9-9c03-42e9-a5e6-413cb88728a4.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2022",
+   "label": "Annual Report 2022",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/73975532174.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2021",
+   "label": "Annual Report 2021",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/69104532174_31_07_21.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2020",
+   "label": "Annual Report 2020",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740320.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2019",
+   "label": "Annual Report 2019",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740319.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2018",
+   "label": "Annual Report 2018",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740318.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2017",
+   "label": "Annual Report 2017",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740317.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2016",
+   "label": "Annual Report 2016",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740316.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2015",
+   "label": "Annual Report 2015",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740315.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2014",
+   "label": "Annual Report 2014",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740314.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2013",
+   "label": "Annual Report 2013",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740313.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2012",
+   "label": "Annual Report 2012",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/532174/5321740312.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b831cebf-9ddc-48a6-861f-1879e07a86fc.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.youtube.com/watch?v=V_m2G4H_lbM"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/docs/about-us/2027/transcript-for-earnings-call-held-on-july-18-2026.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6d689538-69d3-4271-9c39-631e3efc0b77.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.youtube.com/watch?v=7tPJ6z6Gj3I"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=881c8fc3-a4c2-40ff-bacf-d68efc0e3d7a.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-04",
+   "label": "Apr 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=50d0e36c-8e96-4fde-9d2e-d33a9443ec34.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-04",
+   "label": "Apr 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=245b872b-cdb6-4c0d-b8ae-1c9d3d3ee9af.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-04",
+   "label": "Apr 2026",
+   "url": "https://www.youtube.com/watch?v=-x7Qo9BHjlw"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2941b192-7144-4566-874a-a0d4124a003f.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/docs/about-us/2026/transcript-earnings-call-jan2026.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8a0e8729-682f-40bf-ade8-3daeaa2a1173.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.youtube.com/watch?v=wx1TtZo27Cw"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-10",
+   "label": "Oct 2025",
+   "url": "https://stockdiscovery.s3.amazonaws.com/insight/india/4255/Conference%20Call/CC-Sep25.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-10",
+   "label": "Oct 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d2976060-1fb3-415b-952e-d26f9f95b237.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-10",
+   "label": "Oct 2025",
+   "url": "https://youtu.be/hnhsUzbC6Is"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2026/transcript-for-earnings-call-held-on-july-19-2025.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9c02e638-1133-4048-a9a5-be65ae7418b7.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://youtu.be/uf-gD4-CoD0?si=jzvSnWdcVHSP_ML0"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-04",
+   "label": "Apr 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1a691340-05c5-4029-a15f-cdd78f457400.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-04",
+   "label": "Apr 2025",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2025/2025-04-Q4-2025-investor-presentation.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-04",
+   "label": "Apr 2025",
+   "url": "https://www.youtube.com/watch?v=7BN9JwS_3h0"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2025/2025-01-q3-2025-transcript-for-earnings-call-held-on-january-25-2025.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=28b4804d-9cb0-4eac-b421-c2514ea76582.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-10",
+   "label": "Oct 2024",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2024/transcript-for-analyst-call-held-on-october-26-2024.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-10",
+   "label": "Oct 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=889e5e81-86a0-4ad6-b0e1-8b1d602ee860.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2024/transcript-of-analyst-call-held-on-july-27-2024.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e41f19bc-d3e7-47d7-8547-30d8755dd009.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.youtube.com/embed/Q-8YbWM-xsw"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2024/2024_04_q4-2024_opening-transcript-of-analyst-call.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=369465a1-0fc1-4e1c-8cd4-2fd4f507f2cc.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://www.youtube.com/embed/SYDI9Od9z-I"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7081b698-9e11-42a0-b1e3-0813ad681720.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2024/2024_01_icici-bank-transcript-for-analyst-call-held-on-january-20-2024.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=09dfbf32-2ab8-4f1c-a2fe-f1dfd75a8802.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/about-us/2024/2023-10-icici-bank-transcript-for-analyst-call-held-on-october-21-2023.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3d8504b3-0ef0-4d8a-8224-368b1f10efa5.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-07",
+   "label": "Jul 2023",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/images/about-us/investor/quarterly-financial-results/2023/2023_07_ICICI-Bank-Transcript-for-Analyst-Call-held-on-July-22-2023.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-07",
+   "label": "Jul 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5b04f4e3-2a2a-4ac6-905e-467078079473.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-04",
+   "label": "Apr 2023",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/images/about-us/investor/quarterly-financial-results/2023/2023_04_q4-2023_earnings-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-04",
+   "label": "Apr 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=945be0a0-9d5a-4771-9a01-0d1d0f69f560.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-01",
+   "label": "Jan 2023",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/images/about-us/investor/quarterly-financial-results/2023/2023_01_q3-2023_earnings-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-01",
+   "label": "Jan 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ddbb89f6-d357-47c4-96ca-7b0cf79d12f5.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-10",
+   "label": "Oct 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=00f6cc4e-42da-4f40-8c52-a54acd04456e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-10",
+   "label": "Oct 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7cf02b42-a515-43fa-92cb-bf95ed5a0cf5.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-07",
+   "label": "Jul 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c0f4a75f-8301-438a-845d-f6d2ca93a375.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-07",
+   "label": "Jul 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6e0b74bd-effe-474a-8c35-d608f3582253.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-04",
+   "label": "Apr 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9f0855e7-7cd9-436f-91e7-4671e9d5b8d7.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-04",
+   "label": "Apr 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1ad234a2-0963-4375-9b49-89082e6f8f0a.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-01",
+   "label": "Jan 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f955f01c-d864-43a7-ac60-8c29022925dd.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-01",
+   "label": "Jan 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=00bd6a07-db09-459c-be88-e7ba9156b4bb.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-10",
+   "label": "Oct 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=24632c16-481c-4072-8d31-a1f2cb1e3fb5.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-10",
+   "label": "Oct 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=62298118-20c5-4bfc-b276-6ab3181833d5.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-07",
+   "label": "Jul 2021",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2022/Transcript-for-Analyst-Call-held-on-July-24-2021.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-07",
+   "label": "Jul 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ca6dddb8-1d0f-46b2-918d-3814038fdc95.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-07",
+   "label": "Jul 2021",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/images/about-us/investor/quarterly-financial-results/2022/Transcript-for-Analyst-Call-held-on-July-24-2021.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-04",
+   "label": "Apr 2021",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2021/2021_04_Q4-2021_Opening_Remarks.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-04",
+   "label": "Apr 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=46cad37e-ad2b-4376-b32a-3e3ec9894501.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2021-01",
+   "label": "Jan 2021",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2021/2021_01_Q3-2021_Opening_Remarks.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-01",
+   "label": "Jan 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e3b70b2f-7601-41cd-a096-7ec0ca679608.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-10",
+   "label": "Oct 2020",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/investor/quarterly-financial-results/2021/ICICI-Bank-Transcript-for-Analyst-Call-held-on-Oct-31-2020.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-10",
+   "label": "Oct 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0981d241-43b3-432f-8cf9-c8bbc62b11b3.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-08",
+   "label": "Aug 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=06caa052-47e3-4e46-a2d7-994260fc3090.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-07",
+   "label": "Jul 2020",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/investor/quarterly-financial-results/2021/ICICI-Bank-Transcript-for-Analyst-Call-held-on-July-25-2020.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-07",
+   "label": "Jul 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2446f00a-0487-4d3d-b50f-6063ebcd5a81.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-05",
+   "label": "May 2020",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/investor/quarterly-financial-results/2020/ICICI-Bank-Transcript-for-Analyst-Call-held-on-May-9-2020.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-05",
+   "label": "May 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c313297d-262b-4e77-b330-bc0269da86a0.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2020-01",
+   "label": "Jan 2020",
+   "url": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/docs/investor/quarterly-financial-results/2020/2020-01-Q3-2020-earnings-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-01",
+   "label": "Jan 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=af07a7f3-1f79-4cec-8b2c-44cd509fd8f0.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2019-10",
+   "label": "Oct 2019",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2019/2019-10-Q2-2020_earnings_call_transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-10",
+   "label": "Oct 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8185c31d-cf91-4674-8769-19e7877b9586.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2019-07",
+   "label": "Jul 2019",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2019/2019-07-Q1-2020_earnings_call_transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-07",
+   "label": "Jul 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0624953c-5c2b-493a-a757-e51c3776b01b.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-05",
+   "label": "May 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=51fe2a94-b968-4e38-ac4e-e8df3fb5e6b5.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2019-05",
+   "label": "May 2019",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2019/2019-05-Q4-2019_earnings_call_transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-05",
+   "label": "May 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=88f9885b-9729-4e24-9aea-1afa085c5c24.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2019-01",
+   "label": "Jan 2019",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2019/2019-1-Q3-2019-earnings-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-01",
+   "label": "Jan 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8ad525d6-632c-4a6a-be13-908619c8256a.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2018-10",
+   "label": "Oct 2018",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2018/2018_07_Q2-2019_Call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-10",
+   "label": "Oct 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4bd2d009-e611-4e57-a20b-21403087a1d1.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2018-07",
+   "label": "Jul 2018",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2018/2018_07_Q1-2019_Call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-07",
+   "label": "Jul 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3703f43e-57e2-4c75-a81c-354a14bd4f3d.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2018-05",
+   "label": "May 2018",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2018/2018-05_Q4-2018-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-05",
+   "label": "May 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8bd1bc63-1e69-4750-9960-e7b6c9cc7ce2.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2018-01",
+   "label": "Jan 2018",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2018/2018_01_Q3-2018_analyst-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-01",
+   "label": "Jan 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=90d8a58c-f143-47f3-ba30-50783f2df3ec.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2017-10",
+   "label": "Oct 2017",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2018/2017-10-Q2-2018-analyst-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-10",
+   "label": "Oct 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=985eee4f-999a-46b0-b376-d70b2b6761da.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2017-07",
+   "label": "Jul 2017",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2018/2017-07-Q1-2018-Earnings-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-07",
+   "label": "Jul 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3ec49449-69da-418f-a20a-0657d9693610.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2017-05",
+   "label": "May 2017",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2017/2017_05_Q4-2017_Earnings_call_transcript_ICICIBank.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-05",
+   "label": "May 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=dc9c01f2-a1cc-4894-9556-d04a45f85d43.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-02",
+   "label": "Feb 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4FFAA08B_68FF_423C_89D6_78E0ED3AF3CE_081941.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2016-11",
+   "label": "Nov 2016",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2017/2016-10-Q2-2017-opening-remarks-of-analyst-call.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2016-11",
+   "label": "Nov 2016",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=89724675_75BF_4D99_9D87_394093DCEBA2_075910.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2016-07",
+   "label": "Jul 2016",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2017/2016-07-Q1-2017-analyst-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2016-07",
+   "label": "Jul 2016",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=E09B506A_7299_44C5_A7FD_DB639A43E009_084033.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2016-04",
+   "label": "Apr 2016",
+   "url": "https://www.icicibank.com/managed-assets/docs/investor/quarterly-financial-results/2016/2016-05-Q4-2016-analyst-call-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2015-10",
+   "label": "Oct 2015",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=EAB4DA7C_4CFB_409E_B4A6_8D5938EA97AF_201748.pdf"
+  }
+ ],
+ "symbol": "ICICIBANK",
+ "basis": "consolidated",
+ "source_url": "https://www.screener.in/company/ICICIBANK/consolidated/"
+}
