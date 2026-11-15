@@ -1,0 +1,1829 @@
+{
+ "symbol": "AARTIIND",
+ "company": "Aarti Industries Limited",
+ "generated_at": "2026-11-15T23:00:14",
+ "latest_quarter": "2026-09",
+ "documents": [
+  {
+   "id": "T1",
+   "kind": "transcript",
+   "period": "2026-11",
+   "label": "Q2 FY27 call (Nov 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=debec1cf-81cc-44da-a0e6-37e1fd2a2fc2.pdf",
+   "quarter": "2026-09",
+   "pages": 20
+  },
+  {
+   "id": "T2",
+   "kind": "transcript",
+   "period": "2026-08",
+   "label": "Q1 FY27 call (Aug 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f9fc9623-37a9-4f18-bda2-5392dc4df538.pdf",
+   "quarter": "2026-06",
+   "pages": 18
+  },
+  {
+   "id": "T3",
+   "kind": "transcript",
+   "period": "2026-05",
+   "label": "Q4 FY26 call (May 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5a23d262-8f44-44db-b093-8c277e6c9b3a.pdf",
+   "quarter": "2026-03",
+   "pages": 22
+  },
+  {
+   "id": "T4",
+   "kind": "transcript",
+   "period": "2026-02",
+   "label": "Q3 FY26 call (Feb 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6de2d23f-e730-4ed9-b1a5-32b0270a0ed3.pdf",
+   "quarter": "2025-12",
+   "pages": 18
+  },
+  {
+   "id": "AR",
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report FY2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/6e07a7c0-2acd-4c8c-b356-37c5b01dde51.pdf",
+   "quarter": null,
+   "pages": 252
+  }
+ ],
+ "financials": {
+  "is_lender": false,
+  "basis": "consolidated",
+  "unit": "Rs crore",
+  "source": "https://www.screener.in/company/AARTIIND/consolidated/",
+  "snapshot": {
+   "fy": "2026-03",
+   "revenue": 8286.0,
+   "revenue_ttm": 10579.0,
+   "operating_profit": 1168.0,
+   "margin_pct": 14.0,
+   "margin_label": "EBITDA margin (OPM)",
+   "pat": 419.0,
+   "pat_ttm": 593.0,
+   "roe_pct": 7.17,
+   "roce_pct": 6.86,
+   "debt_to_equity": 0.83,
+   "market_cap_cr": 17482.0,
+   "pe": 28.8,
+   "price": 482.0
+  },
+  "trajectory": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "revenue": 2890.0,
+     "operating_profit": 466.0,
+     "margin_pct": 16.0,
+     "pat": 208.0
+    },
+    {
+     "period": "2016-03",
+     "revenue": 3006.0,
+     "operating_profit": 572.0,
+     "margin_pct": 19.0,
+     "pat": 268.0
+    },
+    {
+     "period": "2017-03",
+     "revenue": 3163.0,
+     "operating_profit": 654.0,
+     "margin_pct": 21.0,
+     "pat": 328.0
+    },
+    {
+     "period": "2018-03",
+     "revenue": 3806.0,
+     "operating_profit": 700.0,
+     "margin_pct": 18.0,
+     "pat": 346.0
+    },
+    {
+     "period": "2019-03",
+     "revenue": 4168.0,
+     "operating_profit": 965.0,
+     "margin_pct": 23.0,
+     "pat": 504.0
+    },
+    {
+     "period": "2020-03",
+     "revenue": 4186.0,
+     "operating_profit": 977.0,
+     "margin_pct": 23.0,
+     "pat": 547.0
+    },
+    {
+     "period": "2021-03",
+     "revenue": 4506.0,
+     "operating_profit": 982.0,
+     "margin_pct": 22.0,
+     "pat": 535.0
+    },
+    {
+     "period": "2022-03",
+     "revenue": 6086.0,
+     "operating_profit": 1720.0,
+     "margin_pct": 28.0,
+     "pat": 1186.0
+    },
+    {
+     "period": "2023-03",
+     "revenue": 6619.0,
+     "operating_profit": 1089.0,
+     "margin_pct": 16.0,
+     "pat": 545.0
+    },
+    {
+     "period": "2024-03",
+     "revenue": 6371.0,
+     "operating_profit": 978.0,
+     "margin_pct": 15.0,
+     "pat": 416.0
+    },
+    {
+     "period": "2025-03",
+     "revenue": 7269.0,
+     "operating_profit": 997.0,
+     "margin_pct": 14.0,
+     "pat": 331.0
+    },
+    {
+     "period": "2026-03",
+     "revenue": 8286.0,
+     "operating_profit": 1168.0,
+     "margin_pct": 14.0,
+     "pat": 419.0
+    }
+   ],
+   "quarterly": [
+    {
+     "period": "2024-12",
+     "revenue": 1843.0,
+     "operating_profit": 231.0,
+     "margin_pct": 13.0,
+     "pat": 46.0,
+     "revenue_yoy": 6.4,
+     "pat_yoy": -62.9
+    },
+    {
+     "period": "2025-03",
+     "revenue": 1949.0,
+     "operating_profit": 262.0,
+     "margin_pct": 13.0,
+     "pat": 96.0,
+     "revenue_yoy": 9.9,
+     "pat_yoy": -27.3
+    },
+    {
+     "period": "2025-06",
+     "revenue": 1675.0,
+     "operating_profit": 212.0,
+     "margin_pct": 13.0,
+     "pat": 43.0,
+     "revenue_yoy": -9.5,
+     "pat_yoy": -68.6
+    },
+    {
+     "period": "2025-09",
+     "revenue": 2100.0,
+     "operating_profit": 291.0,
+     "margin_pct": 14.0,
+     "pat": 106.0,
+     "revenue_yoy": 29.0,
+     "pat_yoy": 103.8
+    },
+    {
+     "period": "2025-12",
+     "revenue": 2318.0,
+     "operating_profit": 321.0,
+     "margin_pct": 14.0,
+     "pat": 133.0,
+     "revenue_yoy": 25.8,
+     "pat_yoy": 189.1
+    },
+    {
+     "period": "2026-03",
+     "revenue": 2205.0,
+     "operating_profit": 341.0,
+     "margin_pct": 15.0,
+     "pat": 137.0,
+     "revenue_yoy": 13.1,
+     "pat_yoy": 42.7
+    },
+    {
+     "period": "2026-06",
+     "revenue": 2387.0,
+     "operating_profit": 382.0,
+     "margin_pct": 16.0,
+     "pat": 155.0,
+     "revenue_yoy": 42.5,
+     "pat_yoy": 260.5
+    },
+    {
+     "period": "2026-09",
+     "revenue": 3669.0,
+     "operating_profit": 410.0,
+     "margin_pct": 11.0,
+     "pat": 168.0,
+     "revenue_yoy": 74.7,
+     "pat_yoy": 58.5
+    }
+   ],
+   "cagr": {
+    "revenue_3y": 7.8,
+    "revenue_5y": 13.0,
+    "pat_3y": -8.4,
+    "pat_5y": -4.8
+   }
+  },
+  "cash_quality": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "cfo": 340.0,
+     "fcf": 45.0,
+     "pat": 208.0,
+     "cfo_to_pat": 1.63
+    },
+    {
+     "period": "2016-03",
+     "cfo": 574.0,
+     "fcf": 124.0,
+     "pat": 268.0,
+     "cfo_to_pat": 2.14
+    },
+    {
+     "period": "2017-03",
+     "cfo": 470.0,
+     "fcf": -60.0,
+     "pat": 328.0,
+     "cfo_to_pat": 1.43
+    },
+    {
+     "period": "2018-03",
+     "cfo": 335.0,
+     "fcf": -279.0,
+     "pat": 346.0,
+     "cfo_to_pat": 0.97
+    },
+    {
+     "period": "2019-03",
+     "cfo": 736.0,
+     "fcf": -55.0,
+     "pat": 504.0,
+     "cfo_to_pat": 1.46
+    },
+    {
+     "period": "2020-03",
+     "cfo": 1102.0,
+     "fcf": -23.0,
+     "pat": 547.0,
+     "cfo_to_pat": 2.01
+    },
+    {
+     "period": "2021-03",
+     "cfo": 873.0,
+     "fcf": -442.0,
+     "pat": 535.0,
+     "cfo_to_pat": 1.63
+    },
+    {
+     "period": "2022-03",
+     "cfo": 519.0,
+     "fcf": -646.0,
+     "pat": 1186.0,
+     "cfo_to_pat": 0.44
+    },
+    {
+     "period": "2023-03",
+     "cfo": 1319.0,
+     "fcf": -8.0,
+     "pat": 545.0,
+     "cfo_to_pat": 2.42
+    },
+    {
+     "period": "2024-03",
+     "cfo": 1210.0,
+     "fcf": -96.0,
+     "pat": 416.0,
+     "cfo_to_pat": 2.91
+    },
+    {
+     "period": "2025-03",
+     "cfo": 1238.0,
+     "fcf": -137.0,
+     "pat": 331.0,
+     "cfo_to_pat": 3.74
+    },
+    {
+     "period": "2026-03",
+     "cfo": 781.0,
+     "fcf": -340.0,
+     "pat": 419.0,
+     "cfo_to_pat": 1.86
+    }
+   ],
+   "cfo_to_pat_3y": 2.77,
+   "fcf_3y": -573.0
+  },
+  "balance_sheet": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "borrowings": 1202.0,
+     "net_worth": 1016.0,
+     "debt_to_equity": 1.18,
+     "cwip": 193.0,
+     "debtor_days": 55.0,
+     "inventory_days": 123.0,
+     "payable_days": 55.0,
+     "working_capital_days": 10.0
+    },
+    {
+     "period": "2016-03",
+     "borrowings": 1292.0,
+     "net_worth": 1138.0,
+     "debt_to_equity": 1.14,
+     "cwip": 313.0,
+     "debtor_days": 64.0,
+     "inventory_days": 108.0,
+     "payable_days": 67.0,
+     "working_capital_days": 10.0
+    },
+    {
+     "period": "2017-03",
+     "borrowings": 1564.0,
+     "net_worth": 1362.0,
+     "debt_to_equity": 1.15,
+     "cwip": 270.0,
+     "debtor_days": 61.0,
+     "inventory_days": 136.0,
+     "payable_days": 71.0,
+     "working_capital_days": -4.0
+    },
+    {
+     "period": "2018-03",
+     "borrowings": 2083.0,
+     "net_worth": 1579.0,
+     "debt_to_equity": 1.32,
+     "cwip": 436.0,
+     "debtor_days": 63.0,
+     "inventory_days": 144.0,
+     "payable_days": 69.0,
+     "working_capital_days": 6.0
+    },
+    {
+     "period": "2019-03",
+     "borrowings": 2401.0,
+     "net_worth": 2630.0,
+     "debt_to_equity": 0.91,
+     "cwip": 795.0,
+     "debtor_days": 68.0,
+     "inventory_days": 152.0,
+     "payable_days": 55.0,
+     "working_capital_days": -14.0
+    },
+    {
+     "period": "2020-03",
+     "borrowings": 2098.0,
+     "net_worth": 2979.0,
+     "debt_to_equity": 0.7,
+     "cwip": 1418.0,
+     "debtor_days": 66.0,
+     "inventory_days": 174.0,
+     "payable_days": 72.0,
+     "working_capital_days": -14.0
+    },
+    {
+     "period": "2021-03",
+     "borrowings": 2857.0,
+     "net_worth": 3503.0,
+     "debt_to_equity": 0.82,
+     "cwip": 1298.0,
+     "debtor_days": 64.0,
+     "inventory_days": 190.0,
+     "payable_days": 117.0,
+     "working_capital_days": -36.0
+    },
+    {
+     "period": "2022-03",
+     "borrowings": 2587.0,
+     "net_worth": 4516.0,
+     "debt_to_equity": 0.57,
+     "cwip": 1346.0,
+     "debtor_days": 65.0,
+     "inventory_days": 143.0,
+     "payable_days": 53.0,
+     "working_capital_days": 22.0
+    },
+    {
+     "period": "2023-03",
+     "borrowings": 2907.0,
+     "net_worth": 4920.0,
+     "debt_to_equity": 0.59,
+     "cwip": 1096.0,
+     "debtor_days": 52.0,
+     "inventory_days": 115.0,
+     "payable_days": 24.0,
+     "working_capital_days": -29.0
+    },
+    {
+     "period": "2024-03",
+     "borrowings": 3623.0,
+     "net_worth": 5290.0,
+     "debt_to_equity": 0.68,
+     "cwip": 1229.0,
+     "debtor_days": 49.0,
+     "inventory_days": 121.0,
+     "payable_days": 76.0,
+     "working_capital_days": -36.0
+    },
+    {
+     "period": "2025-03",
+     "borrowings": 3848.0,
+     "net_worth": 5605.0,
+     "debt_to_equity": 0.69,
+     "cwip": 1454.0,
+     "debtor_days": 39.0,
+     "inventory_days": 126.0,
+     "payable_days": 107.0,
+     "working_capital_days": -44.0
+    },
+    {
+     "period": "2026-03",
+     "borrowings": 4966.0,
+     "net_worth": 5955.0,
+     "debt_to_equity": 0.83,
+     "cwip": 2187.0,
+     "debtor_days": 62.0,
+     "inventory_days": 129.0,
+     "payable_days": 137.0,
+     "working_capital_days": -64.0
+    }
+   ]
+  },
+  "flags": [
+   {
+    "id": "fin:profit_decline",
+    "tone": "negative",
+    "text": "Net profit fell 8.4% a year over 3 years"
+   },
+   {
+    "id": "fin:cash_conversion",
+    "tone": "positive",
+    "text": "Profits convert to cash: 3-year CFO/PAT 2.77×"
+   },
+   {
+    "id": "fin:fcf",
+    "tone": "negative",
+    "text": "Free cash flow was negative over 3 years (Rs -573 Cr)"
+   },
+   {
+    "id": "fin:margin_trend",
+    "tone": "negative",
+    "text": "EBITDA margin (OPM) contracted 3 pts YoY to 11% in 2026-09"
+   }
+  ]
+ },
+ "promises": {
+  "items": [
+   {
+    "promise_ids": [
+     "T4.5",
+     "T3.6"
+    ],
+    "verdict": "missed",
+    "quote": "The Joint Venture with Superform is progressing well, with commissioning expected in Q1FY27, focusing on agrochemical, paints and coatings applications, which aligns well with our strategy of moving closer to the customer and diversifying application layer.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T4",
+    "page": 5,
+    "target": "Augene Superform JV commissioning on track in H1FY27",
+    "horizon": "H1FY27",
+    "deadline": "2026-09",
+    "actual": "Commissioning slipped from Q1 FY27 to Q2 FY27 and commercial production remained pending as of November 2026.",
+    "evidence": [
+     "T2.5"
+    ],
+    "note": "The Augene/Superform JV missed its Q1 FY27 target when management shifted it to Q2 FY27 in August 2026, and commercial production was still expected soon as of November 2026.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (May 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T4.2"
+    ],
+    "verdict": "delivered",
+    "quote": "Given the fast-growing business environment for this segment, we have taken steadfast measures to further scale up the capacities from about 290+KT to about 360 KT and expect the same to be available by end of this fiscal i.e., Q4FY26.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T4",
+    "page": 4,
+    "target": "Scale up MMA capacity to 360 KT by Q4 FY26",
+    "horizon": "Q4FY26",
+    "deadline": "2026-03",
+    "actual": "Fuel additives capacity expanded from 290 KTPA to 360 KTPA, reported completed in Q1 FY27 call (Aug 2026).",
+    "evidence": [
+     "T2.2"
+    ],
+    "note": "Management achieved the targeted 360 KTPA capacity, though completion was reported on the August 2026 call rather than in May 2026.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T4.6",
+     "T3.7",
+     "T2.6"
+    ],
+    "verdict": "unclear",
+    "quote": "The project is progressing well as planned and we anticipate the JV to be ready for commissioning in H1FY27.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T4",
+    "page": 5,
+    "target": "Aarti Circularity plastic recycling JV slated for commissioning in H2 FY27",
+    "horizon": "H2 FY27",
+    "deadline": "2027-03",
+    "actual": "Original H1 FY27 deadline passed; timeline shifted to H2 FY27 with no commissioning update or actuals reported.",
+    "evidence": [],
+    "note": "Management pushed the RESL/Aarti Circularity JV timeline from H1 FY27 to CY26 and then H2 FY27, leaving actual commissioning status unconfirmed in updates and actuals.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (May 2026)",
+     "Q1 FY27 call (Aug 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T3.3"
+    ],
+    "verdict": "too_early",
+    "quote": "However, given the capex intensity is lower, we still anticipate the net debt to decline in the current year.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T3",
+    "page": 4,
+    "target": "Net debt to decline in FY27",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [
+     "T1.6",
+     "FY:2026-03"
+    ],
+    "note": "FY27 balance sheet is not yet reported; borrowings stood at Rs 4,966 crore in FY26 and the Board approved an enabling resolution in October 2026 to raise up to Rs 1,000 crore to deleverage.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.1"
+    ],
+    "verdict": "too_early",
+    "quote": "From a margin standpoint, in the first 18 months, our target is to achieve INR250 crore to INR350-odd crore of bottom line from Zone IV, and I think we continue to push for that aspiration.",
+    "said_in": "Q2 FY27 call (Nov 2026)",
+    "doc_id": "T1",
+    "page": 9,
+    "target": "Achieve INR 250 crore to INR 350 crore bottom line from Zone IV in first 18 months",
+    "horizon": "next 18 months",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [
+     "T1.5"
+    ],
+    "note": "Phase I of Zone IV only commissioned in September 2026, so the 18-month bottom-line target of Rs 250-350 crore is still ahead.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T4.3",
+     "T2.7"
+    ],
+    "verdict": "too_early",
+    "quote": "We have also started debottlenecking efforts to increase DCB capacity from 120 to 140 KTPA to capture incremental growth opportunities in this (DCB) segment.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T4",
+    "page": 4,
+    "target": "Debottleneck DCB capacity to 140 KTPA",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "No deadline was set for the DCB debottlenecking to 140 KTPA and no updates or actuals report its completion yet.",
+    "guard": null,
+    "repeated_in": [
+     "Q1 FY27 call (Aug 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T4.4",
+     "T3.2",
+     "T1.3"
+    ],
+    "verdict": "too_early",
+    "quote": "With Zone IV getting commercialised in CY26, and that there are no other large projects in the pipeline, we anticipate the CAPEX for FY27 to be significantly lower.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T4",
+    "page": 5,
+    "target": "FY27 CAPEX of Rs. 700 crore to Rs. 800 crore",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [
+     "T2.3",
+     "T3.1"
+    ],
+    "note": "FY27 is still underway; Q1 FY27 capex of Rs 180 crore is on track for the Rs 700-800 crore target, well below FY26 actual capex of Rs 1,125 crore.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (May 2026)",
+     "Q2 FY27 call (Nov 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T4.7"
+    ],
+    "verdict": "too_early",
+    "quote": "The total CAPEX on Zone 4 would be in the range of INR1,600 crore to INR1,800 crore.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T4",
+    "page": 10,
+    "target": "Total Zone 4 CAPEX estimated between INR 1,600 to 1,800 crore",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Total Zone IV capex has no fixed deadline and final project spend has not yet been reported.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T4.8",
+     "T1.2"
+    ],
+    "verdict": "too_early",
+    "quote": "The revenue potential as we declared when the JV was announced was in the range of around INR300 crore to INR400 crore or so.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T4",
+    "page": 16,
+    "target": "Augene Chemicals JV steady-state revenue projected at Rs 300-400 crore",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [
+     "T2.1"
+    ],
+    "note": "Augene/Superform JV commercial production has not yet ramped up, making steady-state revenue of Rs 300-400 crore too early to assess.",
+    "guard": null,
+    "repeated_in": [
+     "Q2 FY27 call (Nov 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T3.5",
+     "T1.9"
+    ],
+    "verdict": "too_early",
+    "quote": "On Zone IV projects, they are expected to be commissioned in a phased manner during the current financial year.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T3",
+    "page": 4,
+    "target": "Zone IV commissioning within FY27 and volume ramp-up throughout FY28",
+    "horizon": "FY28",
+    "deadline": "2028-03",
+    "actual": "Not yet reported",
+    "evidence": [
+     "T3.4",
+     "T2.4",
+     "T1.5"
+    ],
+    "note": "Despite a 3-6 month delay, Phase I of Zone IV was commissioned on September 7, 2026, while full FY27 commissioning and FY28 ramp-up deadlines have not yet passed.",
+    "guard": null,
+    "repeated_in": [
+     "Q2 FY27 call (Nov 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T3.8"
+    ],
+    "verdict": "too_early",
+    "quote": "End of FY27, we should be in the range of around INR 9,500 crore to INR10,000 crore.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T3",
+    "page": 18,
+    "target": "Gross block by end of FY27 expected at INR 9,500 crore to INR 10,000 crore",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "FY27 year-end gross block cannot be evaluated until FY27 balance sheet actuals are reported.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T3.9"
+    ],
+    "verdict": "too_early",
+    "quote": "Ideally, we would like to remain within 55 to 60 days kind of average levels.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T3",
+    "page": 14,
+    "target": "Target net working capital cycle of 55 to 60 days",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [
+     "FY:2026-03"
+    ],
+    "note": "The ongoing 55-60 day net working capital target was stated in May 2026 and FY27 balance sheet working capital metrics are not yet available.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T2.8"
+    ],
+    "verdict": "too_early",
+    "quote": "The commissioning of that project is expected around September to October 2027 time frame.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T2",
+    "page": 18,
+    "target": "Commissioning of long-term contract backward integration project expected in Sep-Oct 2027",
+    "horizon": "September to October 2027",
+    "deadline": "2027-09",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Commissioning of the long-term contract backward integration project is scheduled for September-October 2027.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.4"
+    ],
+    "verdict": "too_early",
+    "quote": "On October 13, 2026, we also entered into a dedicated 10+ year manufacturing and supply agreement with a global specialty chemical major, representing a revenue potential of ~Rs. 1,500 crore.",
+    "said_in": "Q2 FY27 call (Nov 2026)",
+    "doc_id": "T1",
+    "page": 5,
+    "target": "10+ year agreement with revenue potential of ~Rs 1,500 crore with commercial operations in FY29",
+    "horizon": "FY29",
+    "deadline": "2029-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Commercial operations under the Rs 1,500 crore long-term manufacturing agreement are scheduled to begin in FY29.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.7"
+    ],
+    "verdict": "too_early",
+    "quote": "So by 31st March 2027, most of it should get capitalized.",
+    "said_in": "Q2 FY27 call (Nov 2026)",
+    "doc_id": "T1",
+    "page": 9,
+    "target": "Capitalize INR 1,800-1,900 crore CWIP by 31st March 2027",
+    "horizon": "by 31st March 2027",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [
+     "FY:2026-03"
+    ],
+    "note": "CWIP stood at Rs 2,187 crore at end-FY26, and capitalization by March 31, 2027 cannot be verified until FY27 actuals are reported.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.8"
+    ],
+    "verdict": "too_early",
+    "quote": "In Zone-IV, we plan to introduce 5 to 10 products in FY27, expanding to 20 to 25 products across 5 different chemistry blocks by FY28.",
+    "said_in": "Q2 FY27 call (Nov 2026)",
+    "doc_id": "T1",
+    "page": 5,
+    "target": "Introduce 5-10 products in Zone IV in FY27 and expand to 20-25 products by FY28",
+    "horizon": "FY28",
+    "deadline": "2028-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The Zone IV product rollout targets span FY27 and FY28 and have not yet reached their deadlines.",
+    "guard": null,
+    "repeated_in": []
+   }
+  ],
+  "credibility": "Management delivered on scaling fuel additives capacity to 360 KTPA [T4.2] and commissioned Phase I of Zone IV in September 2026 [T3.5, T1.9]. However, execution timelines frequently slip and are quietly revised on subsequent calls, with the Augene/Superform JV missing its Q1 and H1 FY27 commissioning windows [T4.5, T3.6], the RESL circularity JV pushed from H1 FY27 to H2 FY27 [T4.6, T3.7, T2.6], and Zone IV delayed by 3-6 months [T3.5, T1.9]. Most financial targets—including FY27 capex moderation [T4.4, T3.2, T1.3] and net debt reduction [T3.3]—remain too early to judge.",
+  "counts": {
+   "delivered": 1,
+   "partly": 0,
+   "missed": 1,
+   "unclear": 1,
+   "too_early": 13
+  },
+  "score": 50
+ },
+ "guidance": [
+  {
+   "kind": "guidance",
+   "metric": "pat",
+   "quote": "From a margin standpoint, in the first 18 months, our target is to achieve INR250 crore to INR350-odd crore of bottom line from Zone IV, and I think we continue to push for that aspiration.",
+   "page": 9,
+   "speaker": "Suyog Kotecha",
+   "target": "Achieve INR 250 crore to INR 350 crore bottom line from Zone IV in first 18 months",
+   "target_value": 350.0,
+   "unit": "INR crore",
+   "horizon": "next 18 months",
+   "materiality": 3,
+   "id": "T1.1",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "Commercial production is expected to commence soon, with steady-state revenue projected at Rs. 300-400 crore.",
+   "page": 5,
+   "speaker": "Suyog Kotecha",
+   "target": "Augene Chemicals JV steady-state revenue projected at Rs 300-400 crore",
+   "target_value": 400.0,
+   "unit": "Rs. crore",
+   "horizon": null,
+   "materiality": 3,
+   "id": "T1.2",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "Our product portfolio continues to expand across energy, agrochemical intermediates, advanced polymer formulations, and pharma building blocks, supported by our planned FY27 CAPEX of Rs. 700 crore to Rs. 800 crore.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "FY27 CAPEX of Rs. 700 crore to Rs. 800 crore",
+   "target_value": 800.0,
+   "unit": "Rs. crore",
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T1.3",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "On October 13, 2026, we also entered into a dedicated 10+ year manufacturing and supply agreement with a global specialty chemical major, representing a revenue potential of ~Rs. 1,500 crore.",
+   "page": 5,
+   "speaker": "Suyog Kotecha",
+   "target": "10+ year agreement with revenue potential of ~Rs 1,500 crore with commercial operations in FY29",
+   "target_value": 1500.0,
+   "unit": "Rs. crore",
+   "horizon": "FY29",
+   "materiality": 2,
+   "id": "T1.4",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capacity",
+   "quote": "The Phase I of Zone IV was officially commissioned on September 7, 2026.",
+   "page": 5,
+   "speaker": "Suyog Kotecha",
+   "target": "Phase I of Zone IV officially commissioned on September 7, 2026",
+   "target_value": null,
+   "unit": null,
+   "horizon": "September 7, 2026",
+   "materiality": 2,
+   "id": "T1.5",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "debt",
+   "quote": "The Board, on October 1, 2026, approved an enabling resolution to raise up to Rs. 1,000 crore by way of various avenues and/ or any combination of fund raise.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Approved resolution to raise up to Rs 1,000 crore capital to deleverage balance sheet",
+   "target_value": 1000.0,
+   "unit": "Rs. crore",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T1.6",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "So by 31st March 2027, most of it should get capitalized.",
+   "page": 9,
+   "speaker": "Suyog Kotecha",
+   "target": "Capitalize INR 1,800-1,900 crore CWIP by 31st March 2027",
+   "target_value": 1900.0,
+   "unit": "INR crore",
+   "horizon": "by 31st March 2027",
+   "materiality": 2,
+   "id": "T1.7",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "In Zone-IV, we plan to introduce 5 to 10 products in FY27, expanding to 20 to 25 products across 5 different chemistry blocks by FY28.",
+   "page": 5,
+   "speaker": "Suyog Kotecha",
+   "target": "Introduce 5-10 products in Zone IV in FY27 and expand to 20-25 products by FY28",
+   "target_value": 25.0,
+   "unit": "products",
+   "horizon": "FY28",
+   "materiality": 2,
+   "id": "T1.8",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "The commissioning will happen within this financial year. The ramp-up will happen throughout FY28.",
+   "page": 19,
+   "speaker": "Suyog Kotecha",
+   "target": "Zone IV commissioning within FY27 and volume ramp-up throughout FY28",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY28",
+   "materiality": 2,
+   "id": "T1.9",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "We expect the energy to settle somewhere between 30% to 40% kind of a range of our overall portfolio",
+   "page": 20,
+   "speaker": "Suyog Kotecha",
+   "target": "Energy segment share to settle between 30% to 40% of overall portfolio",
+   "target_value": 40.0,
+   "unit": "%",
+   "horizon": "next 2-3 years",
+   "materiality": 1,
+   "id": "T1.10",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "Leveraging our bulk shipment capabilities and robust R&D pipeline, we anticipate launching of several new solutions over the next 12 to 24 months.",
+   "page": 3,
+   "speaker": "Suyog Kotecha",
+   "target": "Launch several new solutions across broader Energy value chain over next 12 to 24 months",
+   "target_value": null,
+   "unit": null,
+   "horizon": "next 12 to 24 months",
+   "materiality": 1,
+   "id": "T1.11",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Nov 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "revenue_growth",
+   "quote": "We had projected INR300 crore to INR400 crore. I think we will maintain that range for the joint venture to start with.",
+   "page": 7,
+   "speaker": "Suyog Kotecha",
+   "target": "Maintain Augene JV steady-state revenue target of INR 300 to 400 crore",
+   "target_value": 400.0,
+   "unit": "INR Crore",
+   "horizon": null,
+   "materiality": 3,
+   "id": "T2.1",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capacity",
+   "quote": "We have completed our key fuel additives capacity expansion to 360 KTPA, from 290 KTPA, providing additional flexibility to serve newer markets with newer products as demand evolves.",
+   "page": 3,
+   "speaker": "Suyog Kotecha",
+   "target": "Completed fuel additives capacity expansion to 360 KTPA from 290 KTPA",
+   "target_value": 360.0,
+   "unit": "KTPA",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T2.2",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capex",
+   "quote": "In line with our earlier guidance, FY27 CAPEX remains on track within the Rs. 700 to 800 crore range, with about Rs 180 crores already deployed in Q1FY27.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "FY27 CAPEX on track within Rs 700 to 800 crore range",
+   "target_value": 800.0,
+   "unit": "INR Crore",
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T2.3",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capacity",
+   "quote": "Barring the 3-6 months delay due to labour constraints and war related issues, our Zone 4 project expansion continues to progress. The project is being commissioned in a phased manner this year, FY27, with ramp-up expected over FY28 and FY29.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Zone 4 expansion delayed by 3-6 months, commissioning in phased manner in FY27 with ramp-up over FY28-FY29",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T2.4",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capacity",
+   "quote": "Strengthening this collaborative approach, our partnership with Superform Chemistries through Augene Chemicals combines our deep chemistry expertise and raw material backward integration with their market application insights to build a differentiated specialty chemicals platform; this joint venture remains firmly on track for commissioning in Q2FY27.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Augene Chemicals JV on track for commissioning in Q2 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q2 FY27",
+   "materiality": 2,
+   "id": "T2.5",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Parallelly, our commitment to sustainability and circularity is anchored by our plastic recycling initiative with Re Sustainability through Aarti Circularity, that is slated for commissioning in the second half of FY27 which utilizes advanced recycling technologies for hard-to-recycle waste streams.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Aarti Circularity plastic recycling JV slated for commissioning in H2 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "H2 FY27",
+   "materiality": 2,
+   "id": "T2.6",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "We are also looking to debottleneck our DCB capacity to 140 KTPA backed by volume increase supported by PDCB and downstream demand.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Debottleneck DCB capacity to 140 KTPA",
+   "target_value": 140.0,
+   "unit": "KTPA",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T2.7",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "The commissioning of that project is expected around September to October 2027 time frame.",
+   "page": 18,
+   "speaker": "Suyog Kotecha",
+   "target": "Commissioning of long-term contract backward integration project expected in Sep-Oct 2027",
+   "target_value": null,
+   "unit": null,
+   "horizon": "September to October 2027",
+   "materiality": 2,
+   "id": "T2.8",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "I think by FY28, we are talking about anywhere in the range of 25 to 30 products. Within this year, we are looking at anywhere between 5 to 10 products.",
+   "page": 11,
+   "speaker": "Suyog Kotecha",
+   "target": "Launch 5 to 10 products in FY27 and 25 to 30 products by FY28 from Zone 4",
+   "target_value": 30.0,
+   "unit": "products",
+   "horizon": "FY28",
+   "materiality": 1,
+   "id": "T2.9",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capex",
+   "quote": "In line with the guidance given, the capex for the year was at about INR 1,125 crore.",
+   "page": 3,
+   "speaker": "Suyog Kotecha",
+   "target": "FY26 capex achieved at INR 1,125 crore",
+   "target_value": 1125.0,
+   "unit": "INR crore",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T3.1",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "Our capex for FY27 is expected to be in the range of INR 700 crore to INR800 crore as we continue our journey to optimize capex and maximize the returns.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "FY27 capex expected between INR 700 crore and INR 800 crore",
+   "target_value": 800.0,
+   "unit": "INR crore",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T3.2",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "debt",
+   "quote": "However, given the capex intensity is lower, we still anticipate the net debt to decline in the current year.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Net debt to decline in FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T3.3",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capacity",
+   "quote": "These projects were delayed by 3 to 4 months on account of labour constraints, primarily driven by LPG, commercial LPG-related issues and migration of labour due to election as well.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Zone IV project commissioning delayed by 3 to 4 months",
+   "target_value": 4.0,
+   "unit": "months",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T3.4",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "On Zone IV projects, they are expected to be commissioned in a phased manner during the current financial year.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Zone IV projects commissioning in a phased manner in FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T3.5",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Augene, the Superform joint venture is on track for commissioning in H1FY27 with an initial focus on agrochemicals and coating end markets.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Augene Superform JV commissioning on track in H1FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "H1FY27",
+   "materiality": 2,
+   "id": "T3.6",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 99
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Our circularity initiatives also continue to gain momentum with commissioning on track for the CY26.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Circularity initiative commissioning on track for CY26",
+   "target_value": null,
+   "unit": null,
+   "horizon": "CY26",
+   "materiality": 2,
+   "id": "T3.7",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "End of FY27, we should be in the range of around INR 9,500 crore to INR10,000 crore.",
+   "page": 18,
+   "speaker": "Chetan Gandhi",
+   "target": "Gross block by end of FY27 expected at INR 9,500 crore to INR 10,000 crore",
+   "target_value": 10000.0,
+   "unit": "INR crore",
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T3.8",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 99
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "Ideally, we would like to remain within 55 to 60 days kind of average levels.",
+   "page": 14,
+   "speaker": "Suyog Kotecha",
+   "target": "Target net working capital cycle of 55 to 60 days",
+   "target_value": 60.0,
+   "unit": "days",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T3.9",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "But given the fact that we have Zone IV, which is getting commercialized and there is an IT depreciation, which is a significant part of deduction available, the tax rate will be in the range of around maybe 9% to 14%, 15% kind of stuff lateron.",
+   "page": 14,
+   "speaker": "Chetan Gandhi",
+   "target": "Tax rate expected in the range of 9% to 15%",
+   "target_value": 15.0,
+   "unit": "%",
+   "horizon": "FY27",
+   "materiality": 1,
+   "id": "T3.10",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capex",
+   "quote": "Driven by some fast-track expansion initiatives for MMA, DCB and addition of PEDA capacity amongst few other new initiatives taken up in the year, the CAPEX for the year is estimated to be about Rs. 1,100 crs, a tad more than our earlier guided CAPEX of about Rs. 1,000 crs.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "FY26 CAPEX revised upward from Rs 1,000 crore to Rs 1,100 crore",
+   "target_value": 1100.0,
+   "unit": "INR Crore",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T4.1",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Given the fast-growing business environment for this segment, we have taken steadfast measures to further scale up the capacities from about 290+KT to about 360 KT and expect the same to be available by end of this fiscal i.e., Q4FY26.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Scale up MMA capacity to 360 KT by Q4 FY26",
+   "target_value": 360.0,
+   "unit": "KT",
+   "horizon": "Q4FY26",
+   "materiality": 2,
+   "id": "T4.2",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "We have also started debottlenecking efforts to increase DCB capacity from 120 to 140 KTPA to capture incremental growth opportunities in this (DCB) segment.",
+   "page": 4,
+   "speaker": "Suyog Kotecha",
+   "target": "Increase DCB capacity from 120 to 140 KTPA",
+   "target_value": 140.0,
+   "unit": "KTPA",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T4.3",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "With Zone IV getting commercialised in CY26, and that there are no other large projects in the pipeline, we anticipate the CAPEX for FY27 to be significantly lower.",
+   "page": 5,
+   "speaker": "Suyog Kotecha",
+   "target": "FY27 CAPEX to be significantly lower than FY26",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T4.4",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "The Joint Venture with Superform is progressing well, with commissioning expected in Q1FY27, focusing on agrochemical, paints and coatings applications, which aligns well with our strategy of moving closer to the customer and diversifying application layer.",
+   "page": 5,
+   "speaker": "Suyog Kotecha",
+   "target": "Commissioning of Superform JV in Q1 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q1FY27",
+   "materiality": 2,
+   "id": "T4.5",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "The project is progressing well as planned and we anticipate the JV to be ready for commissioning in H1FY27.",
+   "page": 5,
+   "speaker": "Suyog Kotecha",
+   "target": "Commissioning of RESL JV in H1 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "H1FY27",
+   "materiality": 2,
+   "id": "T4.6",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "The total CAPEX on Zone 4 would be in the range of INR1,600 crore to INR1,800 crore.",
+   "page": 10,
+   "speaker": "Suyog Kotecha",
+   "target": "Total Zone 4 CAPEX estimated between INR 1,600 to 1,800 crore",
+   "target_value": 1800.0,
+   "unit": "INR Crore",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T4.7",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "The revenue potential as we declared when the JV was announced was in the range of around INR300 crore to INR400 crore or so.",
+   "page": 16,
+   "speaker": "Chetan Gandhi",
+   "target": "Superform JV revenue potential of INR 300 to 400 crore",
+   "target_value": 400.0,
+   "unit": "INR Crore",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T4.8",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  }
+ ],
+ "business": {
+  "what_they_do": {
+   "text": "Aarti Industries Limited is a global specialty chemicals company specializing in benzene and toluene-based derivatives, as well as performance-enhancing octane boosters for the energy sector. The company operates integrated manufacturing facilities and R&D centers, ranking 4th globally for approximately 75% of its product portfolio.",
+   "cites": [
+    {
+     "doc": "AR",
+     "page": 96
+    }
+   ]
+  },
+  "segments": [
+   {
+    "name": "Energy",
+    "share": "43%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 98
+     }
+    ]
+   },
+   {
+    "name": "Agrochemicals and Fertilisers",
+    "share": "18%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 98
+     }
+    ]
+   },
+   {
+    "name": "Polymers and Additives",
+    "share": "14%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 98
+     }
+    ]
+   },
+   {
+    "name": "Dyes, Pigments and Printing Inks",
+    "share": "11%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 98
+     }
+    ]
+   },
+   {
+    "name": "Pharmaceuticals",
+    "share": "10%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 98
+     }
+    ]
+   },
+   {
+    "name": "Others",
+    "share": "4%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 98
+     }
+    ]
+   }
+  ],
+  "customers_and_markets": [
+   {
+    "text": "AIL serves over 1,100 customers across more than 60 countries, with a global presence spanning India, North America, Europe, the Middle East, and Africa.",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 8
+     },
+     {
+      "doc": "AR",
+      "page": 96
+     }
+    ]
+   },
+   {
+    "text": "Exports accounted for approximately 57% of total revenues in FY26.",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 8
+     }
+    ]
+   },
+   {
+    "text": "Key end-user markets include energy and fuel additives, agrochemicals, pharmaceuticals, polymers and additives (including EV-linked and defense applications), and dyes, pigments, and printing inks.",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 96
+     },
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   }
+  ],
+  "recent_developments": [
+   {
+    "text": "Commissioned Phase I of the Zone IV Jhagadia facility on September 7, 2026, operationalising the Calcium Chloride unit, 4,000 TPA PEDA plant, and sections of the Multipurpose Plant.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "AR",
+      "page": 8
+     }
+    ]
+   },
+   {
+    "text": "Expanded fuel additives capacity from 290 KTPA to 360 KTPA and debottlenecked DCB capacity to 140 KTPA.",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 8
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "text": "Entered into a 10+ year manufacturing agreement on October 13, 2026, representing a revenue potential of ~Rs. 1,500 crore, alongside an earlier USD 150 million agrochemical supply contract.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "AR",
+      "page": 8
+     }
+    ]
+   },
+   {
+    "text": "Advanced strategic joint ventures including Augene Chemicals (Superform JV) for specialty chemicals and Aarti Circularity (RESL JV) for plastic recycling.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "AR",
+      "page": 8
+     }
+    ]
+   }
+  ]
+ },
+ "bull_bear": {
+  "bull": [
+   {
+    "text": "Aarti Industries delivered record Q2 FY27 revenue of Rs 3,887 crore (+73% YoY) and EBITDA of Rs 418 crore (+44% YoY), backed by strong 3-year cash conversion of 2.77x CFO/PAT.",
+    "cites": [
+     {
+      "doc": "fin:cash_conversion",
+      "page": null
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "text": "Management scaled fuel additives capacity from 290 KTPA to 360 KTPA (operating near full capacity in Q2 FY27) and commissioned Zone IV Phase I on September 7, 2026, targeting INR 250 crore to INR 350 crore in bottom line over its first 18 months.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     },
+     {
+      "doc": "T1",
+      "page": 9
+     },
+     {
+      "doc": "T2",
+      "page": 3
+     }
+    ]
+   },
+   {
+    "text": "The company secured a 10+ year manufacturing agreement in October 2026 with ~Rs 1,500 crore revenue potential starting FY29, while China's 13% VAT rebate removal and capacity rationalizations expanded NCB spreads and boosted Western partnership inquiries.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 15
+     },
+     {
+      "doc": "T1",
+      "page": 12
+     },
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   }
+  ],
+  "bear": [
+   {
+    "text": "Over the past three years, net profit fell 8.4% annually and free cash flow was negative at Rs -573 Cr, while EBITDA margin contracted 3 percentage points YoY to 11% in September 2026 partly due to pass-through math and INR 500 crore of H1 trading volumes.",
+    "cites": [
+     {
+      "doc": "fin:margin_trend",
+      "page": null
+     },
+     {
+      "doc": "fin:profit_decline",
+      "page": null
+     },
+     {
+      "doc": "fin:fcf",
+      "page": null
+     },
+     {
+      "doc": "T1",
+      "page": 17
+     }
+    ]
+   },
+   {
+    "text": "Elevated raw material costs stretched working capital and pushed net debt past Rs 4,650 crore in Q2 FY27, prompting shareholder approval on October 31, 2026 for an enabling fundraise of up to Rs 1,000 crore to deleverage.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "text": "Management missed its H1 FY27 commissioning target for the Augene Superform JV (commercial production still pending in November 2026) and suffered a 3-6 month delay in Zone IV, while Energy rose to 50% of Q2 FY27 revenue amid winter crack softening risks and Chinese dumping in PDA.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 11
+     },
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T2",
+      "page": 4
+     },
+     {
+      "doc": "T1",
+      "page": 7
+     },
+     {
+      "doc": "T1",
+      "page": 20
+     }
+    ]
+   }
+  ],
+  "watch": [
+   {
+    "text": "Monitor commercial production startup at the Augene JV, H2 FY27 commissioning of Aarti Circularity, and timely completion of the remaining 4 Zone IV chemistry blocks alongside the INR 1,800 crore to INR 1,900 crore FY27 CWIP capitalization target.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     },
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T2",
+      "page": 4
+     },
+     {
+      "doc": "T1",
+      "page": 9
+     }
+    ]
+   },
+   {
+    "text": "Track Q3 FY27 imported raw material supply chain gaps (such as Aniline), seasonal winter softening in gasoline-naphtha cracks from Q2's $20+ per barrel, and potential inventory write-downs on INR 800 crore to INR 1,000 crore of goods in transit if crude corrects.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     },
+     {
+      "doc": "T1",
+      "page": 11
+     },
+     {
+      "doc": "T1",
+      "page": 17
+     },
+     {
+      "doc": "T1",
+      "page": 10
+     },
+     {
+      "doc": "T1",
+      "page": 7
+     }
+    ]
+   },
+   {
+    "text": "Check the structure and timing of the Rs 1,000 crore enabling capital raise and whether maintaining a 55-to-60-day net working capital cycle reduces net debt from over Rs 4,650 crore.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   }
+  ]
+ },
+ "about": "Aarti Industries Ltd, the flagship company of the Aarti group, manufacturing organic and inorganic chemicals at its major facilities in Vapi, Jhagadia, Dahej and Kutch, in Gujarat and in Tarapur in Maharashtra. The company has a strong market position in the NCB-based specialty chemicals segment. [1]",
+ "build_seconds": 67.8,
+ "key": "88c514180d3708c6",
+ "incomplete": []
+}

@@ -1,0 +1,1427 @@
+{
+ "symbol": "KAYNES",
+ "company": "Kaynes Technology India Limited",
+ "generated_at": "2026-11-15T23:00:14",
+ "latest_quarter": "2026-06",
+ "documents": [
+  {
+   "id": "T1",
+   "kind": "transcript",
+   "period": "2026-08",
+   "label": "Q1 FY27 call (Aug 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e8d82234-f369-467f-a76f-75bb2747aaa1.pdf",
+   "quarter": "2026-06",
+   "pages": 20
+  },
+  {
+   "id": "T2",
+   "kind": "transcript",
+   "period": "2026-05",
+   "label": "Q4 FY26 call (May 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c2aa16ac-08ab-430a-819a-833f94c09dde.pdf",
+   "quarter": "2026-03",
+   "pages": 20
+  },
+  {
+   "id": "T3",
+   "kind": "transcript",
+   "period": "2026-02",
+   "label": "Q3 FY26 call (Feb 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7fcb06f1-08f9-4ebd-a6ac-783e8abfda40.pdf",
+   "quarter": "2025-12",
+   "pages": 19
+  },
+  {
+   "id": "T4",
+   "kind": "transcript",
+   "period": "2025-12",
+   "label": "Q2 FY26 call (Dec 2025)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d42ff5a9-4c9e-4163-ae33-ed915881baa4.pdf",
+   "quarter": "2025-09",
+   "pages": 22
+  },
+  {
+   "id": "AR",
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report FY2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/7b3ec474-8dc9-46bc-bf3b-64d55d3b6c30.pdf",
+   "quarter": null,
+   "pages": 321
+  }
+ ],
+ "financials": {
+  "is_lender": false,
+  "basis": "consolidated",
+  "unit": "Rs crore",
+  "source": "https://www.screener.in/company/KAYNES/consolidated/",
+  "snapshot": {
+   "fy": "2026-03",
+   "revenue": 3626.0,
+   "revenue_ttm": 3899.0,
+   "operating_profit": 578.0,
+   "margin_pct": 16.0,
+   "margin_label": "EBITDA margin (OPM)",
+   "pat": 364.0,
+   "pat_ttm": 346.0,
+   "roe_pct": 8.69,
+   "roce_pct": 12.7,
+   "debt_to_equity": 0.19,
+   "market_cap_cr": 23057.0,
+   "pe": 66.4,
+   "price": 3430.0
+  },
+  "trajectory": {
+   "annual": [
+    {
+     "period": "2019-03",
+     "revenue": 364.0,
+     "operating_profit": 36.0,
+     "margin_pct": 10.0,
+     "pat": 10.0
+    },
+    {
+     "period": "2020-03",
+     "revenue": 368.0,
+     "operating_profit": 43.0,
+     "margin_pct": 12.0,
+     "pat": 9.0
+    },
+    {
+     "period": "2021-03",
+     "revenue": 420.0,
+     "operating_profit": 42.0,
+     "margin_pct": 10.0,
+     "pat": 10.0
+    },
+    {
+     "period": "2022-03",
+     "revenue": 706.0,
+     "operating_profit": 95.0,
+     "margin_pct": 13.0,
+     "pat": 42.0
+    },
+    {
+     "period": "2023-03",
+     "revenue": 1126.0,
+     "operating_profit": 170.0,
+     "margin_pct": 15.0,
+     "pat": 95.0
+    },
+    {
+     "period": "2024-03",
+     "revenue": 1805.0,
+     "operating_profit": 257.0,
+     "margin_pct": 14.0,
+     "pat": 183.0
+    },
+    {
+     "period": "2025-03",
+     "revenue": 2722.0,
+     "operating_profit": 416.0,
+     "margin_pct": 15.0,
+     "pat": 293.0
+    },
+    {
+     "period": "2026-03",
+     "revenue": 3626.0,
+     "operating_profit": 578.0,
+     "margin_pct": 16.0,
+     "pat": 364.0
+    }
+   ],
+   "quarterly": [
+    {
+     "period": "2024-09",
+     "revenue": 572.0,
+     "operating_profit": 82.0,
+     "margin_pct": 14.0,
+     "pat": 60.0,
+     "revenue_yoy": 58.4,
+     "pat_yoy": 87.5
+    },
+    {
+     "period": "2024-12",
+     "revenue": 661.0,
+     "operating_profit": 94.0,
+     "margin_pct": 14.0,
+     "pat": 66.0,
+     "revenue_yoy": 29.9,
+     "pat_yoy": 46.7
+    },
+    {
+     "period": "2025-03",
+     "revenue": 984.0,
+     "operating_profit": 168.0,
+     "margin_pct": 17.0,
+     "pat": 116.0,
+     "revenue_yoy": 54.5,
+     "pat_yoy": 43.2
+    },
+    {
+     "period": "2025-06",
+     "revenue": 673.0,
+     "operating_profit": 113.0,
+     "margin_pct": 17.0,
+     "pat": 75.0,
+     "revenue_yoy": 33.5,
+     "pat_yoy": 47.1
+    },
+    {
+     "period": "2025-09",
+     "revenue": 906.0,
+     "operating_profit": 148.0,
+     "margin_pct": 16.0,
+     "pat": 121.0,
+     "revenue_yoy": 58.4,
+     "pat_yoy": 101.7
+    },
+    {
+     "period": "2025-12",
+     "revenue": 804.0,
+     "operating_profit": 119.0,
+     "margin_pct": 15.0,
+     "pat": 77.0,
+     "revenue_yoy": 21.6,
+     "pat_yoy": 16.7
+    },
+    {
+     "period": "2026-03",
+     "revenue": 1243.0,
+     "operating_profit": 194.0,
+     "margin_pct": 16.0,
+     "pat": 91.0,
+     "revenue_yoy": 26.3,
+     "pat_yoy": -21.6
+    },
+    {
+     "period": "2026-06",
+     "revenue": 946.0,
+     "operating_profit": 148.0,
+     "margin_pct": 16.0,
+     "pat": 56.0,
+     "revenue_yoy": 40.6,
+     "pat_yoy": -25.3
+    }
+   ],
+   "cagr": {
+    "revenue_3y": 47.7,
+    "revenue_5y": 53.9,
+    "pat_3y": 56.5,
+    "pat_5y": 105.2
+   }
+  },
+  "cash_quality": {
+   "annual": [
+    {
+     "period": "2019-03",
+     "cfo": -8.0,
+     "fcf": -18.0,
+     "pat": 10.0,
+     "cfo_to_pat": -0.8
+    },
+    {
+     "period": "2020-03",
+     "cfo": 45.0,
+     "fcf": 14.0,
+     "pat": 9.0,
+     "cfo_to_pat": 5.0
+    },
+    {
+     "period": "2021-03",
+     "cfo": 28.0,
+     "fcf": 3.0,
+     "pat": 10.0,
+     "cfo_to_pat": 2.8
+    },
+    {
+     "period": "2022-03",
+     "cfo": 21.0,
+     "fcf": -21.0,
+     "pat": 42.0,
+     "cfo_to_pat": 0.5
+    },
+    {
+     "period": "2023-03",
+     "cfo": -42.0,
+     "fcf": -100.0,
+     "pat": 95.0,
+     "cfo_to_pat": -0.44
+    },
+    {
+     "period": "2024-03",
+     "cfo": 88.0,
+     "fcf": -295.0,
+     "pat": 183.0,
+     "cfo_to_pat": 0.48
+    },
+    {
+     "period": "2025-03",
+     "cfo": -82.0,
+     "fcf": -1031.0,
+     "pat": 293.0,
+     "cfo_to_pat": -0.28
+    },
+    {
+     "period": "2026-03",
+     "cfo": -600.0,
+     "fcf": -1841.0,
+     "pat": 364.0,
+     "cfo_to_pat": -1.65
+    }
+   ],
+   "cfo_to_pat_3y": -0.71,
+   "fcf_3y": -3167.0
+  },
+  "balance_sheet": {
+   "annual": [
+    {
+     "period": "2019-03",
+     "borrowings": 156.0,
+     "net_worth": 93.0,
+     "debt_to_equity": 1.68,
+     "cwip": 2.0,
+     "debtor_days": 123.0,
+     "inventory_days": 184.0,
+     "payable_days": 136.0,
+     "working_capital_days": 38.0
+    },
+    {
+     "period": "2020-03",
+     "borrowings": 153.0,
+     "net_worth": 103.0,
+     "debt_to_equity": 1.49,
+     "cwip": 12.0,
+     "debtor_days": 93.0,
+     "inventory_days": 228.0,
+     "payable_days": 139.0,
+     "working_capital_days": 32.0
+    },
+    {
+     "period": "2021-03",
+     "borrowings": 148.0,
+     "net_worth": 139.0,
+     "debt_to_equity": 1.06,
+     "cwip": 13.0,
+     "debtor_days": 106.0,
+     "inventory_days": 209.0,
+     "payable_days": 122.0,
+     "working_capital_days": 50.0
+    },
+    {
+     "period": "2022-03",
+     "borrowings": 189.0,
+     "net_worth": 202.0,
+     "debt_to_equity": 0.94,
+     "cwip": 8.0,
+     "debtor_days": 102.0,
+     "inventory_days": 167.0,
+     "payable_days": 121.0,
+     "working_capital_days": 53.0
+    },
+    {
+     "period": "2023-03",
+     "borrowings": 155.0,
+     "net_worth": 959.0,
+     "debt_to_equity": 0.16,
+     "cwip": 29.0,
+     "debtor_days": 74.0,
+     "inventory_days": 191.0,
+     "payable_days": 103.0,
+     "working_capital_days": 107.0
+    },
+    {
+     "period": "2024-03",
+     "borrowings": 323.0,
+     "net_worth": 2487.0,
+     "debt_to_equity": 0.13,
+     "cwip": 105.0,
+     "debtor_days": 72.0,
+     "inventory_days": 150.0,
+     "payable_days": 99.0,
+     "working_capital_days": 66.0
+    },
+    {
+     "period": "2025-03",
+     "borrowings": 903.0,
+     "net_worth": 2840.0,
+     "debt_to_equity": 0.32,
+     "cwip": 391.0,
+     "debtor_days": 77.0,
+     "inventory_days": 156.0,
+     "payable_days": 131.0,
+     "working_capital_days": -7.0
+    },
+    {
+     "period": "2026-03",
+     "borrowings": 913.0,
+     "net_worth": 4748.0,
+     "debt_to_equity": 0.19,
+     "cwip": 511.0,
+     "debtor_days": 154.0,
+     "inventory_days": 169.0,
+     "payable_days": 131.0,
+     "working_capital_days": 133.0
+    }
+   ]
+  },
+  "flags": [
+   {
+    "id": "fin:growth",
+    "tone": "positive",
+    "text": "Revenue compounded 47.7% a year over 3 years"
+   },
+   {
+    "id": "fin:cash_conversion",
+    "tone": "negative",
+    "text": "Weak cash conversion: 3-year operating cash flow is -0.71× net profit"
+   },
+   {
+    "id": "fin:fcf",
+    "tone": "negative",
+    "text": "Free cash flow was negative over 3 years (Rs -3,167 Cr)"
+   },
+   {
+    "id": "fin:receivables",
+    "tone": "negative",
+    "text": "Debtor days jumped from 77 to 154 in 2026"
+   },
+   {
+    "id": "fin:leverage",
+    "tone": "positive",
+    "text": "Lightly geared: debt/equity 0.19×"
+   },
+   {
+    "id": "fin:other_income",
+    "tone": "negative",
+    "text": "Other income is 31% of pre-tax profit in 2026"
+   }
+  ]
+ },
+ "promises": {
+  "items": [
+   {
+    "promise_ids": [
+     "T3.1"
+    ],
+    "verdict": "missed",
+    "quote": "So, in terms of revenue, I think last quarter is going to be a busy quarter for us, and including the last quarter for FY '26, we'll cross about INR4,000 crores minimum and mainly driven by EMS revenues.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T3",
+    "page": 8,
+    "target": "FY26 full year revenue to cross minimum INR 4,000 crores",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "FY26 revenue Rs 3,626 Cr vs Rs 4,000 Cr minimum guided (-9%)",
+    "evidence": [
+     "FY:2026-03"
+    ],
+    "note": "The management missed the revised revenue target of Rs 4,000 Cr for FY26.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T3.3"
+    ],
+    "verdict": "missed",
+    "quote": "So, you can expect about 85 days and better net working capital.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T3",
+    "page": 7,
+    "target": "Net working capital targeted at 85 days or better by year end",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "FY26 net working capital days of 133 vs target of 85 days or better",
+    "evidence": [
+     "FY:2026-03"
+    ],
+    "note": "The company's working capital days significantly deteriorated to 133 days compared to the 85-day target.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T3.4"
+    ],
+    "verdict": "missed",
+    "quote": "And going forward, at consol level, we'll definitely be OCF positive by end of this year.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T3",
+    "page": 14,
+    "target": "Consolidated operating cash flow to be positive by end of FY26",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "FY26 operating cash flow was Rs -600 Cr vs positive target",
+    "evidence": [
+     "FY:2026-03"
+    ],
+    "note": "Operating cash flow remained deeply negative instead of turning positive as promised.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T4.6"
+    ],
+    "verdict": "missed",
+    "quote": "So going forward, we will make sure that before this year is over, we get rid of these receivables with appropriate financing so that it's not in our books, because these pertain to almost like the annuity type of payments, which are like home loan payments and similar to that.",
+    "said_in": "Q2 FY26 call (Dec 2025)",
+    "doc_id": "T4",
+    "page": 9,
+    "target": "Remove long-term annuity receivables from books via financing before current fiscal year end",
+    "horizon": "by Mar 2026",
+    "deadline": "2026-03",
+    "actual": "Debtor days increased from 77 in FY25 to 154 in FY26",
+    "evidence": [
+     "FY:2026-03"
+    ],
+    "note": "Instead of removing long-term receivables, debtor days doubled, indicating an inability to clear the annuity payments from the books.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T4.2"
+    ],
+    "verdict": "unclear",
+    "quote": "And then, of course, in the second half, we also plan some execution, which will be of the nature of about INR300-odd crores.",
+    "said_in": "Q2 FY26 call (Dec 2025)",
+    "doc_id": "T4",
+    "page": 16,
+    "target": "H2 FY26 smart metering revenue execution of about INR 300 crores",
+    "horizon": "H2 FY26",
+    "deadline": "2026-03",
+    "actual": "Not reported",
+    "evidence": [],
+    "note": "Smart metering revenue specific execution is not separately detailed in the annual financial data.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.1",
+     "T2.1"
+    ],
+    "verdict": "too_early",
+    "quote": "So we don't want to commit on the top-line number, but whatever the market growth is there, because of the strategic initiatives of keeping the inventory, keeping the manufacturing flexible, and having a very committed people, we are quite confident of achieving the twice the market growth.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T1",
+    "page": 14,
+    "target": "Double market revenue growth rate",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The deadline for FY27 growth targets is at the end of the current fiscal year.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (May 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T1.2",
+     "T2.5"
+    ],
+    "verdict": "too_early",
+    "quote": "Having said that, we have taken up at all levels in the GridCrest business, and though late, we have got about INR200 crores of money in the first week of July, which gives us the confidence that whatever the commitment that we have given to you as a leadership team, that by end of the financial year we'll turn the cash positive, we are pretty confident on that.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T1",
+    "page": 6,
+    "target": "Reduce negative cash flow by 70-80% by Q3 and reach positive cash flow by year-end",
+    "horizon": "Q3 FY27",
+    "deadline": "2026-12",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The deadline for turning cash flow positive by the end of FY27 has not been reached.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (May 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T2.2",
+     "T2.3",
+     "T2.7",
+     "T1.4",
+     "T1.5",
+     "T1.6"
+    ],
+    "verdict": "too_early",
+    "quote": "I'm sure and certain we will do a good number of PCB of around INR300 crores to INR400 crores, and OSAT of around INR250 crores to INR300 crores.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 19,
+    "target": "Commercial revenue booking from OSAT and PCB starting in Q3 and Q4 FY27",
+    "horizon": "Q3-Q4 FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "These targets relate to FY27 performance and project milestones that are currently ongoing.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (May 2026)",
+     "Q4 FY26 call (May 2026)",
+     "Q1 FY27 call (Aug 2026)",
+     "Q1 FY27 call (Aug 2026)",
+     "Q1 FY27 call (Aug 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T3.5",
+     "T3.10"
+    ],
+    "verdict": "too_early",
+    "quote": "So, at the minimum, you can expect INR1,500 crores from our OSAT business. Similarly, you can expect about INR1,000 crores from PC Board business.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T3",
+    "page": 10,
+    "target": "Positive operating cash flows across all 3 businesses (EMS, OSAT, PCB) by FY28",
+    "horizon": "FY28",
+    "deadline": "2028-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "These goals have a horizon of FY28 and cannot be assessed yet.",
+    "guard": null,
+    "repeated_in": [
+     "Q3 FY26 call (Feb 2026)"
+    ]
+   }
+  ],
+  "credibility": "Management has demonstrated a poor track record of delivery, consistently missing targets related to revenue, cash flow, and working capital efficiency [T3.1, T3.3, T3.4, T4.6]. They have a tendency to revise targets downward only after missing them or encountering delays [T2.4], raising concerns about the reliability of their forward-looking guidance.",
+  "counts": {
+   "delivered": 0,
+   "partly": 0,
+   "missed": 4,
+   "unclear": 1,
+   "too_early": 4
+  },
+  "score": 0
+ },
+ "guidance": [
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "So we don't want to commit on the top-line number, but whatever the market growth is there, because of the strategic initiatives of keeping the inventory, keeping the manufacturing flexible, and having a very committed people, we are quite confident of achieving the twice the market growth.",
+   "page": 14,
+   "speaker": "N. Muthukumar",
+   "target": "Achieve revenue growth at 2x market growth",
+   "target_value": 2.0,
+   "unit": "x market growth",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T1.1",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "Having said that, we have taken up at all levels in the GridCrest business, and though late, we have got about INR200 crores of money in the first week of July, which gives us the confidence that whatever the commitment that we have given to you as a leadership team, that by end of the financial year we'll turn the cash positive, we are pretty confident on that.",
+   "page": 6,
+   "speaker": "N. Muthukumar",
+   "target": "Turn cash positive by end of the financial year",
+   "target_value": null,
+   "unit": null,
+   "horizon": "end of FY27",
+   "materiality": 3,
+   "id": "T1.2",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "We expect this could take a couple of quarters for profitability to normalize and return to the levels as we had earlier committed to.",
+   "page": 5,
+   "speaker": "N. Muthukumar",
+   "target": "Profitability to normalize and return to committed levels",
+   "target_value": null,
+   "unit": null,
+   "horizon": "next 2 quarters",
+   "materiality": 3,
+   "id": "T1.3",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Both Kaynes Semicon Unit 2 and Kaynes Circuit Chennai remain on the track to be operational by quarter 3 FY27, and we will continue to update you transparently on our progress every quarter.",
+   "page": 4,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "Kaynes Semicon Unit 2 and Kaynes Circuit Chennai operational by Q3 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q3 FY27",
+   "materiality": 2,
+   "id": "T1.4",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "We said we will be funding for this capex for this year is about INR300 crores for OSAT, INR300 crores for PCB, and about INR250 crores for EMS business.",
+   "page": 16,
+   "speaker": "N. Muthukumar",
+   "target": "FY27 capex of INR 300 cr for OSAT, INR 300 cr for PCB, and INR 250 cr for EMS",
+   "target_value": 850.0,
+   "unit": "INR crores",
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T1.5",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Our commitments, as indicated by Executive Vice Chairman during last year, we are going to have a commercial revenue booking from this year, from third quarter and fourth quarter, and we are committed to that.",
+   "page": 10,
+   "speaker": "N. Muthukumar",
+   "target": "Commercial revenue booking from OSAT and PCB starting in Q3 and Q4 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q3-Q4 FY27",
+   "materiality": 2,
+   "id": "T1.6",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "Our first 3U satellite is currently in the prototype development phase, and we expect it to be ready to launch in middle of next year, once the required regulatory testing is complete.",
+   "page": 8,
+   "speaker": "N. Muthukumar",
+   "target": "First 3U satellite ready to launch by middle of next year",
+   "target_value": null,
+   "unit": null,
+   "horizon": "middle of next year",
+   "materiality": 1,
+   "id": "T1.7",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "We say we'll outgrow the market, we'll penetrate into each and every segment, and we'll double the growth of market growth is what the commitment that we have done.",
+   "page": 11,
+   "speaker": "N. Muthukumar",
+   "target": "Double market revenue growth rate",
+   "target_value": 2.0,
+   "unit": "x",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T2.1",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "I'm sure and certain we will do a good number of PCB of around INR300 crores to INR400 crores, and OSAT of around INR250 crores to INR300 crores.",
+   "page": 19,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "PCB revenue of INR300-400 crores and OSAT revenue of INR250-300 crores",
+   "target_value": 300.0,
+   "unit": "INR crores",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T2.2",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "So rail business, I'm expecting this year to grow by around 20%, 25% because of these coming in.",
+   "page": 14,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "Rail business revenue growth of 20-25%",
+   "target_value": 20.0,
+   "unit": "%",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T2.3",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "revenue_growth",
+   "quote": "Giving a guidance of INR4,500 crores is almost 55% growth over the previous year. In the third quarter, I think we have turned out to saying about INR4,000 crores because of a few delays.",
+   "page": 8,
+   "speaker": "N. Muthukumar",
+   "target": "FY26 revenue target lowered from INR4,500 crores to INR4,000 crores due to project delays",
+   "target_value": 4000.0,
+   "unit": "INR crores",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T2.4",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "Sir, the INR600 crores by end of the third quarter will come to around we will try to work on the positive, but at least 70% to 80% of this will come down for sure.",
+   "page": 12,
+   "speaker": "N. Muthukumar",
+   "target": "Reduce negative cash flow by 70-80% by Q3 and reach positive cash flow by year-end",
+   "target_value": 70.0,
+   "unit": "%",
+   "horizon": "Q3 FY27",
+   "materiality": 3,
+   "id": "T2.5",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "In OSAT, the order outlook for both the current year and the medium term remains strong with revenue visibility of over INR25,000 million over the next 5 years.",
+   "page": 4,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "OSAT revenue visibility over INR25,000 million over 5 years",
+   "target_value": 25000.0,
+   "unit": "INR million",
+   "horizon": "next 5 years",
+   "materiality": 2,
+   "id": "T2.6",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Unit 1 is fully operational, and Unit 2 is in commercialization by Q2 '26.",
+   "page": 4,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "OSAT Unit 2 commercialization by Q2 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q2 FY27",
+   "materiality": 2,
+   "id": "T2.7",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "Our goal is to steadily increase the contribution of NPD-led and value-added solutions to nearly 30% of the total revenue in the coming years.",
+   "page": 6,
+   "speaker": "N. Muthukumar",
+   "target": "Increase NPD-led solutions to nearly 30% of total revenue",
+   "target_value": 30.0,
+   "unit": "%",
+   "horizon": "coming years",
+   "materiality": 2,
+   "id": "T2.8",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "You can rest assured that Kaynes stand-alone, the EMS business will continue to be cash positive, and we'll be improving it at least by about 8 to 10 days in the years to come in this segment.",
+   "page": 12,
+   "speaker": "N. Muthukumar",
+   "target": "Improve stand-alone EMS working capital by 8-10 days",
+   "target_value": 8.0,
+   "unit": "days",
+   "horizon": "coming years",
+   "materiality": 2,
+   "id": "T2.9",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "Sir, in terms of the metering, we will take another 2 to 3 months to complete the entire pending order of this, and which is what we are also putting in our calculations...",
+   "page": 16,
+   "speaker": "N. Muthukumar",
+   "target": "Complete pending smart meter order within 2 to 3 months",
+   "target_value": 2.0,
+   "unit": "months",
+   "horizon": "next 2-3 months",
+   "materiality": 2,
+   "id": "T2.10",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "So, in terms of revenue, I think last quarter is going to be a busy quarter for us, and including the last quarter for FY '26, we'll cross about INR4,000 crores minimum and mainly driven by EMS revenues.",
+   "page": 8,
+   "speaker": "Jairam Sampath",
+   "target": "FY26 full year revenue to cross minimum INR 4,000 crores",
+   "target_value": 4000.0,
+   "unit": "INR Cr",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T3.1",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "revenue_growth",
+   "quote": "See, on the growth, what we have projected $1 billion, we are still sticking on to that because for us, from our bare board, from our OSAT, additional buildings are going to take place.",
+   "page": 9,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "Reiterated revenue target of $1 billion",
+   "target_value": 1.0,
+   "unit": "USD billion",
+   "horizon": "FY28",
+   "materiality": 3,
+   "id": "T3.2",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "So, you can expect about 85 days and better net working capital.",
+   "page": 7,
+   "speaker": "Jairam Sampath",
+   "target": "Net working capital targeted at 85 days or better by year end",
+   "target_value": 85.0,
+   "unit": "days",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T3.3",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "And going forward, at consol level, we'll definitely be OCF positive by end of this year.",
+   "page": 14,
+   "speaker": "Jairam Sampath",
+   "target": "Consolidated operating cash flow to be positive by end of FY26",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T3.4",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "So, at the minimum, you can expect INR1,500 crores from our OSAT business. Similarly, you can expect about INR1,000 crores from PC Board business.",
+   "page": 10,
+   "speaker": "Jairam Sampath",
+   "target": "Minimum INR 1,500 crores revenue from OSAT and INR 1,000 crores from PCB business",
+   "target_value": 2500.0,
+   "unit": "INR Cr",
+   "horizon": "FY28",
+   "materiality": 3,
+   "id": "T3.5",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "Other businesses, there is already a DPR, the INR3,200 crores is the total capex for OSAT, INR1,400 crores is the total capex for PC Board.",
+   "page": 14,
+   "speaker": "Jairam Sampath",
+   "target": "Total capex of INR 3,200 crores for OSAT and INR 1,400 crores for PCB project",
+   "target_value": 4600.0,
+   "unit": "INR Cr",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T3.6",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "So, you can take broadly in this year, maybe about another INR400-odd crores of capex will be spent.",
+   "page": 15,
+   "speaker": "Jairam Sampath",
+   "target": "Spend remaining ~INR 400 crores capex in Q4 FY26",
+   "target_value": 400.0,
+   "unit": "INR Cr",
+   "horizon": "FY26",
+   "materiality": 2,
+   "id": "T3.7",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "And then, of course, the OSAT business, the Phase 1 will get completed that is about INR1,700 crores, INR1,800 crores of capex.",
+   "page": 15,
+   "speaker": "Jairam Sampath",
+   "target": "Complete Phase 1 OSAT capex of INR 1,700 to 1,800 crores",
+   "target_value": 1800.0,
+   "unit": "INR Cr",
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T3.8",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "So the market demand is so high for the next 4, 5 years, year-on-year, there will be a growth of around 30%.",
+   "page": 15,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "30% YoY growth in meter device segment",
+   "target_value": 30.0,
+   "unit": "%",
+   "horizon": "next 4-5 years",
+   "materiality": 2,
+   "id": "T3.9",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "And total company level, definitely, FY '28, you can look forward to a significant OCF in each of the businesses, EMS, OSAT as well as PC Board.",
+   "page": 14,
+   "speaker": "Jairam Sampath",
+   "target": "Positive operating cash flows across all 3 businesses (EMS, OSAT, PCB) by FY28",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY28",
+   "materiality": 2,
+   "id": "T3.10",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Feb 2026)",
+   "quarter": "2025-12",
+   "quote_match": 99
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "If you take last several 4 years CAGR, the next few years CAGR also will be thereabouts.",
+   "page": 17,
+   "speaker": "Jairam Sampath",
+   "target": "Next few years revenue CAGR to match past 4 years CAGR",
+   "target_value": null,
+   "unit": null,
+   "horizon": "next few years",
+   "materiality": 3,
+   "id": "T4.1",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "And then, of course, in the second half, we also plan some execution, which will be of the nature of about INR300-odd crores.",
+   "page": 16,
+   "speaker": "Jairam Sampath",
+   "target": "H2 FY26 smart metering revenue execution of about INR 300 crores",
+   "target_value": 300.0,
+   "unit": "INR crore",
+   "horizon": "H2 FY26",
+   "materiality": 3,
+   "id": "T4.2",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "because the approval from these three customers will help us to do good revenues, starting from FY '27 onwards.",
+   "page": 19,
+   "speaker": "Jairam Sampath",
+   "target": "OSAT business to achieve strong revenues starting FY27 onwards",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27 onwards",
+   "materiality": 3,
+   "id": "T4.3",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "First balance requirement for OSAT INR10.3 billion will be funded through QIP and spent amount of about 3.8 billion and balance internal accruals capex spread over five years and some transitory debt.",
+   "page": 7,
+   "speaker": "Jairam Sampath",
+   "target": "Balance requirement for OSAT capex of INR 10.3 billion funded via QIP, internal accruals, and transitory debt spread over 5 years",
+   "target_value": 10.3,
+   "unit": "INR billion",
+   "horizon": "5 years",
+   "materiality": 2,
+   "id": "T4.4",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "Second thing is that with regard to PCB, the current plan includes only capex of 14 billion for which the balance requirement is 3.2 billion and up central government subsidy of about 3 billion.",
+   "page": 7,
+   "speaker": "Jairam Sampath",
+   "target": "PCB plan capex of INR 14 billion with balance requirement of INR 3.2 billion and expected central subsidy of INR 3 billion",
+   "target_value": 14.0,
+   "unit": "INR billion",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T4.5",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "So going forward, we will make sure that before this year is over, we get rid of these receivables with appropriate financing so that it's not in our books, because these pertain to almost like the annuity type of payments, which are like home loan payments and similar to that.",
+   "page": 9,
+   "speaker": "Jairam Sampath",
+   "target": "Remove long-term annuity receivables from books via financing before current fiscal year end",
+   "target_value": null,
+   "unit": null,
+   "horizon": "by Mar 2026",
+   "materiality": 2,
+   "id": "T4.6",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "So, we are quite confident that INR240 crores, approximately INR240 crores of such receivables will anyway get discounted and it'll reduce the amount.",
+   "page": 9,
+   "speaker": "Jairam Sampath",
+   "target": "Discount approximately INR 240 crores of smart meter receivables",
+   "target_value": 240.0,
+   "unit": "INR crore",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T4.7",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "OCF positive, yes. FCF, I'm not sure in the near-term that will happen because we'll have to reinvest for growth.",
+   "page": 17,
+   "speaker": "Jairam Sampath",
+   "target": "Maintain positive operating cash flow while free cash flow remains negative near-term due to growth reinvestment",
+   "target_value": null,
+   "unit": null,
+   "horizon": "near-term",
+   "materiality": 2,
+   "id": "T4.8",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "So, we will no longer be an AMISP company. We will be only device company to various AMISPs.",
+   "page": 10,
+   "speaker": "Ramesh Kunhikannan",
+   "target": "Transition business model to be solely a device supplier rather than an AMISP company",
+   "target_value": null,
+   "unit": null,
+   "horizon": null,
+   "materiality": 2,
+   "id": "T4.9",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Dec 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  }
+ ],
+ "business": {
+  "what_they_do": {
+   "text": "Kaynes Technology India Limited is an integrated Electronics System Design and Manufacturing (ESDM) enterprise offering end-to-end services from conceptual product design, OEM/ODM manufacturing, and semiconductor packaging to global lifecycle support. The company has transitioned from a service-led EMS provider into a product-driven enterprise delivering high-mix, high-value, and complex electronic assemblies.",
+   "cites": [
+    {
+     "doc": "AR",
+     "page": 47
+    },
+    {
+     "doc": "AR",
+     "page": 4
+    },
+    {
+     "doc": "AR",
+     "page": 12
+    }
+   ]
+  },
+  "segments": [
+   {
+    "name": "Original Design Manufacturer (ODM) / Design-led Solutions",
+    "share": "28%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 15
+     }
+    ]
+   },
+   {
+    "name": "Automotive Vertical",
+    "share": "~25%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 47
+     }
+    ]
+   },
+   {
+    "name": "Railways Vertical",
+    "share": "10-12%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 48
+     }
+    ]
+   },
+   {
+    "name": "OEM Turnkey Solutions",
+    "share": null,
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 47
+     }
+    ]
+   }
+  ],
+  "customers_and_markets": [
+   {
+    "text": "Serves high-entry-barrier end markets including Automotive & EVs, Industrial Electronics, Railways, Medical, Aerospace & Defence, and IT/Consumer Electronics.",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 47
+     }
+    ]
+   },
+   {
+    "text": "Key global customers and partners include Alpha & Omega Semiconductor, L&T Semiconductor, Infineon, Siemens, Mahindra, Honeywell, Otis, and Eaton.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 7
+     },
+     {
+      "doc": "AR",
+      "page": 5
+     }
+    ]
+   }
+  ],
+  "recent_developments": [
+   {
+    "text": "Operationalised its greenfield OSAT unit in Sanand, Gujarat, commercially delivering India's first Multi-Chip Modules (MCMs) and securing Financial Support Agreement (FSA) approval under the India Semiconductor Mission.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     },
+     {
+      "doc": "AR",
+      "page": 5
+     },
+     {
+      "doc": "AR",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "text": "Setting up a ₹14,000 Mn High-Density Interconnect (HDI) PCB manufacturing plant in Chennai capable of producing up to 74-layer boards, targeted to commence commercial production in Q3 FY27.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     },
+     {
+      "doc": "AR",
+      "page": 5
+     },
+     {
+      "doc": "AR",
+      "page": 15
+     }
+    ]
+   },
+   {
+    "text": "Entered the space tech domain by prototyping its first 3U CubeSat satellite and initiating titanium gas bottle manufacturing for ISRO and DRDO flight projects through subsidiary Crio Precision and Aerotech Technologies.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     },
+     {
+      "doc": "AR",
+      "page": 6
+     }
+    ]
+   },
+   {
+    "text": "Formed a strategic partnership between Kaynes Semicon and Mitsui to target semiconductor packaging market opportunities in Japan.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     }
+    ]
+   }
+  ]
+ },
+ "bull_bear": {
+  "bull": [
+   {
+    "text": "The company maintains a robust order book of approximately INR 9,000 crores {",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   },
+   {
+    "text": "Management reported a 40% year-on-year revenue growth in Q1 FY27, with the core EMS business demonstrating strong performance {",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   },
+   {
+    "text": "The company has maintained a strong balance sheet position with a debt-to-equity ratio of 0.19x {",
+    "cites": [
+     {
+      "doc": "fin:leverage",
+      "page": null
+     }
+    ]
+   }
+  ],
+  "bear": [
+   {
+    "text": "Cash conversion remains weak with a 3-year operating cash flow that is -0.71x net profit {",
+    "cites": [
+     {
+      "doc": "fin:cash_conversion",
+      "page": null
+     }
+    ]
+   }
+  ],
+  "watch": [
+   {
+    "text": "Monitor the promised turnaround of the smart metering business receivables and potential strategy updates in Q3/Q4 FY27 {",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 9
+     }
+    ]
+   },
+   {
+    "text": "Track the commercial revenue ramp-up for OSAT and PCB units scheduled for H2 FY27 {",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 9
+     }
+    ]
+   }
+  ]
+ },
+ "about": "Incorporated in 2008, Kaynes Technology is a leading end-to-end and IoT solutions-enabled integrated electronics manufacturing company. The company provides conceptual design, process engineering, integrated manufacturing, and life-cycle support for major players in the automotive, industrial, aerospace and defense, outer-space, nuclear, medical, railways, Internet of Things (\"IoT\"), Information Technology (\"IT\") and other segments. [1]",
+ "build_seconds": 6.8,
+ "key": "58f34013c405d509",
+ "incomplete": []
+}

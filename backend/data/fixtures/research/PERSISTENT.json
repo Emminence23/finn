@@ -1,0 +1,1398 @@
+{
+ "symbol": "PERSISTENT",
+ "company": "Persistent Systems Limited",
+ "generated_at": "2026-11-15T23:00:14",
+ "latest_quarter": "2026-09",
+ "documents": [
+  {
+   "id": "T1",
+   "kind": "transcript",
+   "period": "2026-10",
+   "label": "Q2 FY27 call (Oct 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=524eadda-3966-4f4f-8888-bfaf2cb0d69e.pdf",
+   "quarter": "2026-09",
+   "pages": 26
+  },
+  {
+   "id": "T2",
+   "kind": "transcript",
+   "period": "2026-08",
+   "label": "Q1 FY27 call (Aug 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b1c49752-0908-4750-9177-398a60654630.pdf",
+   "quarter": "2026-06",
+   "pages": 29
+  },
+  {
+   "id": "T3",
+   "kind": "transcript",
+   "period": "2026-04",
+   "label": "Q4 FY26 call (Apr 2026)",
+   "url": "https://www.persistent.com/wp-content/uploads/2026/04/Analyst-Call-Transcript-Q4FY26.pdf",
+   "quarter": "2026-03",
+   "pages": 26
+  },
+  {
+   "id": "T4",
+   "kind": "transcript",
+   "period": "2026-01",
+   "label": "Q3 FY26 call (Jan 2026)",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b68ef2b0-b285-4696-8c08-e3bb58039b0e.pdf",
+   "quarter": "2025-12",
+   "pages": 28
+  },
+  {
+   "id": "AR",
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report FY2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/2aa02df7-243d-4455-afba-6c149c763f01.pdf",
+   "quarter": null,
+   "pages": 500
+  }
+ ],
+ "financials": {
+  "is_lender": false,
+  "basis": "consolidated",
+  "unit": "Rs crore",
+  "source": "https://www.screener.in/company/PERSISTENT/consolidated/",
+  "snapshot": {
+   "fy": "2026-03",
+   "revenue": 14748.0,
+   "revenue_ttm": 16801.0,
+   "operating_profit": 2796.0,
+   "margin_pct": 19.0,
+   "margin_label": "EBITDA margin (OPM)",
+   "pat": 1865.0,
+   "pat_ttm": 1803.0,
+   "roe_pct": 27.2,
+   "roce_pct": 34.4,
+   "debt_to_equity": 0.06,
+   "market_cap_cr": 99550.0,
+   "pe": 53.2,
+   "price": 6003.0
+  },
+  "trajectory": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "revenue": 1891.0,
+     "operating_profit": 390.0,
+     "margin_pct": 21.0,
+     "pat": 291.0
+    },
+    {
+     "period": "2016-03",
+     "revenue": 2312.0,
+     "operating_profit": 392.0,
+     "margin_pct": 17.0,
+     "pat": 277.0
+    },
+    {
+     "period": "2017-03",
+     "revenue": 2878.0,
+     "operating_profit": 465.0,
+     "margin_pct": 16.0,
+     "pat": 301.0
+    },
+    {
+     "period": "2018-03",
+     "revenue": 3034.0,
+     "operating_profit": 469.0,
+     "margin_pct": 15.0,
+     "pat": 323.0
+    },
+    {
+     "period": "2019-03",
+     "revenue": 3366.0,
+     "operating_profit": 556.0,
+     "margin_pct": 17.0,
+     "pat": 352.0
+    },
+    {
+     "period": "2020-03",
+     "revenue": 3566.0,
+     "operating_profit": 493.0,
+     "margin_pct": 14.0,
+     "pat": 340.0
+    },
+    {
+     "period": "2021-03",
+     "revenue": 4188.0,
+     "operating_profit": 683.0,
+     "margin_pct": 16.0,
+     "pat": 451.0
+    },
+    {
+     "period": "2022-03",
+     "revenue": 5711.0,
+     "operating_profit": 958.0,
+     "margin_pct": 17.0,
+     "pat": 690.0
+    },
+    {
+     "period": "2023-03",
+     "revenue": 8351.0,
+     "operating_profit": 1519.0,
+     "margin_pct": 18.0,
+     "pat": 921.0
+    },
+    {
+     "period": "2024-03",
+     "revenue": 9822.0,
+     "operating_profit": 1676.0,
+     "margin_pct": 17.0,
+     "pat": 1093.0
+    },
+    {
+     "period": "2025-03",
+     "revenue": 11939.0,
+     "operating_profit": 2058.0,
+     "margin_pct": 17.0,
+     "pat": 1400.0
+    },
+    {
+     "period": "2026-03",
+     "revenue": 14748.0,
+     "operating_profit": 2796.0,
+     "margin_pct": 19.0,
+     "pat": 1865.0
+    }
+   ],
+   "quarterly": [
+    {
+     "period": "2024-12",
+     "revenue": 3062.0,
+     "operating_profit": 538.0,
+     "margin_pct": 18.0,
+     "pat": 373.0,
+     "revenue_yoy": 22.6,
+     "pat_yoy": 30.4
+    },
+    {
+     "period": "2025-03",
+     "revenue": 3242.0,
+     "operating_profit": 584.0,
+     "margin_pct": 18.0,
+     "pat": 396.0,
+     "revenue_yoy": 25.1,
+     "pat_yoy": 25.7
+    },
+    {
+     "period": "2025-06",
+     "revenue": 3334.0,
+     "operating_profit": 612.0,
+     "margin_pct": 18.0,
+     "pat": 425.0,
+     "revenue_yoy": 21.8,
+     "pat_yoy": 38.9
+    },
+    {
+     "period": "2025-09",
+     "revenue": 3581.0,
+     "operating_profit": 683.0,
+     "margin_pct": 19.0,
+     "pat": 471.0,
+     "revenue_yoy": 23.6,
+     "pat_yoy": 44.9
+    },
+    {
+     "period": "2025-12",
+     "revenue": 3778.0,
+     "operating_profit": 733.0,
+     "margin_pct": 19.0,
+     "pat": 439.0,
+     "revenue_yoy": 23.4,
+     "pat_yoy": 17.7
+    },
+    {
+     "period": "2026-03",
+     "revenue": 4056.0,
+     "operating_profit": 768.0,
+     "margin_pct": 19.0,
+     "pat": 529.0,
+     "revenue_yoy": 25.1,
+     "pat_yoy": 33.6
+    },
+    {
+     "period": "2026-06",
+     "revenue": 4303.0,
+     "operating_profit": 697.0,
+     "margin_pct": 16.0,
+     "pat": 483.0,
+     "revenue_yoy": 29.1,
+     "pat_yoy": 13.6
+    },
+    {
+     "period": "2026-09",
+     "revenue": 4664.0,
+     "operating_profit": 633.0,
+     "margin_pct": 14.0,
+     "pat": 352.0,
+     "revenue_yoy": 30.2,
+     "pat_yoy": -25.3
+    }
+   ],
+   "cagr": {
+    "revenue_3y": 20.9,
+    "revenue_5y": 28.6,
+    "pat_3y": 26.5,
+    "pat_5y": 32.8
+   }
+  },
+  "cash_quality": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "cfo": 312.0,
+     "fcf": 216.0,
+     "pat": 291.0,
+     "cfo_to_pat": 1.07
+    },
+    {
+     "period": "2016-03",
+     "cfo": 254.0,
+     "fcf": 89.0,
+     "pat": 277.0,
+     "cfo_to_pat": 0.92
+    },
+    {
+     "period": "2017-03",
+     "cfo": 286.0,
+     "fcf": 70.0,
+     "pat": 301.0,
+     "cfo_to_pat": 0.95
+    },
+    {
+     "period": "2018-03",
+     "cfo": 421.0,
+     "fcf": 356.0,
+     "pat": 323.0,
+     "cfo_to_pat": 1.3
+    },
+    {
+     "period": "2019-03",
+     "cfo": 432.0,
+     "fcf": 395.0,
+     "pat": 352.0,
+     "cfo_to_pat": 1.23
+    },
+    {
+     "period": "2020-03",
+     "cfo": 352.0,
+     "fcf": 277.0,
+     "pat": 340.0,
+     "cfo_to_pat": 1.04
+    },
+    {
+     "period": "2021-03",
+     "cfo": 736.0,
+     "fcf": 611.0,
+     "pat": 451.0,
+     "cfo_to_pat": 1.63
+    },
+    {
+     "period": "2022-03",
+     "cfo": 845.0,
+     "fcf": 464.0,
+     "pat": 690.0,
+     "cfo_to_pat": 1.22
+    },
+    {
+     "period": "2023-03",
+     "cfo": 956.0,
+     "fcf": 524.0,
+     "pat": 921.0,
+     "cfo_to_pat": 1.04
+    },
+    {
+     "period": "2024-03",
+     "cfo": 1302.0,
+     "fcf": 947.0,
+     "pat": 1093.0,
+     "cfo_to_pat": 1.19
+    },
+    {
+     "period": "2025-03",
+     "cfo": 1157.0,
+     "fcf": 964.0,
+     "pat": 1400.0,
+     "cfo_to_pat": 0.83
+    },
+    {
+     "period": "2026-03",
+     "cfo": 1767.0,
+     "fcf": 1572.0,
+     "pat": 1865.0,
+     "cfo_to_pat": 0.95
+    }
+   ],
+   "cfo_to_pat_3y": 0.97,
+   "fcf_3y": 3483.0
+  },
+  "balance_sheet": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "borrowings": 4.0,
+     "net_worth": 1406.0,
+     "debt_to_equity": 0.0,
+     "cwip": 4.0,
+     "debtor_days": 69.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 29.0
+    },
+    {
+     "period": "2016-03",
+     "borrowings": 3.0,
+     "net_worth": 1658.0,
+     "debt_to_equity": 0.0,
+     "cwip": 27.0,
+     "debtor_days": 67.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 40.0
+    },
+    {
+     "period": "2017-03",
+     "borrowings": 3.0,
+     "net_worth": 1899.0,
+     "debt_to_equity": 0.0,
+     "cwip": 29.0,
+     "debtor_days": 60.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 49.0
+    },
+    {
+     "period": "2018-03",
+     "borrowings": 2.0,
+     "net_worth": 2127.0,
+     "debt_to_equity": 0.0,
+     "cwip": 5.0,
+     "debtor_days": 58.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 53.0
+    },
+    {
+     "period": "2019-03",
+     "borrowings": 2.0,
+     "net_worth": 2345.0,
+     "debt_to_equity": 0.0,
+     "cwip": 32.0,
+     "debtor_days": 53.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 43.0
+    },
+    {
+     "period": "2020-03",
+     "borrowings": 71.0,
+     "net_worth": 2385.0,
+     "debt_to_equity": 0.03,
+     "cwip": 30.0,
+     "debtor_days": 61.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 37.0
+    },
+    {
+     "period": "2021-03",
+     "borrowings": 98.0,
+     "net_worth": 2795.0,
+     "debt_to_equity": 0.04,
+     "cwip": 12.0,
+     "debtor_days": 50.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 25.0
+    },
+    {
+     "period": "2022-03",
+     "borrowings": 578.0,
+     "net_worth": 3368.0,
+     "debt_to_equity": 0.17,
+     "cwip": 107.0,
+     "debtor_days": 61.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 4.0
+    },
+    {
+     "period": "2023-03",
+     "borrowings": 655.0,
+     "net_worth": 3965.0,
+     "debt_to_equity": 0.17,
+     "cwip": 16.0,
+     "debtor_days": 69.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 20.0
+    },
+    {
+     "period": "2024-03",
+     "borrowings": 451.0,
+     "net_worth": 4958.0,
+     "debt_to_equity": 0.09,
+     "cwip": 34.0,
+     "debtor_days": 62.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 24.0
+    },
+    {
+     "period": "2025-03",
+     "borrowings": 311.0,
+     "net_worth": 6319.0,
+     "debt_to_equity": 0.05,
+     "cwip": 77.0,
+     "debtor_days": 82.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 47.0
+    },
+    {
+     "period": "2026-03",
+     "borrowings": 477.0,
+     "net_worth": 7838.0,
+     "debt_to_equity": 0.06,
+     "cwip": 38.0,
+     "debtor_days": 83.0,
+     "inventory_days": null,
+     "payable_days": null,
+     "working_capital_days": 50.0
+    }
+   ]
+  },
+  "flags": [
+   {
+    "id": "fin:growth",
+    "tone": "positive",
+    "text": "Revenue compounded 20.9% a year over 3 years"
+   },
+   {
+    "id": "fin:cash_conversion",
+    "tone": "positive",
+    "text": "Profits convert to cash: 3-year CFO/PAT 0.97×"
+   },
+   {
+    "id": "fin:leverage",
+    "tone": "positive",
+    "text": "Lightly geared: debt/equity 0.06×"
+   },
+   {
+    "id": "fin:margin_trend",
+    "tone": "negative",
+    "text": "EBITDA margin (OPM) contracted 5 pts YoY to 14% in 2026-09"
+   }
+  ]
+ },
+ "promises": {
+  "items": [
+   {
+    "promise_ids": [
+     "T2.4"
+    ],
+    "verdict": "unclear",
+    "quote": "And yes, it will be accretive - revenue & margin from Q2 onwards.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T2",
+    "page": 25,
+    "target": "Large deal to be revenue and margin accretive from Q2 onwards",
+    "horizon": "from Q2",
+    "deadline": null,
+    "actual": "Q2 FY27 consolidated revenue rose to Rs 4,664 Cr (+30.2% YoY) while operating margin fell to 14%; deal-level contribution not disclosed",
+    "evidence": [
+     "Q:2026-09"
+    ],
+    "note": "Q2 FY27 has been reported, but consolidated financials and updates do not break out whether this specific large deal was revenue and margin accretive.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T3.4"
+    ],
+    "verdict": "unclear",
+    "quote": "This decline in Operational Cash Flow to PAT was primarily on account of higher proportion of unbilled revenue in this quarter, which we expect to normalize in the next quarter.",
+    "said_in": "Q4 FY26 call (Apr 2026)",
+    "doc_id": "T3",
+    "page": 9,
+    "target": "Operational cash flow to PAT conversion to normalize in Q1 FY27",
+    "horizon": "next quarter",
+    "deadline": null,
+    "actual": "Quarterly OCF-to-PAT not reported for Q1 FY27 (FY26 annual ratio was 0.95); no update provided",
+    "evidence": [
+     "FY:2026-03"
+    ],
+    "note": "Although Q1 FY27 has already passed as of September 2026, quarterly operating cash flow is not disclosed in the actuals or later management updates.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T3.3",
+     "T1.1"
+    ],
+    "verdict": "too_early",
+    "quote": "Our aspiration continues to be in the 16 to 17% range.",
+    "said_in": "Q4 FY26 call (Apr 2026)",
+    "doc_id": "T3",
+    "page": 26,
+    "target": "Aspirational EBIT margin range of 16-17%",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [
+     "Q:2026-09"
+    ],
+    "note": "Management reiterated its open-ended 16-17% EBIT margin aspiration in Q2 FY27 with no fixed deadline, though reported consolidated operating margin slipped to 14% in Q2 FY27 from 19% in Q4 FY26.",
+    "guard": null,
+    "repeated_in": [
+     "Q2 FY27 call (Oct 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T4.1",
+     "T3.1"
+    ],
+    "verdict": "too_early",
+    "quote": "I am also happy to share that we remain firmly on track, advancing confidently towards our aspiration of $2 billion by March 2027 and laying the foundation of $5 billion by March 2031.",
+    "said_in": "Q3 FY26 call (Jan 2026)",
+    "doc_id": "T4",
+    "page": 6,
+    "target": "$2 billion revenue run rate by FY27 (plus/minus a quarter)",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The March 2027 ($2 billion run rate) and March 2031 ($5 billion) deadlines have not arrived, and actuals report revenue only in INR rather than USD.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (Apr 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T3.2"
+    ],
+    "verdict": "too_early",
+    "quote": "So, on the last part, FY’27, Q4 exit is where we are looking at the run rate being in the range of $500 million or so.",
+    "said_in": "Q4 FY26 call (Apr 2026)",
+    "doc_id": "T3",
+    "page": 19,
+    "target": "Q4 FY27 revenue run rate around $500 million",
+    "horizon": "Q4 FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Q4 FY27 has not yet been reported as of Q2 FY27 (September 2026), and actuals are not disclosed in USD.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T2.1"
+    ],
+    "verdict": "too_early",
+    "quote": "So, from this deal perspective, this is a net new deal which will add roughly about $125 million plus on an annual basis and overall for the period of the contract it will be roughly about $650 million plus over 6.5 years.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T2",
+    "page": 4,
+    "target": "Net new deal to add $125 million+ annually and $650 million+ over 6.5 years",
+    "horizon": "6.5 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The 6.5-year horizon for the net new deal has just begun in Q1 FY27 and deal-specific USD revenues are not yet reported.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T2.2"
+    ],
+    "verdict": "too_early",
+    "quote": "The transaction is expected to be Cash EPS accretive as well as Reported EPS accretive in Year 1 if you remove the transaction expenses that will be incurred in the first year.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "Nagarro acquisition to be Cash EPS and Reported EPS accretive in Year 1 excluding transaction expenses",
+    "horizon": "Year 1",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The Nagarro acquisition has not yet closed as of September 2026 and EPS figures are not provided in the actuals.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T2.3"
+    ],
+    "verdict": "too_early",
+    "quote": "Having said that, we do not believe that the combined entity will be at any significant lower margins than what Persistent has today.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T2",
+    "page": 17,
+    "target": "Combined entity margins not expected to be significantly lower than Persistent's current margins",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The Nagarro transaction is not yet closed, so combined entity margins cannot be observed in the Q2 FY27 actuals.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T2.6",
+     "T1.4"
+    ],
+    "verdict": "too_early",
+    "quote": "And based on the current anticipation of various regulatory approvals that are expected, we expect this transaction to close sometime towards the Q4 of Calendar Year 2026 or early Q1 of Calendar Year 2027.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "Nagarro acquisition deal closure by Q4-CY26 or Q1-CY27",
+    "horizon": "Q4-CY26 or Q1-CY27",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [
+     "T1.5"
+    ],
+    "note": "Management secured 94.04% of Nagarro share capital in October 2026, while the targeted Q4 CY26 or Q1 CY27 closing window has not yet passed.",
+    "guard": null,
+    "repeated_in": [
+     "Q2 FY27 call (Oct 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T2.5"
+    ],
+    "verdict": "too_early",
+    "quote": "So, at 50% plus 1 share to 100%, it is expected to reduce down to 1X by FY2030.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "Net Debt over combined EBITDA expected to reduce down to 1x by FY2030",
+    "horizon": "FY2030",
+    "deadline": "2030-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The FY2030 deleveraging deadline is years away and the Nagarro acquisition has not yet closed.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.2"
+    ],
+    "verdict": "too_early",
+    "quote": "Overall, we are expecting one-time expenses to the tune of approximately $50 million spread over three to four quarters.",
+    "said_in": "Q2 FY27 call (Oct 2026)",
+    "doc_id": "T1",
+    "page": 7,
+    "target": "Nagarro acquisition one-time expenses of ~$50 million over 3-4 quarters",
+    "horizon": "next 3-4 quarters",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The 3-4 quarter horizon for the ~$50 million one-time Nagarro expenses started in Q2 FY27 and has not yet elapsed.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.3"
+    ],
+    "verdict": "too_early",
+    "quote": "Over the next two quarters, we expect an incremental amount ranging between USD 25 to 30 million to be incurred towards the Nagarro transaction.",
+    "said_in": "Q2 FY27 call (Oct 2026)",
+    "doc_id": "T1",
+    "page": 9,
+    "target": "Incremental Nagarro transaction expenses of USD 25-30 million over next two quarters",
+    "horizon": "next two quarters",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The next two quarters over which $25-30 million of incremental Nagarro transaction expenses are expected lie ahead of the Q2 FY27 reporting period.",
+    "guard": null,
+    "repeated_in": []
+   }
+  ],
+  "credibility": "Because nearly all tracked targets carry FY27-FY31 deadlines or depend on the pending Nagarro acquisition closing [T4.1][T3.1][T2.6][T1.4][T2.5], management's delivery record cannot yet be settled from these inputs. The two near-term operational commitments on Q1 FY27 cash flow normalization [T3.4] and Q2 large-deal accretion [T2.4] remain unclear because quarterly cash flows and deal-level margins are undisclosed. Investors should watch whether the drop in consolidated operating margin from 19% in Q4 FY26 to 14% in Q2 FY27 reflects temporary deal costs [T1.2][T1.3] or puts the reiterated 16-17% EBIT margin aspiration [T3.3][T1.1] at risk.",
+  "counts": {
+   "delivered": 0,
+   "partly": 0,
+   "missed": 0,
+   "unclear": 2,
+   "too_early": 10
+  },
+  "score": null
+ },
+ "guidance": [
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "Yeah, so from our perspective we have said we want to be in the 16 to 17 % range, that is our aspiration.",
+   "page": 19,
+   "speaker": "Sandeep Kalra",
+   "target": "Aspirational EBIT margin range of 16-17%",
+   "target_value": 17.0,
+   "unit": "%",
+   "horizon": null,
+   "materiality": 3,
+   "id": "T1.1",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Oct 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "Overall, we are expecting one-time expenses to the tune of approximately $50 million spread over three to four quarters.",
+   "page": 7,
+   "speaker": "Sandeep Kalra",
+   "target": "Nagarro acquisition one-time expenses of ~$50 million over 3-4 quarters",
+   "target_value": 50.0,
+   "unit": "USD million",
+   "horizon": "next 3-4 quarters",
+   "materiality": 2,
+   "id": "T1.2",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Oct 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "Over the next two quarters, we expect an incremental amount ranging between USD 25 to 30 million to be incurred towards the Nagarro transaction.",
+   "page": 9,
+   "speaker": "Vinit Teredesai",
+   "target": "Incremental Nagarro transaction expenses of USD 25-30 million over next two quarters",
+   "target_value": 30.0,
+   "unit": "USD million",
+   "horizon": "next two quarters",
+   "materiality": 2,
+   "id": "T1.3",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Oct 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "We expect the deal closure by Q4-CY26 or Q1-CY27.",
+   "page": 7,
+   "speaker": "Sandeep Kalra",
+   "target": "Nagarro acquisition deal closure by Q4-CY26 or Q1-CY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q4-CY26 or Q1-CY27",
+   "materiality": 2,
+   "id": "T1.4",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Oct 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "other",
+   "quote": "We have secured approximately 94.04% of Nagarro share capital excluding treasury shares at the expiry of the additional acceptance period, significantly exceeding the minimum acceptance threshold of 50% + 1 share that we had set.",
+   "page": 6,
+   "speaker": "Sandeep Kalra",
+   "target": "Exceeded 50%+1 share threshold by securing 94.04% of Nagarro share capital",
+   "target_value": 94.04,
+   "unit": "%",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T1.5",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Oct 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "We expect in the next 4 to 6 weeks, max, let's say 8 weeks, that's our hope and expectation.",
+   "page": 20,
+   "speaker": "Sandeep Kalra",
+   "target": "RBI and FDI approvals for Nagarro deal expected in next 4-8 weeks",
+   "target_value": 8.0,
+   "unit": "weeks",
+   "horizon": "next 4-8 weeks",
+   "materiality": 1,
+   "id": "T1.6",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Oct 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "And basically, if we do that, we will need about 5 to 6 months to optimistically bring the 2 companies together.",
+   "page": 20,
+   "speaker": "Sandeep Kalra",
+   "target": "Post-closing integration of Persistent and Nagarro to take 5-6 months",
+   "target_value": 6.0,
+   "unit": "months",
+   "horizon": "next 5-6 months post closure",
+   "materiality": 1,
+   "id": "T1.7",
+   "doc_id": "T1",
+   "doc_label": "Q2 FY27 call (Oct 2026)",
+   "quarter": "2026-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "So, from this deal perspective, this is a net new deal which will add roughly about $125 million plus on an annual basis and overall for the period of the contract it will be roughly about $650 million plus over 6.5 years.",
+   "page": 4,
+   "speaker": "Sandeep Kalra",
+   "target": "Net new deal to add $125 million+ annually and $650 million+ over 6.5 years",
+   "target_value": 650.0,
+   "unit": "USD million",
+   "horizon": "6.5 years",
+   "materiality": 3,
+   "id": "T2.1",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "pat",
+   "quote": "The transaction is expected to be Cash EPS accretive as well as Reported EPS accretive in Year 1 if you remove the transaction expenses that will be incurred in the first year.",
+   "page": 13,
+   "speaker": "Vinit Teredesai",
+   "target": "Nagarro acquisition to be Cash EPS and Reported EPS accretive in Year 1 excluding transaction expenses",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Year 1",
+   "materiality": 3,
+   "id": "T2.2",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "Having said that, we do not believe that the combined entity will be at any significant lower margins than what Persistent has today.",
+   "page": 17,
+   "speaker": "Sandeep Kalra",
+   "target": "Combined entity margins not expected to be significantly lower than Persistent's current margins",
+   "target_value": null,
+   "unit": null,
+   "horizon": null,
+   "materiality": 3,
+   "id": "T2.3",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "And yes, it will be accretive - revenue & margin from Q2 onwards.",
+   "page": 25,
+   "speaker": "Sandeep Kalra",
+   "target": "Large deal to be revenue and margin accretive from Q2 onwards",
+   "target_value": null,
+   "unit": null,
+   "horizon": "from Q2",
+   "materiality": 3,
+   "id": "T2.4",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "debt",
+   "quote": "So, at 50% plus 1 share to 100%, it is expected to reduce down to 1X by FY2030.",
+   "page": 13,
+   "speaker": "Vinit Teredesai",
+   "target": "Net Debt over combined EBITDA expected to reduce down to 1x by FY2030",
+   "target_value": 1.0,
+   "unit": "x",
+   "horizon": "FY2030",
+   "materiality": 2,
+   "id": "T2.5",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "And based on the current anticipation of various regulatory approvals that are expected, we expect this transaction to close sometime towards the Q4 of Calendar Year 2026 or early Q1 of Calendar Year 2027.",
+   "page": 13,
+   "speaker": "Vinit Teredesai",
+   "target": "Nagarro acquisition expected to close in Q4 CY2026 or early Q1 CY2027",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q4 CY2026 or early Q1 CY2027",
+   "materiality": 2,
+   "id": "T2.6",
+   "doc_id": "T2",
+   "doc_label": "Q1 FY27 call (Aug 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "The $2 billion by FY27, that's a run rate. We are marching towards it steadily. And again, look, if the macro goes in a different direction going ahead, we'll tackle it as it comes. But otherwise, the run rate wise, we are confident, we are marching towards it steadily and we'll get there plus minus a quarter at worst.",
+   "page": 18,
+   "speaker": "Sandeep Kalra",
+   "target": "$2 billion revenue run rate by FY27 (plus/minus a quarter)",
+   "target_value": 2.0,
+   "unit": "USD billion",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T3.1",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (Apr 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "So, on the last part, FY’27, Q4 exit is where we are looking at the run rate being in the range of $500 million or so.",
+   "page": 19,
+   "speaker": "Sandeep Kalra",
+   "target": "Q4 FY27 revenue run rate around $500 million",
+   "target_value": 500.0,
+   "unit": "USD million",
+   "horizon": "Q4 FY27",
+   "materiality": 3,
+   "id": "T3.2",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (Apr 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "Our aspiration continues to be in the 16 to 17% range.",
+   "page": 26,
+   "speaker": "Vinit Teredesai",
+   "target": "EBIT margin range of 16-17%",
+   "target_value": 16.0,
+   "unit": "%",
+   "horizon": null,
+   "materiality": 3,
+   "id": "T3.3",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (Apr 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "This decline in Operational Cash Flow to PAT was primarily on account of higher proportion of unbilled revenue in this quarter, which we expect to normalize in the next quarter.",
+   "page": 9,
+   "speaker": "Vinit Teredesai",
+   "target": "Operational cash flow to PAT conversion to normalize in Q1 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "next quarter",
+   "materiality": 2,
+   "id": "T3.4",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (Apr 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "other",
+   "quote": "Notably, we achieved carbon neutrality 2 years ahead of target resulting in the Number 1 rank amongst the companies targeting carbon neutrality by 2030 and Number 3 amongst the sustainable software and services companies, a strong indicator of execution credibility rather than intent-based commitments.",
+   "page": 10,
+   "speaker": "Vinit Teredesai",
+   "target": "Carbon neutrality achieved 2 years ahead of original schedule",
+   "target_value": 2.0,
+   "unit": "years",
+   "horizon": null,
+   "materiality": 1,
+   "id": "T3.5",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (Apr 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "We also intend to host our AI Investor Day in early June timeframe at our offices in Pune to showcase our AI capabilities, our AI partnerships as well as some of the marquee customer case studies.",
+   "page": 6,
+   "speaker": "Sandeep Kalra",
+   "target": "Host AI Investor Day in early June in Pune",
+   "target_value": null,
+   "unit": null,
+   "horizon": "early June",
+   "materiality": 1,
+   "id": "T3.6",
+   "doc_id": "T3",
+   "doc_label": "Q4 FY26 call (Apr 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "I am also happy to share that we remain firmly on track, advancing confidently towards our aspiration of $2 billion by March 2027 and laying the foundation of $5 billion by March 2031.",
+   "page": 6,
+   "speaker": "Sandeep Kalra",
+   "target": "Revenue aspiration of $2 billion by March 2027 and $5 billion by March 2031",
+   "target_value": 2.0,
+   "unit": "USD billion",
+   "horizon": "by March 2027",
+   "materiality": 3,
+   "id": "T4.1",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "ETR for FY26 will be in the range of 20%-24%.",
+   "page": 8,
+   "speaker": "Vinit Teredesai",
+   "target": "FY26 Effective Tax Rate in the range of 20%-24%",
+   "target_value": null,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 1,
+   "id": "T4.2",
+   "doc_id": "T4",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  }
+ ],
+ "business": {
+  "what_they_do": {
+   "text": "Persistent Systems Limited is a technology services company focused on software and product engineering at the intersection of AI, data, and modernization. The company builds, modernizes, and manages resilient, business-critical technology systems for enterprises transitioning from automation to intelligence. Its offerings are platform-driven and supported by proprietary AI platforms including SASVA, iAURA, and GenAI Hub.",
+   "cites": [
+    {
+     "doc": "AR",
+     "page": 9
+    },
+    {
+     "doc": "AR",
+     "page": 5
+    },
+    {
+     "doc": "AR",
+     "page": 7
+    }
+   ]
+  },
+  "segments": [
+   {
+    "name": "Software, High-Tech and Emerging",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   },
+   {
+    "name": "Banking, Financial Services and Insurance",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   },
+   {
+    "name": "Healthcare and Lifesciences",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   }
+  ],
+  "customers_and_markets": [
+   {
+    "text": "End markets span Software & High-Tech, Banking, Financial Services and Insurance (BFSI), and Healthcare and Lifesciences.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   },
+   {
+    "text": "Geographic revenue mix in Q2 FY27 in USD terms recorded YoY growth of 22.5% in North America, 19.4% in India, and 67% in Rest of World, while Europe declined 8.5% due to client-specific events.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   },
+   {
+    "text": "Client tiers in Q2 FY27 include 4 customers with annual revenue greater than USD 50 million, 13 in the USD 20 million plus bracket, 34 in the USD 10 million plus bracket, 60 in the USD 5 million plus category, and 280 in the USD 1 million plus category.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   }
+  ],
+  "recent_developments": [
+   {
+    "text": "Persistent signed an agreement to acquire European digital engineering firm Nagarro to form an enterprise with over $2.9 billion in revenue run rate and 46,000+ professionals across 40 countries.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 6
+     }
+    ]
+   },
+   {
+    "text": "The company secured 94.04% of Nagarro's share capital in its public takeover offer by October 2026 and approved raising USD 1.25 billion in long-term debt and equity financing (including USD 450 million via QIP or equity-linked instruments).",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 7
+     },
+     {
+      "doc": "T1",
+      "page": 6
+     }
+    ]
+   },
+   {
+    "text": "Persistent introduced its Software Reinvention offering in Q2 FY27 to assist enterprise software clients in building AI-native products and modernizing legacy suites.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 6
+     }
+    ]
+   }
+  ]
+ },
+ "bull_bear": {
+  "bull": [
+   {
+    "text": "Persistent delivered its 26th consecutive quarter of revenue growth in Q2 FY27, rising 20% YoY to $487.6 million (Rs 46,639 million, up 30.3% YoY), extending a 3-year revenue CAGR of 20.9% backed by its $650 million+ 6.5-year Software Reinvention deal.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     },
+     {
+      "doc": "T1",
+      "page": 12
+     },
+     {
+      "doc": "fin:growth",
+      "page": null
+     }
+    ]
+   },
+   {
+    "text": "Record collections lowered billed DSO from 61 to 50 days and lifted TTM OCF-to-PAT to 96.6% in Q2 FY27 (in line with a 3-year CFO/PAT ratio of 0.97x), alongside Rs 29,996.7 million in cash and low pre-deal debt/equity of 0.06x.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 10
+     },
+     {
+      "doc": "fin:leverage",
+      "page": null
+     },
+     {
+      "doc": "fin:cash_conversion",
+      "page": null
+     },
+     {
+      "doc": "T1",
+      "page": 9
+     }
+    ]
+   },
+   {
+    "text": "Having secured 94.04% of Nagarro's share capital in the open offer, the combination will form a $2.9 billion+ revenue entity that lifts Persistent's European revenue share from roughly 8%-8.5% to 22% with an overlap of only 10 clients across ~200 $1 million+ accounts each.",
+    "cites": [
+     {
+      "doc": "T2",
+      "page": 8
+     },
+     {
+      "doc": "T1",
+      "page": 6
+     },
+     {
+      "doc": "T2",
+      "page": 6
+     },
+     {
+      "doc": "T1",
+      "page": 20
+     }
+    ]
+   }
+  ],
+  "bear": [
+   {
+    "text": "Although management stated in June 2026 that its $650 million+ large deal would be margin accretive from Q2 onwards, Q2 FY27 EBIT margin fell 130 bps YoY to 15% (with EBITDA margin contracting 5 pts YoY to 14%), weighed down by a 90 bps drag from ~$4 million in quarterly amortization on third-party tools and licenses.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     },
+     {
+      "doc": "fin:margin_trend",
+      "page": null
+     },
+     {
+      "doc": "T2",
+      "page": 25
+     }
+    ]
+   },
+   {
+    "text": "Nagarro acquisition expenses of Rs 1,853.4 million drove a 25.4% YoY decline in Q2 FY27 reported PAT to Rs 3,515.1 million (with $25 to 30 million more in costs expected over the next two quarters), while management reversed its earlier no-QIP/no-dilution pledge to plan a $450 million equity or equity-linked raise within a $1.25 billion financing package for the €1.27 billion deal.",
+    "cites": [
+     {
+      "doc": "T2",
+      "page": 11
+     },
+     {
+      "doc": "T2",
+      "page": 25
+     },
+     {
+      "doc": "T1",
+      "page": 7
+     },
+     {
+      "doc": "T1",
+      "page": 9
+     }
+    ]
+   },
+   {
+    "text": "Order momentum softened sequentially in Q2 FY27 with TCV bookings at $633.5 million (vs $1,146.2 million in Q1) as macro decision-making slowed and deals slipped, while Europe revenue declined 8.5% YoY due to client-specific ramp-downs.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 19
+     },
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   }
+  ],
+  "watch": [
+   {
+    "text": "Receipt of RBI and Austrian and Spanish FDI approvals to close the Nagarro acquisition by Q4-CY26 or Q1-CY27, alongside the terms of the $1.25 billion debt-and-equity financing and pacing of the remaining $25 to 30 million in transaction expenses.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 7
+     },
+     {
+      "doc": "T1",
+      "page": 6
+     },
+     {
+      "doc": "T1",
+      "page": 9
+     }
+    ]
+   },
+   {
+    "text": "Recovery in EBIT margin from Q2's 15% toward management's 16%-17% aspirational range as wage-hike headwinds pass and FinOps/AI optimization begins offsetting the ~$4 million quarterly amortization on the large deal.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 8
+     },
+     {
+      "doc": "T1",
+      "page": 16
+     },
+     {
+      "doc": "T1",
+      "page": 19
+     }
+    ]
+   },
+   {
+    "text": "Closure of slipped deals in Q3 bookings following Q2's softer $633.5 million TCV, as well as a growth rebound in Healthcare and Lifesciences (12% YoY) and stabilization in Europe (-8.5% YoY).",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 19
+     },
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 24
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   }
+  ]
+ },
+ "about": "Persistent Systems provides software engineering and strategy services to help companies implement and modernize their businesses. It has its own software and frameworks with pre-built integration and acceleration [1] . It also has partnership with providers such as Salesforce and AWS [2] .",
+ "build_seconds": 61.4,
+ "key": "0ce3949b7e393a7a",
+ "incomplete": []
+}

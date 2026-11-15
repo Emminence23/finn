@@ -50,6 +50,11 @@ class LLMError(Exception):
     pass
 
 
+class QuotaExhausted(LLMError):
+    """The model's quota is used up for a long period (e.g. a free tier's daily limit).
+    Retrying the same model is pointless; the router moves to the next fallback model."""
+
+
 class Provider(Protocol):
     name: str
     supports_pdf: bool

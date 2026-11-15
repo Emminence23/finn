@@ -76,3 +76,38 @@ def test_gives_up_after_two_invalid_outputs(router):
 def test_missing_key_message_is_actionable(router):
     with pytest.raises(LLMError, match="GEMINI_API_KEY is not set"):
         router.provider("gemini")
+
+
+def test_quota_exhaustion_falls_back_to_next_model_and_remembers(monkeypatch):
+    from app.llm.base import QuotaExhausted
+
+    monkeypatch.delenv("LLM_MODEL_GEMINI_MID", raising=False)
+    router = LLMRouter()
+    router.config["providers"]["gemini"]["mid"] = "m-primary"
+    router.config["fallbacks"] = {"gemini": {"mid": ["m-backup"]}}
+    seen = []
+
+    class Quota(FakeProvider):
+        def complete(self, req):
+            seen.append(req.model)
+            if req.model == "m-primary":
+                raise QuotaExhausted("daily quota")
+            return super().complete(req)
+
+    router._providers["gemini"] = Quota(['{"category": "a"}', '{"category": "b"}'])
+    assert router.run("bull_bear", system="s", prompt="p1", schema=Out).category == "a"
+    assert router.run("bull_bear", system="s", prompt="p2", schema=Out).category == "b"
+    assert seen == ["m-primary", "m-backup", "m-backup"]  # primary skipped once exhausted
+
+
+def test_env_pinned_model_has_no_fallbacks(router):
+    router.config["fallbacks"] = {"gemini": {"fast": ["other"]}}
+    assert [r.model for r in router.routes("classify_filing")] == ["fake-model"]
+
+
+def test_task_level_fallbacks_override_tier_default(monkeypatch):
+    monkeypatch.delenv("LLM_MODEL_GEMINI_STRONG", raising=False)
+    router = LLMRouter()
+    router.config["fallbacks"] = {"gemini": {"strong": ["lite-model"]}}
+    models = [r.model for r in router.routes("promise_vs_delivery")]
+    assert "lite-model" not in models and models[1:] == ["gemini-3.5-flash"]

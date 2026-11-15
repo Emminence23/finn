@@ -19,7 +19,7 @@ from pydantic import BaseModel, ValidationError
 
 from app.config import Settings, get_settings
 from app.db import session
-from app.llm.base import Doc, LLMError, LLMRequest, Provider
+from app.llm.base import Doc, LLMError, LLMRequest, Provider, QuotaExhausted
 from app.llm.providers import build_provider
 
 log = logging.getLogger(__name__)
@@ -39,6 +39,7 @@ class LLMRouter:
         self.settings = settings or get_settings()
         self.config = yaml.safe_load(self.settings.models_config.read_text())
         self._providers: dict[str, Provider] = {}
+        self._exhausted: dict[tuple[str, str], float] = {}  # (provider, model) -> when
 
     # ------------------------------------------------------------ routing
     def route(self, task: str) -> Route:
@@ -62,6 +63,19 @@ class LLMRouter:
                 f"set it in models.yaml or LLM_MODEL_{provider.upper()}_{tier.upper()}"
             )
         return Route(task, provider, model, tier)
+
+    def routes(self, task: str) -> list[Route]:
+        """Primary route, then the tier's fallback models (models.yaml `fallbacks`), used only
+        when a model's quota is exhausted. Env-pinned models get no fallbacks."""
+        r = self.route(task)
+        if os.getenv(f"LLM_MODEL_{r.provider.upper()}_{r.tier.upper()}"):
+            return [r]
+        spec = self.config["tasks"][task]
+        if isinstance(spec.get("fallbacks"), dict) and r.provider in spec["fallbacks"]:
+            extra = spec["fallbacks"][r.provider]  # task-level policy beats the tier default
+        else:
+            extra = self.config.get("fallbacks", {}).get(r.provider, {}).get(r.tier, [])
+        return [r] + [Route(task, r.provider, m, r.tier) for m in extra if m != r.model]
 
     def provider(self, name: str) -> Provider:
         if name not in self._providers:
@@ -109,13 +123,35 @@ class LLMRouter:
         use_cache: bool = True,
     ):
         docs = docs or []
-        r = self.route(task)
+        routes = self.routes(task)
+        if use_cache:
+            for r in routes:
+                key = _cache_key(r, prompt_version, system, prompt, schema, docs)
+                if (cached := self._cache_get(key)) is not None:
+                    self._log_call(r, cache_hit=True)
+                    return _parse(cached, schema)
+        quota_err: QuotaExhausted | None = None
+        for r in routes:
+            if time.time() - self._exhausted.get((r.provider, r.model), 0) < 3600:
+                continue  # out of quota recently; re-probe after an hour
+            try:
+                return self._call(
+                    r, system, prompt, schema, docs, prompt_version, max_tokens, use_cache
+                )
+            except QuotaExhausted as e:
+                self._exhausted[(r.provider, r.model)] = time.time()
+                self._log_call(r, cache_hit=False, error=str(e)[:500])
+                log.warning("llm %s: %s quota exhausted, trying next fallback", task, r.model)
+                quota_err = e
+        tried = ", ".join(r.model for r in routes)
+        raise LLMError(
+            f"task {task}: every configured model is out of quota ({tried})"
+            + (f": {quota_err}" if quota_err else "")
+        )
+
+    def _call(self, r: Route, system, prompt, schema, docs, prompt_version, max_tokens, use_cache):
+        task = r.task
         key = _cache_key(r, prompt_version, system, prompt, schema, docs)
-
-        if use_cache and (cached := self._cache_get(key)) is not None:
-            self._log_call(r, cache_hit=True)
-            return _parse(cached, schema)
-
         req = LLMRequest(
             system=system,
             prompt=prompt,
@@ -130,6 +166,8 @@ class LLMRouter:
             try:
                 resp = self.provider(r.provider).complete(req)
                 value = _parse(resp.text, schema)
+            except QuotaExhausted:
+                raise
             except (LLMError, ValidationError, json.JSONDecodeError) as e:
                 last_err = e
                 self._log_call(r, cache_hit=False, error=str(e)[:500])

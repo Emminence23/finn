@@ -150,6 +150,13 @@ CREATE TABLE IF NOT EXISTS llm_calls (
     error TEXT,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
+CREATE TABLE IF NOT EXISTS research_cache (
+    symbol TEXT NOT NULL,
+    key TEXT NOT NULL,
+    payload_json TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    PRIMARY KEY (symbol, key)
+);
 """
 
 

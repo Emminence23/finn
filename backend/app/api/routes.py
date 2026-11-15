@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
+import asyncio
+import json
+
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
+from sse_starlette.sse import EventSourceResponse
 
 from app.clock import now, window_bounds
 from app.db import session
@@ -11,6 +15,7 @@ from app.intel import alerts as alerts_mod
 from app.intel.digest import build_digest
 from app.intel.taxonomy import CATEGORIES
 from app.network import graph
+from app.research import service
 
 router = APIRouter()
 
@@ -138,3 +143,54 @@ def list_people(contacts_only: bool = True) -> list[dict]:
         if p.id != graph.ME and (p.is_contact or not contacts_only)
     ]
     return sorted(out, key=lambda x: -(x.get("strength") or 0))
+
+
+# ------------------------------------------------------------------ Pull (FR-PULL)
+@router.get("/research/{symbol}")
+def research(symbol: str) -> dict:
+    """Cached or precomputed research view. 404 with `build_url` when not built yet; the UI
+    then opens the stream, which builds it live with progress (FR-PULL-10)."""
+    view = service.get_cached(symbol.upper())
+    if view is None:
+        raise HTTPException(
+            404,
+            {"status": "not_built", "build_url": f"/research/{symbol.upper()}/stream"},
+        )
+    return service.with_network(view)
+
+
+@router.get("/research/{symbol}/stream")
+async def research_stream(symbol: str, force: bool = False):
+    """Server-sent events: `progress` {step, message} … then `result` (the view) or `error`."""
+    import asyncio
+
+    loop = asyncio.get_running_loop()
+    queue: asyncio.Queue = asyncio.Queue()
+
+    def progress(step: str, message: str) -> None:
+        loop.call_soon_threadsafe(
+            queue.put_nowait, ("progress", {"step": step, "message": message})
+        )
+
+    async def run() -> None:
+        try:
+            view = await asyncio.to_thread(service.build, symbol, progress, force)
+            await queue.put(("result", service.with_network(view)))
+        except LookupError as e:
+            await queue.put(("error", {"message": str(e), "kind": "not_covered"}))
+        except Exception as e:  # surfaced to the UI instead of a dropped connection
+            await queue.put(("error", {"message": f"{type(e).__name__}: {e}"[:300]}))
+
+    async def events():
+        task = asyncio.create_task(run())
+        try:
+            while True:
+                kind, data = await queue.get()
+                yield {"event": kind, "data": json.dumps(data, ensure_ascii=False)}
+                if kind in ("result", "error"):
+                    break
+        finally:
+            if not task.done():
+                task.cancel()  # client went away; the build thread finishes and caches
+
+    return EventSourceResponse(events())

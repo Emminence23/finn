@@ -8,10 +8,11 @@ tasks:
   summarise_filing:    {tier: fast}
   extract_results:     {tier: fast}
   extract_person:      {tier: fast}
-  extract_guidance:    {tier: fast}
+  extract_guidance:    {tier: mid}
   business_snapshot:   {tier: mid}
   bull_bear:           {tier: mid}
-  promise_vs_delivery: {tier: strong}
+  # The hero verdicts must not silently degrade to a lite model: fail (keep the fixture) instead.
+  promise_vs_delivery: {tier: strong, fallbacks: {gemini: [gemini-3.5-flash]}}
 
 # Model per provider per tier. Gemini IDs verified against this key's free tier on 2026-11-16
 # (`uv run python -m app.llm.cli models gemini` + a ping per model). Override per tier via
@@ -26,3 +27,11 @@ pricing:
   claude-haiku-5-5:  {input: 0.10, output: 0.50}
   claude-sonnet-5-5: {input: 2.00, output: 10.00}
   claude-opus-5-5:   {input: 4.00, output: 20.00}
+
+# Used in order only when a model's quota is exhausted (free tiers have small daily limits).
+# Every fallback must support schema-constrained JSON (Gemma on the Gemini API does not).
+fallbacks:
+  gemini:
+    fast:   [gemini-3.1-flash-lite, gemini-2.5-flash-lite]
+    mid:    [gemini-4-hydrogen, gemini-3.1-flash-lite]
+    strong: [gemini-3.5-flash, gemini-3.1-flash-lite]

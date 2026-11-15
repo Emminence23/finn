@@ -149,9 +149,12 @@ def parse_company_page(html: str) -> dict:
 
 # ------------------------------------------------------------------ fetch
 def fetch_fundamentals(symbol: str, fetcher: Fetcher | None = None) -> dict:
-    """Consolidated page first; fall back to standalone when consolidated has no quarters."""
+    """Consolidated unless standalone is more current. Some companies stopped filing
+    consolidated accounts years ago, so 'has data' is not enough: pick the basis whose latest
+    quarter is newest (ties go to consolidated)."""
     f = fetcher or get_fetcher()
     last_err: Exception | None = None
+    best: dict | None = None
     for basis, path in (
         ("consolidated", f"/company/{symbol}/consolidated/"),
         ("standalone", f"/company/{symbol}/"),
@@ -161,7 +164,13 @@ def fetch_fundamentals(symbol: str, fetcher: Fetcher | None = None) -> dict:
         except Exception as e:
             last_err = e
             continue
-        if any(q["revenue"] is not None for q in data["quarterly_headline"]):
-            data.update(symbol=symbol, basis=basis, source_url=BASE + path)
-            return data
+        quarters = [q["period"] for q in data["quarterly_headline"] if q["revenue"] is not None]
+        if not quarters:
+            continue
+        data.update(symbol=symbol, basis=basis, source_url=BASE + path, _latest=max(quarters))
+        if best is None or data["_latest"] > best["_latest"]:
+            best = data
+    if best:
+        best.pop("_latest")
+        return best
     raise NotCovered(f"{symbol}: no financials on screener ({last_err or 'empty tables'})")

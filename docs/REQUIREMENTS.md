@@ -280,7 +280,7 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 | M0 Setup | 0 | NFR-07, NFR-10 | ✅ Envs build; tickers verified |
 | M1 Data | 1 | §5 sources, FR-NET-01, NFR-02, NFR-11 | ✅ `make seed` fills SQLite from fixtures in ~2.5s |
 | M2 Push + Network | 2 | FR-PUSH-01..06, FR-CARD-01..05, FR-ALERT-01..05, FR-NET-02..05, 07 | ✅ `/digest` returns ranked, enriched cards; people eval 7/7 roles, 17/18 employers |
-| M3 Pull | 3 | FR-PULL-01..05, 10, 11, FR-NET-03 inside Pull | Promise scorecard for 4 research companies plus 1 unseen ticker live |
+| M3 Pull | 3 | FR-PULL-01..05, 10, 11, FR-NET-03 inside Pull | 🟡 Research set precomputed (4/4). An unseen ticker (TATAELXSI) builds live in 19s via SSE. Its scorecard is pending a quota reset or the Claude budget |
 | M4 Frontend | 4 | FR-APP-01..05, all UI surfaces | The demo script runs on a 375px viewport |
 | M5 Deploy | 5 | NFR-01, NFR-07, FR-APP-04 | Public URLs work on a real phone |
 | M6 Submission | 6 | Writeup items from the brief | README, architecture doc, build log, email draft |
@@ -300,6 +300,8 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 | D7 | Numbers computed in code; LLM only extracts and explains | LLM computes deltas | Accuracy (NFR-04) and auditability |
 | D8 | Network reasoning in code (networkx), LLM only phrases it | LLM over the whole contact list | Privacy (NFR-06), determinism, cost |
 | D9 | Hosted free-tier LLMs (Gemini primary), optional ≤$10 Anthropic for `promise_vs_delivery`; no rented GPU | Cloud GPU running Ollama | The demo must answer whenever reviewers open it; an always-on GPU costs more than the API budget. Ollama stays a supported provider via config |
+| D10 | Quota-aware fallback chain per tier (`fallbacks` in models.yaml); an incomplete research view is flagged and never cached | One model per tier; cache whatever came back | Free tiers allow as few as 20 requests per day per model. One research build uses about 6 mid-tier calls. Partial results must not stick |
+| D11 | Promise verdicts limited to evidence ids supplied by code; a verdict of "missed" before the deadline needs a management update | Let the model judge freely | Stops plausible but unfounded verdicts. Every verdict is traceable to a quote and a number |
 
 ---
 

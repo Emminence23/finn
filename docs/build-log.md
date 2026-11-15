@@ -35,3 +35,31 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - v2 sends page 1 plus the pages that mention appointments or profiles. It also normalises role strings in the scorer (CEO and "Chief Executive Officer" are the same role).
   - v2 scores people 7/7, roles 7/7, prior employers 17/18, schools 8/10.
 - **The network graph is pure code:** paths, overlaps, who-can-help and reconnect nudges never send contact data to an LLM (privacy, §6.4).
+
+## Phase 3: Pull research engine
+- **Pipeline:**
+  - screener tables, then the deterministic sections (snapshot, trajectory, cash quality, balance sheet, rule-based flags);
+  - the latest annual report plus the last 4 concall transcripts, downloaded and split into pages;
+  - guidance extraction, one call per transcript;
+  - promised-vs-delivered;
+  - business snapshot plus bull/bear;
+  - "who can help" attached at read time.
+- **Anti-hallucination, in code:**
+  - (a) every guidance quote is fuzzy-matched against the page text and re-located if the cited page is wrong; unmatched quotes are dropped;
+  - (b) verdicts may cite only evidence ids that code supplied (`Q:2026-06`, `FY:2026-03`, update ids);
+  - (c) "missed" before the deadline is downgraded to "too early" unless a management update admits a miss;
+  - (d) narrative citations must point at pages that were actually in the prompt.
+- **Model choice was measured:** on the same Kaynes call, flash-lite found 5 promises and flash found 10, including the three that turned out to be missed. Guidance moved to the mid tier.
+- **The Kaynes scorecard is the demo story:**
+  - FY26 revenue was ₹3,626 Cr against ₹4,000 Cr+ guided, after an earlier cut from ₹4,500 Cr;
+  - working capital was 133 days against ≤85 guided;
+  - operating cash flow was −₹600 Cr against "positive";
+  - debtor days went from 77 to 154.
+  - Each one shows the verbatim quote, call and page next to the reported number.
+- **Bug: the thinking model ran out of tokens.** The strong model spent its 8k output budget reasoning, then returned truncated JSON. Budgets were raised to 16–20k, staying under the Anthropic non-streaming limit so a switch to Claude still works.
+- **Bug: free-tier daily quota.** Gemini Flash allows 20 requests per day per model, and one research build uses about 6. Added a quota-aware fallback chain per tier (`fallbacks` in models.yaml): exhausted models are skipped for an hour and every response records the model that served it. Builds with a failed section are flagged `incomplete` and are never cached or saved as fixtures (the first run had silently cached a partial Manappuram view).
+- **Rejected Gemma 4 as a fallback:** it returns HTTP 500 when given a response schema, and wraps JSON in code fences.
+- **Verdict honesty:** "partly" was being used for "the data isn't reported". Added an `unclear` verdict, excluded from the credibility score.
+- **An unseen ticker (Tata Elxsi) found two ingest bugs:**
+  - its consolidated screener page stops in 2015, so the fetcher now picks whichever basis has the newest quarter;
+  - screener listed the same call twice, so the two transcripts collided on one filename; transcripts are now deduplicated by month.

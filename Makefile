@@ -1,4 +1,4 @@
-.PHONY: setup api web seed snapshot enrich test lint fmt check
+.PHONY: research setup api web seed snapshot enrich test lint fmt check
 
 setup:            ## install all dependencies
 	cd backend && uv sync
@@ -18,6 +18,9 @@ seed:             ## load fixtures into SQLite
 
 enrich:           ## LLM enrichment of filings -> fixtures/enrichment.json (cached)
 	cd backend && uv run python -m app.intel.enrich
+
+research:         ## Precompute research views for the research set -> fixtures/research/ (cached)
+	cd backend && uv run python -m app.research.service --fixtures
 
 test:
 	cd backend && uv run pytest -q

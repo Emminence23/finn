@@ -11,6 +11,7 @@ from app.llm.base import (
     LLMRequest,
     LLMResponse,
     Provider,
+    QuotaExhausted,
     docs_as_text_block,
     json_instruction,
 )
@@ -43,6 +44,8 @@ class GeminiProvider:
             try:
                 return self._complete_once(req)
             except errors.APIError as e:
+                if getattr(e, "code", None) == 429 and "PerDay" in str(e):
+                    raise QuotaExhausted(f"gemini {req.model}: daily quota exhausted") from e
                 if getattr(e, "code", None) not in self.RETRYABLE or attempt == 3:
                     raise LLMError(f"gemini {getattr(e, 'code', '?')}: {str(e)[:200]}") from e
                 time.sleep(2 ** (attempt + 1))  # 2s, 4s, 8s
