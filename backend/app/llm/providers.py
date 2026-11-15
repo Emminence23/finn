@@ -21,13 +21,34 @@ class GeminiProvider:
     name = "gemini"
     supports_pdf = True
 
-    def __init__(self, api_key: str) -> None:
+    # Busy/overloaded models (503/504) and per-minute quota (429) are transient on the free tier.
+    RETRYABLE = (429, 500, 503, 504)
+
+    def __init__(self, api_key: str, timeout_s: int = 120) -> None:
         from google import genai
+        from google.genai import types
 
         self._genai = genai
-        self.client = genai.Client(api_key=api_key)
+        # Without a timeout an overloaded model can hang a request indefinitely.
+        self.client = genai.Client(
+            api_key=api_key, http_options=types.HttpOptions(timeout=timeout_s * 1000)
+        )
 
     def complete(self, req: LLMRequest) -> LLMResponse:
+        import time
+
+        from google.genai import errors
+
+        for attempt in range(4):
+            try:
+                return self._complete_once(req)
+            except errors.APIError as e:
+                if getattr(e, "code", None) not in self.RETRYABLE or attempt == 3:
+                    raise LLMError(f"gemini {getattr(e, 'code', '?')}: {str(e)[:200]}") from e
+                time.sleep(2 ** (attempt + 1))  # 2s, 4s, 8s
+        raise LLMError("unreachable")
+
+    def _complete_once(self, req: LLMRequest) -> LLMResponse:
         from google.genai import types
 
         parts: list = []

@@ -43,8 +43,9 @@ def test_per_task_provider_override(router, monkeypatch):
 
 
 def test_unconfigured_model_fails_loudly(router):
+    router.config["default_provider"] = "groq"  # groq tiers are TBD
     with pytest.raises(LLMError, match="no model configured"):
-        router.route("promise_vs_delivery")  # gemini strong tier is TBD
+        router.route("promise_vs_delivery")
 
 
 def test_structured_output_is_cached(router):

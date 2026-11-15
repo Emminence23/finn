@@ -12,9 +12,11 @@ tasks:
   bull_bear:           {tier: mid}
   promise_vs_delivery: {tier: strong}
 
-# Model per provider per tier. Model IDs are filled in after checking each provider's current list.
+# Model per provider per tier. Gemini IDs verified against this key's free tier on 2026-11-16
+# (`uv run python -m app.llm.cli models gemini` + a ping per model). Override per tier via
+# LLM_MODEL_<PROVIDER>_<TIER>.
 providers:
-  gemini:     {fast: TBD, mid: TBD, strong: TBD}
+  gemini:     {fast: gemini-3.5-flash-lite, mid: gemini-3.5-flash, strong: gemini-4-hydrogen}
   groq:       {fast: TBD, mid: TBD, strong: TBD}
   anthropic:  {fast: claude-haiku-5-5, mid: claude-sonnet-5-5, strong: claude-opus-5-5}
 

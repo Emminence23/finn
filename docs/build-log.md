@@ -21,3 +21,5 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - Found the brief's exact hero case in real data: Pidilite appointed a **CFO-Designate** (Oct 9). Other management changes with rich profiles: HDFC Bank CCO (ex-ICICI Bank, which is also in the portfolio), CG Power SMPs, SRF CHRO, Trent director.
 - Screener parser handles lenders (Revenue/Financing Profit, no EBITDA → stored as null rather than faked) and falls back from consolidated to standalone figures.
 - BSE stays dropped (403). NSE `attchmntText` gives a free, usable subject line per filing.
+- Gemini key added. Probed every listed model with a one-line request instead of trusting the model list: several returned 404 (not available to new users), 429 (no free quota) or 503/504 (overloaded). Chose fast=`gemini-3.5-flash-lite`, mid=`gemini-3.5-flash`, strong=`gemini-4-hydrogen`.
+- **Bug found:** the first probe hung indefinitely because the Gemini client had no timeout. Fixed with a 120s timeout plus exponential-backoff retries on 429/5xx in the Gemini adapter.
