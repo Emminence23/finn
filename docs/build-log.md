@@ -63,3 +63,16 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **An unseen ticker (Tata Elxsi) found two ingest bugs:**
   - its consolidated screener page stops in 2015, so the fetcher now picks whichever basis has the newest quarter;
   - screener listed the same call twice, so the two transcripts collided on one filename; transcripts are now deduplicated by month.
+
+## Phase 4: frontend
+- **Three tabs, one job each:**
+  - Today (Push): ranked brief for 24h / 7d / 30d, unusual moves, people worth reconnecting with, routine filings folded away;
+  - Ask (Pull): one search box for tickers, themes and people, plus a list of management track records;
+  - People (Network): expertise map by theme, contact profiles with "ask them about", "can introduce you to" and paths.
+- **Company page leads with promised-vs-delivered.** An unbuilt ticker builds live over SSE with step-by-step progress; incomplete builds show a banner instead of passing as complete.
+- **A brief, not a dashboard.** The 30-day window had 60 cards. The feed shows the top 8 and folds the rest behind "N more, lower priority"; each company's "who to ask" appears once, on its most important card. Results cards lead with what the numbers say ("Profit down 36% YoY even as revenue grew 12%") instead of the filing's subject line.
+- **Charts follow the dataviz rules:** single-series sparklines with hover and arrow-key access, a thin segmented verdict bar with a counted legend, status colours always paired with an icon and label, tabular figures, and selected dark-mode tokens.
+- **Bug: every bank was treated as an NBFC.** `is_bank` read the latest annual row, which sorted to 'TTM' and has no balance sheet. Bank revenue was therefore compared on the wrong line and screener showed 36–57% gaps. With the fix, revenue and PBT match screener to 0.0%.
+- **Honest cross-check labels.** The remaining HDFC Bank and ICICI Bank gap is PAT only (−3.9%, −6.1%): the filing's owners' share against screener's total profit. These now show as "revenue and PBT match; PAT −x% (owners' share vs total)" instead of a bare "differs".
+- **Bug: blank revenue label** on screener-fallback cards (Trent): fixed.
+- **PWA basics:** icon, manifest and theme colour, so it can be added to a phone's home screen.

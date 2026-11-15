@@ -451,7 +451,27 @@ def person_profile(person_id: str) -> dict | None:
     }
     if not p.is_contact:
         out["paths"] = paths_to(person_id, people)
+    else:
+        out["knows"] = [
+            {"person": _person_summary(people[k["person"]]), "context": k.get("context")}
+            for k in p.knows
+            if k["person"] in people
+        ]
+        out["can_help_on"] = can_help_on(person_id, people)
     return out
+
+
+def can_help_on(person_id: str, people: dict[str, Person], top: int = 3) -> list[dict]:
+    """Companies in the investor's universe where this contact ranks among the top helpers."""
+    from app.ingest.universe import all_symbols
+
+    out = []
+    for sym in all_symbols():
+        ranked = who_can_help(sym, people, limit=top)
+        for rank, h in enumerate(ranked):
+            if h["contact"]["id"] == person_id:
+                out.append({"symbol": sym, "rank": rank + 1, "score": h["score"], "why": h["why"]})
+    return sorted(out, key=lambda x: (-x["score"], x["rank"]))
 
 
 # ------------------------------------------------------------------ serialisers

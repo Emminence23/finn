@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
+/* FINN design tokens. One accent (blue), reserved status colours for verdicts and alerts,
+   warm neutral surfaces. Dark mode is its own selected steps, not an inversion. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  color-scheme: light;
+  --bg: #f6f5f1;
+  --surface: #fcfcfb;
+  --surface-2: #f0efea;
+  --line: #e4e2db;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-3: #8a8983;
+  --accent: #2a78d6;
+  --accent-soft: #e6f0fc;
+  --good: #0a7d0a;
+  --good-soft: #e5f4e5;
+  --warn: #9a6a00;
+  --warn-soft: #fdf3dc;
+  --bad: #c03030;
+  --bad-soft: #fbe9e8;
+  --mute-soft: #eceae4;
+  --spark: #b9b7af;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --bg: #121211;
+    --surface: #1a1a19;
+    --surface-2: #232321;
+    --line: #2e2e2b;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --ink-3: #8f8e86;
+    --accent: #5598e7;
+    --accent-soft: #1b2b40;
+    --good: #3fbf3f;
+    --good-soft: #17301a;
+    --warn: #fab219;
+    --warn-soft: #36290c;
+    --bad: #ec6b6b;
+    --bad-soft: #3a1c1c;
+    --mute-soft: #2a2a27;
+    --spark: #5d5c57;
   }
 }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121211;
+  --surface: #1a1a19;
+  --surface-2: #232321;
+  --line: #2e2e2b;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --ink-3: #8f8e86;
+  --accent: #5598e7;
+  --accent-soft: #1b2b40;
+  --good: #3fbf3f;
+  --good-soft: #17301a;
+  --warn: #fab219;
+  --warn-soft: #36290c;
+  --bad: #ec6b6b;
+  --bad-soft: #3a1c1c;
+  --mute-soft: #2a2a27;
+  --spark: #5d5c57;
+}
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-mute-soft: var(--mute-soft);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  overscroll-behavior-y: none;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+@keyframes finn-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+.skeleton {
+  background: var(--surface-2);
+  border-radius: 8px;
+  animation: finn-pulse 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+/* Search fields show focus on their wrapping label, not a second ring on the input. */
+label > input:focus-visible {
+  outline: none;
 }

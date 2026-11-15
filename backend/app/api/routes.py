@@ -76,8 +76,8 @@ def companies(q: str = "", limit: int = Query(10, le=50)) -> list[dict]:
         rows = db.execute(
             """SELECT symbol, name, in_portfolio, in_research_set FROM companies
                WHERE symbol LIKE ? OR UPPER(name) LIKE ?
-               ORDER BY in_portfolio DESC, in_research_set DESC,
-                        (symbol = ?) DESC, (symbol LIKE ?) DESC, LENGTH(symbol)
+               ORDER BY (symbol = ?) DESC, in_portfolio DESC, in_research_set DESC,
+                        (symbol LIKE ?) DESC, LENGTH(symbol)
                LIMIT ?""",
             (f"{q}%", f"%{q}%", q, f"{q}%", limit),
         ).fetchall()
@@ -146,6 +146,12 @@ def list_people(contacts_only: bool = True) -> list[dict]:
 
 
 # ------------------------------------------------------------------ Pull (FR-PULL)
+@router.get("/research")
+def research_list() -> list[dict]:
+    """Research views ready to read instantly (precomputed or cached), newest first."""
+    return service.summaries()
+
+
 @router.get("/research/{symbol}")
 def research(symbol: str) -> dict:
     """Cached or precomputed research view. 404 with `build_url` when not built yet; the UI

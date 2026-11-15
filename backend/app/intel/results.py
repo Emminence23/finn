@@ -97,12 +97,13 @@ def _ebitda(p: PeriodFigures, k: float) -> float | None:
 
 def is_bank(symbol: str) -> bool:
     """Banks (deposit-takers) vs NBFCs: decided from the balance sheet, not by the LLM."""
+    # Any period with a balance sheet: ordering by period is unsafe ('TTM' sorts after dates
+    # and carries no balance sheet), which once silently turned every bank into an NBFC.
     with session() as db:
-        row = db.execute(
-            "SELECT data_json FROM financials_annual WHERE symbol=? ORDER BY period DESC LIMIT 1",
-            (symbol,),
-        ).fetchone()
-    return bool(row) and "Deposits" in json.loads(row["data_json"]).get("balance_sheet", {})
+        rows = db.execute(
+            "SELECT data_json FROM financials_annual WHERE symbol=?", (symbol,)
+        ).fetchall()
+    return any("Deposits" in json.loads(r["data_json"]).get("balance_sheet", {}) for r in rows)
 
 
 def _figures(p: PeriodFigures | None, k: float, lender: bool, bank: bool = False) -> dict | None:
@@ -182,8 +183,14 @@ def cross_check(symbol: str, cur: dict, tolerance_pct: float = 1.0) -> dict:
             diffs[m] = d
     if not diffs:
         return {"status": "unavailable", "diffs": {}}
-    ok = all(abs(d) <= tolerance_pct for d in diffs.values())
-    return {"status": "match" if ok else "differs", "diffs": diffs}
+    off = [m for m, d in diffs.items() if abs(d) > tolerance_pct]
+    if not off:
+        return {"status": "match", "diffs": diffs}
+    if off == ["pat"]:
+        # Top line and PBT agree, so the gap is below PBT: almost always the filing's
+        # owners' share vs screener's total profit (minority interest). Say so, don't hide it.
+        return {"status": "pat_basis", "diffs": diffs}
+    return {"status": "differs", "diffs": diffs}
 
 
 def screener_results_card(symbol: str) -> dict | None:
@@ -204,6 +211,7 @@ def screener_results_card(symbol: str) -> dict | None:
         "basis": "consolidated",
         "unit": "Rs crore",
         "is_lender": cur["ebitda"] is None,
+        "revenue_label": "Revenue",
         "ebitda_margin": (
             round(cur["ebitda"] / cur["revenue"] * 100, 1)
             if cur["ebitda"] is not None and cur["revenue"]

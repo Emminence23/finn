@@ -1,5 +1,7 @@
-// Single typed entry point to the FINN API. Feature types are added here as endpoints land.
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// Single typed entry point to the FINN API.
+import useSWR, { type SWRConfiguration } from "swr";
+
+export const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 const PASSCODE_KEY = "finn.passcode";
 
 export class ApiError extends Error {
@@ -33,11 +35,325 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
       ...init.headers,
     },
   });
-  if (!res.ok) throw new ApiError(res.status, await res.text());
+  if (!res.ok) {
+    if (res.status === 401 && typeof window !== "undefined") {
+      window.dispatchEvent(new Event("finn:unauthorized"));
+    }
+    throw new ApiError(res.status, await res.text());
+  }
   return res.json() as Promise<T>;
 }
 
-export const fetcher = <T,>(path: string) => api<T>(path);
+export function useApi<T>(path: string | null, config?: SWRConfiguration<T>) {
+  return useSWR<T>(path, (p: string) => api<T>(p), {
+    revalidateOnFocus: false,
+    keepPreviousData: true,
+    ...config,
+  });
+}
 
-// ---- types ----
-export type Health = { status: "ok"; counts: Record<string, number> };
+/** Server-sent events over fetch (EventSource cannot send the passcode header). */
+export async function stream(
+  path: string,
+  on: (event: string, data: unknown) => void,
+  signal?: AbortSignal,
+) {
+  const res = await fetch(`${BASE}${path}`, {
+    headers: { "X-Finn-Passcode": getPasscode(), Accept: "text/event-stream" },
+    signal,
+  });
+  if (!res.ok || !res.body) throw new ApiError(res.status, await res.text());
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = "";
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true }).replace(/\r\n/g, "\n");
+    let i: number;
+    while ((i = buf.indexOf("\n\n")) >= 0) {
+      const block = buf.slice(0, i);
+      buf = buf.slice(i + 2);
+      let event = "message";
+      const data: string[] = [];
+      for (const line of block.split("\n")) {
+        if (line.startsWith("event:")) event = line.slice(6).trim();
+        else if (line.startsWith("data:")) data.push(line.slice(5).trimStart());
+      }
+      if (data.length) on(event, JSON.parse(data.join("\n")));
+    }
+  }
+}
+
+// ------------------------------------------------------------------ network
+export type Contact = {
+  id: string;
+  name: string;
+  headline: string | null;
+  current: string | null;
+  is_contact: boolean;
+  relationship?: string | null;
+  strength?: number;
+  last_contact?: string | null;
+  context?: string | null;
+  themes?: string[];
+};
+
+export type Link = {
+  kind: string;
+  org?: string | null;
+  detail: string;
+  confidence: "confirmed" | "possible";
+  strength: number;
+};
+
+export type Paths = {
+  target: Contact;
+  direct: Link[];
+  via: { contact: Contact; link: Link; other_links: Link[]; strength: number }[];
+};
+
+export type Helper = { contact: Contact; score: number; why: string; reasons: string[] };
+
+export type Nudge = {
+  contact: Contact;
+  days_since_contact: number;
+  event: { id: string; symbol: string; ts: string; category: string; title: string };
+  reason: string;
+};
+
+export type PersonProfile = {
+  id: string;
+  name: string;
+  headline: string | null;
+  current: string | null;
+  is_contact: boolean;
+  bio: string | null;
+  themes: string[];
+  roles: { company: string; symbol: string | null; title: string | null; start: number | null; end: number | null; span: string }[];
+  education: { school: string; program?: string | null; start?: number | null; end?: number | null }[];
+  relationship: { type: string; strength: number; last_contact: string | null; context?: string | null } | null;
+  overlaps_with_you: Link[];
+  paths?: Paths;
+  knows?: { person: Contact; context: string | null }[];
+  can_help_on?: { symbol: string; rank: number; score: number; why: string }[];
+};
+
+// ------------------------------------------------------------------ push
+export type Alert = {
+  id: string;
+  kind: "volume" | "price" | "category";
+  symbol: string;
+  ts: string;
+  reason: string;
+  value: number;
+  price_change_pct?: number | null;
+  announcement_id?: string;
+  title?: string;
+};
+
+export type FilingItem = {
+  id: string;
+  symbol: string;
+  ts: string;
+  category: string;
+  title: string;
+  pdf_url: string | null;
+};
+
+export type ResultsRow = {
+  metric: "revenue" | "ebitda" | "pbt" | "pat";
+  value: number | null;
+  prev: number | null;
+  year_ago: number | null;
+  qoq: number | null;
+  yoy: number | null;
+};
+
+export type ResultsCard = {
+  period: string;
+  basis: string;
+  unit: string;
+  is_lender: boolean;
+  revenue_label: string;
+  ebitda_margin: number | null;
+  rows: ResultsRow[];
+  cross_check: { status: "match" | "pat_basis" | "differs" | "unavailable"; diffs?: Record<string, number> };
+  source: string;
+};
+
+export type CardPerson = {
+  id: string | null;
+  name: string;
+  role: string;
+  direction: "incoming" | "outgoing" | "reappointed" | string;
+  bio: string | null;
+  source: string;
+  prior: string[];
+  education: string[];
+  paths: Paths;
+};
+
+export type Card = {
+  id: string;
+  symbol: string;
+  company: string;
+  ts: string;
+  category: string;
+  kind: "results" | "management_change" | "material_event" | "filing";
+  materiality: number;
+  title: string;
+  pdf_url: string | null;
+  related: FilingItem[];
+  alerts: Alert[];
+  in_portfolio: boolean;
+  results?: ResultsCard | null;
+  people?: CardPerson[];
+  helpers: Helper[];
+  priority: number;
+};
+
+export type Digest = {
+  window: { name: string | null; start: string; end: string };
+  alerts: Alert[];
+  cards: Card[];
+  routine: { count: number; items: FilingItem[] };
+  nudges: Nudge[];
+  counts: { filings: number; cards: number; routine: number; alerts: number };
+};
+
+export type AlertRules = {
+  volume_multiple: number;
+  price_abs_pct: number;
+  categories: string[];
+  enabled: { volume: boolean; price: boolean; category: boolean };
+  all_categories?: string[];
+};
+
+// ------------------------------------------------------------------ pull
+export type Cite = { doc: string; page: number | null };
+export type Claim = { text: string; cites: Cite[] };
+export type Verdict = "delivered" | "partly" | "missed" | "unclear" | "too_early";
+
+export type PromiseItem = {
+  promise_ids: string[];
+  verdict: Verdict;
+  quote: string;
+  said_in: string;
+  doc_id: string;
+  page: number;
+  target: string;
+  horizon: string | null;
+  deadline: string | null;
+  actual: string;
+  evidence: string[];
+  note: string;
+  guard: string | null;
+  repeated_in: string[];
+};
+
+export type DocRef = {
+  id: string;
+  kind: "transcript" | "annual_report";
+  period: string;
+  label: string;
+  url: string;
+  quarter: string | null;
+  pages: number;
+};
+
+export type Flag = { id: string; tone: "positive" | "negative"; text: string };
+
+export type Financials = {
+  is_lender: boolean;
+  basis: string;
+  unit: string;
+  source: string;
+  snapshot: {
+    fy: string | null;
+    revenue: number | null;
+    revenue_ttm: number | null;
+    operating_profit: number | null;
+    margin_pct: number | null;
+    margin_label: string;
+    pat: number | null;
+    pat_ttm: number | null;
+    roe_pct: number | null;
+    roce_pct: number | null;
+    debt_to_equity: number | null;
+    market_cap_cr: number | null;
+    pe: number | null;
+    price: number | null;
+  };
+  trajectory: {
+    annual: { period: string; revenue: number | null; operating_profit: number | null; margin_pct: number | null; pat: number | null }[];
+    quarterly: {
+      period: string;
+      revenue: number | null;
+      operating_profit: number | null;
+      margin_pct: number | null;
+      pat: number | null;
+      revenue_yoy: number | null;
+      pat_yoy: number | null;
+    }[];
+    cagr: Record<string, number | null>;
+  };
+  cash_quality: {
+    annual: { period: string; cfo: number | null; fcf: number | null; pat: number | null; cfo_to_pat: number | null }[];
+    cfo_to_pat_3y: number | null;
+    fcf_3y: number | null;
+  };
+  balance_sheet: {
+    annual: {
+      period: string;
+      borrowings: number | null;
+      net_worth: number | null;
+      debt_to_equity: number | null;
+      debtor_days?: number | null;
+      inventory_days?: number | null;
+      payable_days?: number | null;
+      working_capital_days?: number | null;
+    }[];
+    asset_quality?: { period: string; gross_npa_pct: number | null; net_npa_pct: number | null }[];
+  };
+  flags: Flag[];
+};
+
+export type Research = {
+  symbol: string;
+  company: string;
+  generated_at: string;
+  latest_quarter: string;
+  documents: DocRef[];
+  financials: Financials;
+  promises: {
+    items: PromiseItem[];
+    credibility: string | null;
+    counts: Partial<Record<Verdict, number>>;
+    score: number | null;
+  };
+  guidance: { id: string; kind: string; quote: string; target: string; doc_id: string; page: number }[];
+  business: {
+    what_they_do: Claim | null;
+    segments: { name: string; share: string | null; cites: Cite[] }[];
+    customers_and_markets: Claim[];
+    recent_developments: Claim[];
+  } | null;
+  bull_bear: { bull: Claim[]; bear: Claim[]; watch: Claim[] } | null;
+  about: string | null;
+  incomplete: string[];
+  helpers: Helper[];
+};
+
+export type ResearchSummary = {
+  symbol: string;
+  company: string;
+  generated_at: string;
+  latest_quarter: string;
+  counts: Partial<Record<Verdict, number>>;
+  score: number | null;
+  headline: string | null;
+  incomplete: string[];
+};
+
+export type Company = { symbol: string; name: string; in_portfolio: number; in_research_set: number };

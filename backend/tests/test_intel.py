@@ -166,3 +166,40 @@ def test_alerts_volume_and_price_thresholds():
     assert kinds["price"]["value"] == pytest.approx(7.0)
     alerts.set_rules(rules | {"volume_multiple": 3.5, "price_abs_pct": 8.0})
     assert alerts.evaluate(datetime(2026, 10, 25), datetime(2026, 10, 25, 23)) == []
+
+
+def test_is_bank_ignores_ttm_row_without_balance_sheet():
+    import json
+
+    from app.db import session
+    from app.intel.results import is_bank
+
+    with session() as db:
+        for sym, bs in (("BANKX", {"Deposits": {"2026-03": 1.0}}), ("NBFCX", {"Borrowing": {}})):
+            db.execute(
+                "INSERT INTO financials_annual VALUES (?,?,?)",
+                (sym, "2026-03", json.dumps({"balance_sheet": bs})),
+            )
+            db.execute(
+                "INSERT INTO financials_annual VALUES (?,?,?)",
+                (sym, "TTM", json.dumps({"annual_pl": {}})),
+            )
+    assert is_bank("BANKX") and not is_bank("NBFCX")
+
+
+@pytest.mark.parametrize(
+    "pat,status",
+    [(100.0, "match"), (94.0, "pat_basis"), (100.0 * 0.5, "pat_basis")],
+)
+def test_cross_check_separates_pat_basis_gap(pat, status):
+    from app.db import session
+    from app.intel.results import cross_check
+
+    with session() as db:
+        db.execute(
+            "INSERT OR REPLACE INTO financials_quarterly VALUES (?,?,?,?,?,?,?)",
+            ("XCHK", "2026-09", 1000.0, None, 130.0, 100.0, "screener"),
+        )
+    cur = {"period": "2026-09", "revenue": 1000.0, "pbt": 130.0, "pat": pat}
+    assert cross_check("XCHK", cur)["status"] == status
+    assert cross_check("XCHK", {**cur, "revenue": 900.0})["status"] == "differs"

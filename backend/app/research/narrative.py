@@ -8,6 +8,7 @@ claims left with no valid citation.
 from __future__ import annotations
 
 import json
+import re
 
 from pydantic import BaseModel, Field
 
@@ -73,12 +74,18 @@ def _clean_cites(cites: list, allowed: dict[str, set[int]], fin_ids: set[str]) -
     return [dict(t) for t in {tuple(sorted(d.items())) for d in out}]
 
 
+def _clean_text(t: str) -> str:
+    """Drop a dangling inline citation the model began before the structured one."""
+    t = re.sub(r"[\s{(\[]+$", "", t)
+    return re.sub(r"\s*\[(T\d|AR)[^\]]*\]\s*$", "", t)
+
+
 def _claims(claims, allowed, fin_ids) -> list[dict]:
     out = []
     for c in claims:
         cites = _clean_cites(c.cites, allowed, fin_ids)
         if cites:
-            out.append({"text": c.text, "cites": cites})
+            out.append({"text": _clean_text(c.text), "cites": cites})
     return out
 
 

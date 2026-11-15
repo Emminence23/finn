@@ -3819,16 +3819,16 @@
    "basis": "consolidated",
    "unit": "Rs crore",
    "is_lender": true,
-   "revenue_label": "Revenue",
+   "revenue_label": "Interest earned",
    "ebitda_margin": null,
    "rows": [
     {
      "metric": "revenue",
-     "value": 88161.18,
-     "prev": 79689.22,
-     "year_ago": 76146.59,
-     "qoq": 10.6,
-     "yoy": 15.8
+     "value": 55991.91,
+     "prev": 52240.85,
+     "year_ago": 48180.91,
+     "qoq": 7.2,
+     "yoy": 16.2
     },
     {
      "metric": "ebitda",
@@ -3856,9 +3856,9 @@
     }
    ],
    "cross_check": {
-    "status": "differs",
+    "status": "pat_basis",
     "diffs": {
-     "revenue": 57.5,
+     "revenue": -0.0,
      "pbt": -0.0,
      "pat": -6.1
     }
@@ -3870,16 +3870,16 @@
    "basis": "consolidated",
    "unit": "Rs crore",
    "is_lender": true,
-   "revenue_label": "Revenue",
+   "revenue_label": "Interest earned",
    "ebitda_margin": null,
    "rows": [
     {
      "metric": "revenue",
-     "value": 129358.69,
-     "prev": 133110.36,
-     "year_ago": 118560.63,
-     "qoq": -2.8,
-     "yoy": 9.1
+     "value": 95131.63,
+     "prev": 90575.33,
+     "year_ago": 86993.84,
+     "qoq": 5.0,
+     "yoy": 9.4
     },
     {
      "metric": "ebitda",
@@ -3907,9 +3907,9 @@
     }
    ],
    "cross_check": {
-    "status": "differs",
+    "status": "pat_basis",
     "diffs": {
-     "revenue": 36.0,
+     "revenue": -0.0,
      "pbt": -0.0,
      "pat": -3.9
     }

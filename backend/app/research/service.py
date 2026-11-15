@@ -79,6 +79,36 @@ def get_cached(symbol: str) -> dict | None:
     return json.loads(path.read_text()) if path.exists() else None
 
 
+def summaries() -> list[dict]:
+    """One line per ready view: enough for a list, without shipping whole views."""
+    views: dict[str, dict] = {}
+    for path in sorted((fixtures_dir() / "research").glob("*.json")):
+        views[path.stem] = json.loads(path.read_text())
+    with session() as db:
+        for r in db.execute(
+            "SELECT symbol, payload_json FROM research_cache ORDER BY created_at"
+        ):  # later rows win: the newest build per symbol
+            views[r["symbol"]] = json.loads(r["payload_json"])
+    out = []
+    for v in views.values():
+        p = v.get("promises") or {}
+        out.append(
+            {
+                "symbol": v["symbol"],
+                "company": v["company"],
+                "generated_at": v.get("generated_at"),
+                "latest_quarter": v.get("latest_quarter"),
+                "counts": p.get("counts", {}),
+                "score": p.get("score"),
+                "headline": next(
+                    (i["actual"] for i in p.get("items", []) if i["verdict"] == "missed"), None
+                ),
+                "incomplete": v.get("incomplete", []),
+            }
+        )
+    return sorted(out, key=lambda x: x["generated_at"] or "", reverse=True)
+
+
 def with_network(view: dict) -> dict:
     """Attach 'who can help' (FR-NET-03 inside Pull). Themes come from the business snapshot."""
     view = dict(view)

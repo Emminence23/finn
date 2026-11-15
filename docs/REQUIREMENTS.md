@@ -281,7 +281,7 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 | M1 Data | 1 | §5 sources, FR-NET-01, NFR-02, NFR-11 | ✅ `make seed` fills SQLite from fixtures in ~2.5s |
 | M2 Push + Network | 2 | FR-PUSH-01..06, FR-CARD-01..05, FR-ALERT-01..05, FR-NET-02..05, 07 | ✅ `/digest` returns ranked, enriched cards; people eval 7/7 roles, 17/18 employers |
 | M3 Pull | 3 | FR-PULL-01..05, 10, 11, FR-NET-03 inside Pull | 🟡 Research set precomputed (4/4). An unseen ticker (TATAELXSI) builds live in 19s via SSE. Its scorecard is pending a quota reset or the Claude budget |
-| M4 Frontend | 4 | FR-APP-01..05, all UI surfaces | The demo script runs on a 375px viewport |
+| M4 Frontend | 4 | FR-APP-01..05, all UI surfaces | ✅ Today, Ask, company research, People and profile screens checked at 390px in light and dark: no horizontal scroll, no console errors |
 | M5 Deploy | 5 | NFR-01, NFR-07, FR-APP-04 | Public URLs work on a real phone |
 | M6 Submission | 6 | Writeup items from the brief | README, architecture doc, build log, email draft |
 
