@@ -114,3 +114,17 @@ def test_an_open_question_without_a_model_still_answers_with_the_code_outputs(se
     assert r["kind"] == "reply"
     if r["intent"] != "qa":  # no model configured in tests
         assert r["notice"] and r["intent"] == "overview"
+
+
+def test_who_can_help_answers_from_the_investors_own_network(seeded):
+    from app.main import app
+
+    assert pull.route("Who in my network can help me understand Kaynes' capex?") == "network"
+    with TestClient(app) as c:
+        r = c.post(
+            "/pull/chat",
+            json={"message": "Who in my network can help me understand Kaynes' capex?"},
+        ).json()
+    assert r["intent"] == "network" and r["blocks"][0]["type"] == "contacts"
+    items = r["blocks"][0]["items"]
+    assert items and items[0]["explanation"].count("unknown") == 1

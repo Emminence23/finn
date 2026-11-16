@@ -6,6 +6,7 @@ import { ChevronDown } from "lucide-react";
 import type { Cite, Claim, DocRef, QaAnswer, Verdict } from "@/lib/api";
 import { CiteChips, CredibilityText, FinnRead, VERDICT, VerdictBar, VerdictPill, cleanClaim } from "./research";
 import { AiTag } from "./ui";
+import { ContactRow, type Contact } from "./signal";
 
 // ------------------------------------------------------------------ types (backend app/research/pull.py)
 export type LedgerItem = {
@@ -53,7 +54,8 @@ export type Block =
   | { type: "ledger"; calls: LedgerCall[]; counts: Record<string, number>; summary: string[]; credibility: string | null; margin_label: string }
   | { type: "themes"; items: Theme[] }
   | { type: "guidance"; title: string; items: GuidanceItem[] }
-  | ({ type: "answer" } & QaAnswer);
+  | ({ type: "answer" } & QaAnswer)
+  | { type: "contacts"; items: Contact[]; topic: string; event: string | null };
 
 export type PullReply =
   | {
@@ -362,6 +364,21 @@ export function Blocks({ blocks, docs, base }: { blocks: Block[]; docs: Map<stri
                     </li>
                   ))}
                 </ul>
+              </div>
+            );
+          case "contacts":
+            return (
+              <div key={i}>
+                <p className="text-[13px] text-ink-2">People who may give context on {b.topic}:</p>
+                {b.items.length === 0 ? (
+                  <p className="mt-2 text-[13px]">No relevant match in your network. Try Network → Yours to add your own contacts.</p>
+                ) : (
+                  <ul className="divide-y divide-line">
+                    {b.items.map((c) => (
+                      <ContactRow key={c.person_id} c={c} />
+                    ))}
+                  </ul>
+                )}
               </div>
             );
           case "answer":

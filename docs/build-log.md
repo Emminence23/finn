@@ -344,3 +344,10 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Narrative vs numbers** pairs management's latest words on each theme with the reported trend and a read computed from that theme's verdicts.
 - Intermediate submission checkpoint tagged `checkpoint-2026-11-16`.
 
+## Phase 5h: Signal-to-Network (Task C)
+- **Read the spec against what existed.** FINN already triaged filings, levelled them and named who can help. New: the spec's transparent 0-100 attention score, the contact relevance score with degree and confidence, the analyze and search APIs, provenance and feedback, and an evaluation of the score.
+- **Attention (`intel/signal.py`)** is code. Model output enters only as inputs: the triage category and one-line summary, and names read from management-change filings. Facts (amounts, percentages, effective dates, people) carry their sentence and say whether it came from the exchange's subject line or FINN's AI summary.
+- **Measured before tuning:** the spec's starting weights put 12 of 25 material filings at Medium or above. The misses were read one by one, and four rules were fixed for stated reasons: results with no parsed numbers now take their YoY move from the stored quarterly table; re-appointments and newspaper or auditor copies of results score as the continuations they are; setting up a subsidiary isn't a deal; a product approval by a regulator is strategic. Result: 19 of 25 and 75 of 75. The remaining misses are investor presentations (slides FINN doesn't read) and amounts the filing doesn't state. The bands weren't moved to fit.
+- **Matching (`network/match.py`)** reuses the graph loader, so it only ever sees one investor's rows. A first test of the spec's demo scenario passed; a key error in the entry builder had been silently swallowed by the network fallback, which was the fallback working as designed. Degraded results are no longer stored.
+- **Product:** a score pill and "Why, and who can help" sheet on every card, the score on folded rows, and "Who in my network can help …" in the Ask chat.
+

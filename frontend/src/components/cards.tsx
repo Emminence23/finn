@@ -8,6 +8,7 @@ import { ShareButton } from "./ShareButton";
 import type { Alert, Card, CardPerson, ResultsCard } from "@/lib/api";
 import { CATEGORY_LABEL, ago, crore, day, fq, pct, shortName } from "@/lib/fmt";
 import { HelperLine, PathView } from "./network";
+import { AttentionButton } from "./signal";
 import { AiTag, Pill } from "./ui";
 
 export function AlertChip({ a }: { a: Alert }) {
@@ -117,6 +118,7 @@ function CardShell({
           </span>
         )}
       </p>
+      {card.attention && <AttentionButton id={card.id} attention={card.attention} />}
       {moves.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">
           {moves.map((a) => (
@@ -357,6 +359,7 @@ export function NoteRow({ card, now, read, showHelper }: { card: Card; now: stri
         <span className="mt-0.5 block text-[12px] text-ink-3">
           {CATEGORY_LABEL[card.category] ?? card.category} · {ago(card.ts, now)} ago
           {card.in_portfolio && card.weight != null ? ` · ${card.weight < 1 ? card.weight.toFixed(1) : Math.round(card.weight)}% of your portfolio` : " · you follow it"}
+          {card.attention && ` · attention ${card.attention.score}`}
         </span>
       </span>
       <ChevronDown size={15} className="mt-1 shrink-0 text-ink-3" />

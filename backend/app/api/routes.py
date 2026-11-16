@@ -19,6 +19,7 @@ from app.intel import alerts as alerts_mod
 from app.intel.digest import build_digest
 from app.intel.taxonomy import CATEGORIES
 from app.network import graph
+from app.network.owner import current_owner
 from app.research import pull, qa, service
 
 router = APIRouter()
@@ -661,6 +662,55 @@ def research_ask(symbol: str, body: Question) -> dict:
         raise HTTPException(503, f"FINN couldn't answer right now ({type(e).__name__})") from e
 
 
+# ------------------------------------------------------------------ Signal-to-Network (Task C)
+class AnalyzeBody(BaseModel):
+    announcement_id: str = Field(min_length=1, max_length=40)
+
+
+@router.post("/announcements/analyze")
+def announcements_analyze(body: AnalyzeBody) -> dict:
+    """One filing as a signal: category, facts with evidence, a 0-100 attention score with
+    its parts, and ranked contacts from the signed-in investor's own network. The investor
+    comes from the session, never from the payload."""
+    from app.intel import signal
+
+    out = signal.analyze(body.announcement_id, current_owner())
+    if out is None:
+        raise HTTPException(404, "No such announcement")
+    return out
+
+
+class NetworkSearch(BaseModel):
+    company_ticker: str = Field(min_length=1, max_length=20)
+    theme: str | None = Field(default=None, max_length=60)
+    max_degree: int = Field(default=2, ge=1, le=2)
+    limit: int = Field(default=5, ge=1, le=10)
+
+
+@router.post("/network/search")
+def network_search(body: NetworkSearch) -> dict:
+    from app.network import match
+
+    return match.search(
+        body.company_ticker.upper(), body.theme, body.max_degree, body.limit, current_owner()
+    )
+
+
+class SignalFeedback(BaseModel):
+    kind: str = Field(max_length=30)
+    person_id: str | None = Field(default=None, max_length=80)
+
+
+@router.post("/signals/{announcement_id}/feedback")
+def signal_feedback(announcement_id: str, body: SignalFeedback) -> dict:
+    from app.intel import signal
+
+    try:
+        return signal.feedback(announcement_id, current_owner(), body.kind, body.person_id)
+    except ValueError as e:
+        raise HTTPException(400, f"Unknown feedback kind: {e}") from e
+
+
 class PullMessage(BaseModel):
     message: str = Field(min_length=1, max_length=300)
     symbol: str | None = Field(default=None, max_length=20)
@@ -690,6 +740,16 @@ def pull_chat(body: PullMessage) -> dict:
             "ready": [{"symbol": s["symbol"], "company": s["company"]} for s in summaries],
         }
     view = service.get_cached(symbol)
+    intent = body.intent if body.intent in pull.TITLES else pull.route(body.message)
+    if intent == "network":  # needs the investor's network, not a research view
+        listed = _listed(symbol)
+        if listed or view:
+            name = view["company"] if view else listed["name"]
+            docs = view["documents"] if view else []
+            return {
+                "kind": "reply",
+                **pull.network(symbol, name, body.message, current_owner(), docs),
+            }
     if view is None:
         listed = _listed(symbol)
         return {
@@ -699,7 +759,6 @@ def pull_chat(body: PullMessage) -> dict:
             "covered": bool(listed),
             "builds_left": BUDGET.left(get_settings().max_live_builds_per_day),
         }
-    intent = body.intent if body.intent in pull.TITLES else pull.route(body.message)
     if intent == "qa":
         today = datetime.now(UTC).date().isoformat()
         if not QUESTIONS.take(get_settings().max_questions_per_day, today):

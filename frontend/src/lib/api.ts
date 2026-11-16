@@ -307,6 +307,16 @@ export type CardPerson = {
   paths: Paths;
 };
 
+export type Attention = {
+  score: number;
+  priority: "critical" | "high" | "medium" | "low" | "routine";
+  breakdown: Record<string, number | null>;
+  max: Record<string, number>;
+  labels: Record<string, string>;
+  explanation: string[];
+  unknown: string[];
+};
+
 export type Card = {
   id: string;
   symbol: string;
@@ -332,6 +342,8 @@ export type Card = {
   /** PU-4: Important or Notable (Routine is the folded group), with the reason */
   level?: "important" | "notable";
   level_reason?: string;
+  /** Task C: the 0-100 attention score with its six parts (intel/signal.py) */
+  attention?: Attention;
   results?: ResultsCard | null;
   people?: CardPerson[];
   helpers: Helper[];

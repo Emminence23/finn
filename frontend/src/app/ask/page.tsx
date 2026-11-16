@@ -28,6 +28,7 @@ const STARTERS = [
   "Persistent: bull vs bear",
   "Why is Kaynes' cash flow negative?",
   "Manappuram's balance sheet",
+  "Who in my network can help me understand Pidilite's CFO change?",
 ];
 
 const uid = () => Math.random().toString(36).slice(2, 10);

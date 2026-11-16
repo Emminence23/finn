@@ -634,6 +634,14 @@ def delete_contact(person_id: str, owner: str | None = None) -> bool:
         db.execute("DELETE FROM notes WHERE owner_id=? AND contact_id=?", (owner, person_id))
         db.execute("DELETE FROM meetings WHERE owner_id=? AND person_id=?", (owner, person_id))
         db.execute("DELETE FROM people WHERE id=? AND owner_id=?", (person_id, owner))
+        # stored signals that recommended this person are recomputed on next read
+        db.execute(
+            "DELETE FROM signal_analysis WHERE owner_id=? AND json LIKE ?",
+            (owner, f'%"{person_id}"%'),
+        )
+        db.execute(
+            "DELETE FROM signal_feedback WHERE owner_id=? AND person_id=?", (owner, person_id)
+        )
     return True
 
 

@@ -83,6 +83,24 @@ def report() -> dict:
             f"(FINN errs towards showing)",
         }
     ]
+    from app.intel import signal
+
+    ev = signal.eval_bands()
+    up, n_mat = ev["material_at_medium_or_above"]
+    down, n_non = ev["not_material_below_medium"]
+    live.append(
+        {
+            "what": "Attention score (0-100): material filings at Medium or above",
+            "result": f"{up} of {n_mat}; {down} of {n_non} not-material filings below Medium",
+            "target": "at least 70% and 95%",
+            "passes": n_mat > 0 and up / n_mat >= 0.7 and n_non > 0 and down / n_non >= 0.95,
+            "how": "The same 100 labelled filings, scored by the six-part rule with the "
+            "spec's starting weights, untuned to these labels except for four named fixes "
+            "(re-appointments, results copies, new subsidiaries, product approvals)",
+            "detail": "Misses are mostly investor presentations, whose slides FINN doesn't "
+            "read, and amounts the filing doesn't state",
+        }
+    )
     for window in ("7d", "30d"):
         d = build_digest(window)
         items = len(d["cards"]) + d["counts"]["routine"]

@@ -131,6 +131,24 @@ CREATE TABLE IF NOT EXISTS watchlist (
     PRIMARY KEY (owner_id, symbol)
 );
 CREATE TABLE IF NOT EXISTS watchlist_owners (owner_id TEXT PRIMARY KEY);
+-- Signal-to-Network (intel/signal.py): one analysis per announcement, investor and rule
+-- version (idempotent), and the investor's feedback on it. Both are per owner, never pooled.
+CREATE TABLE IF NOT EXISTS signal_analysis (
+    announcement_id TEXT NOT NULL,
+    owner_id TEXT NOT NULL,
+    rule_version TEXT NOT NULL,
+    json TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (announcement_id, owner_id, rule_version)
+);
+CREATE TABLE IF NOT EXISTS signal_feedback (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    announcement_id TEXT NOT NULL,
+    owner_id TEXT NOT NULL,
+    kind TEXT NOT NULL,
+    person_id TEXT,
+    created_at TEXT NOT NULL
+);
 -- The investor's portfolio rules (portfolio/settings.py); no row = the defaults
 CREATE TABLE IF NOT EXISTS portfolio_settings (
     owner_id TEXT PRIMARY KEY,

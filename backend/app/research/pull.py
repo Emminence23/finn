@@ -60,10 +60,15 @@ MENU = [
     ("guidance", "Guidance"),
     ("bull_bear", "Bull vs bear"),
 ]
-TITLES = dict(MENU) | {"overview": "Overview", "qa": "Answer"}
+TITLES = dict(MENU) | {"overview": "Overview", "qa": "Answer", "network": "Who can help"}
 
 # Routing is code, so the same words always open the same analysis. First match wins.
 _INTENTS = [
+    (
+        "network",
+        r"who (can|could|should|would|in my network|do i know|knows)|whom|who to (call|ask)|"
+        r"anyone (who|i know)|introduc|my network|my contacts",
+    ),
     (
         "ledger",
         r"promis|deliver|last (four|4) quarters|(four|4) quarters|track record|kept (its|their) "
@@ -901,4 +906,45 @@ def reply(view: dict, intent: str) -> dict:
         "menu": [{"intent": k, "label": v} for k, v in MENU if k != intent],
         "documents": view["documents"],
         "as_of": view["latest_quarter"],
+    }
+
+
+# ------------------------------------------------------------------ who can help (Task C)
+_EVENT_WORDS = [
+    ("capex", r"capex|plant|capacity|project|expansion"),
+    ("management_change", r"\bcfo\b|\bceo\b|\bmd\b|management|leadership|appoint|resign"),
+    ("M&A", r"acqui|merger|deal|stake|\bjv\b|joint venture"),
+    ("litigation", r"court|legal|regulat|litigation|penalt|closure"),
+    ("fund_raise", r"\bqip\b|fund ?rais|debt|borrow|rights issue"),
+    ("order", r"\border|customer|contract"),
+    ("results", r"results|numbers|margin|profit|revenue|quarter"),
+]
+
+
+def network(
+    symbol: str, company: str, message: str, owner: str, documents: list | None = None
+) -> dict:
+    """Who in the investor's own network may help with this company, for the event the
+    message names (a CFO change asks for finance people first, capex for operations)."""
+    from app.network import match
+
+    m = message.lower()
+    category = next((c for c, rx in _EVENT_WORDS if re.search(rx, m)), None)
+    found = match.find(symbol, category, text=message, owner=owner)
+    topic = match.TOPIC.get(category or "", "the company and its business")
+    return {
+        "symbol": symbol,
+        "company": company,
+        "intent": "network",
+        "title": TITLES["network"],
+        "blocks": [
+            {"type": "contacts", "items": found, "topic": topic, "event": category},
+            {
+                "type": "note",
+                "text": "From your own network only, ranked in code by company overlap, role, sector, recency and how well you know them. Employment is not inside knowledge: each line says what they may give context on and what is unknown.",
+            },
+        ],
+        "menu": [{"intent": k, "label": v} for k, v in MENU],
+        "documents": documents or [],
+        "as_of": None,
     }

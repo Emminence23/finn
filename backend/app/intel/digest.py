@@ -196,6 +196,14 @@ def build_digest(
         groups.setdefault((a["symbol"], key), []).append(a)
     groups = split_events(groups)
 
+    from app.intel import signal
+
+    try:
+        from app.portfolio.watchlist import symbols as watch_symbols
+
+        watched = set(watch_symbols())
+    except Exception:
+        watched = set()
     cards = []
     for (symbol, key), items in groups.items():
         cat = key.split(":")[0]
@@ -235,6 +243,17 @@ def build_digest(
         helpers = graph.who_can_help(symbol, people, limit=3)
         card["helpers"] = helpers if card["kind"] != "filing" else helpers[:1]
         card["priority"] = _priority(card, co, n_held)
+        # Task C: the spec's 0-100 attention score, with its parts, beside the calibrated level
+        ctx = {
+            "name": co["name"],
+            "in_portfolio": bool(co["in_portfolio"]),
+            "weight": co["weight"],
+            "on_watchlist": symbol in watched,
+        }
+        att, _ = signal.score_row(primary, ctx, card["alerts"])
+        card["attention"] = {
+            k: att[k] for k in ("score", "priority", "breakdown", "max", "labels", "explanation")
+        } | {"unknown": att["unknown_components"]}
         cards.append(card)
 
     _attach_results_decks(cards, routine)
