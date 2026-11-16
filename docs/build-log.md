@@ -264,3 +264,9 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Alerts:** heavy, quiet or either volume, a chosen averaging window, up/down/either price, OR vs AND, and the filings' materiality bar. The API takes partial updates and only refuses what's arithmetically meaningless (a zero multiple, a percentage over 100).
 - **Review key:** the stored demo review depends on its inputs, and Today's price-move levels depend on the account's alert rules, so a locally tuned account had a different key from a fresh seed. The fixture now holds the review under both keys; the output is the same model answer, with the same cited filings.
 - **Follow-up:** the − / + lot and the size of a newly added company are settings too, set in the Edit sheet. Two bugs found in the browser check: both sizes shared one debounced save, so changing the second dropped the first (now batched), and "comes in at 5.5%" landed at 5.2% because buying grows the total (it now buys w / (1 − w) of the current value, in the browser and on the server).
+
+## Phase 4x: deployed
+- **API on Render** (free, Singapore, the closest region to India) from the `render.yaml` Blueprint; the private repo is shared with Render's GitHub app only. The image was built and run locally first: it seeds itself in about 6 s, idles at about 180 MB of the 512 MB, refuses requests without the passcode, and serves the stored AI review with no model call.
+- **Web app on Vercel** (Hobby), with the API address set as a production env var.
+- **Vercel refused the first deploy** because Next.js 15.5.4 has a known vulnerability. Upgraded to 15.5.29 and React 19.1.10 (`npm audit fix` for sharp too); `make check` passes. What `npm audit` still lists is PostCSS inside Next, which only processes FINN's own stylesheets at build time; the fix is Next 16, a major upgrade left for later.
+- **Secrets** (the Gemini key) are entered in Render's dashboard, never in the repo or the chat.

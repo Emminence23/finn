@@ -7,6 +7,14 @@
 
 The API image seeds SQLite from the committed fixtures at build time, so the demo never depends on live scraping (NFR-02). Live research for a new ticker still fetches screener.in and the company's PDFs at request time.
 
+## Live
+| Part | Address | Service |
+|---|---|---|
+| Web app | https://finn-iota-murex.vercel.app | Vercel project `finn` |
+| API | https://finn-api-9hft.onrender.com | Render `finn-api-9hft`, Singapore, from Blueprint `finn` |
+
+Both deploy from `main`: Render rebuilds on every push (Blueprint auto-sync); the web app redeploys with `cd frontend && npx vercel deploy --prod`. `frontend/.vercelignore` keeps local `.env*` files out of the upload.
+
 ## 1. API on Render
 1. Render dashboard → **New → Blueprint** → pick this repo. Render reads `render.yaml`.
 2. Fill the secret values it asks for:

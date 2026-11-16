@@ -5,7 +5,7 @@ A mobile-first investor companion with three layers:
 - **Pull:** research on any NSE company built only from primary sources, led by "did management deliver what they promised?"
 - **Network:** who in your own network can help you understand it, and how you know them.
 
-**Demo:** _link added after deploy_ (passcode in the covering email). The free API host sleeps when idle, so the first load can take up to a minute.
+**Demo:** https://finn-iota-murex.vercel.app (passcode in the covering email). The free API host sleeps when idle, so the first load can take up to a minute.
 
 > Spec: [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) · Architecture: [`docs/architecture.md`](docs/architecture.md) · Build history: [`docs/build-log.md`](docs/build-log.md) · Deploy: [`docs/DEPLOY.md`](docs/DEPLOY.md)
 

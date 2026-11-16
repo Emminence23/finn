@@ -314,7 +314,7 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 | M2 Push + Network | 2 | FR-PUSH-01..06, FR-CARD-01..05, FR-ALERT-01..05, FR-NET-02..05, 07 | ✅ `/digest` returns ranked, enriched cards; people eval 7/7 roles, 17/18 employers |
 | M3 Pull | 3 | FR-PULL-01..05, 10, 11, FR-NET-03 inside Pull | 🟡 Research set precomputed (4/4). An unseen ticker (TATAELXSI) builds live in 19s via SSE. Its scorecard is pending a quota reset or the Claude budget |
 | M4 Frontend | 4 | FR-APP-01..05, all UI surfaces | ✅ Today, Ask, company research, People and profile screens checked at 390px in light and dark: no horizontal scroll, no console errors |
-| M5 Deploy | 5 | NFR-01, NFR-07, FR-APP-04 | Public URLs work on a real phone |
+| M5 Deploy | 5 | NFR-01, NFR-07, FR-APP-04 | 🟡 Live: web on Vercel, API on Render (Singapore). Passcode gate, Today, Portfolio, People and a company page checked at 390px against the live URLs, no horizontal scroll. Real-phone check pending |
 | M6 Submission | 6 | Writeup items from the brief | README, architecture doc, build log, email draft |
 
 ---
