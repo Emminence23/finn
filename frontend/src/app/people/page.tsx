@@ -6,33 +6,50 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import { Search } from "lucide-react";
 import { useSWRConfig } from "swr";
-import { type Account, type Contact, type Nudge, api, getAccount, setAccount, useApi } from "@/lib/api";
+import { type Account, type Contact, type Nudge, api, getAccount, getSandbox, setAccount, useApi } from "@/lib/api";
 import { firstName } from "@/components/network";
 import { Avatar, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
 
 const ACCOUNTS = [
-  { value: "demo", label: "Your network" },
+  { value: "demo", label: "Demo" },
   { value: "demo2", label: "Second investor" },
+  { value: "mine", label: "Yours" },
 ];
 
 /** N-7, shown not claimed: switch to a second demo investor and every list, path and
  *  "who can help" changes, because each account only ever sees its own contacts. */
 function AccountSwitch() {
   const { mutate } = useSWRConfig();
+  const router = useRouter();
   const [acct, setAcct] = useState("demo");
-  useEffect(() => setAcct(getAccount()), []); // after hydration: storage is client-only
+  useEffect(() => setAcct(getAccount().startsWith("u_") ? "mine" : getAccount()), []); // storage is client-only
   const { data } = useApi<Account>("/people/account");
   const choose = (v: string) => {
+    if (v === "mine") {
+      const box = getSandbox();
+      if (!box) return router.push("/people/setup");
+      v = box;
+    }
     setAccount(v);
-    setAcct(v);
+    setAcct(v.startsWith("u_") ? "mine" : v);
     mutate(() => true, undefined, { revalidate: true }); // drop every cached view
   };
+  const mine = acct === "mine";
   return (
     <div className="px-4">
       <Segmented label="Demo account" value={acct} options={ACCOUNTS} onChange={choose} />
       <p className="mt-1.5 text-[11px] leading-snug text-ink-3">
-        {data && data.account === acct ? `${data.contacts} contacts. ` : ""}
-        Each account sees only its own contacts. People named in public filings are shared.
+        {data && (data.account === acct || (mine && data.account.startsWith("u_"))) ? `${data.contacts} contacts. ` : ""}
+        Each account sees only its own contacts. People named in public filings are shared.{" "}
+        {mine ? (
+          <Link href="/people/setup" className="font-medium text-accent">
+            Edit your network
+          </Link>
+        ) : (
+          <Link href="/people/setup" className="font-medium text-accent">
+            Try it with your own
+          </Link>
+        )}
       </p>
     </div>
   );

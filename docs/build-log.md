@@ -195,3 +195,13 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Script in code, voice on the phone.** `/digest/brief` turns the digest's top five cards into short spoken lines. The phone's speech engine reads them, so there is no LLM, no audio hosting and no cost, and the brief can only say what the cards say.
 - **Written for the ear:** "rupees 40 crore", "66 percent year on year", "F Y 27"; "Also at Kaynes" instead of repeating the name; the contact to call once per company.
 - **Bug found while checking:** a test browser couldn't replace `window.speechSynthesis` by plain assignment, so the first check silently used the real (silent) engine and saw no lines. The check now installs a fake engine with `defineProperty`, which also confirmed the app reads lines in order and resets the button.
+
+## Phase 4n: bring your own network (FR-NET-12)
+- **Why:** with a synthetic network, a reviewer has to take "who can help" on trust. With their own, they can check it against people they actually know.
+- **Sandbox per browser.** The server creates the id (`u_` plus 16 hex characters), so a made-up id is refused. Sandboxes expire after 7 days and are purged with all their rows when the next one is created; the visitor can delete theirs at any time. The demo accounts stay read-only through these routes.
+- **LinkedIn's own export, not scraping.** `Connections.csv` has a preamble before the header, so the parser finds the header line. It keeps name, company, position and the connection date. E-mail and URL are dropped before anything is stored, and a test searches the whole database for them.
+- **Honest strength.** A LinkedIn connection is a weak link (0.3) with no tenure. Overlaps through it say "years unknown", the same as for filing people, so a hand-entered close colleague always outranks a bulk import.
+- **Bugs found in the browser run:**
+  - the year boxes inherited `w-full` from the shared input style and pushed the page to 1,478px wide at phone size. They now use their own fixed-width style;
+  - accounts without stored alert rules got empty category alerts (the second demo account had been affected silently since 4f). Accounts with no rules now fall back to the defaults.
+- **Checked end to end at 390px:** a single Hindustan Unilever stint produces "You and Amit both worked at Hindustan Unilever", and an imported Pfizer connection becomes the route to him.

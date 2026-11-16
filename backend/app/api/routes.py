@@ -147,6 +147,55 @@ def people_account() -> dict:
     }
 
 
+# ------------------------------------------------------------------ bring your own network
+def _mine(fn, *args):
+    try:
+        return fn(*args)
+    except PermissionError as e:
+        raise HTTPException(403, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+
+
+@router.post("/people/mine")
+def mine_create() -> dict:
+    """A private sandbox for this browser; send its id as X-Finn-User from then on."""
+    from app.network import mine
+
+    return {"account": mine.create_sandbox(), "expires_in_days": mine.SANDBOX_DAYS}
+
+
+@router.put("/people/mine/career")
+def mine_career(body: dict) -> dict:
+    from app.network import mine
+
+    return _mine(
+        mine.set_career, body.get("roles", []), body.get("education", []), body.get("name")
+    )
+
+
+@router.post("/people/mine/contacts")
+def mine_contact(body: dict) -> dict:
+    from app.network import mine
+
+    return _mine(mine.add_contact, body)
+
+
+@router.post("/people/mine/linkedin")
+def mine_linkedin(body: dict) -> dict:
+    from app.network import mine
+
+    return _mine(mine.import_linkedin, body.get("csv", ""))
+
+
+@router.delete("/people/mine")
+def mine_delete() -> dict:
+    from app.network import mine
+
+    _mine(mine.delete_sandbox)
+    return {"deleted": True}
+
+
 @router.post("/people/reset")
 def people_reset() -> dict:
     """Restore this account's demo network (undo deletions)."""

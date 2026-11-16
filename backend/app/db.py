@@ -105,6 +105,11 @@ CREATE TABLE IF NOT EXISTS relationships (
     strength REAL,
     last_contact TEXT
 );
+-- "Bring your own network" sandboxes: one per browser, deleted after SANDBOX_DAYS
+CREATE TABLE IF NOT EXISTS sandboxes (
+    owner_id TEXT PRIMARY KEY,
+    created_at TEXT NOT NULL
+);
 -- What a contact told the investor about a company. Private to the owner, shown apart
 -- from evidence, never sent to an LLM and never citable in Pull (PLAN v2, Pull "Should").
 CREATE TABLE IF NOT EXISTS notes (

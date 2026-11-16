@@ -4,6 +4,25 @@ import useSWR, { type SWRConfiguration } from "swr";
 export const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 const PASSCODE_KEY = "finn.passcode";
 const ACCOUNT_KEY = "finn.account";
+const SANDBOX_KEY = "finn.sandbox";
+
+/** "Bring your own network": this browser's private sandbox account, if it has one. */
+export function getSandbox(): string | null {
+  try {
+    return localStorage.getItem(SANDBOX_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function setSandbox(value: string | null) {
+  try {
+    if (value) localStorage.setItem(SANDBOX_KEY, value);
+    else localStorage.removeItem(SANDBOX_KEY);
+  } catch {
+    /* lasts for this page only */
+  }
+}
 
 /** N-7: which demo account's network the API returns. A demo switch, not sign-in. */
 export function getAccount(): string {
@@ -57,6 +76,11 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
   if (!res.ok) {
     if (res.status === 401 && typeof window !== "undefined") {
       window.dispatchEvent(new Event("finn:unauthorized"));
+    }
+    if (res.status === 400 && getAccount().startsWith("u_")) {
+      // the sandbox expired (7 days) or was deleted: fall back to the demo network
+      setSandbox(null);
+      setAccount("demo");
     }
     throw new ApiError(res.status, await res.text());
   }

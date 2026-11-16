@@ -133,6 +133,8 @@ def _attach_contexts(people: dict[str, Person], owner: str) -> None:
     """Relationship 'context' notes live in the network fixture (not a DB column)."""
     from app.ingest.universe import fixtures_dir
 
+    if owner not in ACCOUNTS:
+        return  # a sandbox keeps its "how you know them" in the relationship type
     path = fixtures_dir() / ACCOUNTS[owner]
     if not path.exists():
         return
@@ -629,8 +631,13 @@ def delete_contact(person_id: str, owner: str | None = None) -> bool:
 def reset_network(owner: str | None = None) -> int:
     """Restore an account's demo network from its fixture (undo deletions on the demo)."""
     from app.ingest.seed import seed_owner_network
+    from app.network.owner import is_sandbox
 
     owner = owner or current_owner()
+    if is_sandbox(owner):
+        from app.network.mine import reset_sandbox
+
+        return reset_sandbox()
     with session() as db:
         db.execute("DELETE FROM relationships WHERE owner_id=?", (owner,))
         db.execute("DELETE FROM identity_answers WHERE owner_id=?", (owner,))

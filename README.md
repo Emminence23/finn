@@ -16,7 +16,8 @@ A mobile-first investor companion with three layers:
 3. **Ask → Kaynes.** The promise scorecard: FY26 revenue ₹3,626 Cr against ₹4,000 Cr+ guided, working capital 133 days against ≤85, each with the verbatim quote, call and page beside the reported number. Reported figures, management's words and FINN's own reading look different everywhere on the page. Below "Who you know", an off-the-record panel keeps what contacts told you apart from the evidence: it is never sent to the AI or cited.
 4. **Ask FINN** on the same page: "Why did receivables go up?" The answer cites call pages, and uncited points are removed by code.
 5. **Ask → any other ticker** (e.g. TATAELXSI). FINN reads its annual report and last four calls live, with progress, in under a minute.
-6. **People.** The expertise map by theme, reconnect nudges, and profiles with "ask them about", "can introduce you to" and "Before you meet", which lists questions built from FINN's research, each showing its source. Open the Pidilite CFO: one of your contacts is also called Amit Agarwal, and FINN shows a "possible match" to confirm or dismiss instead of assuming it's him. Switch to "Second investor" and every list changes, because each account sees only its own contacts. "Remove from my network" on a profile takes every link through that person with it, and "Restore the demo network" undoes it.
+6. **People.** The expertise map by theme, reconnect nudges, and profiles with "ask them about", "can introduce you to" and "Before you meet", which lists questions built from FINN's research, each showing its source. Open the Pidilite CFO: one of your contacts is also called Amit Agarwal, and FINN shows a "possible match" to confirm or dismiss instead of assuming it's him.
+7. **People → Yours.** Try it on your own network: type where you worked and studied, upload the `Connections.csv` LinkedIn lets you export, and every path, "who can help" and meeting question rebuilds around you. It's private to your browser, keeps no e-mails or profile links, and is deleted after 7 days. Switch to "Second investor" and every list changes, because each account sees only its own contacts. "Remove from my network" on a profile takes every link through that person with it, and "Restore the demo network" undoes it.
 
 Anything an AI wrote carries an "AI · read from … · model" label. Numbers computed in code don't.
 
@@ -51,7 +52,7 @@ docs/       Requirements, architecture, build log, deploy guide
 
 ## What I left out, and why
 - **Live intraday data and push notifications.** The brief is end of day by design; NSE EOD files are free and reliable, while intraday feeds are paid.
-- **Real LinkedIn data.** Scraping it breaks its terms. The network is synthetic, and production would use official APIs or the user's own data export.
+- **Scraping LinkedIn.** It breaks LinkedIn's terms. The demo network is synthetic; your own network comes from the export LinkedIn gives every member, which you upload yourself.
 - **An open-ended research agent.** A fixed pipeline with code-enforced citations is cheaper, cacheable and testable. The judgement step gets the strongest model instead.
 - **An interactive network map.** A "could have", cut for time; paths are shown as hop-by-hop lines instead.
 - **Real sign-in.** Two demo accounts show that networks are kept apart, but the switch is a header, not authentication. The production design (row-level security, encrypted per-user data) is in the architecture doc.
@@ -76,4 +77,4 @@ docs/       Requirements, architecture, build log, deploy guide
 - **Calendar-aware prep:** the evening before a meeting on your calendar, a note with what changed at their company and the "Before you meet" questions.
 - **Intraday triggers** for price and volume, plus filings polled through market hours.
 - **Watchlist-wide scorecards:** rank every holding by how reliably its management delivers.
-- **Real network import** from LinkedIn's official APIs or a user's export, with consent built into onboarding.
+- **Richer network import:** past positions and schools from LinkedIn's full export (the connections file has only current roles), and contacts from a phone's address book with explicit consent.

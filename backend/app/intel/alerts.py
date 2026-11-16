@@ -25,6 +25,12 @@ def get_rules(owner: str | None = None) -> dict:
         "categories": [],
         "enabled": {"volume": True, "price": True, "category": True},
     }
+    if not rows:  # an account that never changed its rules gets the defaults
+        from app.ingest.seed import DEFAULT_ALERT_RULES
+
+        rows = [
+            {"kind": k, "params_json": json.dumps(p), "enabled": 1} for k, p in DEFAULT_ALERT_RULES
+        ]
     for r in rows:
         p = json.loads(r["params_json"])
         out["enabled"][r["kind"]] = bool(r["enabled"])
