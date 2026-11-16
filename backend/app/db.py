@@ -122,6 +122,15 @@ CREATE TABLE IF NOT EXISTS holdings (
     avg_cost REAL NOT NULL,
     PRIMARY KEY (owner_id, symbol)
 );
+-- Companies an account follows without holding them (portfolio/watchlist.py). An owner
+-- with a row in watchlist_owners has edited its list; any other owner sees the demo list.
+CREATE TABLE IF NOT EXISTS watchlist (
+    owner_id TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    added_at TEXT NOT NULL,
+    PRIMARY KEY (owner_id, symbol)
+);
+CREATE TABLE IF NOT EXISTS watchlist_owners (owner_id TEXT PRIMARY KEY);
 -- The investor's portfolio rules (portfolio/settings.py); no row = the defaults
 CREATE TABLE IF NOT EXISTS portfolio_settings (
     owner_id TEXT PRIMARY KEY,

@@ -147,6 +147,54 @@ def holdings_restore(body: dict) -> dict:
     return _holdings_call(holdings.restore_positions, body.get("positions") or {})
 
 
+# ------------------------------------------------------------------ Watchlist
+@router.get("/watchlist")
+def watchlist_get() -> dict:
+    from app.portfolio import watchlist
+
+    return watchlist.items()
+
+
+def _watch_call(fn, *args) -> dict:
+    from app.portfolio import watchlist
+
+    try:
+        fn(*args)
+    except KeyError as e:
+        raise HTTPException(404, str(e).strip("'")) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    return watchlist.items()
+
+
+@router.post("/watchlist")
+def watchlist_add(body: dict) -> dict:
+    from app.portfolio import watchlist
+
+    return _watch_call(watchlist.add, str(body.get("symbol", "")))
+
+
+@router.delete("/watchlist/{symbol}")
+def watchlist_remove(symbol: str) -> dict:
+    from app.portfolio import watchlist
+
+    return _watch_call(watchlist.remove, symbol)
+
+
+@router.post("/watchlist/reset")
+def watchlist_reset() -> dict:
+    from app.portfolio import watchlist
+
+    return _watch_call(watchlist.reset)
+
+
+@router.get("/movers")
+def movers(limit: int = Query(3, ge=1, le=10)) -> dict:
+    from app.portfolio import watchlist
+
+    return watchlist.movers(limit)
+
+
 # ------------------------------------------------------------------ Accuracy
 @router.get("/eval")
 def eval_report() -> dict:

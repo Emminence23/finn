@@ -33,13 +33,13 @@ const STEPS: Step[] = [
     href: "/portfolio",
     target: '[aria-label="View"]',
     title: "The whole portfolio",
-    body: "Risk by theme and holding, and a suggested re-weighting of the same stocks: built in code, then nudged by an AI review that has to cite a filing. Edit changes your holdings.",
+    body: "Value, returns and the day's move up front; then risk by theme and holding, and a suggested re-weighting of the same stocks: built in code, then nudged by an AI review that has to cite a filing. Edit changes your holdings.",
   },
   {
     href: "/",
     target: "[data-tour=ask]",
     title: "Ask from anywhere",
-    body: "A company, a person, a theme or a question. Your network lives here and inside every item, not in a separate app.",
+    body: "A company, a person, a theme or a question. Watchlist and Network sit beside it, and every item names who in your network can explain it.",
   },
   {
     href: "/",

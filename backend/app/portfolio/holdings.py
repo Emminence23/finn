@@ -31,6 +31,22 @@ def latest_prices(symbols: list[str] | None = None) -> dict[str, float]:
     return {s: px[s] for s in symbols if s in px} if symbols is not None else px
 
 
+def last_two_closes(symbols: list[str] | None = None) -> dict[str, tuple[float, float, str]]:
+    """(previous close, latest close, latest date) per symbol: the day's move."""
+    with session() as db:
+        rows = db.execute(
+            """SELECT symbol, date, close FROM (
+                 SELECT symbol, date, close,
+                        ROW_NUMBER() OVER (PARTITION BY symbol ORDER BY date DESC) n
+                 FROM prices) WHERE n <= 2 ORDER BY symbol, date"""
+        ).fetchall()
+    out: dict[str, list] = {}
+    for r in rows:
+        out.setdefault(r["symbol"], []).append((float(r["close"]), r["date"]))
+    res = {s: (v[0][0] if len(v) == 2 else v[-1][0], v[-1][0], v[-1][1]) for s, v in out.items()}
+    return {s: res[s] for s in symbols if s in res} if symbols is not None else res
+
+
 def _rows(db, owner: str) -> dict[str, tuple[float, float]]:
     return {
         r["symbol"]: (float(r["qty"]), float(r["avg_cost"]))
@@ -70,11 +86,13 @@ def get_positions(owner: str | None = None) -> dict:
     """Positions with price, value, cost and weight, largest first, plus the totals."""
     raw = _raw(owner)
     px = latest_prices(list(raw))
+    two = last_two_closes(list(raw))
     with session() as db:
         names = {r["symbol"]: r["name"] for r in db.execute("SELECT symbol, name FROM companies")}
     rows = []
     for s, (qty, cost) in raw.items():
         price = px.get(s, cost)
+        prev = two[s][0] if s in two else price
         rows.append(
             {
                 "symbol": s,
@@ -84,10 +102,14 @@ def get_positions(owner: str | None = None) -> dict:
                 "price": price,
                 "value": qty * price,
                 "invested": qty * cost,
+                "prev_price": prev,
+                "day_change": qty * (price - prev),
+                "day_pct": (price / prev - 1) * 100 if prev else 0.0,
             }
         )
     value = sum(r["value"] for r in rows) or 1.0
     invested = sum(r["invested"] for r in rows)
+    day = sum(r["day_change"] for r in rows)
     for r in rows:
         r["weight"] = r["value"] / value
         r["gain_pct"] = (r["price"] / r["avg_cost"] - 1) * 100 if r["avg_cost"] else 0.0
@@ -98,6 +120,9 @@ def get_positions(owner: str | None = None) -> dict:
         "invested": invested,
         "gain": value - invested,
         "gain_pct": (value / invested - 1) * 100 if invested else 0.0,
+        "day_gain": day,
+        "day_gain_pct": day / (value - day) * 100 if value - day else 0.0,
+        "as_of": max((v[2] for v in two.values()), default=None),
     }
 
 

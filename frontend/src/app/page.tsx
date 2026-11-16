@@ -10,6 +10,7 @@ import { type CardRead, FeedCard, NoteRow, sessionMoves } from "@/components/car
 import { useReadState } from "@/lib/seen";
 import { useSlow } from "@/lib/slow";
 import { ListenBrief } from "@/components/ListenBrief";
+import { MoversStrip } from "@/components/market";
 import { MeetingPrep } from "@/components/meetings";
 import { AlertSettings } from "@/components/AlertSettings";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -196,6 +197,7 @@ function Note({ d, now }: { d: Digest; now: string }) {
       )}
       {d.nudges.length > 0 && <Nudges d={d} />}
       <SetAside d={d} aside={aside} now={now} />
+      <MoversStrip className="mt-6" />
       <p className="px-4 pb-6 pt-4 text-center text-[11px] text-ink-3">
         NSE filings to {day(d.freshness?.filings_as_of ?? now)},{" "}
         {new Date(d.freshness?.filings_as_of ?? now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}

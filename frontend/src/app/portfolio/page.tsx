@@ -11,6 +11,7 @@ import { day, inr, pct, price } from "@/lib/fmt";
 import { type Point, YearChart } from "@/components/YearChart";
 import { ErrorNote, Header, Panel, SectionTitle, Segmented, Sheet, Skeleton, SlowHint } from "@/components/ui";
 import { useTitle } from "@/lib/title";
+import { HoldingsCard, MoversStrip, signedInr, tone } from "@/components/market";
 
 type Holding = {
   symbol: string;
@@ -31,6 +32,10 @@ type Holding = {
   value: number;
   avg_cost: number;
   gain_pct: number;
+  gain: number;
+  invested: number;
+  day_change: number;
+  day_pct: number;
 };
 type Stats = {
   volatility: number;
@@ -51,6 +56,8 @@ type Overview = {
     invested: number;
     gain: number;
     gain_pct: number;
+    day_gain: number;
+    day_gain_pct: number;
     return_6m: number;
     return_1m: number;
     return_1y: number;
@@ -223,11 +230,9 @@ function Fold({ title, aside, children, open: start = false }: { title: string; 
 function Now({ d }: { d: Overview }) {
   const s = d.summary;
   const maxTheme = Math.max(...d.themes.map((t) => t.weight));
-  const maxW = Math.max(...d.holdings.map((h) => h.weight));
   const months = Math.round(d.days / 21);
   const table: [string, string][] = [
-    ["Value today", inr(s.value)],
-    ["Gain since bought", `${s.gain >= 0 ? "+" : ""}${inr(s.gain)} (${pct(s.gain_pct)})`],
+    [`Return, ${months} months`, pct(s.return_6m)],
     ["Return, last month", pct(s.return_1m)],
     ["Return, past year", pct(s.return_1y)],
     ["Nifty 50, past year", pct(s.nifty_1y)],
@@ -236,6 +241,7 @@ function Now({ d }: { d: Overview }) {
     ["Effective holdings", `${s.effective_holdings.toFixed(1)} of ${s.holdings}`],
     ["Top 5 holdings", `${s.top5.toFixed(0)}%`],
     ["Largest theme", `${cap(s.largest_theme.theme)}, ${s.largest_theme.weight.toFixed(0)}%`],
+    ["P/E, weighted", `${s.pe?.toFixed(1) ?? "—"}×`],
     ["ROE, weighted", one(s.roe)],
     ["Sales growth, 3 years", one(s.revenue_growth_3y)],
   ];
@@ -244,11 +250,9 @@ function Now({ d }: { d: Overview }) {
   const beat = s.nifty_1y != null ? r1(s.return_1y) - r1(s.nifty_1y) : null;
   return (
     <>
-      <div className="mt-3 grid grid-cols-3 gap-2 px-3">
-        <Tile label="Invested" value={inr(s.invested)} sub={<>now {inr(s.value)}</>} />
-        <Tile label={`${months}-month return`} value={pct(s.return_6m)} sub={`1 month: ${pct(s.return_1m)}`} />
-        <Tile label="P/E" value={`${s.pe?.toFixed(1) ?? "—"}×`} sub="weighted" />
-      </div>
+      <HoldingsCard value={s.value} invested={s.invested} gain={s.gain} gainPct={s.gain_pct} dayGain={s.day_gain} dayPct={s.day_gain_pct} asOf={d.as_of} />
+      <MoversStrip className="mt-4" />
+      <HoldingsList holdings={d.holdings} />
 
       <Panel className="mt-3 p-4">
         <div className="flex items-baseline justify-between gap-2">
@@ -312,35 +316,6 @@ function Now({ d }: { d: Overview }) {
         </div>
       </Fold>
 
-      <Fold title="Holdings" aside={`${d.holdings.length} stocks`}>
-        <div className="divide-y divide-line">
-          {d.holdings.map((h) => (
-            <Link key={h.symbol} href={`/c/${h.symbol}`} className="block px-4 py-2.5 active:bg-surface-2">
-              <div className="flex items-baseline justify-between gap-2 text-[13px]">
-                <span className="min-w-0 truncate">
-                  <span className="font-semibold">{h.symbol}</span> <span className="capitalize text-ink-3">{h.theme}</span>
-                </span>
-                <span className="tnum shrink-0">
-                  {h.weight.toFixed(1)}% · <b>{inr(h.value)}</b>
-                </span>
-              </div>
-              <div className="mt-1.5">
-                <Bar value={h.weight} max={maxW} />
-              </div>
-              <p className="tnum mt-1 text-[11px] text-ink-3">
-                {h.qty.toLocaleString("en-IN")} × {price(h.price)} · bought at {price(h.avg_cost)}{" "}
-                <span className={h.gain_pct >= 0 ? "text-good" : "text-bad"}>{pct(h.gain_pct)}</span>
-              </p>
-              <p className="tnum text-[11px] text-ink-3">
-                {pct(h.return_6m)} in {months} months · {h.risk_share.toFixed(1)}% of risk
-                {h.pe ? ` · P/E ${h.pe.toFixed(0)}` : ""}
-                {h.delivery != null ? ` · delivery ${h.delivery}/100` : ""}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </Fold>
-
       {d.correlated.length > 0 && (
         <Fold title="Move together most" aside="6 months">
           <div className="divide-y divide-line">
@@ -359,6 +334,65 @@ function Now({ d }: { d: Overview }) {
         Computed in code from end-of-day prices (a year for the chart, {months} months for risk) and the reported financials. Share counts are demo data. No AI on this page.
       </p>
     </>
+  );
+}
+
+type SortKey = "value" | "returns" | "day";
+
+/** Groww-style rows: what you hold and what it's worth, then the gain; 1D on a tap. */
+function HoldingsList({ holdings }: { holdings: Holding[] }) {
+  const [sort, setSort] = useState<SortKey>("value");
+  const by: Record<SortKey, (h: Holding) => number> = { value: (h) => h.value, returns: (h) => h.gain_pct, day: (h) => h.day_pct };
+  const rows = [...holdings].sort((a, b) => by[sort](b) - by[sort](a));
+  const showDay = sort === "day";
+  return (
+    <section aria-label="Holdings" className="mt-5">
+      <div className="flex items-center justify-between gap-2 px-4">
+        <h2 className="text-[15px] font-semibold">Holdings ({holdings.length})</h2>
+        <Segmented
+          label="Sort holdings"
+          value={sort}
+          onChange={setSort}
+          options={[
+            { value: "value", label: "Value" },
+            { value: "returns", label: "Returns" },
+            { value: "day", label: "1D" },
+          ]}
+        />
+      </div>
+      <Panel className="mt-2">
+        <ul className="divide-y divide-line">
+          {rows.map((h) => (
+            <li key={h.symbol}>
+              <Link href={`/c/${h.symbol}`} className="flex items-start gap-3 px-4 py-3 active:bg-surface-2">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[14px] font-semibold">{h.symbol}</p>
+                  <p className="tnum truncate text-[12px] text-ink-3">
+                    {h.qty.toLocaleString("en-IN")} shares · avg {price(h.avg_cost)}
+                  </p>
+                  <p className="tnum text-[12px] text-ink-3">
+                    {h.weight.toFixed(1)}% · LTP {price(h.price)}{" "}
+                    <span className={tone(h.day_pct)}>({pct(h.day_pct, true, 2)})</span>
+                  </p>
+                </div>
+                <div className="shrink-0 text-right">
+                  <p className="tnum text-[14px] font-medium">{inr(h.value)}</p>
+                  {showDay ? (
+                    <p className={clsx("tnum text-[12px] font-medium", tone(h.day_change))}>
+                      {signedInr(h.day_change)} today
+                    </p>
+                  ) : (
+                    <p className={clsx("tnum text-[12px] font-medium", tone(h.gain))}>
+                      {signedInr(h.gain)} ({pct(h.gain_pct)})
+                    </p>
+                  )}
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Panel>
+    </section>
   );
 }
 

@@ -319,3 +319,11 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Then 11 held-out questions,** written after the list and not used to change it: 9 of 11 with or without the list. The misses ("How much does Persistent return to shareholders?", "What does Manappuram pay to borrow money?") are exactly the gap a hand list leaves, so the list is recorded as fixing the questions it was written for, not as generalising. Embeddings stay the next step, with this test as the bar (architecture doc, "Path to production").
 - **Path to production** is now a section of the architecture doc: incremental ingestion, migrations and a job queue, each with the moment it becomes necessary.
 
+## Phase 5c: a tab bar again, and three ideas from a broker app
+- **Why:** after Phase 5a, contacts were only reachable through Ask or a name, and in use they weren't found ("I don't see contacts"). The user also asked for features from Groww, the investing app they use.
+- **Tab bar:** Today · Portfolio · Ask · Watchlist · Network, five tabs on every screen, Ask in the middle. FR-APP-01 records the reversal and why.
+- **Holdings card:** Portfolio opens with current value, invested, total returns and 1D returns, then the holdings list open by default (shares, average, LTP with its day move, value, gain; sort by value, returns or 1D). 1D is the last close against the one before, computed per position in `portfolio/holdings.py`; the positions' day changes sum to the portfolio's.
+- **Watchlist** (`portfolio/watchlist.py`, per account, no AI): Watch on company pages, Add from the companies the price snapshot covers. A company without prices is refused with the reason rather than shown blank. Each row carries the latest filing Today wouldn't set aside, using the same routine rule.
+- **Top movers** across holdings and watchlist: on Portfolio and Watchlist, and at the foot of Today, not above the note, so the note still leads.
+- **Not taken from Groww:** order placement, F&O, mutual funds, intraday charts. FINN doesn't trade, and the prices are end of day.
+

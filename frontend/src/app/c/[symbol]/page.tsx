@@ -7,6 +7,7 @@ import { ArrowLeft, Check, ChevronDown, Loader2, TriangleAlert } from "lucide-re
 import clsx from "clsx";
 import { ApiError, api, type Research, stream, useApi } from "@/lib/api";
 import { ShareButton } from "@/components/ShareButton";
+import { WatchStar } from "@/components/market";
 import { crore, day, fq, pct, shortName, times } from "@/lib/fmt";
 import { HelperList } from "@/components/network";
 import {
@@ -257,9 +258,11 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
       <header className="px-4 pb-1 pt-1">
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-[26px] font-semibold leading-tight tracking-[-0.02em]">{shortName(v.company)}</h1>
+          <div className="mt-1.5 flex shrink-0 items-center gap-1.5">
+          <WatchStar symbol={v.symbol} />
           <ShareButton
             withText
-            className="mt-1.5 rounded-full border border-line px-3 py-1 text-[13px] text-ink-2"
+            className="rounded-full border border-line px-3 py-1 text-[13px] text-ink-2"
             build={() => {
               const p = v.promises;
               const missed = p.items.filter((i) => i.verdict === "missed").slice(0, 3);
@@ -276,6 +279,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
               };
             }}
           />
+          </div>
         </div>
         <p className="tnum mt-1 text-[13px] text-ink-2">
           {s.price != null && <>₹{s.price.toLocaleString("en-IN")} · </>}
