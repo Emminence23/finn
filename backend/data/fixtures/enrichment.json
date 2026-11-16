@@ -3315,16 +3315,14 @@
   "106783690": {
    "category": "capex",
    "category_source": "rules",
-   "materiality": 30,
-   "summary": "Find enclosed intimation under Regulation 30 of the SEBI (LODR)Regulations, 2015 with respect to the commencement of commercial production at the Company's VAE manufacturing facility at Dahej, Gujarat",
-   "pending": true
+   "materiality": 40,
+   "summary": "Commenced commercial production of VAE at Dahej facility with an installed capacity of 1,50,000 tons per annum."
   },
   "106783625": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "This is further to the disclosure dated September 11, 2026 made by the Company. We wish to inform you that the Company executives participated in the Institutional Investors' Meeting - Jefferies India Forum 2026 and no unpublished price sensitive information was shared/discussed in the said one-on-one meeting",
-   "pending": true
+   "category": "investor_meetings",
+   "category_source": "llm",
+   "materiality": 0,
+   "summary": "Company executives participated in the Institutional Investors' Meeting at Jefferies India Forum 2026."
   },
   "106783624": {
    "category": "postal_ballot",
@@ -3377,9 +3375,8 @@
   "106783066": {
    "category": "credit_rating",
    "category_source": "rules",
-   "materiality": 30,
-   "summary": "Credit Rating",
-   "pending": true
+   "materiality": 10,
+   "summary": "Assigned an independent ESG score of 63 under the Performer category by Niche99 ESG Ratings."
   },
   "106782978": {
    "category": "investor_meetings",
@@ -3406,11 +3403,10 @@
    "summary": "Allotment of 735050  Shares"
   },
   "106782823": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Disclosure under Regulation 30 read with para A of Schedule III and Regulation 46(2) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015",
-   "pending": true
+   "category": "investor_meetings",
+   "category_source": "llm",
+   "materiality": 0,
+   "summary": "Schedule of upcoming investor meets including Anand Rathi, CITIC CLSA, and Citi conferences."
   }
  },
  "results": {
