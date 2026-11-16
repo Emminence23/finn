@@ -61,6 +61,13 @@ def test_route_sends_each_phrase_to_its_output():
         "what does Kaynes do": "business",
         "Kaynes": "overview",
         "Why did receivables go up?": "qa",
+        "Should I buy Kaynes?": "decision",
+        "buy or sell?": "decision",
+        "Is it overvalued?": "decision",
+        "pros and cons": "decision",
+        "Should I worry about its debt?": "balance",
+        "What did they hold back on capex?": "qa",
+        "what's the sell-side target?": "brokers",
     }
     for msg, want in cases.items():
         assert pull.route(msg) == want, msg
@@ -128,3 +135,11 @@ def test_who_can_help_answers_from_the_investors_own_network(seeded):
     assert r["intent"] == "network" and r["blocks"][0]["type"] == "contacts"
     items = r["blocks"][0]["items"]
     assert items and items[0]["explanation"].count("unknown") == 1
+
+
+def test_decision_brief_gives_evidence_not_a_verdict():
+    out = pull.reply(view("KAYNES"), "decision")
+    kinds = [b.get("title") or b["type"] for b in out["blocks"]]
+    assert out["title"] == "Weighing it up"
+    assert {"Bull case", "Bear case", "What brokers say", "Did management deliver?"} <= set(kinds)
+    assert out["blocks"][0]["text"].startswith("FINN doesn't tell you to buy or sell")

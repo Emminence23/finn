@@ -378,3 +378,7 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 ## Phase 5l: Ask finds companies outside the portfolio
 - **The gap.** Pull already built for any NSE-listed company, but Ask only recognised one FINN doesn't follow by its ticker in capitals. "How is Dixon doing" and "What did Trent management promise?" fell back to "Which company?", and "Bharat Electronics" went to BHEL because BHEL is held and shares the first word.
 - **Fix.** Full names now match across all 2,601 companies, a capitalised name word mid-sentence matches when it is unique among listed companies' first words, and ties go to the followed company (so "Tata Motors" stays the held TMPV). Lowercase single words still match only followed companies, so "margin" never becomes a stock. Checked on 27 typed questions; one new test.
+
+## Phase 5m: "Should I buy it?"
+- **The gap.** Generic questions ("Should I buy L&T?", "Buy or sell?") went to open Q&A, which replied that its sources "lack share prices, valuations, or buy/sell ratings", although FINN holds L&T's valuation, bull and bear cases and 12 brokerage reports. "Is L&T cheap?" got the overview.
+- **Fix.** These now open "Weighing it up": valuation and quality numbers, the promise record, both cases and the brokers' ratings and target ranges, built in code. FINN still gives no verdict and says so first.

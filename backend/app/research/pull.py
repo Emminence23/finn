@@ -65,6 +65,7 @@ TITLES = dict(MENU) | {
     "qa": "Answer",
     "network": "Who can help",
     "brokers": "What brokers expect",
+    "decision": "Weighing it up",
 }
 
 # Routing is code, so the same words always open the same analysis. First match wins.
@@ -78,6 +79,15 @@ _INTENTS = [
         "brokers",
         r"broker|analysts?\b|street|consensus|target price|price target|\btps?\b|"
         r"ratings?\b|upgrade|downgrade|sell[- ]side|research reports?",
+    ),
+    (
+        # buy/sell questions get the evidence to weigh, never a verdict (FR-PULL-17)
+        "decision",
+        r"\bbuy\b|\bsell\b(?![- ]side)|\bhold\b(?! back| off)|\bexit\b|add (more|to)|accumulat|"
+        r"good (investment|stock|bet|company)|worth (it|buying|investing|owning)|invest in|"
+        r"\bcheap|expensive|over ?valued|under ?valued|fairly valued|pros and cons|"
+        r"what do you think|your (view|take)|report on|research note|"
+        r"should i (buy|sell|hold|exit|invest|add|own|keep|trim|book|stay|get)",
     ),
     (
         "ledger",
@@ -891,6 +901,107 @@ def overview(view: dict) -> list[dict]:
     ]
 
 
+def _broker_lines(symbol: str, company: str, owner: str) -> list[dict]:
+    """Ratings and targets as sentences, computed in code from the stored reports."""
+    from app.brokerage import service as bs
+
+    ov = bs.overview(symbol, owner)
+    if not ov["reports"]:
+        return [{"text": f"FINN has no brokerage reports on {company} yet.", "cites": []}]
+    r = ov["ratings"]
+    rated = ", ".join(f"{n} {k}" for k, n in r.items() if n and k != "not mapped")
+    old = len(ov["stale"])
+    lines = [
+        f"{ov['reports']} reports from {ov['brokerages']} brokerages in the last year"
+        + (f"; latest ratings: {rated}" if rated else "")
+        + (f" ({old} more set aside as over 120 days old)." if old else ".")
+    ]
+    close = ov.get("last_close") or {}
+    for g in ov["targets"]:
+        t = g["targets"]
+        span = f"₹{t['min']:,.0f} to ₹{t['max']:,.0f}" if t["n"] > 1 else f"₹{t['median']:,.0f}"
+        vs = g.get("median_vs_last_close_pct")
+        hz = re.sub(r"(\d+) months?", r"\1-month", g["horizon"])
+        when = "no stated horizon" if g["horizon"] == "not stated" else f"{hz} targets"
+        lines.append(
+            f"{when.capitalize()}: {span} ({g['brokerages']} "
+            f"{'house' if g['brokerages'] == 1 else 'houses'})"
+            + (
+                f", median {vs:+.0f}% from the last close of ₹{close['price']:,.0f}."
+                if vs is not None and close.get("price")
+                else "."
+            )
+        )
+    lines.append("A range across the reports FINN has, not a market consensus.")
+    return [{"text": t, "cites": []} for t in lines]
+
+
+def decision(view: dict, owner: str = "demo") -> list[dict]:
+    """'Should I buy it?' FINN gives no verdict; it lays out what to weigh, all of it already
+    built: valuation and quality, the promise record, both cases and the brokers' views."""
+    s = view["financials"]["snapshot"]
+    bb = view.get("bull_bear") or {}
+    led = ledger(view)
+    stat = [
+        (
+            "P/E",
+            f"{s['pe']:.0f}" if s.get("pe") else "–",
+            f"market cap {cr(s.get('market_cap_cr'))}",
+        ),
+        ("Return on equity", pc(s.get("roe_pct")), fy(s["fy"])),
+        (
+            "Debt to equity",
+            f"{s['debt_to_equity']:.2f}×" if s.get("debt_to_equity") is not None else "–",
+            fy(s["fy"]),
+        ),
+    ]
+    blocks: list[dict] = [
+        {
+            "type": "text",
+            "text": f"FINN doesn't tell you to buy or sell. Here is what to weigh on {view['company']}, from its own filings and the brokerage reports FINN has.",
+        },
+        {"type": "stats", "items": [{"label": a, "value": b, "sub": c} for a, b, c in stat]},
+        {
+            "type": "points",
+            "title": "Did management deliver?",
+            "items": [{"text": t, "cites": []} for t in led["summary"][:2]],
+        },
+    ]
+    if bb:
+        blocks += [
+            {
+                "type": "points",
+                "title": "Bull case",
+                "tone": "positive",
+                "items": bb.get("bull", [])[:3],
+            },
+            {
+                "type": "points",
+                "title": "Bear case",
+                "tone": "negative",
+                "items": bb.get("bear", [])[:3],
+            },
+        ]
+        if bb.get("watch"):
+            blocks.append(
+                {"type": "points", "title": "What would change the view", "items": bb["watch"][:2]}
+            )
+    blocks.append(
+        {
+            "type": "points",
+            "title": "What brokers say",
+            "items": _broker_lines(view["symbol"], view["company"], owner),
+        }
+    )
+    blocks.append(
+        {
+            "type": "note",
+            "text": "Numbers, the promise record and the broker summary are computed in code; the bull and bear points are AI-written from the calls and annual report, with uncited points removed. Not investment advice.",
+        }
+    )
+    return blocks
+
+
 SECTIONS = {
     "business": business,
     "financial": financial,
@@ -904,9 +1015,14 @@ SECTIONS = {
 }
 
 
-def reply(view: dict, intent: str) -> dict:
+def reply(view: dict, intent: str, owner: str = "demo") -> dict:
     """The blocks for one output. `ledger` returns its own structure in one block."""
-    blocks = [{"type": "ledger", **ledger(view)}] if intent == "ledger" else SECTIONS[intent](view)
+    if intent == "ledger":
+        blocks = [{"type": "ledger", **ledger(view)}]
+    elif intent == "decision":
+        blocks = decision(view, owner)
+    else:
+        blocks = SECTIONS[intent](view)
     return {
         "symbol": view["symbol"],
         "company": view["company"],

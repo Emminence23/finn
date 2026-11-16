@@ -788,7 +788,7 @@ def pull_chat(body: PullMessage) -> dict:
         out.update(intent="qa", title="Answer", blocks=[{"type": "answer", **answer}])
         out["menu"] = [{"intent": k, "label": v} for k, v in pull.MENU]
         return {"kind": "reply", **out}
-    return {"kind": "reply", **pull.reply(view, intent)}
+    return {"kind": "reply", **pull.reply(view, intent, current_owner())}
 
 
 @router.get("/research/{symbol}/stream")
