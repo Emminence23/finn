@@ -1,10 +1,10 @@
 {
- "8d77de0f275b25d8b283": {
+ "ec83ada57eed94f42e80": {
   "adjustments": [
    {
     "symbol": "CGPOWER",
     "delta_pp": -1.5,
-    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at the Waluj unit, adding regulatory and operational disruption risk beyond the suggested cut.",
+    "reason": "The Maharashtra Pollution Control Board ordered closure of manufacturing operations at CG Power's Waluj unit, adding regulatory and operational risk beyond the model's initial cut.",
     "cites": [
      "A:106846618"
     ]
@@ -12,7 +12,7 @@
    {
     "symbol": "KAYNES",
     "delta_pp": -1.5,
-    "reason": "Management has a 0/100 promise-delivery score over the last four calls alongside negative 3-year operating cash flow at -0.71x reported profit, warranting a much smaller addition.",
+    "reason": "Kaynes carries a 0/100 management delivery score on promises over the last four calls and negative 3-year operating cash flow at -0.71x reported profit, warranting a smaller increase than suggested.",
     "cites": [
      "P:KAYNES",
      "F:KAYNES"
@@ -21,29 +21,21 @@
    {
     "symbol": "HDFCBANK",
     "delta_pp": -1.0,
-    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 right as Anup Bagchi assumed charge as MD and CEO, adding leadership transition risk to the planned increase.",
+    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 alongside the recent MD and CEO handover to Anup Bagchi, justifying a more cautious addition.",
     "cites": [
      "A:106821168",
      "A:106829496"
     ]
-   },
-   {
-    "symbol": "SUNPHARMA",
-    "delta_pp": 1.0,
-    "reason": "US FDA approval of ILUMYA for active psoriatic arthritis provides a regulatory and commercial catalyst not yet captured in historical growth numbers.",
-    "cites": [
-     "A:106835654"
-    ]
    }
   ],
-  "summary": "Filings and records warrant trimming the suggested weights for CGPOWER after a pollution-board plant closure order, KAYNES due to 0/100 promise delivery and negative cash conversion, and HDFCBANK amid a Deputy MD exit during its CEO transition. Conversely, SUNPHARMA merits a smaller reduction following US FDA approval for ILUMYA in active psoriatic arthritis."
+  "summary": "Filings and records warrant trimming the suggested weights for CG Power due to a regulatory unit closure order, Kaynes due to poor promise delivery and negative cash conversion, and HDFC Bank due to a Deputy MD exit during a CEO transition. The remaining filings reflect routine financial results, capital raises, or non-executive transitions already captured by or neutral to the quantitative weights."
  },
- "787f5f6ea640887d0f42": {
+ "69ec67b380e45b52518b": {
   "adjustments": [
    {
     "symbol": "CGPOWER",
     "delta_pp": -1.5,
-    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at the Waluj unit, adding regulatory and operational disruption risk beyond the suggested cut.",
+    "reason": "The Maharashtra Pollution Control Board ordered closure of manufacturing operations at CG Power's Waluj unit, adding regulatory and operational risk beyond the model's initial cut.",
     "cites": [
      "A:106846618"
     ]
@@ -51,7 +43,7 @@
    {
     "symbol": "KAYNES",
     "delta_pp": -1.5,
-    "reason": "Management has a 0/100 promise-delivery score over the last four calls alongside negative 3-year operating cash flow at -0.71x reported profit, warranting a much smaller addition.",
+    "reason": "Kaynes carries a 0/100 management delivery score on promises over the last four calls and negative 3-year operating cash flow at -0.71x reported profit, warranting a smaller increase than suggested.",
     "cites": [
      "P:KAYNES",
      "F:KAYNES"
@@ -60,21 +52,13 @@
    {
     "symbol": "HDFCBANK",
     "delta_pp": -1.0,
-    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 right as Anup Bagchi assumed charge as MD and CEO, adding leadership transition risk to the planned increase.",
+    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 alongside the recent MD and CEO handover to Anup Bagchi, justifying a more cautious addition.",
     "cites": [
      "A:106821168",
      "A:106829496"
     ]
-   },
-   {
-    "symbol": "SUNPHARMA",
-    "delta_pp": 1.0,
-    "reason": "US FDA approval of ILUMYA for active psoriatic arthritis provides a regulatory and commercial catalyst not yet captured in historical growth numbers.",
-    "cites": [
-     "A:106835654"
-    ]
    }
   ],
-  "summary": "Filings and records warrant trimming the suggested weights for CGPOWER after a pollution-board plant closure order, KAYNES due to 0/100 promise delivery and negative cash conversion, and HDFCBANK amid a Deputy MD exit during its CEO transition. Conversely, SUNPHARMA merits a smaller reduction following US FDA approval for ILUMYA in active psoriatic arthritis."
+  "summary": "Filings and records warrant trimming the suggested weights for CG Power due to a regulatory unit closure order, Kaynes due to poor promise delivery and negative cash conversion, and HDFC Bank due to a Deputy MD exit during a CEO transition. The remaining filings reflect routine financial results, capital raises, or non-executive transitions already captured by or neutral to the quantitative weights."
  }
 }

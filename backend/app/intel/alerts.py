@@ -13,11 +13,11 @@ from app.network.owner import current_owner
 
 # Every threshold is the investor's (FR-ALERT-04). These are only starting values.
 DEFAULTS = {
-    "volume_multiple": 2.0,  # alert when volume is at least this multiple of its average...
+    "volume_multiple": 1.5,  # alert when volume is at least this multiple of its average...
     "volume_low_multiple": 0.5,  # ...or at most this multiple (an unusually quiet day)
     "volume_mode": "high",  # high | low | either
     "volume_window": 20,  # sessions in the average, excluding the day itself
-    "price_abs_pct": 5.0,
+    "price_abs_pct": 3.0,  # a large-cap moving 3% in a session is unusual
     "price_direction": "either",  # up | down | either
     "combine": "any",  # any: each condition alerts on its own (OR); all: only together (AND)
     "min_materiality": 50,  # filings: materiality score 0-100

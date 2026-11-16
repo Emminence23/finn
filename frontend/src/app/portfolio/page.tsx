@@ -9,7 +9,8 @@ import { useSWRConfig } from "swr";
 import { api, useApi } from "@/lib/api";
 import { day, inr, pct, price } from "@/lib/fmt";
 import { type Point, YearChart } from "@/components/YearChart";
-import { ErrorNote, Header, Panel, SectionTitle, Segmented, Sheet, Skeleton } from "@/components/ui";
+import { ErrorNote, Header, Panel, SectionTitle, Segmented, Sheet, Skeleton, SlowHint } from "@/components/ui";
+import { useTitle } from "@/lib/title";
 
 type Holding = {
   symbol: string;
@@ -109,6 +110,7 @@ const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 const one = (v: number | null | undefined, unit = "%") => (v == null ? "—" : `${v.toFixed(1)}${unit}`);
 
 export default function PortfolioPage() {
+  useTitle("Portfolio");
   const [tab, setTab] = useState<"now" | "suggested">("now");
   const [editing, setEditing] = useState(false);
   const { data, error, mutate } = useApi<Overview>("/portfolio");
@@ -159,6 +161,7 @@ export default function PortfolioPage() {
         <div className="space-y-3 px-4 pt-4">
           <Skeleton className="h-28" />
           <Skeleton className="h-72" />
+          <SlowHint />
         </div>
       ) : tab === "now" ? (
         <Now d={data} />
@@ -261,7 +264,7 @@ function Now({ d }: { d: Overview }) {
         <p className="mt-1 text-[11px] leading-snug text-ink-3">
           {d.custom
             ? "Today's holdings held for the whole year, so it shows how this mix would have done, not what you made."
-            : `The demo holdings were bought on ${day(d.history.start ?? "")} at that day's close (dotted line: the amount invested).`}
+            : `The demo holdings were bought on ${day(d.history.start ?? "")} ${(d.history.start ?? "").slice(0, 4)} at that day's close (dotted line: the amount invested).`}
         </p>
       </Panel>
 
@@ -367,9 +370,11 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
   const [runErr, setRunErr] = useState<string | null>(null);
   const [applied, setApplied] = useState(false);
   const [rulesOpen, setRulesOpen] = useState(false);
+  const [howOpen, setHowOpen] = useState(false);
+  const [allRows, setAllRows] = useState(false);
   const { mutate: refreshAll } = useSWRConfig();
   if (error && !data) return <div className="mt-4"><ErrorNote error={error} retry={() => mutate()} /></div>;
-  if (!data) return <div className="px-4 pt-4"><Skeleton className="h-96" /></div>;
+  if (!data) return <div className="px-4 pt-4"><Skeleton className="h-96" /><SlowHint retry={() => mutate()} /></div>;
 
   const rv = data.review;
   const reviewed = rv.status === "done" && withAi;
@@ -396,13 +401,37 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
   const b = data.before;
   const a = data.after;
 
+  const changes = data.holdings.map((r) => ({ r, ch: weight(r) - r.current }));
+  const cuts = changes.filter((x) => x.ch <= -0.25).length;
+  const adds = changes.filter((x) => x.ch >= 0.25).length;
+  // the rows worth reading: a change of a point or more, or one the AI touched
+  const BIG = 1;
+  const nudged = (s: string) => reviewed && rv.adjustments.some((x) => x.symbol === s && Math.abs(x.applied) >= 0.05);
+  const ordered = [...changes].sort((x, y) => Math.abs(y.ch) - Math.abs(x.ch));
+  const main = ordered.filter((x) => Math.abs(x.ch) >= BIG || nudged(x.r.symbol));
+  const rest = ordered.filter((x) => !main.includes(x));
+  const rows = allRows ? ordered : main;
+
   return (
     <>
-      <div className="mx-3 mt-3 rounded-2xl border border-line bg-surface p-3.5 text-[13px] leading-snug">
-        <p className="flex items-center gap-1.5 font-semibold">
-          <Calculator size={14} className="text-accent" /> How this is built
+      <div className="px-4 pt-3">
+        <p className="text-[17px] leading-snug tracking-[-0.01em]">
+          Trim {cuts} and add to {adds}. {one(data.turnover)} of the portfolio changes hands; a year&apos;s volatility goes from{" "}
+          {one(b.volatility)} to {one(a.volatility)}.
         </p>
-        <ol className="mt-1.5 list-decimal space-y-1 pl-4 text-ink-2">
+        <div className="mt-2 flex items-center gap-3 text-[13px]">
+          <button onClick={() => setHowOpen(!howOpen)} aria-expanded={howOpen} className="flex items-center gap-1 font-medium text-accent">
+            <Calculator size={13} /> How this is built
+            <ChevronDown size={13} className={clsx("transition-transform", howOpen && "rotate-180")} />
+          </button>
+          <button onClick={() => setRulesOpen(true)} className="ml-auto flex min-h-9 shrink-0 items-center gap-1 rounded-full border border-line px-3 text-[13px] font-medium text-ink-2">
+            <SlidersHorizontal size={13} /> Your rules
+          </button>
+        </div>
+      </div>
+      {howOpen && (
+      <div className="mx-3 mt-2 rounded-2xl border border-line bg-surface p-3.5 text-[13px] leading-snug">
+        <ol className="list-decimal space-y-1 pl-4 text-ink-2">
           <li><b className="text-ink">Balance risk.</b> Every holding gets the same share of the portfolio&apos;s swings, from {data.rules.days} days of prices.</li>
           <li><b className="text-ink">Lean towards quality.</b> Returns on capital, growth, cash conversion, debt, valuation and management&apos;s delivery record tilt each weight.</li>
           <li><b className="text-ink">Your limits.</b> {limitsText(data.rules.settings)}</li>
@@ -411,13 +440,9 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
         {data.rules.notes.length > 0 && (
           <p className="mt-1.5 rounded-lg bg-warn-soft px-2.5 py-1.5 text-[12px] text-warn">{data.rules.notes.join(" ")}</p>
         )}
-        <div className="mt-2 flex items-center justify-between gap-2">
-          <p className="text-[12px] text-ink-3">It does not forecast returns. Same holdings, different proportions.</p>
-          <button onClick={() => setRulesOpen(true)} className="flex shrink-0 items-center gap-1 rounded-full border border-line px-3 py-1.5 text-[13px] font-medium text-ink-2">
-            <SlidersHorizontal size={13} /> Your rules
-          </button>
-        </div>
+        <p className="mt-2 text-[12px] text-ink-2">It does not forecast returns. Same holdings, different proportions.</p>
       </div>
+      )}
       <RulesSheet
         open={rulesOpen}
         onClose={() => setRulesOpen(false)}
@@ -498,10 +523,10 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
         Weights
       </SectionTitle>
       <Panel className="divide-y divide-line">
-        {data.holdings.map((r) => {
+        {rows.map(({ r }) => {
           const w = weight(r);
           const ch = w - r.current;
-          const nudge = reviewed ? rv.adjustments.find((x) => x.symbol === r.symbol) : undefined;
+          const nudge = reviewed ? rv.adjustments.find((x) => x.symbol === r.symbol && Math.abs(x.applied) >= 0.05) : undefined;
           return (
             <div key={r.symbol} className="px-4 py-2.5">
               <div className="flex items-baseline justify-between gap-2 text-[13px]">
@@ -524,13 +549,20 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
                 {r.reason}
                 {nudge && (
                   <span className="block text-ink-2">
-                    AI review: <Nudge x={nudge} />. {nudge.reason}
+                    {/* the code's change and the AI's are two numbers, so the step limit above still holds */}
+                    Code {signedPts(r.suggested - r.current)}, then AI review <Nudge x={nudge} />. {nudge.reason}
                   </span>
                 )}
               </p>
             </div>
           );
         })}
+        {rest.length > 0 && (
+          <button onClick={() => setAllRows(!allRows)} aria-expanded={allRows} className="flex w-full items-center justify-center gap-1 py-3 text-[13px] font-medium text-ink-2">
+            {allRows ? "Show only the larger changes" : `${rest.length} smaller changes, under a point each`}
+            <ChevronDown size={14} className={clsx("transition-transform", allRows && "rotate-180")} />
+          </button>
+        )}
       </Panel>
 
       <div className="px-4 pt-4">
@@ -541,6 +573,10 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
       </div>
     </>
   );
+}
+
+function signedPts(v: number): string {
+  return `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)} pts`;
 }
 
 /** What the AI asked for and what the limits let through, in words. */

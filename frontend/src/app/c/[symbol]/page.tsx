@@ -23,6 +23,7 @@ import {
 import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
 import { ContactNotes } from "@/components/notes";
+import { useTitle } from "@/lib/title";
 
 const STEPS = [
   { step: "fundamentals", label: "Reported financials" },
@@ -36,11 +37,13 @@ type State =
   | { kind: "loading" }
   | { kind: "building"; done: string[]; message: string }
   | { kind: "ready"; view: Research }
+  | { kind: "unread"; name: string | null; left: number }
   | { kind: "error"; message: string; notCovered?: boolean; limit?: boolean };
 
 export default function CompanyPage() {
   const { symbol: raw } = useParams<{ symbol: string }>();
   const symbol = decodeURIComponent(raw).toUpperCase();
+  useTitle(symbol);
   const initialQ = useSearchParams().get("q") ?? undefined;
   const [state, setState] = useState<State>({ kind: "loading" });
   const abort = useRef<AbortController | null>(null);
@@ -85,8 +88,14 @@ export default function CompanyPage() {
       .then((view) => live && setState({ kind: "ready", view }))
       .catch((e) => {
         if (!live) return;
-        if (e instanceof ApiError && e.status === 404) build();
-        else setState({ kind: "error", message: e instanceof Error ? e.message : String(e) });
+        if (e instanceof ApiError && e.status === 404) {
+          // ask first: a live read spends the day's shared AI budget
+          let d: { covered?: { name: string } | null; builds_left?: number } = {};
+          try {
+            d = JSON.parse(e.message).detail ?? {};
+          } catch {}
+          setState({ kind: "unread", name: d.covered?.name ?? null, left: d.builds_left ?? 0 });
+        } else setState({ kind: "error", message: e instanceof Error ? e.message : String(e) });
       });
     return () => {
       live = false;
@@ -97,12 +106,13 @@ export default function CompanyPage() {
   return (
     <main>
       <div className="flex items-center gap-2 px-3 pt-[calc(12px+env(safe-area-inset-top))]">
-        <Link href="/ask" aria-label="Back" className="rounded-full p-2 text-ink-2 active:bg-surface-2">
+        <Link href="/" aria-label="Back" className="rounded-full p-2 text-ink-2 active:bg-surface-2">
           <ArrowLeft size={19} />
         </Link>
         <span className="text-[13px] font-medium text-ink-3">{symbol}</span>
       </div>
       {state.kind === "loading" && <LoadingView />}
+      {state.kind === "unread" && <UnreadView symbol={symbol} name={state.name} left={state.left} read={() => build()} />}
       {state.kind === "building" && <BuildingView symbol={symbol} done={state.done} message={state.message} />}
       {state.kind === "error" && (
         <Panel className="mt-4 p-4">
@@ -111,12 +121,14 @@ export default function CompanyPage() {
               ? `No filings data for ${symbol}`
               : state.limit
                 ? "Live analysis is paused for today"
-                : "Research couldn't be built"}
+                : `I couldn't finish reading ${symbol}`}
           </p>
           <p className="mt-1 text-[13px] text-ink-2">
             {state.notCovered
-              ? "FINN only uses primary sources. This ticker has no standardised financials or transcripts to read."
-              : state.message.slice(0, 200)}
+              ? state.message.includes("isn't an NSE")
+                ? `${state.message} Check the ticker, or search by the company's name.`
+                : "There's nothing for FINN to read yet: no standardised financials or earnings-call transcripts for this ticker."
+              : `Nothing was guessed or saved. ${/network|fetch/i.test(state.message) ? "The connection dropped partway." : state.message.slice(0, 160)}`}
           </p>
           {!state.notCovered && !state.limit && (
             <button onClick={() => build(true)} className="mt-3 text-[13px] font-medium text-accent">
@@ -146,13 +158,48 @@ function LoadingView() {
   );
 }
 
+function UnreadView({ symbol, name, left, read }: { symbol: string; name: string | null; left: number; read: () => void }) {
+  if (!name)
+    return (
+      <Panel className="mt-4 p-4">
+        <p className="text-[15px] font-semibold">I don&apos;t know {symbol}</p>
+        <p className="mt-1 text-[13px] text-ink-2">It isn&apos;t an NSE-listed company in FINN&apos;s list. Check the ticker, or search by the company&apos;s name.</p>
+        <Link href="/ask" className="mt-3 inline-block text-[13px] font-medium text-accent">
+          Search →
+        </Link>
+      </Panel>
+    );
+  return (
+    <div className="px-4 pt-2">
+      <h1 className="text-[24px] font-semibold tracking-[-0.02em]">{shortName(name)}</h1>
+      <p className="mt-2 text-[15px] leading-relaxed text-ink">
+        I haven&apos;t read {shortName(name)} yet. Reading its annual report and last four earnings calls takes about a minute.
+      </p>
+      {left > 0 ? (
+        <>
+          <button onClick={read} className="mt-4 w-full rounded-xl bg-ink py-3 text-[15px] font-medium text-surface active:opacity-80">
+            Read it now
+          </button>
+          <p className="mt-2 text-center text-[12px] text-ink-2">
+            Uses 1 of the {left} live reads left today on this demo
+          </p>
+        </>
+      ) : (
+        <p className="mt-4 rounded-lg bg-warn-soft px-3 py-2 text-[13px] text-warn">
+          Today&apos;s live reads on this demo are used up. The ready companies are on the Ask screen.
+        </p>
+      )}
+    </div>
+  );
+}
+
 function BuildingView({ symbol, done, message }: { symbol: string; done: string[]; message: string }) {
   const current = STEPS.find((s) => !done.includes(s.step));
   return (
     <div className="px-4 pt-2">
       <h1 className="text-[24px] font-semibold tracking-[-0.02em]">Reading {symbol}</h1>
       <p className="mt-1 text-[13px] text-ink-2">
-        First time anyone asked. FINN is reading primary sources only, so this takes about a minute.
+        Reading the annual report and the last four earnings calls, and nothing else. About a minute.
       </p>
       <ol className="mt-6 space-y-3">
         {STEPS.map((s) => {
@@ -282,9 +329,11 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
               </p>
               {p.score != null && (
                 <p className="shrink-0 text-right">
-                  <span className="text-[28px] font-semibold leading-none tracking-[-0.02em]">{p.score}</span>
-                  <span className="block text-[10px] uppercase tracking-wide text-ink-3">delivery score</span>
-                  <span className="block text-[10px] text-ink-3">of 100: delivered 1, partly ½</span>
+                  <span className="text-[28px] font-semibold leading-none tracking-[-0.02em]">
+                    {p.score}
+                    <span className="text-[13px] font-medium text-ink-3">/100</span>
+                  </span>
+                  <span className="block text-[11px] text-ink-2">delivery score</span>
                 </p>
               )}
             </div>
@@ -296,6 +345,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
               const byCode = due.filter((i) => i.judged_by === "code").length;
               return due.length > 0 ? (
                 <p className="mt-2 text-[12px] leading-snug text-ink-3">
+                  Score: each promise delivered counts 1, partly delivered ½, out of the promises that came due.{" "}
                   {byCode} of {due.length} judged by arithmetic on reported numbers; {due.length - byCode === 0 ? "none" : due.length - byCode} left to the AI because no reported figure measures {due.length - byCode === 1 ? "it" : "them"}.
                 </p>
               ) : null;

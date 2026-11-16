@@ -24,7 +24,7 @@
       ],
       "education": [{"school": "PSG College of Technology", "program": "MBA", "start_year": 2011, "end_year": 2013}],
       "themes": ["private banking", "bank compliance", "regulation"],
-      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-08-20", "context": "Met at an RBI compliance roundtable; good read on regulatory tone"},
+      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-08-20", "context": "Met at an RBI compliance roundtable; good read on regulatory tone", "email": "meera.iyer@example.com"},
       "knows": [{"person": "fp_vn_srivatsan_hdfcbank", "strength": 0.8, "context": "Reported into his Retail Banking Compliance team at ICICI Bank"}]
     },
     {
@@ -35,7 +35,7 @@
       ],
       "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2004, "end_year": 2006}],
       "themes": ["private banking", "wholesale banking"],
-      "relationship": {"type": "alumni", "strength": 0.5, "last_contact": "2026-06-11", "context": "IIM-A alumni network; co-invested once"},
+      "relationship": {"type": "alumni", "strength": 0.5, "last_contact": "2026-06-11", "context": "IIM-A alumni network; co-invested once", "email": "rohan.deshmukh@example.com"},
       "knows": [{"person": "fp_anup_bagchi_hdfcbank", "strength": 0.5, "context": "Worked in ICICI wholesale banking during his tenure"}]
     },
     {
@@ -46,7 +46,7 @@
       ],
       "education": [{"school": "IIM Calcutta", "program": "PGP", "start_year": 2010, "end_year": 2012}],
       "themes": ["private banking", "consumer lending", "rural lending"],
-      "relationship": {"type": "former colleague", "strength": 0.9, "last_contact": "2026-11-02", "context": "Sat next to each other at Kotak for four years"}
+      "relationship": {"type": "former colleague", "strength": 0.9, "last_contact": "2026-11-02", "context": "Sat next to each other at Kotak for four years", "email": "kavita.menon@example.com"}
     },
     {
       "id": "c_sneha_pillai", "name": "Sneha Pillai", "headline": "Independent consultant, rural credit",
@@ -56,7 +56,7 @@
       ],
       "education": [{"school": "IRMA Anand", "program": "PGDRM", "start_year": 2010, "end_year": 2012}],
       "themes": ["rural lending", "vehicle finance", "collections"],
-      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-03-04", "context": "Did two paid expert calls on rural collections"}
+      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-03-04", "context": "Did two paid expert calls on rural collections", "email": "sneha.pillai@example.com"}
     },
     {
       "id": "c_farhan_qureshi", "name": "Farhan Qureshi", "headline": "Product lead at a lending fintech",
@@ -66,7 +66,7 @@
       ],
       "education": [{"school": "NIT Calicut", "program": "B.Tech", "start_year": 2010, "end_year": 2014}],
       "themes": ["gold loans", "lending technology"],
-      "relationship": {"type": "friend of friend", "strength": 0.4, "last_contact": "2025-12-15", "context": "Introduced by Kavita at a fintech meetup"}
+      "relationship": {"type": "friend of friend", "strength": 0.4, "last_contact": "2025-12-15", "context": "Introduced by Kavita at a fintech meetup", "email": "farhan.qureshi@example.com"}
     },
     {
       "id": "c_deepak_joshi", "name": "Deepak Joshi", "headline": "Head of Analytics at a credit bureau",
@@ -76,7 +76,7 @@
       ],
       "education": [{"school": "IIT Bombay", "program": "B.Tech", "start_year": 2004, "end_year": 2008}],
       "themes": ["consumer lending", "credit risk"],
-      "relationship": {"type": "classmate", "strength": 0.8, "last_contact": "2026-09-28", "context": "IIT Bombay batchmate, same hostel"}
+      "relationship": {"type": "classmate", "strength": 0.8, "last_contact": "2026-09-28", "context": "IIT Bombay batchmate, same hostel", "email": "deepak.joshi@example.com"}
     },
     {
       "id": "c_nikhil_bhandari", "name": "Nikhil Bhandari", "headline": "General Manager, Projects at a fluorochemicals company",
@@ -86,7 +86,7 @@
       ],
       "education": [{"school": "ICT Mumbai", "program": "B.Chem.Engg", "start_year": 2003, "end_year": 2007}],
       "themes": ["specialty chemicals", "fluorochemicals", "capex execution"],
-      "relationship": {"type": "industry contact", "strength": 0.7, "last_contact": "2026-04-18", "context": "Plant visit host when covering chemicals at Kotak"}
+      "relationship": {"type": "industry contact", "strength": 0.7, "last_contact": "2026-04-18", "context": "Plant visit host when covering chemicals at Kotak", "email": "nikhil.bhandari@example.com"}
     },
     {
       "id": "c_pooja_sethi", "name": "Pooja Sethi", "headline": "Procurement advisor, chemicals",
@@ -96,7 +96,7 @@
       ],
       "education": [{"school": "MS University Baroda", "program": "M.Sc Chemistry", "start_year": 2011, "end_year": 2013}],
       "themes": ["specialty chemicals", "phenol", "raw materials"],
-      "relationship": {"type": "expert network", "strength": 0.5, "last_contact": "2026-07-09", "context": "Tracks benzene and phenol spreads for me"}
+      "relationship": {"type": "expert network", "strength": 0.5, "last_contact": "2026-07-09", "context": "Tracks benzene and phenol spreads for me", "email": "pooja.sethi@example.com"}
     },
     {
       "id": "c_rajesh_nair", "name": "Rajesh Nair", "headline": "Founder, contract research startup",
@@ -106,7 +106,7 @@
       ],
       "education": [{"school": "ICT Mumbai", "program": "PhD", "start_year": 2004, "end_year": 2009}],
       "themes": ["specialty chemicals", "agrochem intermediates", "R&D"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-01-22", "context": "Met at Chemspec; knows Aarti's customer contracts well"}
+      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-01-22", "context": "Met at Chemspec; knows Aarti's customer contracts well", "email": "rajesh.nair@example.com"}
     },
     {
       "id": "c_ishita_kapoor", "name": "Ishita Kapoor", "headline": "Marketing director, consumer brands",
@@ -117,7 +117,7 @@
       ],
       "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2008, "end_year": 2010}],
       "themes": ["home improvement", "consumer staples", "adhesives", "distribution"],
-      "relationship": {"type": "alumni", "strength": 0.7, "last_contact": "2026-10-03", "context": "IIM-A senior; mentor in the alumni program"}
+      "relationship": {"type": "alumni", "strength": 0.7, "last_contact": "2026-10-03", "context": "IIM-A senior; mentor in the alumni program", "email": "ishita.kapoor@example.com"}
     },
     {
       "id": "c_varun_malhotra", "name": "Varun Malhotra", "headline": "Principal at a private equity fund",
@@ -127,7 +127,7 @@
       ],
       "education": [{"school": "SRCC Delhi", "program": "B.Com", "start_year": 2006, "end_year": 2009}],
       "themes": ["metals", "corporate finance"],
-      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2026-05-30", "context": "Met at a PE-public markets dinner"}
+      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2026-05-30", "context": "Met at a PE-public markets dinner", "email": "varun.malhotra@example.com"}
     },
     {
       "id": "c_tanvi_arora", "name": "Tanvi Arora", "headline": "Head of People at a climate-tech startup",
@@ -137,7 +137,7 @@
       ],
       "education": [{"school": "Indraprastha University", "program": "MHRM", "start_year": 2000, "end_year": 2002}],
       "themes": ["renewables", "HR", "solar manufacturing"],
-      "relationship": {"type": "friend", "strength": 0.6, "last_contact": "2026-09-14", "context": "Family friend in Delhi"},
+      "relationship": {"type": "friend", "strength": 0.6, "last_contact": "2026-09-14", "context": "Family friend in Delhi", "email": "tanvi.arora@example.com"},
       "knows": [{"person": "fp_jyothsana_vasudevan_srf", "strength": 0.8, "context": "Worked in her HR team at Avaada"}]
     },
     {
@@ -148,7 +148,7 @@
       ],
       "education": [{"school": "NIT Trichy", "program": "B.Tech ECE", "start_year": 2008, "end_year": 2012}],
       "themes": ["semiconductors", "electronics manufacturing", "OSAT"],
-      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-03-21", "context": "Best person I know on Kaynes' customer mix and OSAT ramp"}
+      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-03-21", "context": "Best person I know on Kaynes' customer mix and OSAT ramp", "email": "karthik.subramanian@example.com"}
     },
     {
       "id": "c_aditi_rao", "name": "Aditi Rao", "headline": "Supply chain head at a smartphone ODM",
@@ -158,7 +158,7 @@
       ],
       "education": [{"school": "IIM Lucknow", "program": "PGP", "start_year": 2016, "end_year": 2018}],
       "themes": ["electronics manufacturing", "smartphones", "PLI"],
-      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-07-30", "context": "Met on a Noida EMS cluster tour"}
+      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-07-30", "context": "Met on a Noida EMS cluster tour", "email": "aditi.rao@example.com"}
     },
     {
       "id": "c_vikram_sinha", "name": "Vikram Sinha", "headline": "Engineering director at an industrial automation firm",
@@ -169,7 +169,7 @@
       ],
       "education": [{"school": "BITS Pilani", "program": "B.E.", "start_year": 2000, "end_year": 2004}],
       "themes": ["industrial automation", "capital goods"],
-      "relationship": {"type": "friend", "strength": 0.7, "last_contact": "2026-10-19", "context": "Cousin's college friend; regular badminton partner"}
+      "relationship": {"type": "friend", "strength": 0.7, "last_contact": "2026-10-19", "context": "Cousin's college friend; regular badminton partner", "email": "vikram.sinha@example.com"}
     },
     {
       "id": "c_neha_agarwal", "name": "Neha Agarwal", "headline": "Partner, operations consulting",
@@ -180,7 +180,7 @@
       ],
       "education": [{"school": "IIT Guwahati", "program": "B.Tech Mechanical", "start_year": 2003, "end_year": 2007}],
       "themes": ["industrial services", "capital goods"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-02-10", "context": "Ran a channel check for me on industrial services"},
+      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-02-10", "context": "Ran a channel check for me on industrial services", "email": "neha.agarwal@example.com"},
       "knows": [{"person": "fp_rajat_shah_cgpower", "strength": 0.7, "context": "Worked in his services organisation at Tetra Pak"}]
     },
     {
@@ -191,7 +191,7 @@
       ],
       "education": [{"school": "MANIT Bhopal", "program": "B.Tech Electrical", "start_year": 2008, "end_year": 2012}],
       "themes": ["power equipment", "transformers", "capital goods"],
-      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-02-26", "context": "Transformer order-book channel checks"}
+      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-02-26", "context": "Transformer order-book channel checks", "email": "siddharth.menon@example.com"}
     },
     {
       "id": "c_amit_khanna", "name": "Amit Khanna", "headline": "Director, semiconductor policy and partnerships",
@@ -201,7 +201,7 @@
       ],
       "education": [{"school": "IIT Bombay", "program": "M.Tech, Microelectronics", "start_year": 2006, "end_year": 2008}],
       "themes": ["semiconductors", "OSAT", "industrial policy"],
-      "relationship": {"type": "classmate", "strength": 0.6, "last_contact": "2026-06-02", "context": "IIT Bombay, overlapped in the same department"}
+      "relationship": {"type": "classmate", "strength": 0.6, "last_contact": "2026-06-02", "context": "IIT Bombay, overlapped in the same department", "email": "amit.khanna@example.com"}
     },
     {
       "id": "c_ritu_bansal", "name": "Ritu Bansal", "headline": "Senior manager, wires & cables",
@@ -211,7 +211,7 @@
       ],
       "education": [{"school": "NMIMS Mumbai", "program": "MBA", "start_year": 2012, "end_year": 2014}],
       "themes": ["cables & wires", "capital goods", "distribution"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-05-12", "context": "Dealer-channel checks on wires pricing"}
+      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-05-12", "context": "Dealer-channel checks on wires pricing", "email": "ritu.bansal@example.com"}
     },
     {
       "id": "c_prakash_hegde", "name": "Prakash Hegde", "headline": "Independent advisor, IT services",
@@ -222,7 +222,7 @@
       ],
       "education": [{"school": "NIT Surathkal", "program": "B.E.", "start_year": 1999, "end_year": 2003}],
       "themes": ["IT services", "deal pipelines", "BFSI tech"],
-      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-08-07", "context": "Go-to for IT services deal ramp questions"}
+      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-08-07", "context": "Go-to for IT services deal ramp questions", "email": "prakash.hegde@example.com"}
     },
     {
       "id": "c_lakshmi_narayanan", "name": "Lakshmi Narayanan", "headline": "Board advisor, technology",
@@ -232,7 +232,7 @@
       ],
       "education": [{"school": "Anna University", "program": "B.E.", "start_year": 1996, "end_year": 2000}],
       "themes": ["IT services", "large deals"],
-      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2025-11-30", "context": "Met at a NASSCOM event"}
+      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2025-11-30", "context": "Met at a NASSCOM event", "email": "lakshmi.narayanan@example.com"}
     },
     {
       "id": "c_gaurav_mehta", "name": "Gaurav Mehta", "headline": "Engineering manager at an IT services firm",
@@ -241,7 +241,7 @@
       ],
       "education": [{"school": "IIT Bombay", "program": "B.Tech, Mechanical Engineering", "start_year": 2004, "end_year": 2008}],
       "themes": ["IT services", "product engineering"],
-      "relationship": {"type": "classmate", "strength": 0.9, "last_contact": "2026-10-25", "context": "IIT Bombay wing-mate"}
+      "relationship": {"type": "classmate", "strength": 0.9, "last_contact": "2026-10-25", "context": "IIT Bombay wing-mate", "email": "gaurav.mehta@example.com"}
     },
     {
       "id": "c_ananya_krishnan", "name": "Ananya Krishnan", "headline": "Founder, D2C jewellery brand",
@@ -251,7 +251,7 @@
       ],
       "education": [{"school": "NIFT Bengaluru", "program": "M.Des", "start_year": 2009, "end_year": 2011}],
       "themes": ["jewellery", "consumer discretionary", "retail"],
-      "relationship": {"type": "friend", "strength": 0.6, "last_contact": "2026-04-02", "context": "Friend from Bengaluru; candid on gold pricing and demand"}
+      "relationship": {"type": "friend", "strength": 0.6, "last_contact": "2026-04-02", "context": "Friend from Bengaluru; candid on gold pricing and demand", "email": "ananya.krishnan@example.com"}
     },
     {
       "id": "c_rahul_shetty", "name": "Rahul Shetty", "headline": "Retail operations consultant",
@@ -261,7 +261,7 @@
       ],
       "education": [{"school": "Welingkar Mumbai", "program": "PGDM Retail", "start_year": 2015, "end_year": 2017}],
       "themes": ["retail", "value fashion", "store economics"],
-      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-09-05", "context": "Store-level unit economics"}
+      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-09-05", "context": "Store-level unit economics", "email": "rahul.shetty@example.com"}
     },
     {
       "id": "c_sanjay_patil", "name": "Sanjay Patil", "headline": "Vice President, auto manufacturing",
@@ -271,7 +271,7 @@
       ],
       "education": [{"school": "COEP Pune", "program": "B.E. Mechanical", "start_year": 1998, "end_year": 2002}],
       "themes": ["autos", "manufacturing"],
-      "relationship": {"type": "former colleague", "strength": 0.8, "last_contact": "2026-07-17", "context": "My first manager at Tata Motors"},
+      "relationship": {"type": "former colleague", "strength": 0.8, "last_contact": "2026-07-17", "context": "My first manager at Tata Motors", "email": "sanjay.patil@example.com"},
       "knows": [{"person": "fp_rajiv_dube_trent", "strength": 0.6, "context": "Worked in the car business when he was its President"}]
     },
     {
@@ -282,7 +282,7 @@
       ],
       "education": [{"school": "NITIE Mumbai", "program": "PGDIE", "start_year": 2011, "end_year": 2013}],
       "themes": ["home improvement", "paints", "consumer staples", "supply chain"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-06-24", "context": "Paints competitive intensity checks"}
+      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-06-24", "context": "Paints competitive intensity checks", "email": "divya.chawla@example.com"}
     },
     {
       "id": "c_harish_venkatesh", "name": "Dr. Harish Venkatesh", "headline": "Regulatory consultant, pharma",
@@ -292,7 +292,7 @@
       ],
       "education": [{"school": "NIPER Mohali", "program": "PhD", "start_year": 2003, "end_year": 2008}],
       "themes": ["pharma", "USFDA", "regulatory"],
-      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-01-15", "context": "First call on any FDA or regulator action"}
+      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-01-15", "context": "First call on any FDA or regulator action", "email": "harish.venkatesh@example.com"}
     },
     {
       "id": "c_arjun_malhotra", "name": "Arjun Malhotra", "headline": "Telecom strategy consultant",
@@ -302,7 +302,7 @@
       ],
       "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2010, "end_year": 2012}],
       "themes": ["telecom", "conglomerate", "digital"],
-      "relationship": {"type": "classmate", "strength": 0.8, "last_contact": "2026-10-11", "context": "IIM-A section-mate"}
+      "relationship": {"type": "classmate", "strength": 0.8, "last_contact": "2026-10-11", "context": "IIM-A section-mate", "email": "arjun.malhotra@example.com"}
     },
     {
       "id": "c_abhishek_jain", "name": "Abhishek Jain", "headline": "Portfolio manager at a hedge fund",
@@ -312,7 +312,7 @@
       ],
       "education": [{"school": "IIM Bangalore", "program": "PGP", "start_year": 2009, "end_year": 2011}],
       "themes": ["capital goods", "power equipment", "generalist"],
-      "relationship": {"type": "former colleague", "strength": 0.8, "last_contact": "2026-11-10", "context": "Ex-Kotak; trade ideas regularly"}
+      "relationship": {"type": "former colleague", "strength": 0.8, "last_contact": "2026-11-10", "context": "Ex-Kotak; trade ideas regularly", "email": "abhishek.jain@example.com"}
     },
     {
       "id": "c_priya_raman", "name": "Priya Raman", "headline": "Partner at a strategy consulting firm",
@@ -321,7 +321,7 @@
       ],
       "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2010, "end_year": 2012}],
       "themes": ["home improvement", "consumer staples", "retail", "paints"],
-      "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-08-29", "context": "IIM-A batchmate"}
+      "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-08-29", "context": "IIM-A batchmate", "email": "priya.raman@example.com"}
     },
     {
       "id": "c_mohit_arora", "name": "Mohit Arora", "headline": "CIO at a family office",
@@ -331,7 +331,7 @@
       ],
       "education": [{"school": "XLRI Jamshedpur", "program": "PGDM", "start_year": 2006, "end_year": 2008}],
       "themes": ["generalist", "private banking"],
-      "relationship": {"type": "former colleague", "strength": 0.7, "last_contact": "2026-07-03", "context": "Ex-ICICI Pru colleague"}
+      "relationship": {"type": "former colleague", "strength": 0.7, "last_contact": "2026-07-03", "context": "Ex-ICICI Pru colleague", "email": "mohit.arora@example.com"}
     },
     {
       "id": "c_shreya_bose", "name": "Shreya Bose", "headline": "Equity research analyst, chemicals",
@@ -341,7 +341,7 @@
       ],
       "education": [{"school": "ICT Mumbai", "program": "B.Tech", "start_year": 2010, "end_year": 2014}],
       "themes": ["specialty chemicals", "fluorochemicals", "refrigerant gases"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-09-30", "context": "Swap notes on refrigerant gas pricing"}
+      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-09-30", "context": "Swap notes on refrigerant gas pricing", "email": "shreya.bose@example.com"}
     },
     {
       "id": "c_manish_gupta", "name": "Manish Gupta", "headline": "Venture investor, hardware",
@@ -350,7 +350,7 @@
       ],
       "education": [{"school": "London Business School", "program": "MBA", "start_year": 2019, "end_year": 2021}],
       "themes": ["electronics manufacturing", "semiconductors", "venture"],
-      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2026-04-28", "context": "Co-panelist on electronics manufacturing"}
+      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2026-04-28", "context": "Co-panelist on electronics manufacturing", "email": "manish.gupta@example.com"}
     },
     {
       "id": "c_anjali_deshpande", "name": "Anjali Deshpande", "headline": "Head of Risk at a small finance bank",
@@ -360,7 +360,7 @@
       ],
       "education": [{"school": "JBIMS Mumbai", "program": "MMS Finance", "start_year": 2007, "end_year": 2009}],
       "themes": ["private banking", "SME lending", "credit risk"],
-      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-02-19", "context": "Knows HDFC Bank's SME franchise inside out"}
+      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-02-19", "context": "Knows HDFC Bank's SME franchise inside out", "email": "anjali.deshpande@example.com"}
     },
     {
       "id": "c_kiran_reddy", "name": "Kiran Reddy", "headline": "Plant head, specialty chemicals",
@@ -370,7 +370,7 @@
       ],
       "education": [{"school": "IIT Bombay", "program": "B.Tech Chemical", "start_year": 2004, "end_year": 2008}],
       "themes": ["specialty chemicals", "plant operations"],
-      "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-05-08", "context": "IIT Bombay batchmate"}
+      "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-05-08", "context": "IIT Bombay batchmate", "email": "kiran.reddy@example.com"}
     },
     {
       "id": "c_amit_agarwal_ca",
@@ -380,7 +380,7 @@
       "roles": [{"company": "Agarwal & Associates", "title": "Partner", "start_year": 2009, "end_year": null}],
       "education": [{"school": "University of Rajasthan", "program": "B.Com", "start_year": 2002, "end_year": 2005}],
       "themes": ["tax", "audit"],
-      "relationship": {"type": "friend", "strength": 0.4, "last_contact": "2026-06-11", "context": "Family friend from Jaipur; does the family's taxes"}
+      "relationship": {"type": "friend", "strength": 0.4, "last_contact": "2026-06-11", "context": "Family friend from Jaipur; does the family's taxes", "email": "amit.agarwal@example.com"}
     }
   ]
 }

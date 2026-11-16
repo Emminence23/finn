@@ -103,7 +103,9 @@ CREATE TABLE IF NOT EXISTS relationships (
     other_id TEXT,                     -- NULL = relationship with the investor (1st degree)
     type TEXT,
     strength REAL,
-    last_contact TEXT
+    last_contact TEXT,
+    email TEXT,                        -- how to reach a 1st-degree contact, if known
+    phone TEXT
 );
 -- AI reviews of the suggested portfolio, keyed by a hash of every input (portfolio/review.py)
 CREATE TABLE IF NOT EXISTS portfolio_reviews (
@@ -241,6 +243,10 @@ def init_db(path: Path | None = None) -> None:
         if "weight" in cols:  # pre-positions schema: edits were weights only, drop them
             conn.execute("DROP TABLE holdings")
         conn.executescript(SCHEMA)
+        rel = {r[1] for r in conn.execute("PRAGMA table_info(relationships)")}
+        for col in ("email", "phone"):  # added after the first deploy
+            if col not in rel:
+                conn.execute(f"ALTER TABLE relationships ADD COLUMN {col} TEXT")
 
 
 @contextmanager

@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useEffect, useRef } from "react";
 import { Sparkles, X } from "lucide-react";
 import { initials, modelName } from "@/lib/fmt";
+import { useSlow } from "@/lib/slow";
 
 export function Header({
   title,
@@ -52,7 +53,7 @@ export function SectionTitle({
 }) {
   return (
     <div className="flex items-baseline justify-between px-4 pb-2 pt-6">
-      <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-3">
+      <h2 className="text-[15px] font-semibold tracking-[-0.01em] text-ink">
         {children}
       </h2>
       {aside && <div className="text-[12px] text-ink-3">{aside}</div>}
@@ -232,7 +233,7 @@ export function Segmented<T extends string>({
     <div
       role="radiogroup"
       aria-label={label}
-      className="inline-flex rounded-full bg-surface-2 p-0.5"
+      className="inline-flex shrink-0 rounded-full bg-surface-2 p-0.5"
     >
       {options.map((o) => (
         <button
@@ -241,7 +242,7 @@ export function Segmented<T extends string>({
           aria-checked={value === o.value}
           onClick={() => onChange(o.value)}
           className={clsx(
-            "rounded-full px-3 py-1 text-[13px] font-medium transition-colors",
+            "min-h-8 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors",
             value === o.value ? "bg-surface text-ink shadow-sm" : "text-ink-2",
           )}
         >
@@ -273,5 +274,19 @@ export function AiTag({
         {name && <> · {name}</>}
       </span>
     </span>
+  );
+}
+
+/** Shown under a skeleton: after 8 s, say why it's slow and offer a retry. */
+export function SlowHint({ retry }: { retry?: () => void }) {
+  const slow = useSlow(true);
+  if (!slow) return null;
+  return (
+    <p className="pt-2 text-[13px] leading-snug text-ink-2" role="status">
+      Still loading. The server may be waking up or busy with a live analysis.{" "}
+      <button onClick={retry ?? (() => window.location.reload())} className="font-medium text-accent">
+        Try again
+      </button>
+    </p>
   );
 }

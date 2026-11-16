@@ -34,8 +34,8 @@ FIXTURE_TABLES = [
     "company_links",
 ]
 DEFAULT_ALERT_RULES = [
-    ("volume", {"multiple": 2.0}),
-    ("price", {"abs_pct": 5.0}),
+    ("volume", {"multiple": 1.5}),
+    ("price", {"abs_pct": 3.0}),
     (
         "category",
         {
@@ -220,8 +220,17 @@ def seed_owner_network(db, owner: str) -> int:
         rel = c["relationship"]
         db.execute(
             "INSERT INTO relationships (owner_id, person_id, other_id, type, strength, "
-            "last_contact) VALUES (?,?,?,?,?,?)",
-            (owner, c["id"], None, rel["type"], rel["strength"], rel["last_contact"]),
+            "last_contact, email, phone) VALUES (?,?,?,?,?,?,?,?)",
+            (
+                owner,
+                c["id"],
+                None,
+                rel["type"],
+                rel["strength"],
+                rel["last_contact"],
+                rel.get("email"),
+                rel.get("phone"),
+            ),
         )
         for k in c.get("knows", []):
             db.execute(

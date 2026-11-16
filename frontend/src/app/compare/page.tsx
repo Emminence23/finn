@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowLeftRight, Info } from "lucide-react";
 import { useApi } from "@/lib/api";
 import { crore, pct, times } from "@/lib/fmt";
 import { ErrorNote, Panel, SectionTitle, Skeleton } from "@/components/ui";
+import { useTitle } from "@/lib/title";
 
 type Co = {
   symbol: string;
@@ -23,6 +24,7 @@ type Comparison = { companies: Co[]; metrics: Metric[]; lines: string[]; wins: n
 type Peer = { symbol: string; name: string; kind: string };
 
 export default function ComparePage() {
+  useTitle("Compare");
   return (
     <Suspense>
       <Compare />

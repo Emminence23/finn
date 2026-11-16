@@ -510,11 +510,26 @@ def research(symbol: str) -> dict:
     then opens the stream, which builds it live with progress (FR-PULL-10)."""
     view = service.get_cached(symbol.upper())
     if view is None:
+        # the page asks before building (a build spends the day's AI budget), so it needs
+        # to know whether the ticker exists and how many reads are left
         raise HTTPException(
             404,
-            {"status": "not_built", "build_url": f"/research/{symbol.upper()}/stream"},
+            {
+                "status": "not_built",
+                "build_url": f"/research/{symbol.upper()}/stream",
+                "covered": _listed(symbol),
+                "builds_left": BUDGET.left(get_settings().max_live_builds_per_day),
+            },
         )
     return service.with_network(view)
+
+
+def _listed(symbol: str) -> dict | None:
+    with session() as db:
+        r = db.execute(
+            "SELECT symbol, name FROM companies WHERE symbol=?", (symbol.upper(),)
+        ).fetchone()
+    return dict(r) if r else None
 
 
 class BuildBudget:
@@ -528,6 +543,11 @@ class BuildBudget:
         self._count = threading.Lock()  # the counter itself: two requests can't both take
         # the last unit. In-process, so it resets on restart and isn't shared across
         # workers; fine for one free instance, a database counter in production.
+
+    def left(self, limit: int, today: str | None = None) -> int:
+        today = today or datetime.now(UTC).date().isoformat()
+        with self._count:
+            return limit if today != self.day else max(0, limit - self.used)
 
     def take(self, limit: int, today: str) -> bool:
         with self._count:
@@ -600,6 +620,14 @@ async def research_stream(symbol: str, force: bool = False):
 
     today = datetime.now(UTC).date().isoformat()
     cached = None if force else service.get_cached(symbol.upper())
+    if cached is None and not _listed(symbol):
+        # checked before the budget: a mistyped ticker never spends a live read
+
+        async def unknown():
+            msg = f"{symbol.upper()} isn't an NSE-listed company FINN knows."
+            yield {"event": "error", "data": json.dumps({"message": msg, "kind": "not_covered"})}
+
+        return EventSourceResponse(unknown())
     if cached is None and not BUDGET.take(get_settings().max_live_builds_per_day, today):
 
         async def refused():

@@ -22,6 +22,7 @@ from app.clock import now
 from app.db import init_db, session
 from app.ingest.fundamentals import NotCovered, fetch_fundamentals
 from app.ingest.universe import fixtures_dir, research_symbols
+from app.intel.units import normalise
 from app.llm import get_llm
 from app.network import graph
 from app.research import guidance, narrative, promises, qa
@@ -87,6 +88,10 @@ def get_cached(symbol: str) -> dict | None:
         return None
     view = next((v for v in candidates if want and v.get("key") == want), candidates[0])
     view["freshness"] = _freshness(view, want)
+    # FINN's own outcome sentences in one unit (₹ Cr); management's quotes stay verbatim
+    for it in view.get("promises", {}).get("items", []):
+        if it.get("actual"):
+            it["actual"] = normalise(it["actual"])
     return with_filed_results(view)
 
 

@@ -17,7 +17,7 @@
   --line: #e4e2db;
   --ink: #0b0b0b;
   --ink-2: #52514e;
-  --ink-3: #8a8983;
+  --ink-3: #6f6e69; /* 4.9:1 on the surface (was 3.4:1) */
   --accent: #2a78d6;
   --accent-soft: #e6f0fc;
   --good: #0a7d0a;

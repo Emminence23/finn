@@ -3,14 +3,19 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
-import { ArrowRight, Phone, UserRoundSearch } from "lucide-react";
+import { ArrowRight, Mail, MessageCircle, Phone, UserRoundSearch } from "lucide-react";
 import clsx from "clsx";
-import { type Helper, type Link as NetLink, type Paths, type SameName, api } from "@/lib/api";
+import { type Contact, type Helper, type Link as NetLink, type Paths, type SameName, api } from "@/lib/api";
 import { Avatar } from "./ui";
 
 export function firstName(name: string): string {
   const parts = name.split(/\s+/);
   return /^(Dr|Mr|Mrs|Ms)\.?$/i.test(parts[0]) ? parts.slice(0, 2).join(" ") : parts[0];
+}
+
+/** The fit score in words: what it means for whether to call. */
+function fitWords(s: number): string {
+  return s >= 0.6 ? "best placed" : s >= 0.4 ? "well placed" : "worth a try";
 }
 
 function strengthWord(s: number): string {
@@ -38,26 +43,77 @@ export function InsiderNote() {
   );
 }
 
-/** "Call Ritu: ran channel sales at Polycab 2014–21." One line, one person, one reason. */
-export function HelperLine({ helper, verb = "Call" }: { helper: Helper; verb?: string }) {
-  const c = helper.contact;
+const ACT_BTN =
+  "inline-flex h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-3 text-[13px] font-medium text-ink active:opacity-70";
+
+/** Ways to reach a contact that actually reach them: call and WhatsApp when FINN has a
+ *  number, email (with the questions already written) when it has an address. */
+export function ReachButtons({ contact, subject, body }: { contact: Contact; subject?: string; body?: string }) {
+  const tel = contact.phone?.replace(/[^\d+]/g, "");
+  const mail = contact.email
+    ? `mailto:${contact.email}?subject=${encodeURIComponent(subject ?? "")}&body=${encodeURIComponent(body ?? "")}`
+    : null;
   return (
-    <Link
-      href={`/people/${c.id}`}
-      className="flex items-start gap-2.5 rounded-xl bg-accent-soft/60 px-3 py-2.5 active:opacity-80"
-    >
-      <span className="mt-0.5 text-accent">
-        <Phone size={15} strokeWidth={2} />
-      </span>
-      <span className="min-w-0 text-[13px] leading-snug">
-        <span className="font-semibold text-ink">
-          {verb} {firstName(c.name)}
+    <>
+      {tel && (
+        <a href={`tel:${tel}`} className={ACT_BTN}>
+          <Phone size={14} /> Call
+        </a>
+      )}
+      {tel && (
+        <a href={`https://wa.me/${tel.replace(/^\+/, "")}?text=${encodeURIComponent(body ?? "")}`} target="_blank" rel="noreferrer" className={ACT_BTN}>
+          <MessageCircle size={14} /> WhatsApp
+        </a>
+      )}
+      {mail && (
+        <a href={mail} className={ACT_BTN}>
+          <Mail size={14} /> Email
+        </a>
+      )}
+    </>
+  );
+}
+
+/** "Ask Karthik · ran EMS programmes at Kaynes", the two questions worth asking, and a
+ *  way to actually ask them. One person, one reason, one tap to reach them. */
+export function HelperLine({ helper, verb = "Ask", topic }: { helper: Helper; verb?: string; topic?: string }) {
+  const c = helper.contact;
+  const first = firstName(c.name);
+  const ask = helper.ask ?? [];
+  const body = [
+    `Hi ${first},`,
+    "",
+    topic ?? "",
+    ...(ask.length ? ["", ask.length === 1 ? "One thing I'd value your view on:" : "Two things I'd value your view on:", ...ask.map((q, i) => `${i + 1}. ${q}`)] : []),
+    "",
+  ].join("\n");
+  return (
+    <div className="rounded-xl bg-accent-soft/60 px-3 py-2.5">
+      <Link href={`/people/${c.id}`} className="flex items-start gap-2.5 active:opacity-80">
+        <Avatar name={c.name} size={30} />
+        <span className="min-w-0 text-[13px] leading-snug">
+          <span className="font-semibold text-ink">
+            {verb} {first}
+          </span>
+          <span className="text-ink-2"> · {helper.why}</span>
+          {c.context && <span className="block text-[12px] text-ink-2">{c.context}</span>}
+          {helper.insider && <InsiderNote />}
         </span>
-        <span className="text-ink-2"> · {helper.why}</span>
-        {c.context && <span className="block text-[12px] text-ink-3">{c.context}</span>}
-        {helper.insider && <InsiderNote />}
-      </span>
-    </Link>
+      </Link>
+      {ask.length > 0 && (
+        <ul className="mt-2 space-y-1 pl-10 text-[13px] leading-snug text-ink">
+          {ask.map((q) => (
+            <li key={q}>“{q}”</li>
+          ))}
+        </ul>
+      )}
+      <div className="mt-2 flex flex-wrap gap-2 pl-10">
+        <ReachButtons contact={c} subject={topic} body={body} />
+        <Link href={`/people/${c.id}`} className="inline-flex h-9 items-center px-1 text-[13px] font-medium text-accent">
+          How you know {first} →
+        </Link>
+      </div>
+    </div>
   );
 }
 
@@ -72,8 +128,8 @@ export function HelperList({ helpers, max = 3 }: { helpers: Helper[]; max?: numb
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <p className="truncate text-[14px] font-semibold">{h.contact.name}</p>
-                <span className="tnum shrink-0 text-[11px] text-ink-3" aria-label="fit out of 100: how close you are times how much they know">
-                  fit {Math.round(h.score * 100)}
+                <span className="shrink-0 text-[11px] text-ink-2" title={`fit ${Math.round(h.score * 100)} of 100: how much they know, scaled by how close you are`}>
+                  {fitWords(h.score)}
                 </span>
               </div>
               <p className="text-[13px] leading-snug text-ink-2">{h.why}</p>
@@ -88,7 +144,7 @@ export function HelperList({ helpers, max = 3 }: { helpers: Helper[]; max?: numb
         </li>
       ))}
       <li className="pt-2 text-[11px] leading-snug text-ink-3">
-        Fit, out of 100: how much they know about the company, scaled by how close you are.
+        Ordered by how much they know about the company, scaled by how close you are.
       </li>
     </ul>
   );

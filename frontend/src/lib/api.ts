@@ -176,6 +176,9 @@ export type Contact = {
   last_contact?: string | null;
   context?: string | null;
   themes?: string[];
+  /** how to reach a first-degree contact, when known */
+  email?: string | null;
+  phone?: string | null;
 };
 
 export type Link = {
@@ -205,6 +208,8 @@ export type Helper = {
   reasons: string[];
   /** Works at the company now: may hold unpublished price-sensitive information */
   insider?: boolean;
+  /** two questions for this contact about this card, built in code from its facts */
+  ask?: string[];
 };
 
 export type Nudge = {
@@ -226,7 +231,14 @@ export type PersonProfile = {
   themes: string[];
   roles: { company: string; symbol: string | null; title: string | null; start: number | null; end: number | null; span: string }[];
   education: { school: string; program?: string | null; start?: number | null; end?: number | null }[];
-  relationship: { type: string; strength: number; last_contact: string | null; context?: string | null } | null;
+  relationship: {
+    type: string;
+    strength: number;
+    last_contact: string | null;
+    context?: string | null;
+    email?: string | null;
+    phone?: string | null;
+  } | null;
   overlaps_with_you: Link[];
   paths?: Paths;
   knows?: { person: Contact; context: string | null }[];
@@ -321,6 +333,23 @@ export type Card = {
   people?: CardPerson[];
   helpers: Helper[];
   priority: number;
+  /** Today as a note (intel/note.py): which band, the sentence, the position in words */
+  band?: "act" | "know" | "aside";
+  line?: string;
+  stake?: string;
+  short?: string;
+};
+
+export type CarryItem = {
+  id: string;
+  symbol: string;
+  company: string;
+  ts: string;
+  category: string;
+  line: string;
+  update: string | null;
+  weight: number;
+  pdf_url: string | null;
 };
 
 export type Digest = {
@@ -337,6 +366,13 @@ export type Digest = {
     stale: boolean;
   };
   counts: { filings: number; cards: number; routine: number; alerts: number };
+  /** the note's opening paragraph, assembled in code */
+  lead?: string;
+  /** Important events at real positions from the two weeks before the window */
+  carry?: CarryItem[];
+  /** price moves at holdings with no filing to explain them */
+  moves_note?: string[];
+  set_aside?: { count: number; low_rated: number; by_kind: { category: string; count: number }[]; rule: string };
 };
 
 export type AlertRules = {

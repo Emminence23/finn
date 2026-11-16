@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
-import { Search } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import { useSWRConfig } from "swr";
 import { type Account, type Contact, type Nudge, api, getAccount, getSandbox, setAccount, useApi } from "@/lib/api";
 import { firstName } from "@/components/network";
 import { Avatar, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
+import { useTitle } from "@/lib/title";
 
 const ACCOUNTS = [
   { value: "demo", label: "Demo" },
@@ -85,6 +86,7 @@ export default function PeoplePage() {
 }
 
 function People() {
+  useTitle("Your network");
   const router = useRouter();
   const params = useSearchParams();
   const theme = params.get("theme");
@@ -107,32 +109,54 @@ function People() {
     return [...list].sort((a, b) => (b.strength ?? 0) - (a.strength ?? 0));
   }, [contacts, q]);
 
+  const [allThemes, setAllThemes] = useState(false);
+  const themeChips = allThemes ? themes : themes.slice(0, 8);
+
   return (
     <main>
-      <Header title="People" sub={people ? `${contacts.length} people you know, and what they know` : "Your network"} />
-      <AccountSwitch />
-
-      <SectionTitle>Who knows what</SectionTitle>
-      <div className="no-scrollbar flex flex-wrap gap-1.5 px-3">
-        {themes.length === 0 && <Skeleton className="h-8 w-full" />}
-        {themes.map(([t, n]) => (
-          <button
-            key={t}
-            aria-pressed={theme === t}
-            onClick={() => router.replace(theme === t ? "/people" : `/people?theme=${encodeURIComponent(t)}`, { scroll: false })}
-            className={clsx(
-              "rounded-full border px-3 py-1 text-[13px]",
-              theme === t ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2",
-            )}
-          >
-            {t}
-            <span className={clsx("tnum ml-1 text-[11px]", theme === t ? "text-surface/70" : "text-ink-3")}>{n}</span>
-          </button>
-        ))}
+      <div className="flex items-center gap-2 px-3 pt-[calc(12px+env(safe-area-inset-top))]">
+        <Link href="/ask" aria-label="Back" className="rounded-full p-2 text-ink-2 active:bg-surface-2">
+          <ArrowLeft size={19} />
+        </Link>
+      </div>
+      <Header title="Your network" sub={people ? `${contacts.length} people you know, and what they know` : "People you know"} />
+      <div className="px-3">
+        <label className="flex items-center gap-2 rounded-2xl border border-line bg-surface px-3.5 py-3 focus-within:border-accent">
+          <Search size={17} className="text-ink-3" />
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Name, company or what they know"
+            className="w-full bg-transparent text-[16px] outline-none placeholder:text-ink-3"
+            aria-label="Search your network"
+          />
+        </label>
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {themes.length === 0 && <Skeleton className="h-8 w-full" />}
+          {themeChips.map(([th, n]) => (
+            <button
+              key={th}
+              aria-pressed={theme === th}
+              onClick={() => router.replace(theme === th ? "/people" : `/people?theme=${encodeURIComponent(th)}`, { scroll: false })}
+              className={clsx(
+                "min-h-8 rounded-full border px-3 py-1 text-[13px]",
+                theme === th ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2",
+              )}
+            >
+              {th}
+              <span className={clsx("tnum ml-1 text-[11px]", theme === th ? "text-surface/70" : "text-ink-3")}>{n}</span>
+            </button>
+          ))}
+          {themes.length > 8 && (
+            <button onClick={() => setAllThemes(!allThemes)} className="min-h-8 px-2 text-[13px] font-medium text-accent">
+              {allThemes ? "Fewer" : `All ${themes.length} topics`}
+            </button>
+          )}
+        </div>
       </div>
       {theme && (
         <Panel className="mt-3 divide-y divide-line">
-          <p className="px-4 pb-2 pt-3 text-[12px] text-ink-3">Your go-to people for {theme}</p>
+          <p className="px-4 pb-2 pt-3 text-[13px] text-ink-2">Who you&apos;d ask about {theme}</p>
           {!experts ? (
             <Skeleton className="m-4 h-16" />
           ) : (
@@ -141,12 +165,12 @@ function People() {
         </Panel>
       )}
 
-      {nudges && nudges.nudges.length > 0 && (
+      {!q && nudges && nudges.nudges.length > 0 && (
         <>
           <SectionTitle>Worth a call this week</SectionTitle>
           <Panel className="divide-y divide-line">
             {nudges.nudges.slice(0, 4).map((n) => (
-              <Link key={n.contact.id} href={`/people/${n.contact.id}`} className="flex gap-3 p-3 active:opacity-80">
+              <Link key={n.contact.id} href={`/people/${n.contact.id}`} className="flex gap-3 px-4 py-3 active:opacity-80">
                 <Avatar name={n.contact.name} size={34} />
                 <div className="min-w-0 text-[13px] leading-snug">
                   <p className="font-semibold">{firstName(n.contact.name)}</p>
@@ -158,20 +182,8 @@ function People() {
         </>
       )}
 
-      <SectionTitle aside="closest first">Everyone</SectionTitle>
-      <div className="px-3">
-        <label className="flex items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2 focus-within:border-accent">
-          <Search size={16} className="text-ink-3" />
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Name, company or theme"
-            className="w-full bg-transparent text-[15px] outline-none placeholder:text-ink-3"
-            aria-label="Filter your network"
-          />
-        </label>
-      </div>
-      <Panel className="mt-2 divide-y divide-line">
+      <SectionTitle aside="closest first">{q ? `Matching “${q}”` : "Everyone"}</SectionTitle>
+      <Panel className="divide-y divide-line">
         {!people ? (
           <Skeleton className="m-4 h-40" />
         ) : shown.length === 0 ? (
@@ -183,22 +195,28 @@ function People() {
       <p className="px-6 pb-2 pt-4 text-center text-[11px] leading-snug text-ink-3">
         Your network stays private to you. It is never sent to an AI model.
       </p>
-      <div className="pb-8">
+      <SectionTitle>Whose network</SectionTitle>
+      <AccountSwitch />
+      <div className="pb-8 pt-3">
         <ResetNetwork />
       </div>
     </main>
   );
 }
 
+/** A person as you'd describe them: how you know them first, their job second. */
 function ContactRow({ c }: { c: Contact }) {
   return (
-    <Link href={`/people/${c.id}`} className="flex items-center gap-3 px-4 py-2.5 active:bg-surface-2">
+    <Link href={`/people/${c.id}`} className="flex items-start gap-3 px-4 py-3 active:bg-surface-2">
       <Avatar name={c.name} size={34} />
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[14px] font-medium">{c.name}</p>
-        <p className="truncate text-[12px] text-ink-3">{c.current ?? c.headline}</p>
+        <p className="text-[14px] font-medium">{c.name}</p>
+        {c.context && <p className="text-[13px] leading-snug text-ink-2">{c.context}</p>}
+        <p className="truncate text-[12px] text-ink-3">
+          {c.current ?? c.headline}
+          {c.relationship ? ` · ${c.relationship}` : ""}
+        </p>
       </div>
-      {c.relationship && <span className="shrink-0 text-[11px] text-ink-3">{c.relationship}</span>}
     </Link>
   );
 }

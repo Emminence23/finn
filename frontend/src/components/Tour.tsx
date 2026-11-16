@@ -13,15 +13,15 @@ type Step = { href: string; target: string; title: string; body: string };
 const STEPS: Step[] = [
   {
     href: "/",
-    target: "[data-tour=card]",
-    title: "What matters",
-    body: "Each card is one change in your holdings, ranked in code. Important is rare (under a fifth of items), and every card says why it made the cut and who you know who can explain it.",
+    target: "[data-tour=lead]",
+    title: "Your morning note",
+    body: "Written in code from your filings, prices and positions: what needs you, what's worth knowing, and what was set aside and why. Listen plays it aloud on your phone.",
   },
   {
     href: "/",
-    target: "[data-tour=listen]",
-    title: "Listen on the way in",
-    body: "A one-minute spoken brief built from the same cards. Your phone reads it aloud; nothing is sent anywhere.",
+    target: "[data-tour=card], [data-tour=row]",
+    title: "Why it's here, and who to ask",
+    body: "Each item gives its size in your portfolio and the rule that let it through. Open one for the evidence, and for the contact who can explain it, with two questions ready to send.",
   },
   {
     href: "/c/KAYNES",
@@ -36,10 +36,10 @@ const STEPS: Step[] = [
     body: "Risk by theme and holding, and a suggested re-weighting of the same stocks: built in code, then nudged by an AI review that has to cite a filing. Edit changes your holdings.",
   },
   {
-    href: "/people",
-    target: '[aria-label="Demo account"]',
-    title: "Your network",
-    body: "Who you know at each company and how. Choose Yours to try it with your own contacts, private to you.",
+    href: "/",
+    target: "[data-tour=ask]",
+    title: "Ask from anywhere",
+    body: "A company, a person, a theme or a question. Your network lives here and inside every item, not in a separate app.",
   },
   {
     href: "/",
@@ -108,6 +108,7 @@ export function Tour() {
 
   if (step === null) return null;
   const s = STEPS[step];
+  if (path !== s.href) return null; // on its way to the step's page: don't hang over this one
   const finish = () => {
     try {
       localStorage.setItem(DONE_KEY, "done");

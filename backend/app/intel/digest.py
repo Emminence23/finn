@@ -15,6 +15,7 @@ from app.ingest.universe import fixtures_dir
 from app.intel import alerts as alerts_mod
 from app.intel.results import refresh_changes, screener_results_card
 from app.intel.taxonomy import CATEGORY_WEIGHT, MATERIAL_EVENTS, folds_as_routine, is_unsure
+from app.intel.units import normalise
 from app.network import graph
 from app.research.service import ready_symbols
 
@@ -124,8 +125,8 @@ def next_action(card: dict, researched: set[str]) -> dict:
     helper = (card.get("helpers") or [None])[0]
     if card["kind"] == "material_event" and helper and helper["score"] >= 0.5:
         c = helper["contact"]
-        return {
-            "label": f"Call {_first(c['name'])}",
+        return {  # opens how you know them, with Email / Call: the card can't dial itself
+            "label": f"Ask {_first(c['name'])}",
             "href": f"/people/{c['id']}",
             "why": helper["why"],
         }
@@ -215,7 +216,7 @@ def build_digest(
             "category": cat,
             "kind": "filing",
             "materiality": max(x["materiality"] or 0 for x in items),
-            "title": primary["summary"] or primary["subject"],
+            "title": normalise(primary["summary"] or primary["subject"]),
             "pdf_url": primary["pdf_url"],
             "related": [_item(x) for x in items if x is not primary],
             "alerts": reaction(primary["ts"], alerts_by_symbol.get(symbol, [])),
@@ -242,26 +243,30 @@ def build_digest(
         c["level"], c["level_reason"] = level(c)
         c["next_action"] = next_action(c, researched)
     cards.sort(key=lambda c: (c["level"] != "important", -c["priority"]))
-    return {
-        "window": {
-            "name": None if start else window,
-            "start": t0.isoformat(),
-            "end": t1.isoformat(),
-        },
-        "alerts": alerts,
-        "cards": cards,
-        "routine": {"count": len(routine), "items": routine},
-        "nudges": graph.reconnect_nudges(t0.isoformat(), t1.isoformat(), people=people)
-        if (t1 - t0).days >= 3
-        else [],
-        "freshness": freshness(),
-        "counts": {
-            "filings": len(anns),
-            "cards": len(cards),
-            "routine": len(routine),
-            "alerts": len(alerts),
-        },
-    }
+    from app.intel.note import annotate
+
+    return annotate(
+        {
+            "window": {
+                "name": None if start else window,
+                "start": t0.isoformat(),
+                "end": t1.isoformat(),
+            },
+            "alerts": alerts,
+            "cards": cards,
+            "routine": {"count": len(routine), "items": routine},
+            "nudges": graph.reconnect_nudges(t0.isoformat(), t1.isoformat(), people=people)
+            if (t1 - t0).days >= 3
+            else [],
+            "freshness": freshness(),
+            "counts": {
+                "filings": len(anns),
+                "cards": len(cards),
+                "routine": len(routine),
+                "alerts": len(alerts),
+            },
+        }
+    )
 
 
 DECK_DAYS = 3
@@ -342,11 +347,18 @@ def level(card: dict) -> tuple[str, str]:
     label = label[0].upper() + label[1:]
     if kind in ("management_change", "material_event") and m >= 70 or m >= 85:
         top = "Top-management change" if kind == "management_change" else label
-        return "important", f"{top}, rated {m}/100 for materiality"
+        return "important", f"{_a(top)} FINN rates {m} of 100 for how much it matters"
     if market:
         return "important", f"{label}; {stock}"
     bar = 70 if kind in ("management_change", "material_event") else 85
-    return "notable", f"{label}, rated {m}/100 for materiality (Important from {bar})"
+    return "notable", f"{_a(label)} FINN rates {m} of 100; Important starts at {bar}"
+
+
+def _a(label: str) -> str:
+    """'Fund raise' -> 'a fund raise'; 'M&A deal' -> 'an M&A deal'."""
+    keep = label.split(" ", 1)[0].isupper() or label.startswith(("M&A", "AGM"))
+    word = label if keep else label[0].lower() + label[1:]
+    return ("an " if word[0] in "aeiouAEIOU" or word.startswith("M&A") else "a ") + word
 
 
 SAME_EVENT_SIMILARITY = 60  # token-sort ratio of two filings' summaries (0-100)
@@ -437,7 +449,7 @@ def _item(a: dict) -> dict:
         "ts": a["ts"],
         "category": a["category"] or "unclassified",
         "exch_category": a["exch_category"],
-        "title": a["summary"] or a["subject"],
+        "title": normalise(a["summary"] or a["subject"]),
         "pdf_url": a["pdf_url"],
     }
 

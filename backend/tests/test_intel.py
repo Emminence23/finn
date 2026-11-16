@@ -273,7 +273,9 @@ def test_alert_rules_api_takes_partial_updates_and_two_decimals():
 
     with TestClient(app) as c:
         r = c.put("/alert-rules", json={"volume_multiple": 1.25, "combine": "all"}).json()
-        assert r["volume_multiple"] == 1.25 and r["combine"] == "all" and r["price_abs_pct"] == 5.0
+        assert (
+            r["volume_multiple"] == 1.25 and r["combine"] == "all" and r["price_abs_pct"] == 3.0
+        )  # untouched: the default
         assert c.put("/alert-rules", json={"volume_mode": "sideways"}).status_code == 422
         assert c.put("/alert-rules", json={"volume_multiple": 0}).status_code == 422
 

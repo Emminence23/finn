@@ -62,15 +62,15 @@ export function ListenBrief({ query }: { query: string }) {
   const mins = Math.max(1, Math.round(brief.seconds / 60));
 
   return (
-    <div className="mx-3 mt-3" data-tour="listen">
+    <div className={at === null ? "inline-block" : "mt-1"} data-tour="listen">
       {at === null ? (
         <button
           onClick={play}
-          className="flex w-full items-center gap-2.5 rounded-2xl border border-line bg-surface px-4 py-2.5 text-left active:opacity-80"
+          className="inline-flex h-9 items-center gap-2 rounded-full border border-line bg-surface px-3.5 text-left active:opacity-80"
         >
-          <Headphones size={17} className="text-accent" />
-          <span className="text-[14px] font-medium">Listen to the brief</span>
-          <span className="tnum ml-auto text-[12px] text-ink-3">about {mins} min</span>
+          <Headphones size={15} className="text-accent" />
+          <span className="text-[13px] font-medium">Listen</span>
+          <span className="tnum text-[12px] text-ink-3">{mins} min</span>
         </button>
       ) : (
         <div className="flex items-start gap-2.5 rounded-2xl border border-accent/40 bg-accent-soft/50 px-4 py-2.5" aria-live="polite">

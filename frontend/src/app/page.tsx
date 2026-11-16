@@ -2,18 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ChevronDown, Compass, SlidersHorizontal, Target, TrendingDown, TrendingUp } from "lucide-react";
+import { ChevronDown, Compass, FileText, SlidersHorizontal, Target, TrendingDown, TrendingUp } from "lucide-react";
 import clsx from "clsx";
-import { type Alert, type Digest, useApi } from "@/lib/api";
+import { type Alert, type Card, type CarryItem, type Digest, useApi } from "@/lib/api";
 import { CATEGORY_LABEL, day, pct } from "@/lib/fmt";
-import { FeedCard, sessionMoves } from "@/components/cards";
+import { type CardRead, FeedCard, NoteRow, sessionMoves } from "@/components/cards";
 import { useReadState } from "@/lib/seen";
+import { useSlow } from "@/lib/slow";
 import { ListenBrief } from "@/components/ListenBrief";
 import { MeetingPrep } from "@/components/meetings";
 import { AlertSettings } from "@/components/AlertSettings";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { firstName } from "@/components/network";
-import { Avatar, ErrorNote, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
+import { ReachButtons, firstName } from "@/components/network";
+import { Avatar, ErrorNote, Panel, Segmented, Skeleton, SlowHint } from "@/components/ui";
+import { useTitle } from "@/lib/title";
 
 type Win = "24h" | "3d" | "7d" | "14d" | "21d" | "30d" | "custom";
 const WINDOWS: { value: Win; label: string }[] = [
@@ -34,10 +36,10 @@ function minusDays(d: string, n: number): string {
   return t.toISOString().slice(0, 10);
 }
 const WIN_KEY = "finn.window";
-const PILL = "flex h-9 items-center gap-1 rounded-full border border-line bg-surface px-3 text-[13px] font-medium text-ink-2";
 const ICON_BTN = "flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-ink-2";
 
 export default function Today() {
+  useTitle("Today");
   const [win, setWin] = useState<Win>("24h");
   const [settings, setSettings] = useState(false);
   const [range, setRange] = useState<Range | null>(null);
@@ -75,32 +77,49 @@ export default function Today() {
     if (data?.window.name) setLastEnd((e) => e ?? data.window.end);
   }, [data]);
 
+  const slow = useSlow(isLoading || !data);
+
   return (
     <main>
-      <Header
-        title="Today"
-        sub={data && !isLoading ? <Summary d={data} /> : "Reading your portfolio's filings…"}
-        toolbar={
-          <>
-            <button onClick={() => window.dispatchEvent(new Event("finn:tour"))} className={PILL}>
-              <Compass size={14} /> Tour
-            </button>
-            <Link href="/accuracy" className={PILL}>
-              <Target size={14} /> Accuracy
-            </Link>
-            <ThemeToggle className={ICON_BTN} />
-            <button onClick={() => setSettings(true)} aria-label="Alert settings" title="Alert settings" className={ICON_BTN}>
-              <SlidersHorizontal size={17} />
-            </button>
-          </>
-        }
-      />
-      <div className="px-4">
+      <div className="flex items-center gap-1.5 px-4 pt-[calc(10px+env(safe-area-inset-top))]">
+        <p className="min-w-0 flex-1 truncate text-[12px] text-ink-2">
+          {todayLabel()}
+          {data && <> · filings to {day(data.freshness?.filings_as_of ?? data.window.end)}</>}
+        </p>
+        <button onClick={() => window.dispatchEvent(new Event("finn:tour"))} aria-label="Tour" title="Tour" className={ICON_BTN}>
+          <Compass size={17} />
+        </button>
+        <Link href="/accuracy" aria-label="How accurate is FINN" title="Accuracy" className={ICON_BTN}>
+          <Target size={17} />
+        </Link>
+        <ThemeToggle className={ICON_BTN} />
+        <button onClick={() => setSettings(true)} aria-label="Alert settings" title="Alert settings" className={ICON_BTN}>
+          <SlidersHorizontal size={17} />
+        </button>
+      </div>
+      <header className="px-4 pt-3" data-tour="lead">
+        <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.02em]">{greeting()}</h1>
+        {data && !isLoading ? (
+          <p className="mt-2 text-[18px] leading-[1.45] tracking-[-0.01em] text-ink">{data.lead}</p>
+        ) : (
+          <div className="mt-3 space-y-2" aria-label="Reading your portfolio's filings">
+            <Skeleton className="h-5 w-11/12" />
+            <Skeleton className="h-5 w-4/5" />
+            <Skeleton className="h-5 w-2/3" />
+            {slow && <SlowHint retry={() => mutate()} />}
+          </div>
+        )}
+        {data && !isLoading && data.cards.length > 0 && (
+          <div className="mt-3">
+            <ListenBrief query={path.split("?")[1]} />
+          </div>
+        )}
+      </header>
+      <div className="px-4 pt-4">
         <Segmented label="Time window" value={win} options={WINDOWS} onChange={choose} />
         {win === "custom" && range && <RangePicker range={range} onChange={setRange} />}
       </div>
       {data?.freshness?.stale && <StaleNote f={data.freshness} />}
-      {data && data.cards.length > 0 && <ListenBrief query={path.split("?")[1]} />}
 
       {error && !data ? (
         <div className="mt-4">
@@ -109,26 +128,193 @@ export default function Today() {
       ) : !data || isLoading ? (
         <FeedSkeleton />
       ) : (
-        <>
-          <MeetingPrep />
-          <Moves alerts={data.alerts} />
-          <SectionTitle aside={`from ${data.counts.filings} filings`}>What matters</SectionTitle>
-          {data.cards.length === 0 ? (
-            <Panel className="p-4 text-[14px] text-ink-2">Nothing material in this window. Quiet is good.</Panel>
-          ) : (
-            <Feed cards={data.cards} now={now} />
-          )}
-          {data.nudges.length > 0 && <Nudges d={data} />}
-          <Routine d={data} />
-          <p className="px-4 pb-6 pt-4 text-center text-[11px] text-ink-3">
-            NSE filings to {day(data.freshness?.filings_as_of ?? now)},{" "}
-            {new Date(data.freshness?.filings_as_of ?? now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
-            {data.freshness?.prices_as_of && <> · EOD prices to {day(data.freshness.prices_as_of)}</>}
-          </p>
-        </>
+        <Note d={data} now={now} />
       )}
       <AlertSettings open={settings} onClose={() => setSettings(false)} onSaved={() => mutate()} />
     </main>
+  );
+}
+
+function greeting(): string {
+  const h = new Date().getHours();
+  return h < 12 ? "Good morning." : h < 17 ? "Good afternoon." : "Good evening.";
+}
+
+function todayLabel(): string {
+  return new Date().toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
+}
+
+/** Today as a note: what needs you, what's worth knowing, what was set aside and why.
+ *  The bands are decided in code (intel/note.py); each band says its rule. */
+function Note({ d, now }: { d: Digest; now: string }) {
+  const act = d.cards.filter((c) => c.band === "act");
+  const know = d.cards.filter((c) => c.band === "know");
+  const aside = d.cards.filter((c) => c.band === "aside");
+  const ids = useMemo(() => d.cards.map((c) => String(c.id)), [d.cards]);
+  const rs = useReadState(ids);
+  const helped = new Set<string>();
+  const readOf = (c: Card) => {
+    const id = String(c.id);
+    return { isNew: rs.isNew(id), opened: rs.opened(id), onOpen: () => rs.markOpened(id) };
+  };
+  const firstFor = (c: Card) => {
+    const f = !helped.has(c.symbol);
+    helped.add(c.symbol);
+    return f;
+  };
+  return (
+    <>
+      <MeetingPrep />
+      {(act.length > 0 || (d.carry?.length ?? 0) > 0) && (
+        <>
+          {act.length > 0 ? (
+            <Band title="Needs you" rule="Important, at a position of real size (at least half an equal share)." count={act.length} />
+          ) : (
+            <Band title="Still open" rule="Nothing new needs you. These events at your larger positions, from the two weeks before, still might." />
+          )}
+          <div className="space-y-3">
+            {act.slice(0, ACT_TOP).map((c) => (
+              <FeedCard key={c.id} card={c} now={now} showHelper={firstFor(c)} read={readOf(c)} />
+            ))}
+          </div>
+          {act.length > ACT_TOP && <MoreActs cards={act.slice(ACT_TOP)} now={now} readOf={readOf} />}
+          {(d.carry?.length ?? 0) > 0 && <Carry items={d.carry!} first={act.length === 0} />}
+        </>
+      )}
+      <Moves alerts={d.alerts} />
+      {know.length > 0 && (
+        <>
+          <Band title="Worth knowing" rule="Everything else that made the cut. Tap a line for the detail." count={know.length} />
+          <Feed cards={know} now={now} readOf={readOf} firstFor={firstFor} newCount={rs.newCount} />
+        </>
+      )}
+      {act.length === 0 && know.length === 0 && !(d.carry?.length) && (
+        <Panel className="mt-6 p-4 text-[14px] text-ink-2">Nothing material in this window. Quiet is good.</Panel>
+      )}
+      {d.nudges.length > 0 && <Nudges d={d} />}
+      <SetAside d={d} aside={aside} now={now} />
+      <p className="px-4 pb-6 pt-4 text-center text-[11px] text-ink-3">
+        NSE filings to {day(d.freshness?.filings_as_of ?? now)},{" "}
+        {new Date(d.freshness?.filings_as_of ?? now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+        {d.freshness?.prices_as_of && <> · closing prices to {day(d.freshness.prices_as_of)}</>}
+      </p>
+    </>
+  );
+}
+
+const ACT_TOP = 3;
+
+function Band({ title, rule, count }: { title: string; rule: string; count?: number }) {
+  return (
+    <div className="px-4 pb-2 pt-7">
+      <h2 className="text-[15px] font-semibold tracking-[-0.01em]">
+        {title}
+        {count ? <span className="tnum font-normal text-ink-3"> · {count}</span> : null}
+      </h2>
+      <p className="text-[12px] leading-snug text-ink-3">{rule}</p>
+    </div>
+  );
+}
+
+function MoreActs({ cards, now, readOf }: { cards: Card[]; now: string; readOf: (c: Card) => CardRead }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-3">
+      {open ? (
+        <div className="space-y-3">
+          {cards.map((c) => (
+            <FeedCard key={c.id} card={c} now={now} read={readOf(c)} />
+          ))}
+        </div>
+      ) : (
+        <Panel className="divide-y divide-line">
+          {cards.slice(0, 5).map((c) => (
+            <NoteRow key={c.id} card={c} now={now} read={readOf(c)} />
+          ))}
+          {cards.length > 5 && (
+            <button onClick={() => setOpen(true)} className="flex w-full items-center justify-center gap-1 py-3 text-[13px] font-medium text-ink-2">
+              {cards.length - 5} more that need you <ChevronDown size={14} />
+            </button>
+          )}
+        </Panel>
+      )}
+    </div>
+  );
+}
+
+/** Still open from the two weeks before the window: an event at a real position doesn't
+ *  stop mattering because the window moved on. */
+function Carry({ items, first }: { items: CarryItem[]; first: boolean }) {
+  return (
+    <div className={first ? "" : "mt-4"}>
+      {!first && <p className="px-4 pb-1.5 text-[12px] font-medium text-ink-2">Still open from the last two weeks</p>}
+      <Panel className="divide-y divide-line">
+        {items.map((c) => (
+          <div key={c.id} className="px-4 py-3">
+            <p className="text-[14px] leading-snug">{c.line}</p>
+            {c.update && <p className="mt-0.5 text-[13px] leading-snug text-ink-2">{c.update}</p>}
+            <p className="mt-1 flex items-center gap-3 text-[12px] text-ink-3">
+              <span className="tnum">
+                {day(c.ts)} · {c.weight < 1 ? c.weight.toFixed(1) : Math.round(c.weight)}% of your portfolio
+              </span>
+              {c.pdf_url && (
+                <a href={c.pdf_url} target="_blank" rel="noreferrer" className="inline-flex h-8 items-center gap-1 text-ink-2">
+                  <FileText size={13} /> Filing
+                </a>
+              )}
+              <Link href={`/c/${c.symbol}`} className="ml-auto inline-flex h-8 items-center font-medium text-accent">
+                Research →
+              </Link>
+            </p>
+          </div>
+        ))}
+      </Panel>
+    </div>
+  );
+}
+
+/** What FINN set aside, counted and named: routine paperwork and low-rated items. */
+function SetAside({ d, aside, now }: { d: Digest; aside: Card[]; now: string }) {
+  const [open, setOpen] = useState(false);
+  const s = d.set_aside;
+  if (!s || s.count === 0) return null;
+  const kinds = s.by_kind
+    .slice(0, 3)
+    .map((k) => `${k.count} ${(CATEGORY_LABEL[k.category] ?? k.category).toLowerCase()}`)
+    .join(", ");
+  return (
+    <div className="mt-6">
+      <button onClick={() => setOpen(!open)} aria-expanded={open} className="mx-3 flex w-[calc(100%-1.5rem)] items-start gap-2 rounded-2xl border border-dashed border-line px-4 py-3 text-left text-[13px] leading-snug text-ink-2">
+        <span className="min-w-0 flex-1">
+          <span className="font-medium text-ink">Set aside: {s.count}</span>
+          {kinds && <> ({kinds}{s.low_rated ? `, ${s.low_rated} rated low` : ""})</>}. {s.rule}
+        </span>
+        <ChevronDown size={15} className={clsx("mt-0.5 shrink-0 transition-transform", open && "rotate-180")} />
+      </button>
+      {open && (
+        <ul className="mx-3 mt-1 divide-y divide-line">
+          {aside.map((c) => (
+            <li key={c.id} className="flex gap-2 px-1 py-2 text-[12px]">
+              <span className="w-[74px] shrink-0 font-medium text-ink-2">{c.symbol}</span>
+              <a href={c.pdf_url ?? undefined} target="_blank" rel="noreferrer" className="min-w-0 flex-1 text-ink-2">
+                {c.title}
+              </a>
+              <span className="tnum shrink-0 text-ink-3">rated {c.materiality}</span>
+            </li>
+          ))}
+          {d.routine.items.map((r) => (
+            <li key={r.id} className="flex gap-2 px-1 py-2 text-[12px]">
+              <span className="w-[74px] shrink-0 font-medium text-ink-2">{r.symbol}</span>
+              <a href={r.pdf_url ?? undefined} target="_blank" rel="noreferrer" className="min-w-0 flex-1 text-ink-2">
+                {r.title}
+              </a>
+              <span className="shrink-0 text-ink-3">{CATEGORY_LABEL[r.category] ?? r.category}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <span className="sr-only">{now}</span>
+    </div>
   );
 }
 
@@ -184,50 +370,40 @@ function StaleNote({ f }: { f: NonNullable<Digest["freshness"]> }) {
 
 const TOP = 8;
 
-/** A brief, not a dashboard: the top items in full, the long tail one tap away. Each
- *  company's "who to ask" appears once, on its most important card. */
-function Feed({ cards, now }: { cards: Digest["cards"]; now: string }) {
+/** Worth knowing: one line each, opened in place; the long tail one tap away. */
+function Feed({
+  cards,
+  now,
+  readOf,
+  firstFor,
+  newCount,
+}: {
+  cards: Card[];
+  now: string;
+  readOf: (c: Card) => { isNew: boolean; opened: boolean; onOpen: () => void };
+  firstFor: (c: Card) => boolean;
+  newCount: number;
+}) {
   const [all, setAll] = useState(false);
   const shown = all ? cards : cards.slice(0, TOP);
-  const ids = useMemo(() => cards.map((c) => String(c.id)), [cards]);
-  const rs = useReadState(ids);
-  const helped = new Set<string>();
-  return (
-    <div className="space-y-3">
-      {rs.newCount > 0 && (
-        <p className="px-4 text-[12px] text-ink-2">
-          <span className="font-semibold text-accent">{rs.newCount} new</span> since you last looked
-        </p>
-      )}
-      {shown.map((c) => {
-        const first = !helped.has(c.symbol);
-        helped.add(c.symbol);
-        const id = String(c.id);
-        const read = { isNew: rs.isNew(id), opened: rs.opened(id), onOpen: () => rs.markOpened(id) };
-        return <FeedCard key={c.id} card={c} now={now} showHelper={first} read={read} />;
-      })}
-      {cards.length > TOP && (
-        <button
-          onClick={() => setAll(!all)}
-          aria-expanded={all}
-          className="mx-3 flex w-[calc(100%-1.5rem)] items-center justify-center gap-1 rounded-2xl border border-line bg-surface py-3 text-[13px] font-medium text-ink-2"
-        >
-          {all ? "Show fewer" : `${cards.length - TOP} more, lower priority`}
-          <ChevronDown size={15} className={clsx("transition-transform", all && "rotate-180")} />
-        </button>
-      )}
-    </div>
-  );
-}
-
-function Summary({ d }: { d: Digest }) {
-  const n = d.cards.length;
-  const lead =
-    n === 0 ? "Nothing needs you" : n === 1 ? "1 thing matters" : n <= TOP ? `${n} things matter` : `${TOP} things matter most`;
   return (
     <>
-      Filings to {day(d.window.end)} · {lead}
-      {d.counts.routine > 0 && <> · {d.counts.routine} routine folded away</>}
+      {newCount > 0 && (
+        <p className="px-4 pb-1.5 text-[12px] text-ink-2">
+          <span className="font-semibold text-accent">{newCount} new</span> since you last looked
+        </p>
+      )}
+      <Panel className="divide-y divide-line">
+        {shown.map((c) => (
+          <NoteRow key={c.id} card={c} now={now} read={readOf(c)} showHelper={firstFor(c)} />
+        ))}
+        {cards.length > TOP && (
+          <button onClick={() => setAll(!all)} aria-expanded={all} className="flex w-full items-center justify-center gap-1 py-3 text-[13px] font-medium text-ink-2">
+            {all ? "Show fewer" : `${cards.length - TOP} more`}
+            <ChevronDown size={15} className={clsx("transition-transform", all && "rotate-180")} />
+          </button>
+        )}
+      </Panel>
     </>
   );
 }
@@ -248,7 +424,7 @@ function Moves({ alerts }: { alerts: Alert[] }) {
   if (!moves.length) return null;
   return (
     <>
-      <SectionTitle aside="EOD">Unusual moves</SectionTitle>
+      <Band title="Unusual moves" rule="Closing price or volume outside your alert rules, newest session per stock." />
       <div className="no-scrollbar flex gap-2 overflow-x-auto px-3 pb-1">
         {moves.map((m) => {
           const chg = m.price?.value ?? m.vol?.price_change_pct ?? 0;
@@ -282,54 +458,35 @@ function Moves({ alerts }: { alerts: Alert[] }) {
 function Nudges({ d }: { d: Digest }) {
   return (
     <>
-      <SectionTitle>Good reasons to reconnect</SectionTitle>
+      <Band title="People worth a call" rule="Contacts you haven't spoken to in a while, with a reason in this window's filings." />
       <Panel className="divide-y divide-line">
-        {d.nudges.slice(0, 4).map((n) => (
-          <Link key={n.contact.id} href={`/people/${n.contact.id}`} className="flex gap-3 p-3 active:opacity-80">
-            <Avatar name={n.contact.name} size={34} />
-            <div className="min-w-0 text-[13px] leading-snug">
-              <p>
-                <span className="font-semibold">{firstName(n.contact.name)}</span>
-                <span className="text-ink-2"> · {n.days_since_contact >= 60 ? `${Math.floor(n.days_since_contact / 30)} months` : `${n.days_since_contact} days`} since you spoke</span>
-              </p>
-              <p className="text-ink-2">{n.reason.replace(/^Last spoke [^.]+\.\s*/, "")}</p>
+        {d.nudges.slice(0, 4).map((n) => {
+          const first = firstName(n.contact.name);
+          const since = n.contact.last_contact
+            ? new Date(n.contact.last_contact).toLocaleDateString("en-IN", { month: "long", year: "numeric" })
+            : null;
+          const why = n.reason.replace(/^Last spoke [^.]+\.\s*/, "");
+          return (
+            <div key={n.contact.id} className="flex gap-3 px-4 py-3">
+              <Avatar name={n.contact.name} size={34} />
+              <div className="min-w-0 flex-1 text-[13px] leading-snug">
+                <Link href={`/people/${n.contact.id}`} className="block active:opacity-80">
+                  <span className="font-semibold">{first}</span>
+                  <span className="text-ink-2">
+                    {" "}
+                    · {since ? `you last spoke in ${since}` : `${n.days_since_contact} days since you spoke`}. {why}
+                  </span>
+                  {n.contact.context && <span className="mt-0.5 block text-[12px] text-ink-3">{n.contact.context}</span>}
+                </Link>
+                <div className="mt-1.5 flex flex-wrap gap-2">
+                  <ReachButtons contact={n.contact} subject={`Catching up: ${n.event.title.slice(0, 60)}`} body={`Hi ${first},\n\nIt's been a while. ${why}\n\nWould love your read on it.\n`} />
+                </div>
+              </div>
             </div>
-          </Link>
-        ))}
+          );
+        })}
       </Panel>
     </>
-  );
-}
-
-function Routine({ d }: { d: Digest }) {
-  const [open, setOpen] = useState(false);
-  if (!d.routine.count) return null;
-  return (
-    <div className="mt-6">
-      <button
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        className="mx-3 flex w-[calc(100%-1.5rem)] items-center justify-between rounded-2xl border border-dashed border-line px-4 py-3 text-[13px] text-ink-2"
-      >
-        <span>
-          Routine · <span className="tnum">{d.routine.count}</span> {d.routine.count === 1 ? "filing" : "filings"}
-        </span>
-        <ChevronDown size={15} className={clsx("transition-transform", open && "rotate-180")} />
-      </button>
-      {open && (
-        <ul className="mx-3 mt-1 divide-y divide-line">
-          {d.routine.items.map((r) => (
-            <li key={r.id} className="flex gap-2 px-1 py-2 text-[12px]">
-              <span className="w-[74px] shrink-0 font-medium text-ink-2">{r.symbol}</span>
-              <a href={r.pdf_url ?? undefined} target="_blank" rel="noreferrer" className="min-w-0 flex-1 text-ink-2">
-                {r.title}
-              </a>
-              <span className="shrink-0 text-ink-3">{CATEGORY_LABEL[r.category] ?? r.category}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
   );
 }
 

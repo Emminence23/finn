@@ -57,52 +57,66 @@ function NextAction({ card, onOpen }: { card: Card; onOpen?: () => void }) {
 
 export type CardRead = { isNew: boolean; opened: boolean; onOpen: () => void };
 
-function CardShell({ card, now, read, children }: { card: Card; now: string; read?: CardRead; children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
+/** What the fold under a card holds, in words. */
+function evidenceLabel(card: Card): string {
+  if (card.kind === "results" && card.results) return "The numbers";
+  if (card.kind === "management_change" && card.people?.length) return "Who they are";
+  return card.related.length ? `${card.related.length + 1} filings` : "";
+}
+
+/** One item of the note: the sentence first, its size and why it's here, the person to ask,
+ *  then the evidence folded beneath. */
+function CardShell({
+  card,
+  now,
+  read,
+  evidence,
+  helper,
+  openEvidence = false,
+}: {
+  card: Card;
+  now: string;
+  read?: CardRead;
+  evidence?: React.ReactNode;
+  helper?: React.ReactNode;
+  openEvidence?: boolean;
+}) {
+  const [open, setOpen] = useState(openEvidence);
   const moves = sessionMoves(card.alerts);
+  const label = evidenceLabel(card);
+  const hasEvidence = Boolean(evidence) || card.related.length > 0;
   return (
     <article
       data-tour="card"
-      className={clsx(
-        "mx-3 rounded-2xl border border-line bg-surface p-4 transition-opacity",
-        read?.opened && "opacity-60",
-      )}
+      className={clsx("mx-3 rounded-2xl border border-line bg-surface p-4 transition-opacity", read?.opened && !open && "opacity-70")}
     >
-      <div className="flex items-center gap-2">
-        <Link href={`/c/${card.symbol}`} className="min-w-0 truncate text-[15px] font-semibold active:opacity-70">
-          {shortName(card.company)}
+      <p className="flex items-center gap-1.5 text-[12px] text-ink-2">
+        <Link href={`/c/${card.symbol}`} className="min-w-0 truncate font-semibold text-ink active:opacity-70">
+          {card.short ?? shortName(card.company)}
         </Link>
-        {card.unsure ? (
-          <Pill tone="warn">Unclassified</Pill>
-        ) : (
-          <Pill>{CATEGORY_LABEL[card.category] ?? card.category}</Pill>
-        )}
-        {card.level === "important" && <Pill tone="strong">Important</Pill>}
-        {!card.in_portfolio && <Pill tone="accent">Research</Pill>}
-        <span className="tnum ml-auto shrink-0 text-[12px] text-ink-3">
-          {read?.isNew ? (
-            <span className="mr-1.5 inline-flex items-center gap-1 font-semibold text-accent">
+        <span aria-hidden>·</span>
+        <span className={clsx("shrink-0", card.unsure && "text-warn")}>{card.unsure ? "Unclassified" : (CATEGORY_LABEL[card.category] ?? card.category)}</span>
+        <span className="tnum ml-auto flex shrink-0 items-center gap-1 text-ink-3">
+          {read?.isNew && (
+            <span className="inline-flex items-center gap-1 font-semibold text-accent">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-              New
+              New ·
             </span>
-          ) : read?.opened ? (
-            <span className="mr-1.5">Opened ·</span>
-          ) : null}
-          {ago(card.ts, now)}
-        </span>
-      </div>
-      <p className="mt-1.5 text-[14px] leading-snug text-ink">
-        {(card.results && resultsTakeaway(card.results)) ?? card.title}
-      </p>
-      {card.level_reason && (
-        <p className="mt-1 text-[12px] leading-snug text-ink-3">
-          <span className="sr-only">{card.level === "important" ? "Important" : "Notable"} because: </span>
-          {card.level_reason}
-          {card.in_portfolio && card.weight != null && (
-            <span className="tnum"> · {card.weight < 1 ? card.weight.toFixed(1) : Math.round(card.weight)}% of your portfolio</span>
           )}
-        </p>
-      )}
+          {ago(card.ts, now)} ago
+        </span>
+      </p>
+      <p className="mt-1.5 text-[16px] font-medium leading-snug tracking-[-0.005em] text-ink">
+        {card.line ?? (card.results && resultsTakeaway(card.results)) ?? card.title}
+      </p>
+      <p className="mt-1 text-[13px] leading-snug text-ink-2">
+        {card.stake && <>{card.stake} </>}
+        {card.level_reason && (
+          <span className="text-ink-3">
+            {card.level === "important" ? "Important" : "Notable"} because: {card.level_reason}.
+          </span>
+        )}
+      </p>
       {moves.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">
           {moves.map((a) => (
@@ -110,33 +124,38 @@ function CardShell({ card, now, read, children }: { card: Card; now: string; rea
           ))}
         </div>
       )}
-      <div className="mt-3 space-y-3">{children}</div>
-      <div className="mt-3 flex items-center gap-3 text-[12px] text-ink-3">
-        {card.pdf_url && (
-          <a href={card.pdf_url} target="_blank" rel="noreferrer" onClick={read?.onOpen} className="inline-flex shrink-0 items-center gap-1 active:opacity-70">
-            <FileText size={13} /> Filing
-          </a>
-        )}
-        {card.related.length > 0 && (
-          <button onClick={() => setOpen(!open)} className="inline-flex shrink-0 items-center gap-0.5 whitespace-nowrap" aria-expanded={open}>
-            {card.related.length} related
-            <ChevronDown size={13} className={clsx("transition-transform", open && "rotate-180")} />
+      {helper && <div className="mt-3">{helper}</div>}
+      {open && (
+        <div className="mt-3 space-y-3 border-t border-line pt-3">
+          {evidence}
+          {card.related.length > 0 && (
+            <ul className="space-y-1.5">
+              {card.related.map((r) => (
+                <li key={r.id} className="text-[12px] leading-snug text-ink-2">
+                  <a href={r.pdf_url ?? undefined} target="_blank" rel="noreferrer">
+                    {r.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+      <div className="mt-2 flex min-h-9 items-center gap-4 text-[13px] text-ink-2">
+        {hasEvidence && label && (
+          <button onClick={() => { setOpen(!open); read?.onOpen(); }} aria-expanded={open} className="inline-flex h-9 shrink-0 items-center gap-1 font-medium">
+            {open ? "Hide" : label}
+            <ChevronDown size={14} className={clsx("transition-transform", open && "rotate-180")} />
           </button>
+        )}
+        {card.pdf_url && (
+          <a href={card.pdf_url} target="_blank" rel="noreferrer" onClick={read?.onOpen} className="inline-flex h-9 shrink-0 items-center gap-1 active:opacity-70">
+            <FileText size={14} /> Filing
+          </a>
         )}
         <ShareButton build={() => shareCard(card)} />
         <NextAction card={card} onOpen={read?.onOpen} />
       </div>
-      {open && (
-        <ul className="mt-2 space-y-1.5 border-t border-line pt-2">
-          {card.related.map((r) => (
-            <li key={r.id} className="text-[12px] leading-snug text-ink-2">
-              <a href={r.pdf_url ?? undefined} target="_blank" rel="noreferrer">
-                {r.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
     </article>
   );
 }
@@ -283,24 +302,65 @@ export function FeedCard({
   now,
   showHelper = true,
   read,
+  openEvidence,
 }: {
   card: Card;
   now: string;
   showHelper?: boolean;
   read?: CardRead;
+  openEvidence?: boolean;
 }) {
   const best = showHelper ? card.helpers[0] : undefined;
-  return (
-    <CardShell card={card} now={now} read={read}>
-      {card.kind === "results" && card.results && <ResultsTable r={card.results} />}
-      {card.kind === "management_change" &&
-        sortPeople(card.people ?? [])
+  const evidence =
+    card.kind === "results" && card.results ? (
+      <ResultsTable r={card.results} />
+    ) : card.kind === "management_change" && card.people?.length ? (
+      <>
+        {sortPeople(card.people)
           .slice(0, 3)
-          .map((p) => <PersonBlock key={`${p.name}-${p.direction}`} p={p} />)}
-      {best && (card.kind !== "filing" || best.score >= 0.5) && (
-        <HelperLine helper={best} verb={card.kind === "material_event" ? "Call" : "Ask"} />
-      )}
-    </CardShell>
+          .map((p) => (
+            <PersonBlock key={`${p.name}-${p.direction}`} p={p} />
+          ))}
+      </>
+    ) : null;
+  const helper =
+    best && (card.kind !== "filing" || best.score >= 0.5) ? (
+      <HelperLine helper={best} verb="Ask" topic={card.line ?? card.title} />
+    ) : null;
+  return <CardShell card={card} now={now} read={read} evidence={evidence} helper={helper} openEvidence={openEvidence} />;
+}
+
+/** A Know item: one line, opened into the full card. */
+export function NoteRow({ card, now, read, showHelper }: { card: Card; now: string; read?: CardRead; showHelper?: boolean }) {
+  const [open, setOpen] = useState(false);
+  if (open)
+    return (
+      <div className="py-2">
+        <FeedCard card={card} now={now} read={read} showHelper={showHelper} openEvidence />
+        <button onClick={() => setOpen(false)} className="mx-3 mt-1 h-9 px-1 text-[13px] font-medium text-ink-2">
+          Fold it back
+        </button>
+      </div>
+    );
+  return (
+    <button
+      onClick={() => {
+        setOpen(true);
+        read?.onOpen();
+      }}
+      data-tour="row"
+      className="flex w-full items-start gap-3 px-4 py-3 text-left active:bg-surface-2"
+    >
+      <span className="min-w-0 flex-1 text-[14px] leading-snug text-ink">
+        {read?.isNew && <span className="mr-1.5 inline-block h-1.5 w-1.5 -translate-y-0.5 rounded-full bg-accent" aria-label="new" />}
+        {card.line ?? card.title}
+        <span className="mt-0.5 block text-[12px] text-ink-3">
+          {CATEGORY_LABEL[card.category] ?? card.category} · {ago(card.ts, now)} ago
+          {card.in_portfolio && card.weight != null ? ` · ${card.weight < 1 ? card.weight.toFixed(1) : Math.round(card.weight)}% of your portfolio` : " · you follow it"}
+        </span>
+      </span>
+      <ChevronDown size={15} className="mt-1 shrink-0 text-ink-3" />
+    </button>
   );
 }
 

@@ -119,6 +119,8 @@ def load_people(owner: str | None = None) -> dict[str, Person]:
                     "type": r["type"],
                     "strength": r["strength"],
                     "last_contact": r["last_contact"],
+                    "email": r["email"],
+                    "phone": r["phone"],
                 }
             else:
                 p.knows.append(
@@ -604,6 +606,8 @@ def _contact_summary(c: Person) -> dict:
         "strength": rel.get("strength"),
         "last_contact": rel.get("last_contact"),
         "context": rel.get("context"),
+        "email": rel.get("email"),
+        "phone": rel.get("phone"),
     }
 
 

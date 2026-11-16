@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { type PersonProfile, api, useApi } from "@/lib/api";
 import { day } from "@/lib/fmt";
-import { InsiderNote, PathView, firstName } from "@/components/network";
+import { InsiderNote, PathView, ReachButtons, firstName } from "@/components/network";
 import { PlanMeeting } from "@/components/meetings";
 import { Avatar, ErrorNote, Panel, Pill, SectionTitle, Skeleton } from "@/components/ui";
 
@@ -61,6 +61,15 @@ function Profile({ p }: { p: PersonProfile }) {
 
       {rel?.context && (
         <p className="mx-4 mt-2 rounded-xl bg-surface-2 px-3 py-2 text-[13px] leading-snug text-ink-2">{rel.context}</p>
+      )}
+      {(rel?.email || rel?.phone) && (
+        <div className="flex flex-wrap gap-2 px-4 pt-3">
+          <ReachButtons
+            contact={{ id: p.id, name: p.name, headline: p.headline, current: p.current, is_contact: p.is_contact, email: rel.email, phone: rel.phone }}
+            subject="Catching up"
+            body={`Hi ${first},\n\n`}
+          />
+        </div>
       )}
       {p.bio && <p className="px-4 pt-3 text-[14px] leading-relaxed">{p.bio}</p>}
 
