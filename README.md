@@ -5,7 +5,7 @@ A mobile-first investor companion with three layers:
 - **Pull:** grounded research on any NSE company.
 - **Network:** who in your own network can help you understand it.
 
-> Status: in development. See [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) for the spec.
+> Spec: [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) · Build history: [`docs/build-log.md`](docs/build-log.md) · Deploy: [`docs/DEPLOY.md`](docs/DEPLOY.md)
 
 ## Repo layout
 ```

@@ -4,12 +4,15 @@ from __future__ import annotations
 
 import asyncio
 import json
+import threading
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
 
 from app.clock import now, window_bounds
+from app.config import get_settings
 from app.db import session
 from app.intel import alerts as alerts_mod
 from app.intel.digest import build_digest
@@ -165,10 +168,53 @@ def research(symbol: str) -> dict:
     return service.with_network(view)
 
 
+class BuildBudget:
+    """Daily cap on live builds (they spend LLM budget) and one build at a time (a free
+    instance has 512 MB and each build parses PDFs). Others wait in line with a message."""
+
+    def __init__(self) -> None:
+        self.day = ""
+        self.used = 0
+        self.gate = threading.Lock()
+
+    def take(self, limit: int, today: str) -> bool:
+        if today != self.day:
+            self.day, self.used = today, 0
+        if self.used >= limit:
+            return False
+        self.used += 1
+        return True
+
+
+BUDGET = BuildBudget()
+
+
+def _build_once(symbol: str, progress, force: bool) -> dict:
+    if not BUDGET.gate.acquire(blocking=False):
+        progress("queued", "Another analysis is running; yours starts right after it")
+        BUDGET.gate.acquire()
+    try:
+        if not force and (view := service.get_cached(symbol.upper())) is not None:
+            return view  # built by the request we waited behind
+        return service.build(symbol, progress, force)
+    finally:
+        BUDGET.gate.release()
+
+
 @router.get("/research/{symbol}/stream")
 async def research_stream(symbol: str, force: bool = False):
     """Server-sent events: `progress` {step, message} … then `result` (the view) or `error`."""
     import asyncio
+
+    today = datetime.now(UTC).date().isoformat()
+    cached = None if force else service.get_cached(symbol.upper())
+    if cached is None and not BUDGET.take(get_settings().max_live_builds_per_day, today):
+
+        async def refused():
+            msg = "Today's live analyses are used up on this demo. Try one of the ready companies."
+            yield {"event": "error", "data": json.dumps({"message": msg, "kind": "limit"})}
+
+        return EventSourceResponse(refused())
 
     loop = asyncio.get_running_loop()
     queue: asyncio.Queue = asyncio.Queue()
@@ -180,7 +226,7 @@ async def research_stream(symbol: str, force: bool = False):
 
     async def run() -> None:
         try:
-            view = await asyncio.to_thread(service.build, symbol, progress, force)
+            view = await asyncio.to_thread(_build_once, symbol, progress, force)
             await queue.put(("result", service.with_network(view)))
         except LookupError as e:
             await queue.put(("error", {"message": str(e), "kind": "not_covered"}))

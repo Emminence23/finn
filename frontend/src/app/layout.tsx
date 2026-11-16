@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { TabBar } from "@/components/TabBar";
 import { Gate } from "@/components/Gate";
+import { WakeNote } from "@/components/WakeNote";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <WakeNote />
         <Gate>
           <div className="mx-auto min-h-dvh max-w-xl pb-[calc(76px+env(safe-area-inset-bottom))]">
             {children}

@@ -23,7 +23,7 @@ type State =
   | { kind: "loading" }
   | { kind: "building"; done: string[]; message: string }
   | { kind: "ready"; view: Research }
-  | { kind: "error"; message: string; notCovered?: boolean };
+  | { kind: "error"; message: string; notCovered?: boolean; limit?: boolean };
 
 export default function CompanyPage() {
   const { symbol: raw } = useParams<{ symbol: string }>();
@@ -49,7 +49,12 @@ export default function CompanyPage() {
               setState({ kind: "building", done: finished, message: String(d.message) });
             } else if (event === "result") setState({ kind: "ready", view: d as unknown as Research });
             else if (event === "error")
-              setState({ kind: "error", message: String(d.message), notCovered: d.kind === "not_covered" });
+              setState({
+                kind: "error",
+                message: String(d.message),
+                notCovered: d.kind === "not_covered",
+                limit: d.kind === "limit",
+              });
           },
           ctl.signal,
         );
@@ -88,17 +93,26 @@ export default function CompanyPage() {
       {state.kind === "error" && (
         <Panel className="mt-4 p-4">
           <p className="text-[15px] font-semibold">
-            {state.notCovered ? `No filings data for ${symbol}` : "Research couldn't be built"}
+            {state.notCovered
+              ? `No filings data for ${symbol}`
+              : state.limit
+                ? "Live analysis is paused for today"
+                : "Research couldn't be built"}
           </p>
           <p className="mt-1 text-[13px] text-ink-2">
             {state.notCovered
               ? "FINN only uses primary sources. This ticker has no standardised financials or transcripts to read."
               : state.message.slice(0, 200)}
           </p>
-          {!state.notCovered && (
+          {!state.notCovered && !state.limit && (
             <button onClick={() => build(true)} className="mt-3 text-[13px] font-medium text-accent">
               Try again
             </button>
+          )}
+          {state.limit && (
+            <Link href="/ask" className="mt-3 inline-block text-[13px] font-medium text-accent">
+              See ready companies →
+            </Link>
           )}
         </Panel>
       )}

@@ -19,3 +19,5 @@ services:
         sync: false
       - key: ALLOWED_ORIGINS
         sync: false
+      - key: FINN_MAX_LIVE_BUILDS_PER_DAY
+        value: "20"
