@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { type Alert, type Digest, useApi } from "@/lib/api";
 import { CATEGORY_LABEL, ago, day, pct } from "@/lib/fmt";
 import { FeedCard } from "@/components/cards";
+import { useReadState } from "@/lib/seen";
 import { AlertSettings } from "@/components/AlertSettings";
 import { firstName } from "@/components/network";
 import { Avatar, ErrorNote, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
@@ -155,13 +156,22 @@ const TOP = 8;
 function Feed({ cards, now }: { cards: Digest["cards"]; now: string }) {
   const [all, setAll] = useState(false);
   const shown = all ? cards : cards.slice(0, TOP);
+  const ids = useMemo(() => cards.map((c) => String(c.id)), [cards]);
+  const rs = useReadState(ids);
   const helped = new Set<string>();
   return (
     <div className="space-y-3">
+      {rs.newCount > 0 && (
+        <p className="px-4 text-[12px] text-ink-2">
+          <span className="font-semibold text-accent">{rs.newCount} new</span> since you last looked
+        </p>
+      )}
       {shown.map((c) => {
         const first = !helped.has(c.symbol);
         helped.add(c.symbol);
-        return <FeedCard key={c.id} card={c} now={now} showHelper={first} />;
+        const id = String(c.id);
+        const read = { isNew: rs.isNew(id), opened: rs.opened(id), onOpen: () => rs.markOpened(id) };
+        return <FeedCard key={c.id} card={c} now={now} showHelper={first} read={read} />;
       })}
       {cards.length > TOP && (
         <button

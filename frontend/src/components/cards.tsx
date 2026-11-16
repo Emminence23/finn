@@ -39,26 +39,33 @@ export function resultsTakeaway(r: ResultsCard): string | null {
   return `Profit up ${P} YoY on ${V} ${top} growth`;
 }
 
-function NextAction({ card }: { card: Card }) {
+function NextAction({ card, onOpen }: { card: Card; onOpen?: () => void }) {
   const a = card.next_action ?? { label: "Research", href: `/c/${card.symbol}`, why: "" };
   const cls = "ml-auto min-w-0 truncate text-right font-medium text-accent";
   const label = `${a.label} →`;
   return a.href.startsWith("http") ? (
-    <a href={a.href} target="_blank" rel="noreferrer" className={cls} title={a.why}>
+    <a href={a.href} target="_blank" rel="noreferrer" className={cls} title={a.why} onClick={onOpen}>
       {label}
     </a>
   ) : (
-    <Link href={a.href} className={cls} title={a.why}>
+    <Link href={a.href} className={cls} title={a.why} onClick={onOpen}>
       {label}
     </Link>
   );
 }
 
-function CardShell({ card, now, children }: { card: Card; now: string; children: React.ReactNode }) {
+export type CardRead = { isNew: boolean; opened: boolean; onOpen: () => void };
+
+function CardShell({ card, now, read, children }: { card: Card; now: string; read?: CardRead; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const moves = dedupeMoves(card.alerts);
   return (
-    <article className="mx-3 rounded-2xl border border-line bg-surface p-4">
+    <article
+      className={clsx(
+        "mx-3 rounded-2xl border border-line bg-surface p-4 transition-opacity",
+        read?.opened && "opacity-60",
+      )}
+    >
       <div className="flex items-center gap-2">
         <Link href={`/c/${card.symbol}`} className="min-w-0 truncate text-[15px] font-semibold active:opacity-70">
           {shortName(card.company)}
@@ -70,7 +77,17 @@ function CardShell({ card, now, children }: { card: Card; now: string; children:
         )}
         {card.level === "important" && <Pill tone="strong">Important</Pill>}
         {!card.in_portfolio && <Pill tone="accent">Research</Pill>}
-        <span className="tnum ml-auto shrink-0 text-[12px] text-ink-3">{ago(card.ts, now)}</span>
+        <span className="tnum ml-auto shrink-0 text-[12px] text-ink-3">
+          {read?.isNew ? (
+            <span className="mr-1.5 inline-flex items-center gap-1 font-semibold text-accent">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+              New
+            </span>
+          ) : read?.opened ? (
+            <span className="mr-1.5">Opened ·</span>
+          ) : null}
+          {ago(card.ts, now)}
+        </span>
       </div>
       <p className="mt-1.5 text-[14px] leading-snug text-ink">
         {(card.results && resultsTakeaway(card.results)) ?? card.title}
@@ -91,7 +108,7 @@ function CardShell({ card, now, children }: { card: Card; now: string; children:
       <div className="mt-3 space-y-3">{children}</div>
       <div className="mt-3 flex items-center gap-3 text-[12px] text-ink-3">
         {card.pdf_url && (
-          <a href={card.pdf_url} target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-1 active:opacity-70">
+          <a href={card.pdf_url} target="_blank" rel="noreferrer" onClick={read?.onOpen} className="inline-flex shrink-0 items-center gap-1 active:opacity-70">
             <FileText size={13} /> Filing
           </a>
         )}
@@ -101,7 +118,7 @@ function CardShell({ card, now, children }: { card: Card; now: string; children:
             <ChevronDown size={13} className={clsx("transition-transform", open && "rotate-180")} />
           </button>
         )}
-        <NextAction card={card} />
+        <NextAction card={card} onOpen={read?.onOpen} />
       </div>
       {open && (
         <ul className="mt-2 space-y-1.5 border-t border-line pt-2">
@@ -228,10 +245,20 @@ function PersonBlock({ p }: { p: CardPerson }) {
   );
 }
 
-export function FeedCard({ card, now, showHelper = true }: { card: Card; now: string; showHelper?: boolean }) {
+export function FeedCard({
+  card,
+  now,
+  showHelper = true,
+  read,
+}: {
+  card: Card;
+  now: string;
+  showHelper?: boolean;
+  read?: CardRead;
+}) {
   const best = showHelper ? card.helpers[0] : undefined;
   return (
-    <CardShell card={card} now={now}>
+    <CardShell card={card} now={now} read={read}>
       {card.kind === "results" && card.results && <ResultsTable r={card.results} />}
       {card.kind === "management_change" &&
         sortPeople(card.people ?? [])

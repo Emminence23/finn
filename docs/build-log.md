@@ -183,3 +183,10 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - Added **Measured, not assumed**: calibration, rule coverage, extraction accuracy, the model comparison and cost. Every figure is copied from this log or the architecture doc, not re-estimated.
 - Added **Open questions for ENAM**: pooled vs private networks, current insiders, and whether screener.in counts as primary data. Each says what FINN does today.
 - "Left out" no longer lists meeting questions or multi-user isolation, which are built. It says plainly that the account switch is not sign-in.
+
+## Phase 4l: what's new since you last looked (FR-PUSH-10)
+- **Why:** a brief you open every morning should say what's new and stay quiet about what you've already handled.
+- **By card, not by time.** The demo clock is pinned to the latest filing, so "since 18:40 yesterday" would never change between visits. Read state is a list of card ids this browser has shown (the snapshot from earlier visits is taken once per page load) plus the ids the investor acted on.
+- **Opened means acted on, not scrolled past.** Following a card's next action or its filing dims it on the next visit, like a read email. Cards merely scrolled past keep full weight.
+- **Storage:** per-viewer browser storage, wrapped so a private window or blocked storage simply shows no marks. Bounded to the latest 500 ids.
+- **Checked with a browser script:** first visit shows 0 marks; a return visit with two unseen cards shows "2 new" and two marks; after acting on the top card it shows "Opened" and is dimmed.
