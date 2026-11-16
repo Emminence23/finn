@@ -75,7 +75,7 @@ export default function Ask() {
           else if (/^[A-Z0-9&-]{2,20}$/.test(dq)) router.push(`/c/${dq}`);
         }}
       >
-        <label className="flex items-center gap-2 rounded-2xl border border-line bg-surface px-3.5 py-3 focus-within:border-accent">
+        <label data-tour="askbox" className="flex items-center gap-2 rounded-2xl border border-line bg-surface px-3.5 py-3 focus-within:border-accent">
           <Search size={18} className="text-ink-3" />
           <input
             value={q}

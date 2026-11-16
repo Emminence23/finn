@@ -336,4 +336,5 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 
 ## Phase 5f: queued by the user, (A) whole pages, (B) tours by use case
 - **A. Pages appear whole.** Instead of lazy-loading the long company page (declined), every page now waits behind a loading bar and ring until all its parts have their data, then appears at once. Components register their first load through `useApi` (`lib/pageload.ts`); the company page and the Listen script register their own. A tapped link starts the bar before the next route's code arrives; later loads (sheets, questions) never bring it back. The tour treats a loading page as "Opening…".
+- **B. Tours by use case.** The Tour button now asks what you want to do and runs one of five tours: check my morning, research a company, review my portfolio, use my network, or the quick look at everything that was there before. 32 steps, each outlining its target; a browser walk checks every one. Tour anchors are `data-tour` attributes on the elements themselves (a `tour` prop on section titles).
 

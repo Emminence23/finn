@@ -182,7 +182,7 @@ export function MoversStrip({ className }: { className?: string }) {
     return null;
   const rows = data[side];
   return (
-    <section aria-label="Top movers" className={className}>
+    <section aria-label="Top movers" data-tour="movers" className={className}>
       <div className="flex items-center justify-between gap-2 px-4">
         <h2 className="text-[15px] font-semibold">
           Top movers
@@ -287,7 +287,7 @@ export function WatchStar({
     }
   };
   return (
-    <span className="relative inline-flex">
+    <span className="relative inline-flex" data-tour="watch">
       <button
         onClick={toggle}
         disabled={busy || !data}

@@ -48,12 +48,15 @@ export function Header({
 export function SectionTitle({
   children,
   aside,
+  tour,
 }: {
   children: React.ReactNode;
   aside?: React.ReactNode;
+  /** an anchor for the guided tours */
+  tour?: string;
 }) {
   return (
-    <div className="flex items-baseline justify-between px-4 pb-2 pt-6">
+    <div data-tour={tour} className="flex items-baseline justify-between px-4 pb-2 pt-6">
       <h2 className="text-[15px] font-semibold tracking-[-0.01em] text-ink">
         {children}
       </h2>

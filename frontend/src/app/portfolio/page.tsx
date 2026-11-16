@@ -145,7 +145,7 @@ export default function PortfolioPage() {
         title="Portfolio"
         sub={data ? `${inr(data.summary.value)} · ${data.summary.holdings} holdings${data.custom ? " · edited by you" : ""} · prices to ${data.as_of ? day(data.as_of) : "—"}` : " "}
         right={
-          <button onClick={() => setEditing(true)} className="flex items-center gap-1 rounded-full border border-line px-3 py-1.5 text-[13px] font-medium text-ink-2">
+          <button onClick={() => setEditing(true)} data-tour="edit" className="flex items-center gap-1 rounded-full border border-line px-3 py-1.5 text-[13px] font-medium text-ink-2">
             <Pencil size={13} /> Edit
           </button>
         }
@@ -275,7 +275,7 @@ function Now({ d }: { d: Overview }) {
       </Panel>
 
       {d.flags.length > 0 && (
-        <ul className="mx-3 mt-3 space-y-1.5 rounded-2xl bg-warn-soft/60 px-3.5 py-3">
+        <ul data-tour="flags" className="mx-3 mt-3 space-y-1.5 rounded-2xl bg-warn-soft/60 px-3.5 py-3">
           {d.flags.map((f) => (
             <li key={f} className="flex gap-2 text-[13px] leading-snug">
               <AlertTriangle size={14} className="mt-0.5 shrink-0 text-warn" aria-hidden />

@@ -169,7 +169,7 @@ function SameNameNote({ m, targetId, targetName }: { m: SameName; targetId: stri
   };
   if (m.status === "confirmed") return null; // shown as a direct "your contact" link instead
   return (
-    <div className="flex gap-2 rounded-xl bg-surface-2 px-3 py-2 text-[12px] leading-snug">
+    <div data-tour="samename" className="flex gap-2 rounded-xl bg-surface-2 px-3 py-2 text-[12px] leading-snug">
       <UserRoundSearch size={15} className="mt-0.5 shrink-0 text-warn" />
       <div className="min-w-0">
         <p className="text-ink">

@@ -65,7 +65,7 @@ export default function WatchlistPage() {
         </Panel>
       ) : (
         <Panel>
-          <ul className="divide-y divide-line">
+          <ul data-tour="watchlist" className="divide-y divide-line">
             {data.items.map((w) => (
               <li key={w.symbol} className="flex items-stretch">
                 <Link href={`/c/${w.symbol}`} className="min-w-0 flex-1 py-3 pl-4 active:bg-surface-2">

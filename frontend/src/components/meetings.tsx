@@ -34,7 +34,7 @@ export function PlanMeeting({ personId, first }: { personId: string; first: stri
     }
   };
   return (
-    <div className="mx-3 mt-3 rounded-2xl border border-line bg-surface p-3">
+    <div data-tour="meeting" className="mx-3 mt-3 rounded-2xl border border-line bg-surface p-3">
       <p className="flex items-center gap-1.5 text-[13px] font-medium">
         <CalendarClock size={15} className="text-accent" /> Meeting {first} soon?
       </p>

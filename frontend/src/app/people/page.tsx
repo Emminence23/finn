@@ -167,7 +167,7 @@ function People() {
 
       {!q && nudges && nudges.nudges.length > 0 && (
         <>
-          <SectionTitle>Worth a call this week</SectionTitle>
+          <SectionTitle tour="worthcall">Worth a call this week</SectionTitle>
           <Panel className="divide-y divide-line">
             {nudges.nudges.slice(0, 4).map((n) => (
               <Link key={n.contact.id} href={`/people/${n.contact.id}`} className="flex gap-3 px-4 py-3 active:opacity-80">
@@ -195,7 +195,7 @@ function People() {
       <p className="px-6 pb-2 pt-4 text-center text-[11px] leading-snug text-ink-3">
         Your network stays private to you. It is never sent to an AI model.
       </p>
-      <SectionTitle>Whose network</SectionTitle>
+      <SectionTitle tour="whose">Whose network</SectionTitle>
       <AccountSwitch />
       <div className="pb-8 pt-3">
         <ResetNetwork />

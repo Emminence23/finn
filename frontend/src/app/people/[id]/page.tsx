@@ -77,7 +77,7 @@ function Profile({ p }: { p: PersonProfile }) {
 
       {p.can_help_on && p.can_help_on.length > 0 && (
         <>
-          <SectionTitle>Ask {first} about</SectionTitle>
+          <SectionTitle tour="askabout">Ask {first} about</SectionTitle>
           <Panel className="divide-y divide-line">
             {p.can_help_on.slice(0, 5).map((c) => (
               <Link key={c.symbol} href={`/c/${c.symbol}`} className="block px-4 py-2.5 active:bg-surface-2">
@@ -261,7 +261,7 @@ function MeetingQuestions({ id, first }: { id: string; first: string }) {
   if (!data?.groups.length) return null;
   return (
     <>
-      <SectionTitle aside="from FINN's research">Before you meet {first}</SectionTitle>
+      <SectionTitle aside="from FINN's research" tour="beforemeet">Before you meet {first}</SectionTitle>
       <Panel className="divide-y divide-line">
         {data.groups.map((g) => (
           <div key={g.symbol} className="px-4 py-3">

@@ -251,7 +251,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
   }, []);
   const ask = (
     <>
-      <SectionTitle aside="answers cite their pages">Ask FINN</SectionTitle>
+      <SectionTitle aside="answers cite their pages" tour="askfinn">Ask FINN</SectionTitle>
       <AskFinn symbol={v.symbol} docs={docs} suggestions={v.suggested_questions ?? []} initial={initialQ} />
     </>
   );
@@ -405,7 +405,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
       {!initialQ && ask}
 
       {/* ---------------------------------------------------------------- network, woven in */}
-      <SectionTitle>Who you know</SectionTitle>
+      <SectionTitle tour="whoyouknow">Who you know</SectionTitle>
       <Panel className="px-4 py-1">
         <HelperList helpers={v.helpers} max={3} />
       </Panel>
