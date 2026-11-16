@@ -8,6 +8,18 @@ import { BASE } from "@/lib/api";
  *  is slow, say so, so a cold start doesn't read as a broken app. */
 export function WakeNote() {
   const [slow, setSlow] = useState(false);
+  const [offline, setOffline] = useState(false);
+  useEffect(() => {
+    // offline is not a sleeping server: the offline note speaks instead
+    const sync = () => setOffline(!navigator.onLine);
+    sync();
+    window.addEventListener("online", sync);
+    window.addEventListener("offline", sync);
+    return () => {
+      window.removeEventListener("online", sync);
+      window.removeEventListener("offline", sync);
+    };
+  }, []);
   useEffect(() => {
     let done = false;
     const t = setTimeout(() => !done && setSlow(true), 2500);
@@ -30,7 +42,7 @@ export function WakeNote() {
       clearTimeout(t);
     };
   }, []);
-  if (!slow) return null;
+  if (!slow || offline) return null;
   return (
     <div
       role="status"

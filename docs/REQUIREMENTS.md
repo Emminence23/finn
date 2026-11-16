@@ -152,10 +152,12 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 |---|---|---|---|
 | FR-APP-01 | Three-tab mobile navigation: **Today** (Push), **Ask** (Pull), **People** (Network) | M | Usable one-handed at 375px width |
 | FR-APP-02 | Command bar in Ask accepting a ticker or a company name | M | Autocomplete from the NSE symbol list |
-| FR-APP-03 | Installable PWA (manifest, icons) | S | "Add to Home Screen" works |
+| FR-APP-03 | Installable PWA (manifest, icons) | S | "Add to Home Screen" works; offline and PNG icons in FR-APP-07 |
 | FR-APP-04 | Demo passcode gate (protects LLM budget) | S | API rejects requests without the passcode |
 | FR-APP-05 | Loading skeletons and empty and error states everywhere | M | No blank screens; no raw stack traces |
 | FR-APP-06 | AI labels: every LLM-written section says it is AI, what it was read from, and which model wrote it | S | Computed numbers never carry the label; a fallback model shows under its own name |
+| FR-APP-07 | **Works offline once opened.** A service worker caches the app shell (pages and hashed static files, never API calls). The app saves the last good answer for Today's endpoints (digest, brief, meeting prep, portfolio) per account and serves it when the network fails, under a banner saying when it was saved. The "waking the server" note stays quiet offline. PNG and maskable icons for install | S | Browser check: load Today, go offline, reload: the same 4 cards and the meeting prep render under "Offline. Showing what FINN saved on 16 Nov, 02:05 pm"; the worker controls the page; the manifest lists 192, 512 and maskable icons |
+| FR-APP-08 | **Share.** A share button on every card and on each company page. It builds plain text in code (what happened, why it matters, the key figures, the filing link; for a company, the delivery record and the missed promises with their numbers) and uses the phone's share sheet, or copies when there is none. Feedback on cards is a tick, so the footer never reflows | S | Browser check: the copied text for the Kaynes results card and the Kaynes page reads as above with the NSE filing URL |
 
 ---
 

@@ -4,6 +4,8 @@ import "./globals.css";
 import { TabBar } from "@/components/TabBar";
 import { Gate } from "@/components/Gate";
 import { WakeNote } from "@/components/WakeNote";
+import { OfflineNote } from "@/components/OfflineNote";
+import { ServiceWorker } from "@/components/ServiceWorker";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
   title: "FINN",
   description: "Your morning brief: what changed in your portfolio, and who you know who can explain it.",
   appleWebApp: { capable: true, title: "FINN", statusBarStyle: "default" },
+  icons: { apple: "/apple-touch-icon.png" },
 };
 
 export const viewport: Viewport = {
@@ -27,6 +30,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <ServiceWorker />
+        <OfflineNote />
         <WakeNote />
         <Gate>
           <div className="mx-auto min-h-dvh max-w-xl pb-[calc(76px+env(safe-area-inset-bottom))]">

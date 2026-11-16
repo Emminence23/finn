@@ -63,16 +63,52 @@ export function setPasscode(value: string) {
   }
 }
 
+// Offline: the last good answer for Today's endpoints is kept per account, so the morning
+// brief still opens on the metro. Only these small, read-only paths are kept.
+const OFFLINE_PATHS = ["/digest", "/people/meetings/prep", "/portfolio", "/alerts/rules"];
+const offlineKey = (path: string) => `finn.offline.${getAccount()}.${path}`;
+const keepsOffline = (path: string, init: RequestInit) =>
+  (!init.method || init.method === "GET") && OFFLINE_PATHS.some((p) => path.startsWith(p));
+
+export type OfflineEvent = CustomEvent<{ at: number }>;
+
 export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      "X-Finn-Passcode": getPasscode(),
-      "X-Finn-User": getAccount(),
-      ...init.headers,
-    },
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${BASE}${path}`, {
+      ...init,
+      headers: {
+        "Content-Type": "application/json",
+        "X-Finn-Passcode": getPasscode(),
+        "X-Finn-User": getAccount(),
+        ...init.headers,
+      },
+    });
+  } catch (e) {
+    // network down: serve the saved copy if there is one, and say so
+    if (keepsOffline(path, init)) {
+      try {
+        const saved = JSON.parse(localStorage.getItem(offlineKey(path)) ?? "null");
+        if (saved) {
+          window.dispatchEvent(new CustomEvent("finn:offline", { detail: { at: saved.at } }));
+          return saved.data as T;
+        }
+      } catch {
+        /* storage unavailable */
+      }
+    }
+    throw e;
+  }
+  if (res.ok && keepsOffline(path, init)) {
+    const data = (await res.json()) as T;
+    try {
+      localStorage.setItem(offlineKey(path), JSON.stringify({ at: Date.now(), data }));
+    } catch {
+      /* storage full or unavailable: offline copy is a convenience */
+    }
+    window.dispatchEvent(new Event("finn:online"));
+    return data;
+  }
   if (!res.ok) {
     if (res.status === 401 && typeof window !== "undefined") {
       window.dispatchEvent(new Event("finn:unauthorized"));

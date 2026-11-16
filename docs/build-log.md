@@ -238,3 +238,8 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **AI review on the free tier:** one call, 40 filings. It made four trims of 0.3–0.9 points (CG Power plant closure order, Kaynes delivery and cash, HDFC Bank CEO change, Trent chairman retiring). Nothing was dropped. Stored by input hash and shipped as `fixtures/portfolio_review.json`.
 - **Bug found in review:** the AI marker showed on most rows, because renormalising after four nudges moves every weight slightly. Now only the adjusted holdings are marked, with the AI's reason under the code's.
 - **Holdings per account:** a `holdings` table; no rows means the demo weights. `digest._companies` and the alert queries read it, so Today follows an edit.
+
+## Phase 4t: share, and offline (FR-APP-07, FR-APP-08)
+- **Share** builds plain text in code from the card. It survives WhatsApp and mail and needs no image renderer. The first version repeated the title on the clipboard, and its "Copied" label pushed the next-action link into truncation. Now cards show a tick and announce "Copied" to screen readers only.
+- **Offline split in two.** The worker caches only same-origin pages and static files. API data is saved by the app's fetch wrapper per account, because a worker can't see which account a cached API answer belonged to without parsing headers. The paths are whitelisted and small (the 7-day digest is 30 KB), so localStorage is enough.
+- **Bug found offline:** "Waking the server…" appeared under the offline banner, because the health ping fails offline too. It now stays quiet when the browser reports offline.

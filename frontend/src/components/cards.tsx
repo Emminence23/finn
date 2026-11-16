@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, FileText, TrendingDown, TrendingUp } from "lucide-react";
 import clsx from "clsx";
+import { ShareButton } from "./ShareButton";
 import type { Alert, Card, CardPerson, ResultsCard } from "@/lib/api";
-import { CATEGORY_LABEL, ago, crore, fq, pct, shortName } from "@/lib/fmt";
+import { CATEGORY_LABEL, ago, crore, day, fq, pct, shortName } from "@/lib/fmt";
 import { HelperLine, PathView } from "./network";
 import { AiTag, Pill } from "./ui";
 
@@ -118,6 +119,7 @@ function CardShell({ card, now, read, children }: { card: Card; now: string; rea
             <ChevronDown size={13} className={clsx("transition-transform", open && "rotate-180")} />
           </button>
         )}
+        <ShareButton build={() => shareCard(card)} />
         <NextAction card={card} onOpen={read?.onOpen} />
       </div>
       {open && (
@@ -133,6 +135,29 @@ function CardShell({ card, now, read, children }: { card: Card; now: string; rea
       )}
     </article>
   );
+}
+
+/** A card as plain text for WhatsApp or mail: what happened, why it matters, the source. */
+function shareCard(card: Card) {
+  const head = [shortName(card.company), CATEGORY_LABEL[card.category] ?? card.category, card.level === "important" && "Important"]
+    .filter(Boolean)
+    .join(" · ");
+  const r = card.results;
+  const nums = r?.rows
+    .filter((x) => x.value != null && (x.metric === "revenue" || x.metric === "pat"))
+    .map((x) => `${x.metric === "revenue" ? r.revenue_label : "PAT"} ${crore(x.value)}${x.yoy != null ? ` (${pct(x.yoy)} YoY)` : ""}`)
+    .join(", ");
+  return {
+    title: head,
+    lines: [
+      `${head}, ${day(card.ts)}`,
+      (r && resultsTakeaway(r)) ?? card.title,
+      card.level_reason && `Why it matters: ${card.level_reason}`,
+      nums && r && `${fq(r.period)}: ${nums}`,
+      card.pdf_url && `Filing: ${card.pdf_url}`,
+      "Shared from FINN",
+    ],
+  };
 }
 
 /** One chip per (kind) with the most recent move: the feed is not a price ticker. */
