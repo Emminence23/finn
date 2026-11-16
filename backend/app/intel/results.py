@@ -274,5 +274,97 @@ def screener_results_card(symbol: str) -> dict | None:
             for m in METRICS
         ],
         "cross_check": {"status": "unavailable", "diffs": {}},
-        "source": "screener.in (filing not parsed)",
+        "source": "screener.in (filing not read)",
+    }
+
+
+# ---------------------------------------------------------------- screener first (no tokens)
+def quarter_for(filed: str) -> str:
+    """The quarter a results filing reports: the last quarter end before the filing date."""
+    y, m = int(filed[:4]), int(filed[5:7])
+    q = (m - 1) // 3 * 3  # 0, 3, 6, 9: the quarter end before this month's quarter
+    return f"{y - 1}-12" if q == 0 else f"{y}-{q:02d}"
+
+
+def _year_back(period: str) -> str:
+    return f"{int(period[:4]) - 1}{period[4:]}"
+
+
+def _quarter_before(period: str) -> str:
+    y, m = int(period[:4]), int(period[5:7])
+    return f"{y - 1}-12" if m == 3 else f"{y}-{m - 3:02d}"
+
+
+def _screener_quarters(symbol: str, want: str) -> tuple[dict[str, dict], bool] | None:
+    """Screener's quarterly rows by period: the stored copy, else a live fetch when the
+    stored one doesn't have the quarter yet. Returns (rows, is_lender)."""
+    with session() as db:
+        rows = db.execute(
+            "SELECT period, revenue, ebitda, pbt, pat FROM financials_quarterly "
+            "WHERE symbol=? AND source='screener'",
+            (symbol,),
+        ).fetchall()
+    stored = {r["period"]: dict(r) for r in rows}
+    if want in stored:
+        return stored, stored[want]["ebitda"] is None
+    try:
+        from app.agent import tools
+
+        fin = tools.run("financials", ticker=symbol)
+    except Exception:  # noqa: BLE001 - no live data: the caller reads the filing instead
+        return None
+    if "error" in fin:
+        return None
+    lender = bool(fin.get("is_financial"))
+    live = {
+        q["period"]: {
+            "period": q["period"],
+            "revenue": q.get("revenue"),
+            "ebitda": None if lender else q.get("op_profit"),
+            "pbt": q.get("pbt"),
+            "pat": q.get("pat"),
+        }
+        for q in fin.get("quarters", [])
+    }
+    return (live, lender) if want in live else None
+
+
+def screener_card_for(symbol: str, quarter: str) -> dict | None:
+    """The results card from screener's table when it already has the filed quarter: the
+    same Revenue/EBITDA/PBT/PAT with QoQ and YoY, without reading the PDF with a model."""
+    got = _screener_quarters(symbol, quarter)
+    if not got:
+        return None
+    rows, lender = got
+    cur = rows[quarter]
+    if cur["revenue"] is None or cur["pat"] is None:
+        return None
+    prev = rows.get(_quarter_before(quarter))
+    yago = rows.get(_year_back(quarter))
+    return {
+        "period": quarter,
+        "basis": "consolidated",
+        "unit": "Rs crore",
+        "is_lender": lender,
+        "revenue_label": "Interest earned" if lender and is_bank(symbol) else "Revenue",
+        "ebitda_margin": (
+            round(cur["ebitda"] / cur["revenue"] * 100, 1)
+            if cur["ebitda"] is not None and cur["revenue"]
+            else None
+        ),
+        "rows": [
+            {
+                "metric": m,
+                "value": cur[m],
+                "prev": prev and prev[m],
+                "year_ago": yago and yago[m],
+                "qoq": pct_change(cur[m], prev and prev[m]),
+                "yoy": pct_change(cur[m], yago and yago[m]),
+                "qoq_note": change_note(cur[m], prev and prev[m]),
+                "yoy_note": change_note(cur[m], yago and yago[m]),
+            }
+            for m in METRICS
+        ],
+        "cross_check": {"status": "unavailable", "diffs": {}},
+        "source": "screener.in, which copies the results filing",
     }

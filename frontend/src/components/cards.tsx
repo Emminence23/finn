@@ -255,7 +255,7 @@ export function ResultsTable({ r }: { r: ResultsCard }) {
               .join(", ")}
           </span>
         ) : r.source.startsWith("screener") ? (
-          <span>from screener.in (filing not parsed)</span>
+          <span>from {r.source}</span>
         ) : null}
       </p>
       {!r.source.startsWith("screener") && (

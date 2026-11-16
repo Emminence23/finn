@@ -1,4 +1,4 @@
-"""Enrichment pipeline: classify → triage (LLM, batched) → results → people.
+"""Enrichment pipeline: classify → triage (LLM, batched) → results (screener first) → people.
 
 Output goes to fixtures/enrichment.json so `make seed` replays it offline and for free.
 Every LLM call is also cached, so re-running only pays for new filings.
@@ -15,7 +15,12 @@ import re
 from app.db import init_db, session
 from app.ingest.universe import fixtures_dir
 from app.intel.pdftext import filing_excerpt
-from app.intel.results import build_results_card, extract_results
+from app.intel.results import (
+    build_results_card,
+    extract_results,
+    quarter_for,
+    screener_card_for,
+)
 from app.intel.taxonomy import ROUTINE, classify_rules
 
 log = logging.getLogger("enrich")
@@ -115,6 +120,14 @@ def run(limit_triage: int | None = None) -> dict:
         if not is_primary_results_filing(a):
             continue
         seen.add(a["symbol"])
+        # screener's table first: once it has the filed quarter, the card needs no model
+        # call. Only a quarter screener hasn't added yet (usually the first day) is read
+        # from the PDF.
+        card = screener_card_for(a["symbol"], quarter_for(a["ts"]))
+        if card:
+            results[a["id"]] = card
+            log.info("results %s %s: from screener", a["symbol"], card["period"])
+            continue
         try:
             ex = extract_results(a["pdf_url"])
             card = build_results_card(a["symbol"], ex) if ex else None

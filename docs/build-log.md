@@ -389,3 +389,8 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Found while testing.** Banks have no EBITDA: screener's "financing profit" is after provisions and often negative, so lenders show net interest income. A P/E of 16 was called "rich" on PEG alone; valuation now weighs P/E and PEG together. "network" and similar words matched listed company names; a stop list fixed it. Some stored accounts label periods "Mar 2026", now normalised.
 - **Measured.** Eleven phrasings plan correctly with no model; five questions in the browser took 0.8 to 4.2 s with no model call. 249 tests.
 - **Tried and dropped the same day.** Pre-writing research for all 19 other holdings (stale by the next day), and one Gemini call per question with Google Search (works on gemini-2.5-flash's free tier, but costs a full call each time).
+
+## Phase 5o: results cards from screener first
+- **Why.** Reading results PDFs with a model was the largest token cost in Push (139 calls, about 774k input tokens), and 17 of the 20 cards matched screener's quarterly table exactly.
+- **Change.** `enrich` now builds the card from screener's table when it already has the filed quarter (stored copy, else a live fetch), with QoQ and YoY in code. Only a quarter screener hasn't added yet, usually the first day after a filing, is read from the PDF by the model and cross-checked as before. The card names its source.
+- **Checked.** Against the 20 stored cards: same quarter and figures on 17; the other 3 are the known basis gaps (ITC revenue, the filing 30,578 Cr vs screener 20,269 Cr; HDFC Bank and ICICI Bank profit, owners' share vs total). The stored fixtures are unchanged; the next enrich run uses the new path.
