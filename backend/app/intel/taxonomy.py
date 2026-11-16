@@ -57,6 +57,29 @@ ROUTINE = {"unclassified", "investor_meetings", "postal_ballot", "agm_egm", "div
 MATERIAL_EVENTS = {"M&A", "capex", "litigation", "fund_raise"}
 
 
+def folds_as_routine(
+    category: str | None, materiality: int | None, exch_category: str, subject: str
+) -> bool:
+    """Whether a filing goes into the folded "Routine (n)" group (PU-5).
+
+    Push favours recall: a filing is folded only when FINN is sure it is routine. An
+    "unclassified" filing the rules could not place stays visible unless the triage model
+    read it and scored it as paperwork (materiality < 10). If triage never ran, it stays
+    visible: FINN doesn't know, so it doesn't hide it.
+    """
+    cat = category or "unclassified"
+    if cat == "unclassified" and not classify_rules(exch_category, subject).confident:
+        return materiality is not None and materiality < 10
+    return cat in ROUTINE or (materiality or 0) < 10
+
+
+def is_unsure(category: str | None, exch_category: str, subject: str) -> bool:
+    """Unclassified, and no confident rule says it is paperwork."""
+    return (category or "unclassified") == "unclassified" and not classify_rules(
+        exch_category, subject
+    ).confident
+
+
 @dataclass(frozen=True)
 class RuleResult:
     category: str

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import clsx from "clsx";
-import { Check, CircleDashed, CircleHelp, Minus, X } from "lucide-react";
+import { Check, CircleDashed, CircleHelp, CircleSlash, Minus, RotateCcw, X } from "lucide-react";
 import type { Cite, Claim, DocRef, PromiseItem, Verdict } from "@/lib/api";
 import { fq } from "@/lib/fmt";
 
@@ -14,10 +14,21 @@ export const VERDICT: Record<
   delivered: { label: "Delivered", icon: Check, text: "text-good", soft: "bg-good-soft", bar: "var(--good)" },
   partly: { label: "Partly", icon: Minus, text: "text-warn", soft: "bg-warn-soft", bar: "var(--warn)" },
   missed: { label: "Missed", icon: X, text: "text-bad", soft: "bg-bad-soft", bar: "var(--bad)" },
+  revised: { label: "Revised", icon: RotateCcw, text: "text-warn", soft: "bg-warn-soft", bar: "var(--warn)" },
   unclear: { label: "Can't tell", icon: CircleHelp, text: "text-ink-2", soft: "bg-mute-soft", bar: "var(--ink-3)" },
-  too_early: { label: "Too early", icon: CircleDashed, text: "text-ink-3", soft: "bg-mute-soft", bar: "var(--line)" },
+  too_early: { label: "Not yet due", icon: CircleDashed, text: "text-ink-3", soft: "bg-mute-soft", bar: "var(--line)" },
+  not_measurable: { label: "Not checkable", icon: CircleSlash, text: "text-ink-3", soft: "bg-mute-soft", bar: "var(--line)" },
 };
-const ORDER: Verdict[] = ["delivered", "partly", "missed", "unclear", "too_early"];
+const ORDER: Verdict[] = ["delivered", "partly", "missed", "revised", "unclear", "too_early", "not_measurable"];
+
+const TYPE_LABEL: Record<string, string> = {
+  number: "Numeric target",
+  direction: "Directional",
+  milestone: "Dated milestone",
+  not_measurable: "Nothing to measure",
+};
+/** Verdicts that are not a judgement of delivery, folded under the judged ones */
+export const PENDING: Verdict[] = ["too_early", "not_measurable"];
 
 export function VerdictPill({ v }: { v: Verdict }) {
   const s = VERDICT[v];
@@ -167,15 +178,24 @@ export function PromiseRow({ p, docs }: { p: PromiseItem; docs: Map<string, DocR
           {p.repeated_in.length > 0 && <> · repeated in {p.repeated_in.map((x) => x.replace(/ \(.*\)$/, "")).join(", ")}</>}
         </footer>
       </blockquote>
-      {p.verdict !== "too_early" && (
+      {p.revised && (
+        <p className="mt-2 text-[13px] leading-snug">
+          <span className="text-[11px] font-semibold uppercase tracking-wide text-warn">Revised </span>
+          {p.revised.in && <>in the {p.revised.in.replace(/ \(.*\)$/, "")}: </>}
+          {p.revised.to}
+          {p.verdict !== "revised" && <span className="text-ink-3"> (judged against the outcome below)</span>}
+        </p>
+      )}
+      {!PENDING.includes(p.verdict) && p.verdict !== "revised" && (
         <p className="mt-2 text-[13px] leading-snug">
           <span className="text-[11px] font-semibold uppercase tracking-wide text-ink-3">Actual </span>
           {p.actual}
         </p>
       )}
       <p className="mt-1 text-[12px] leading-snug text-ink-3">
+        {p.statement_type && <>{TYPE_LABEL[p.statement_type]} · </>}
         {p.verdict === "too_early" && p.horizon ? `Due ${p.horizon}. ` : ""}
-        {p.note}
+        {p.verdict === "not_measurable" ? "No number, direction or date to check it against, so no verdict." : p.note}
         {p.guard && <span className="italic"> (Held back: {p.guard}.)</span>}
       </p>
     </li>

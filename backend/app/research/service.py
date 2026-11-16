@@ -113,6 +113,11 @@ def summaries() -> list[dict]:
 def with_network(view: dict) -> dict:
     """Attach 'who can help' (FR-NET-03 inside Pull). Themes come from the business snapshot."""
     view = dict(view)
+    if view.get("promises", {}).get("items"):
+        # statement rules run on every read, so stored views follow the current rules
+        view["promises"] = promises.annotate(
+            view["promises"], view.get("guidance") or [], view["latest_quarter"]
+        )
     view["helpers"] = graph.who_can_help(view["symbol"], limit=5)
     view["suggested_questions"] = qa.suggested_questions(view)
     return view

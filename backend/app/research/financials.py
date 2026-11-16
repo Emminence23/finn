@@ -190,9 +190,9 @@ def _yoy(series: dict, period: str) -> float | None:
     y, m = period.split("-")
     prev = series.get(f"{int(y) - 1}-{m}")
     cur = series.get(period)
-    if cur is None or prev in (None, 0):
+    if cur is None or prev is None or prev <= 0:  # no % off a loss or zero base (PU-8)
         return None
-    return round((cur - prev) / abs(prev) * 100, 1)
+    return round((cur - prev) / prev * 100, 1)
 
 
 def flags(fin: dict, pl: dict) -> list[dict]:

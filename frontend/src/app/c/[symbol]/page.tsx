@@ -8,7 +8,7 @@ import clsx from "clsx";
 import { ApiError, api, type Research, stream } from "@/lib/api";
 import { crore, fq, pct, shortName, times } from "@/lib/fmt";
 import { HelperList } from "@/components/network";
-import { ClaimList, CredibilityText, PromiseRow, StatTile, VerdictBar, useDocs } from "@/components/research";
+import { ClaimList, CredibilityText, PENDING, PromiseRow, StatTile, VerdictBar, useDocs } from "@/components/research";
 import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
 
@@ -174,8 +174,8 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
   const s = f.snapshot;
   const p = v.promises;
   const [showEarly, setShowEarly] = useState(false);
-  const judged = p.items.filter((i) => i.verdict !== "too_early");
-  const early = p.items.filter((i) => i.verdict === "too_early");
+  const judged = p.items.filter((i) => !PENDING.includes(i.verdict));
+  const early = p.items.filter((i) => PENDING.includes(i.verdict));
   const q = f.trajectory.quarterly;
   const a = f.trajectory.annual;
   const last = f.balance_sheet.annual.at(-1);
@@ -258,7 +258,10 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
                   aria-expanded={showEarly}
                   className="mt-1 flex w-full items-center justify-between border-t border-line pt-3 text-[13px] text-ink-2"
                 >
-                  <span>{early.length} promises still too early to judge</span>
+                  <span>
+                    {early.length} {early.length === 1 ? "promise" : "promises"} not yet due
+                    {early.some((i) => i.verdict === "not_measurable") && " or not checkable"}
+                  </span>
                   <ChevronDown size={15} className={clsx("transition-transform", showEarly && "rotate-180")} />
                 </button>
                 {showEarly && (

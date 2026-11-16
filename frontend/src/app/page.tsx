@@ -11,27 +11,45 @@ import { AlertSettings } from "@/components/AlertSettings";
 import { firstName } from "@/components/network";
 import { Avatar, ErrorNote, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
 
-type Win = "24h" | "7d" | "30d";
+type Win = "24h" | "3d" | "7d" | "30d" | "custom";
 const WINDOWS: { value: Win; label: string }[] = [
   { value: "24h", label: "24h" },
-  { value: "7d", label: "7 days" },
-  { value: "30d", label: "30 days" },
+  { value: "3d", label: "3d" },
+  { value: "7d", label: "7d" },
+  { value: "30d", label: "30d" },
+  { value: "custom", label: "Dates" },
 ];
+type Range = { from: string; to: string };
+
+/** "2026-11-15" minus n days, as YYYY-MM-DD (date-only, no time-zone drift). */
+function minusDays(d: string, n: number): string {
+  const t = new Date(`${d}T00:00:00Z`);
+  t.setUTCDate(t.getUTCDate() - n);
+  return t.toISOString().slice(0, 10);
+}
 const WIN_KEY = "finn.window";
 
 export default function Today() {
   const [win, setWin] = useState<Win>("24h");
   const [settings, setSettings] = useState(false);
+  const [range, setRange] = useState<Range | null>(null);
+  const [lastEnd, setLastEnd] = useState<string | null>(null);
   useEffect(() => {
     try {
       const w = localStorage.getItem(WIN_KEY) as Win | null;
-      if (w && WINDOWS.some((x) => x.value === w)) setWin(w);
+      if (w && w !== "custom" && WINDOWS.some((x) => x.value === w)) setWin(w);
     } catch {
       /* default window */
     }
   }, []);
   const choose = (w: Win) => {
     setWin(w);
+    if (w === "custom") {
+      // default to the two weeks before the data's "now", e.g. to reach an older event
+      const to = (lastEnd ?? new Date().toISOString()).slice(0, 10);
+      setRange((r) => r ?? { from: minusDays(to, 14), to });
+      return;
+    }
     try {
       localStorage.setItem(WIN_KEY, w);
     } catch {
@@ -39,8 +57,15 @@ export default function Today() {
     }
   };
 
-  const { data, error, isLoading, mutate } = useApi<Digest>(`/digest?window=${win}`);
+  const path =
+    win === "custom" && range
+      ? `/digest?start=${range.from}T00:00:00&end=${range.to}T23:59:59`
+      : `/digest?window=${win === "custom" ? "7d" : win}`;
+  const { data, error, isLoading, mutate } = useApi<Digest>(path);
   const now = data?.window.end ?? new Date().toISOString();
+  useEffect(() => {
+    if (data?.window.name) setLastEnd((e) => e ?? data.window.end);
+  }, [data]);
 
   return (
     <main>
@@ -59,7 +84,9 @@ export default function Today() {
       />
       <div className="px-4">
         <Segmented label="Time window" value={win} options={WINDOWS} onChange={choose} />
+        {win === "custom" && range && <RangePicker range={range} onChange={setRange} />}
       </div>
+      {data?.freshness?.stale && <StaleNote f={data.freshness} />}
 
       {error && !data ? (
         <div className="mt-4">
@@ -79,13 +106,45 @@ export default function Today() {
           {data.nudges.length > 0 && <Nudges d={data} />}
           <Routine d={data} />
           <p className="px-4 pb-6 pt-4 text-center text-[11px] text-ink-3">
-            As of {day(now)}, {new Date(now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })} · NSE
-            filings and EOD prices
+            NSE filings to {day(data.freshness?.filings_as_of ?? now)},{" "}
+            {new Date(data.freshness?.filings_as_of ?? now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+            {data.freshness?.prices_as_of && <> · EOD prices to {day(data.freshness.prices_as_of)}</>}
           </p>
         </>
       )}
       <AlertSettings open={settings} onClose={() => setSettings(false)} onSaved={() => mutate()} />
     </main>
+  );
+}
+
+/** Custom dates (PU-1). Native date inputs: the phone's own picker, no extra library. */
+function RangePicker({ range, onChange }: { range: Range; onChange: (r: Range) => void }) {
+  const set = (k: keyof Range, v: string) => {
+    if (!v) return;
+    const next = { ...range, [k]: v };
+    onChange(next.from > next.to ? { from: next.to, to: next.from } : next);
+  };
+  const cls = "tnum min-w-0 flex-1 rounded-lg border border-line bg-surface px-2 py-1.5 text-[13px] text-ink";
+  return (
+    <div className="mt-2 flex items-center gap-2">
+      <label className="sr-only" htmlFor="from">From</label>
+      <input id="from" type="date" value={range.from} max={range.to} onChange={(e) => set("from", e.target.value)} className={cls} />
+      <span className="text-[12px] text-ink-3">to</span>
+      <label className="sr-only" htmlFor="to">To</label>
+      <input id="to" type="date" value={range.to} min={range.from} onChange={(e) => set("to", e.target.value)} className={cls} />
+    </div>
+  );
+}
+
+/** Q-3: say so when prices are behind, instead of showing old moves as today's. */
+function StaleNote({ f }: { f: NonNullable<Digest["freshness"]> }) {
+  const n = f.sessions_behind;
+  return (
+    <p className="mx-4 mt-2 rounded-lg bg-warn-soft px-3 py-2 text-[12px] text-warn">
+      {f.prices_as_of
+        ? `Prices are ${n} trading ${n === 1 ? "session" : "sessions"} behind (last close ${day(f.prices_as_of)}). Moves below may be old.`
+        : "No price data loaded yet."}
+    </p>
   );
 }
 

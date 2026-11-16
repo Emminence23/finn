@@ -102,6 +102,8 @@ Prices per million tokens, from `models.yaml`: Haiku $0.10 / $0.50, Sonnet $2 / 
 - "Missed" before a deadline is downgraded to "too early".
 - Narrative and Q&A citations must point at pages or ids that were in the prompt; uncited points are removed.
 - "Not disclosed" and "the documents don't answer this" are valid outputs.
+- A promise is "Revised" only when a cited management update says so; a statement with no number, direction or date gets no verdict.
+- **Documents are untrusted input.** Prompts mark document text as data, not instructions. The validators above are the real defence: models only return structured data, and anything that points outside what code sent is dropped (`app/llm/safety.py`).
 
 **What is agent-like and what isn't:** nothing in FINN is an open-ended agent. Research is a fixed pipeline whose steps run in parallel where possible, and Ask FINN is retrieval plus one grounded call. That is deliberate. Every step is testable, cacheable and cheap, and the place where judgement matters (promised vs delivered) gets the strongest model.
 

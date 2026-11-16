@@ -71,8 +71,12 @@ class Overlap:
     kind: str  # worked_together | same_employer | studied_together | same_school
     org: str
     detail: str
-    confidence: str  # confirmed | possible
+    confidence: str  # confirmed (years intersect) | possible (years unknown)
     strength: float
+    # N-2: every overlap is *inferred* from two career records. It is worded as an overlap
+    # ("Both at X 2014–2018"), never as "worked with" or "knows". Only links the investor
+    # recorded are "declared".
+    basis: str = "inferred"
 
 
 # ------------------------------------------------------------------ loading
@@ -182,7 +186,7 @@ def overlaps(a: Person, b: Person) -> list[Overlap]:
                     Overlap(
                         "studied_together",
                         sb.school,
-                        f"At {sb.school} together {yrs[0]}–{yrs[1]}",
+                        f"Both at {sb.school} {yrs[0]}–{yrs[1]}",
                         "confirmed",
                         0.55,
                     )
@@ -234,6 +238,7 @@ def paths_to_person(target: Person, people: dict[str, Person], limit: int = 5) -
                 "kind": "contact",
                 "org": None,
                 "confidence": "confirmed",
+                "basis": "declared",
                 "detail": f"Your {target.relationship['type']}",
                 "strength": target.relationship["strength"],
             },
@@ -248,6 +253,7 @@ def paths_to_person(target: Person, people: dict[str, Person], limit: int = 5) -
                 "kind": "knows",
                 "detail": k["context"],
                 "confidence": "confirmed",
+                "basis": "declared",  # recorded by the investor, not inferred
                 "strength": k["strength"],
             }
             for k in explicit
@@ -305,9 +311,11 @@ def who_can_help(
         if not c.is_contact or not c.relationship:
             continue
         reasons: list[tuple[float, str]] = []
+        insider = False
         for r in c.roles:
             if _role_matches(r, symbol):
                 if r.end is None:
+                    insider = True
                     reasons.append((1.0, f"Works at {r.company} as {r.title}"))
                 else:
                     decay = max(0.55, 1 - 0.04 * (CURRENT_YEAR - r.end))
@@ -330,6 +338,9 @@ def who_can_help(
                 "score": score,
                 "why": reasons[0][1],
                 "reasons": [t for _, t in reasons],
+                # N-4: a current employee may hold unpublished price-sensitive information.
+                # Shown, never hidden: the investor decides, with compliance, how to talk.
+                "insider": insider,
             }
         )
     ranked.sort(key=lambda x: -x["score"])

@@ -69,6 +69,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | FR-PUSH-02 | Classify each announcement into the reference categories (17, incl. `unclassified`) | M | ≥90% agreement with a hand-labelled set of 40 filings |
 | FR-PUSH-03 | Rank items by priority = f(category weight, materiality, network relevance) | M | Results, M&A and management change always rank above routine items |
 | FR-PUSH-04 | Collapse routine categories (unclassified, postal ballot, AGM, investor meetings, newspaper ads) into a "Routine (n)" group | M | Collapsed by default; expandable |
+| FR-PUSH-07 | **Unsure is not routine** (added in v2): a filing the rules could not place stays visible, marked "Unclassified", unless the triage model read it and scored it as paperwork (materiality < 10). Unrelated unsure filings are never merged into one card | M | A deliberately odd filing stays visible (`test_unsure_filings_are_not_folded`). On the 30-day window this surfaced 9 filings that had been folded, including the Jio Platforms IPO price |
 | FR-PUSH-05 | Show a one-line, plain-English summary per non-routine item | S | ≤ 20 words; contains no facts absent from the filing |
 | FR-PUSH-06 | Link each item to the original exchange PDF | M | Opens the NSE attachment |
 
@@ -77,6 +78,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | ID | Requirement | Pri | Acceptance criteria |
 |---|---|---|---|
 | FR-CARD-01 | **Results card:** Revenue, EBITDA, PBT, PAT for the current quarter, with QoQ and YoY % | M | Numbers match the results filing or the screener table within 1%; % changes computed in code |
+| FR-CARD-07 | **No % off a loss or zero base** (added in v2): the card shows both values and words ("turned profitable", "loss narrowed") instead | M | A loss of 10 turning into a profit of 5 shows "turned profitable", not +150%; stored cards are recomputed on read |
 | FR-CARD-02 | Results card shows its data source and a cross-check badge (filing vs screener) | S | Badge = ✓ when both agree within 1% |
 | FR-CARD-03 | **Management change card:** role, direction (in/out), short bio of the incoming person | M | Bio comes from the profile store; no invented facts |
 | FR-CARD-04 | Management change card shows network overlap: worked with, studied with, or 2nd-degree path | M | Path is rendered with link strength |
@@ -89,6 +91,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 |---|---|---|---|
 | FR-ALERT-01 | Volume alert when EOD volume ≥ *k* × its 20-day average (default *k* = 2.0) | M | Unit-tested on synthetic series |
 | FR-ALERT-02 | Price alert when \|daily % change\| ≥ *x* (default 5%) | M | Unit-tested |
+| FR-ALERT-08 | **Corporate-action guard** (added in v2): no price or volume alert on a day whose move matches a split or bonus ratio, when the company filed a split or bonus in the prior 75 days | M | A 1:2 split day raises no alert; the same drop with no such filing still alerts |
 | FR-ALERT-03 | Category alert for user-selected material categories | M | Toggling a category updates alerts |
 | FR-ALERT-04 | Thresholds are **user-configurable** in the UI and persisted | M | Survives reload |
 | FR-ALERT-05 | Each alert shows *why it fired* (e.g. "Vol 2.7× 20d avg") | M | Visible on the card |
@@ -103,7 +106,8 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | FR-PULL-02 | **Primary sources only:** annual reports, concall transcripts, exchange filings, standardised financials | M | Every LLM claim carries a document and page reference; prompts forbid outside knowledge |
 | FR-PULL-03 | **Financial snapshot:** revenue, EBITDA margin, PAT, ROE/ROCE, D/E (deterministic) | M | Computed from tables, not by an LLM |
 | FR-PULL-04 | **Trajectory:** multi-year growth and margin trend | M | Sparkline plus 3/5-year CAGR |
-| FR-PULL-05 | **Promised vs delivered** over the last 4 quarters: each promise → actual → verdict (Delivered / Partly / Missed / Too early) | M | Every verdict shows the verbatim quote, its source, and the actual number |
+| FR-PULL-05 | **Promised vs delivered** over the last 4 quarters: each promise → actual → verdict (Delivered / Partly / Missed / Revised / Can't tell / Not yet due / Not checkable) | M | Every verdict shows the verbatim quote, its source, and the actual number |
+| FR-PULL-13 | **Statement types and revisions** (added in v2): each promise is typed number, direction, dated milestone or not measurable; not-measurable statements get no verdict. A cited management update that revises, delays or withdraws a target makes the promise "Revised" before its deadline; after the deadline it is judged on the outcome with the revision shown beside it | M | Worked cases pass in CI (`test_worked_verdict_cases`): annual guidance mid-year, a cut before the deadline, a delayed milestone, a cut then missed, "lower costs" is not a cut, an update on another metric, a not-measurable statement |
 | FR-PULL-06 | **Cash quality:** CFO/PAT and FCF trend | S | Deterministic |
 | FR-PULL-07 | **Balance sheet:** debt, D/E, working-capital days | S | Deterministic |
 | FR-PULL-08 | **Business snapshot:** what they do, segments, revenue mix | S | Grounded in the AR |
@@ -117,8 +121,8 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | ID | Requirement | Pri | Acceptance criteria |
 |---|---|---|---|
 | FR-NET-01 | Onboarding inputs: past employers, alma maters, contacts (name, company, relationship, last contact), people met | M | Loaded from a JSON seed; the schema is documented |
-| FR-NET-02 | Graph of people, companies and schools with derived **overlap edges** (same employer with overlapping tenure; same school with overlapping years) | M | Unit-tested overlap logic |
-| FR-NET-03 | **Who can help with company X:** ranked contacts (worked there > competitor/supplier/customer > theme) with reasons | M | Shown inside Pull and on material-event cards |
+| FR-NET-02 | Graph of people, companies and schools with derived **overlap edges** (same employer with overlapping tenure; same school with overlapping years). Each link is **declared** (the investor recorded it) or **inferred** (two career records overlap); inferred links are worded as overlap, never "worked with" or "knows" | M | Unit-tested overlap logic and wording |
+| FR-NET-03 | **Who can help with company X:** ranked contacts (worked there > competitor/supplier/customer > theme) with reasons. A contact who works at the company now is marked: they may hold unpublished price-sensitive information | M | Shown inside Pull and on material-event cards; the insider mark is unit-tested |
 | FR-NET-04 | **Paths to person P:** 1st and 2nd degree, with link strength | M | Shown on management-change cards |
 | FR-NET-05 | **Entity resolution:** match a name in a filing to a profile (name + company + role), with a confidence score | M | Below the threshold → "possible match" label, never asserted |
 | FR-NET-06 | **Expertise map:** contacts by theme | S | Query by theme returns a ranked list |
@@ -156,6 +160,8 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | NFR-10 | Maintainability | Typed Python (Pydantic models), ruff-clean, typed TS. Modules map to requirement areas. |
 | NFR-11 | Politeness | Rate-limit scrapers (≤1 req/s per host), identify with a standard UA, cache aggressively, respect robots and terms. |
 | NFR-12 | Observability | Structured logs. Per-LLM-call log of model, tokens, latency, cache hit; a cost summary endpoint. |
+| NFR-13 | Untrusted documents | Text inside a filing or transcript cannot steer FINN. Prompts mark document text as data; code validators drop any citation, evidence id or quote the model returns that code did not send. Tested with an "obedient" fake model (`test_instructions_inside_a_document_are_not_obeyed`). |
+| NFR-14 | Freshness | Today shows how old filings and prices are; EOD prices are flagged once a finished trading session is missing (weekends skipped; exchange holidays not modelled). |
 
 ---
 

@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field
 from app.db import session
 from app.intel.pdftext import filing_pdf
 from app.llm import Doc, get_llm
+from app.llm.safety import UNTRUSTED_INPUT
 
 log = logging.getLogger(__name__)
 PROMPT_VERSION = "results-v2"
@@ -64,6 +65,7 @@ operating income, excluding other income) and ALSO copy the 'Interest earned' to
 interest_earned. profit_after_tax is the total net profit for the period (before \
 non-controlling interests / minority share). Report the unit the statement states (e.g. \
 'Rs in crore' → crore, 'Rs in lakhs' → lakh, '₹ million' → million)."""
+SYSTEM += "\n" + UNTRUSTED_INPUT
 
 
 def extract_results(pdf_url: str) -> ResultsExtraction | None:
@@ -121,9 +123,48 @@ def _figures(p: PeriodFigures | None, k: float, lender: bool, bank: bool = False
 
 
 def pct_change(new: float | None, old: float | None) -> float | None:
-    if new is None or old is None or old == 0:
+    """% change on a positive base only (PU-8). Off a loss or zero a percentage misleads
+    (a loss of 10 turning into a profit of 5 would print +150%), so the card shows both
+    values and a `change_note` instead."""
+    if new is None or old is None or old <= 0:
         return None
-    return round((new - old) / abs(old) * 100, 1)
+    return round((new - old) / old * 100, 1)
+
+
+def change_note(new: float | None, old: float | None) -> str | None:
+    """Words for a move that has no meaningful percentage (base zero or negative)."""
+    if new is None or old is None or old > 0:
+        return None
+    if old == 0:
+        return None if new == 0 else ("up from nil" if new > 0 else "loss from nil")
+    if new > 0:
+        return "turned profitable"
+    if new == 0:
+        return "back to break-even"
+    return "loss narrowed" if new > old else "loss widened"
+
+
+def refresh_changes(card: dict | None) -> dict | None:
+    """Recompute % changes and notes from a stored card's values, so cards saved before a
+    rule change follow the current rule (the fixtures keep only what the filing said)."""
+    if not card:
+        return card
+    for r in card["rows"]:
+        v, p, y = r["value"], r.get("prev"), r.get("year_ago")
+        r.update(
+            qoq=pct_change(v, p),
+            yoy=pct_change(v, y),
+            qoq_note=change_note(v, p),
+            yoy_note=change_note(v, y),
+        )
+    return card
+
+
+def _rel_diff(a: float | None, b: float | None) -> float | None:
+    """Relative gap between two readings of the same figure, for cross-checks."""
+    if a is None or b is None or b == 0:
+        return None
+    return round((a - b) / abs(b) * 100, 1)
 
 
 METRICS = ("revenue", "ebitda", "pbt", "pat")
@@ -145,6 +186,8 @@ def build_results_card(symbol: str, ex: ResultsExtraction) -> dict | None:
             "year_ago": yago[m] if yago else None,
             "qoq": pct_change(cur[m], prev[m] if prev else None),
             "yoy": pct_change(cur[m], yago[m] if yago else None),
+            "qoq_note": change_note(cur[m], prev[m] if prev else None),
+            "yoy_note": change_note(cur[m], yago[m] if yago else None),
         }
         for m in METRICS
     ]
@@ -178,7 +221,7 @@ def cross_check(symbol: str, cur: dict, tolerance_pct: float = 1.0) -> dict:
         return {"status": "unavailable", "diffs": {}}
     diffs = {}
     for m in ("revenue", "pbt", "pat"):  # screener's 'Operating Profit' is defined differently
-        d = pct_change(cur[m], row[m])
+        d = _rel_diff(cur[m], row[m])
         if d is not None:
             diffs[m] = d
     if not diffs:
@@ -225,6 +268,8 @@ def screener_results_card(symbol: str) -> dict | None:
                 "year_ago": yago and yago[m],
                 "qoq": pct_change(cur[m], prev and prev[m]),
                 "yoy": pct_change(cur[m], yago and yago[m]),
+                "qoq_note": change_note(cur[m], prev and prev[m]),
+                "yoy_note": change_note(cur[m], yago and yago[m]),
             }
             for m in METRICS
         ],

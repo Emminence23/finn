@@ -104,6 +104,8 @@ export type Link = {
   org?: string | null;
   detail: string;
   confidence: "confirmed" | "possible";
+  /** declared: the investor recorded it · inferred: two career records overlap */
+  basis?: "declared" | "inferred";
   strength: number;
 };
 
@@ -113,7 +115,14 @@ export type Paths = {
   via: { contact: Contact; link: Link; other_links: Link[]; strength: number }[];
 };
 
-export type Helper = { contact: Contact; score: number; why: string; reasons: string[] };
+export type Helper = {
+  contact: Contact;
+  score: number;
+  why: string;
+  reasons: string[];
+  /** Works at the company now: may hold unpublished price-sensitive information */
+  insider?: boolean;
+};
 
 export type Nudge = {
   contact: Contact;
@@ -168,6 +177,9 @@ export type ResultsRow = {
   year_ago: number | null;
   qoq: number | null;
   yoy: number | null;
+  /** Set instead of a % when the base is a loss or zero (e.g. "turned profitable") */
+  qoq_note?: string | null;
+  yoy_note?: string | null;
 };
 
 export type ResultsCard = {
@@ -207,6 +219,8 @@ export type Card = {
   related: FilingItem[];
   alerts: Alert[];
   in_portfolio: boolean;
+  /** FINN couldn't place this filing in a category, so it is shown rather than folded */
+  unsure?: boolean;
   results?: ResultsCard | null;
   people?: CardPerson[];
   helpers: Helper[];
@@ -219,6 +233,13 @@ export type Digest = {
   cards: Card[];
   routine: { count: number; items: FilingItem[] };
   nudges: Nudge[];
+  /** Q-3: how old the data is; prices are stale once a finished session is missing */
+  freshness?: {
+    prices_as_of: string | null;
+    filings_as_of: string | null;
+    sessions_behind: number | null;
+    stale: boolean;
+  };
   counts: { filings: number; cards: number; routine: number; alerts: number };
 };
 
@@ -233,7 +254,14 @@ export type AlertRules = {
 // ------------------------------------------------------------------ pull
 export type Cite = { doc: string; page: number | null };
 export type Claim = { text: string; cites: Cite[] };
-export type Verdict = "delivered" | "partly" | "missed" | "unclear" | "too_early";
+export type Verdict =
+  | "delivered"
+  | "partly"
+  | "missed"
+  | "revised"
+  | "unclear"
+  | "too_early"
+  | "not_measurable";
 
 export type PromiseItem = {
   promise_ids: string[];
@@ -250,6 +278,10 @@ export type PromiseItem = {
   note: string;
   guard: string | null;
   repeated_in: string[];
+  /** number (point or range), direction, milestone (a dated deliverable) or not measurable */
+  statement_type?: "number" | "direction" | "milestone" | "not_measurable";
+  /** A cited management update that revised, delayed or withdrew the target */
+  revised?: { from: string | null; to: string | null; in: string | null; update_id: string } | null;
 };
 
 export type DocRef = {

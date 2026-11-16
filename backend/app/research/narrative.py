@@ -13,14 +13,19 @@ import re
 from pydantic import BaseModel, Field
 
 from app.llm import get_llm
+from app.llm.safety import UNTRUSTED_INPUT
 from app.research.docs import DocRef, as_paged_text
 
 PROMPT_VERSION = "narrative-v1"
 
-GROUNDING = """Use ONLY the documents provided. Do not use outside knowledge about the company,
+GROUNDING = (
+    """Use ONLY the documents provided. Do not use outside knowledge about the company,
 its peers or the market, even if you have it. If the documents do not say something, leave it
 out. Every claim cites one or more sources as {"doc": "<document id>", "page": <page N marker>}.
-Amounts: keep the unit the document uses (Rs crore, Rs million, $ million)."""
+Amounts: keep the unit the document uses (Rs crore, Rs million, $ million).
+"""
+    + UNTRUSTED_INPUT
+)
 
 
 class Cite(BaseModel):

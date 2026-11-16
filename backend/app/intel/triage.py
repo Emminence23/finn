@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field
 
 from app.intel.taxonomy import CATEGORIES
 from app.llm import get_llm
+from app.llm.safety import UNTRUSTED_INPUT
 
 log = logging.getLogger(__name__)
 PROMPT_VERSION = "triage-v1"
@@ -46,6 +47,7 @@ M&A = acquisitions, JVs, mergers, demergers, subsidiary stake changes; fund_rais
 rights, preferential allotment, buyback, debt or commercial paper issuance; litigation = \
 lawsuits, regulatory orders, fines, insolvency; capex = new plant or capacity; \
 unclassified = routine paperwork."""
+SYSTEM += "\n" + UNTRUSTED_INPUT
 
 
 def triage(items: list[dict], batch_size: int = 10) -> dict[str, TriageItem]:

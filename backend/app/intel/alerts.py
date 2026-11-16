@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import date, datetime, timedelta
 
 import pandas as pd
 
@@ -53,6 +53,43 @@ def set_rules(rules: dict, owner: str = OWNER) -> dict:
     return get_rules(owner)
 
 
+# Close-to-close ratios a corporate action produces mechanically: a 1:n split, or a bonus
+# of a new shares for every b held (price × b/(a+b)).
+ADJUSTMENT_RATIOS = sorted(
+    {1 / n for n in range(2, 11)} | {b / (a + b) for a in (1, 2, 3) for b in (1, 2, 3, 4, 5)}
+)
+ACTION_LOOKBACK_DAYS = 75  # an ex-date usually falls within weeks of the board approval
+
+
+def _corporate_actions(symbols: list[str]) -> dict[str, list[date]]:
+    """Dates of split / bonus filings per company, from the announcements feed."""
+    if not symbols:
+        return {}
+    q = ",".join("?" * len(symbols))
+    with session() as db:
+        rows = db.execute(
+            f"SELECT symbol, ts FROM announcements WHERE category='bonus_split' "
+            f"AND symbol IN ({q})",
+            symbols,
+        ).fetchall()
+    out: dict[str, list[date]] = {}
+    for r in rows:
+        out.setdefault(r["symbol"], []).append(datetime.fromisoformat(r["ts"]).date())
+    return out
+
+
+def is_adjustment_day(
+    pct_change: float, day: date, actions: list[date], tolerance: float = 0.04
+) -> bool:
+    """PU-11: a move that is a split or bonus issue, not news. True only when the company
+    filed a split or bonus in the lookback window *and* the price ratio matches a standard
+    adjustment ratio, so a genuine 50% crash with no such filing still alerts. Yahoo
+    back-adjusts history, but a same-day EOD feed is unadjusted, which is when this fires."""
+    ratio = 1 + pct_change / 100
+    recent = any(timedelta(0) <= day - d <= timedelta(ACTION_LOOKBACK_DAYS) for d in actions)
+    return recent and any(abs(ratio / r - 1) <= tolerance for r in ADJUSTMENT_RATIOS)
+
+
 def _signals(symbols: list[str] | None = None) -> pd.DataFrame:
     with session() as db:
         df = pd.read_sql_query("SELECT * FROM prices", db)
@@ -77,7 +114,14 @@ def evaluate(start: datetime, end: datetime, rules: dict | None = None) -> list[
         if days.empty:
             last = sig[sig["date"] <= end.date().isoformat()]["date"].max()
             days = sig[sig["date"] == last]
+        actions = _corporate_actions(portfolio)
         for row in days.itertuples():
+            if pd.notna(row.pct_change) and is_adjustment_day(
+                float(row.pct_change),
+                date.fromisoformat(row.date),
+                actions.get(row.symbol, []),
+            ):
+                continue  # price and volume both move mechanically on an ex-date
             if (
                 rules["enabled"].get("volume")
                 and pd.notna(row.vol_multiple)

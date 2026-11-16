@@ -15,11 +15,24 @@ function strengthWord(s: number): string {
   return s >= 0.45 ? "strong link" : s >= 0.25 ? "fair link" : "weak link";
 }
 
-function Confidence({ link }: { link: Pick<NetLink, "confidence"> }) {
+/** N-2: say how FINN knows a link. Declared links were recorded by the investor; inferred
+ *  ones come from two career records overlapping, and say whether the years are known. */
+function Confidence({ link }: { link: Pick<NetLink, "confidence" | "basis" | "kind"> }) {
+  const declared = link.basis === "declared" || link.kind === "contact" || link.kind === "knows";
+  if (declared) return <span className="text-good">declared</span>;
   return link.confidence === "confirmed" ? (
-    <span className="text-good">confirmed</span>
+    <span className="text-ink-2">inferred, years overlap</span>
   ) : (
-    <span className="text-ink-3">possible</span>
+    <span className="text-ink-3">inferred, years unknown</span>
+  );
+}
+
+/** N-4: a current employee can be called, but not for unpublished price-sensitive facts. */
+export function InsiderNote() {
+  return (
+    <span className="mt-0.5 block text-[11px] font-medium text-warn">
+      Works there now: keep it to public information
+    </span>
   );
 }
 
@@ -40,6 +53,7 @@ export function HelperLine({ helper, verb = "Call" }: { helper: Helper; verb?: s
         </span>
         <span className="text-ink-2"> · {helper.why}</span>
         {c.context && <span className="block text-[12px] text-ink-3">{c.context}</span>}
+        {helper.insider && <InsiderNote />}
       </span>
     </Link>
   );
@@ -59,6 +73,7 @@ export function HelperList({ helpers, max = 3 }: { helpers: Helper[]; max?: numb
                 <span className="tnum shrink-0 text-[11px] text-ink-3">{Math.round(h.score * 100)}</span>
               </div>
               <p className="text-[13px] leading-snug text-ink-2">{h.why}</p>
+              {h.insider && <InsiderNote />}
               {h.reasons.slice(1, 3).map((r) => (
                 <p key={r} className="text-[12px] leading-snug text-ink-3">
                   {r}

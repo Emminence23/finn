@@ -7,6 +7,13 @@ strong model may only cite those ids. Code then enforces:
   - a promise whose deadline has not passed can't be "missed" without a management update
     admitting a delay or cut (otherwise it becomes "too_early");
   - counts and the credibility score are computed in code from the verdicts.
+
+Then `annotate` (also code, and re-run on stored views) applies the statement rules:
+  - each promise is typed: number (point or range), direction, milestone (a dated
+    deliverable) or not measurable. Not-measurable statements get no verdict (PL-3);
+  - a cited management update that revises, delays or withdraws a target marks the
+    promise revised. Before its deadline the verdict is "revised"; after it, the verdict is
+    judged against the latest target and the revision is shown beside it (PL-4).
 """
 
 from __future__ import annotations
@@ -20,7 +27,8 @@ from pydantic import BaseModel, Field
 from app.llm import get_llm
 
 PROMPT_VERSION = "promises-v2"
-VERDICTS = ("delivered", "partly", "missed", "unclear", "too_early")
+VERDICTS = ("delivered", "partly", "missed", "revised", "unclear", "too_early", "not_measurable")
+SCORED = ("delivered", "partly", "missed")
 
 SYSTEM = """You are a sceptical buy-side analyst checking whether an Indian listed company's
 management delivered on what it promised on earnings calls.
@@ -177,9 +185,107 @@ def validate(res: Scorecard, promises, updates, acts, latest_period: str) -> dic
                 "repeated_in": [by_id[i]["doc_label"] for i in ids[1:]],
             }
         )
-    order = {v: i for i, v in enumerate(("missed", "partly", "delivered", "unclear", "too_early"))}
-    items.sort(key=lambda i: (order[i["verdict"]], -by_id[i["promise_ids"][0]]["materiality"]))
+    return annotate(
+        {"items": items, "credibility": res.credibility}, promises + updates, latest_period
+    )
+
+
+# ------------------------------------------------------------------ statement rules
+_UNIT = r"(%|x\b|×|cr\b|crore|bn\b|billion|mn\b|million|lakh|bps|days|times|mw|gw|tonnes?|units)"
+_NUMBER = re.compile(r"\d[\d,.]*\s*" + _UNIT, re.I)
+_DIRECTION = re.compile(
+    r"\b(grow|growth|increas|improv|expan|higher|lower|reduc|declin|ramp|doubl|accelerat|"
+    r"strengthen|maintain|sustain|outperform|better|faster|stabili[sz]|positive|negative|"
+    r"accretive|pick up|moderat|contain|below|above|at least|cross|remove|exit|no new|zero)\w*",
+    re.I,
+)
+_MILESTONE = re.compile(
+    r"\b(commission|commenc|launch|complet|start|operational|go live|ready|begin|onboard|"
+    r"acquir|clos|list|approv|receiv|sign|deliver|open)\w*",
+    re.I,
+)
+# Words that mean management changed a target, not ordinary business words like "lower costs"
+_CUT = re.compile(
+    r"\b(revis\w*|defer\w*|delay\w*|postpon\w*|push(ed)? (out|back)|scal(e|ed) back|"
+    r"withdr[ae]w\w*|recalibrat\w*|no longer|(cut|lowered|reduced|trimmed) (the |our )?"
+    r"(guidance|target|outlook))",
+    re.I,
+)
+
+
+def statement_type(s: dict) -> str:
+    """PL-3: what kind of statement a promise is. The extractor already skips vague optimism,
+    so "not measurable" is kept for what is left: no number, no direction and no date."""
+    target = s.get("target") or ""
+    if s.get("target_value") is not None or _NUMBER.search(target):
+        return "number"
+    if s.get("horizon") and (
+        _MILESTONE.search(target) or s.get("metric") in {"capex", "capacity", "order_book"}
+    ):
+        return "milestone"
+    if _DIRECTION.search(target):
+        return "direction"
+    if s.get("horizon"):
+        return "milestone"
+    return "not_measurable"
+
+
+def revision(ids: list[str], evidence: list[str], stmts: dict[str, dict]) -> dict | None:
+    """A cited management update that says the target was revised, delayed or withdrawn.
+
+    Only an explicit, cited update counts. Comparing target numbers across merged
+    restatements was tried and rejected: the model sometimes merges neighbouring promises
+    (an ROA target with an ROE target), which would invent revisions."""
+    chain = [stmts[i] for i in ids if i in stmts]
+    metric = chain[-1].get("metric") if chain else None
+    for e in evidence:
+        u = stmts.get(e)
+        if (
+            u
+            and u.get("kind") == "update"
+            and (metric is None or u.get("metric") == metric)
+            and _CUT.search(f"{u.get('target', '')} {u['quote']}")
+        ):
+            return {
+                "from": chain[0]["target"] if chain else None,
+                "to": u.get("target"),
+                "in": u.get("doc_label"),
+                "update_id": u["id"],
+            }
+    return None
+
+
+_ORDER = {
+    v: i
+    for i, v in enumerate(
+        ("missed", "revised", "partly", "delivered", "unclear", "too_early", "not_measurable")
+    )
+}
+
+
+def annotate(card: dict, statements: list[dict], latest_period: str) -> dict:
+    """Apply the statement rules to a scorecard and recompute counts and score. Idempotent:
+    it starts from each item's `base_verdict` (the verdict after the evidence guards), so it
+    can be re-run on stored views when the rules change."""
+    stmts = {s["id"]: s for s in statements}
+    items = []
+    for it in card.get("items", []):
+        it = dict(it)
+        base = it.setdefault("base_verdict", it["verdict"])
+        main = stmts.get(it["promise_ids"][-1], it)
+        kind = statement_type(main)
+        rev = revision(it["promise_ids"], it.get("evidence", []), stmts)
+        verdict = base
+        passed = bool(it.get("deadline") and it["deadline"] <= latest_period)
+        if kind == "not_measurable":
+            verdict = "not_measurable"
+        elif rev and (base == "too_early" or (base == "missed" and not passed)):
+            verdict = "revised"
+        it.update(statement_type=kind, revised=rev, verdict=verdict)
+        items.append(it)
+    weight = {k: s.get("materiality", 0) for k, s in stmts.items()}
+    items.sort(key=lambda i: (_ORDER[i["verdict"]], -weight.get(i["promise_ids"][0], 0)))
     counts = {v: sum(i["verdict"] == v for i in items) for v in VERDICTS}
-    judged = counts["delivered"] + counts["partly"] + counts["missed"]
+    judged = sum(counts[v] for v in SCORED)
     score = round((counts["delivered"] + 0.5 * counts["partly"]) / judged * 100) if judged else None
-    return {"items": items, "credibility": res.credibility, "counts": counts, "score": score}
+    return {**card, "items": items, "counts": counts, "score": score}

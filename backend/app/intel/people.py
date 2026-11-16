@@ -13,6 +13,7 @@ from pypdf import PdfReader
 
 from app.intel.pdftext import filing_pdf
 from app.llm import get_llm
+from app.llm.safety import UNTRUSTED_INPUT
 
 PROMPT_VERSION = "person-v2"
 
@@ -53,6 +54,7 @@ retirement, re-appointment or cessation the filing announces. Do NOT list the co
 secretary who signs the letter unless their own position changes. Use only facts written in \
 the filing, especially the 'brief profile' annexure: prior employers, titles, education. \
 Never add facts from your own knowledge. Use null for anything not stated."""
+SYSTEM += "\n" + UNTRUSTED_INPUT
 
 
 _RELEVANT = re.compile(r"profile|appoint|resign|cessation|retire|designat|re-appoint", re.I)

@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
 
 from app.llm import get_llm
+from app.llm.safety import UNTRUSTED_INPUT
 from app.research.docs import DocRef, as_paged_text
 
 PROMPT_VERSION = "guidance-v1"
@@ -42,6 +43,7 @@ Rules:
   orders, balance sheet, 1 = everything else.
 - Use only the transcript. Do not add knowledge from outside it.
 Return at most 15 statements, most material first."""
+SYSTEM += "\n" + UNTRUSTED_INPUT
 
 
 class Statement(BaseModel):

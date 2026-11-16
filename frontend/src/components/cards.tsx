@@ -27,6 +27,9 @@ export function resultsTakeaway(r: ResultsCard): string | null {
   const p = get("pat");
   const v = get("revenue");
   const top = r.revenue_label === "Interest earned" ? "interest income" : "revenue";
+  const patNote = r.rows.find((x) => x.metric === "pat")?.yoy_note;
+  if (p == null && patNote && v != null)
+    return `${patNote[0].toUpperCase() + patNote.slice(1)} YoY; ${top} ${v >= 0 ? "up" : "down"} ${Math.abs(v).toFixed(0)}%`;
   if (p == null || v == null) return null;
   const P = `${Math.abs(p).toFixed(0)}%`;
   const V = `${Math.abs(v).toFixed(0)}%`;
@@ -45,13 +48,20 @@ function CardShell({ card, now, children }: { card: Card; now: string; children:
         <Link href={`/c/${card.symbol}`} className="min-w-0 truncate text-[15px] font-semibold active:opacity-70">
           {shortName(card.company)}
         </Link>
-        <Pill>{CATEGORY_LABEL[card.category] ?? card.category}</Pill>
+        {card.unsure ? (
+          <Pill tone="warn">Unclassified</Pill>
+        ) : (
+          <Pill>{CATEGORY_LABEL[card.category] ?? card.category}</Pill>
+        )}
         {!card.in_portfolio && <Pill tone="accent">Research</Pill>}
         <span className="tnum ml-auto shrink-0 text-[12px] text-ink-3">{ago(card.ts, now)}</span>
       </div>
       <p className="mt-1.5 text-[14px] leading-snug text-ink">
         {(card.results && resultsTakeaway(card.results)) ?? card.title}
       </p>
+      {card.unsure && (
+        <p className="mt-1 text-[12px] text-ink-3">FINN couldn&apos;t place this filing, so it isn&apos;t folded away.</p>
+      )}
       {moves.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">
           {moves.map((a) => (
@@ -100,7 +110,10 @@ function dedupeMoves(alerts: Alert[]): Alert[] {
 
 const METRIC_LABEL: Record<string, string> = { ebitda: "EBITDA", pbt: "PBT", pat: "PAT" };
 
-function Delta({ v }: { v: number | null }) {
+function Delta({ v, note }: { v: number | null; note?: string | null }) {
+  // Off a loss or zero base there is no meaningful %: say what happened instead (PU-8)
+  if (v == null && note)
+    return <span className={/profitable|narrowed|break-even|up from/.test(note) ? "text-good" : "text-bad"}>{note}</span>;
   if (v == null) return <span className="text-ink-3">—</span>;
   return <span className={v >= 0 ? "text-good" : "text-bad"}>{pct(v)}</span>;
 }
@@ -125,10 +138,10 @@ export function ResultsTable({ r }: { r: ResultsCard }) {
               <td className="py-1.5 text-ink-2">{x.metric === "revenue" ? r.revenue_label : METRIC_LABEL[x.metric]}</td>
               <td className="py-1.5 text-right font-medium">{crore(x.value)}</td>
               <td className="py-1.5 text-right">
-                <Delta v={x.qoq} />
+                <Delta v={x.qoq} note={x.qoq_note} />
               </td>
               <td className="py-1.5 text-right">
-                <Delta v={x.yoy} />
+                <Delta v={x.yoy} note={x.yoy_note} />
               </td>
             </tr>
           ))}

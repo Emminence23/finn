@@ -10,7 +10,7 @@ A mobile-first investor companion with three layers:
 > Spec: [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) · Architecture: [`docs/architecture.md`](docs/architecture.md) · Build history: [`docs/build-log.md`](docs/build-log.md) · Deploy: [`docs/DEPLOY.md`](docs/DEPLOY.md)
 
 ## 60-second tour
-1. **Today.** The brief for the last 24 hours, 7 days or 30 days. Results cards lead with what the numbers say ("Profit down 36% YoY even as revenue grew 12%"), show QoQ and YoY, and are cross-checked against screener.in. A management change shows the incoming person's background and your path to them. Each card names the person to call and why. Routine filings are folded away.
+1. **Today.** The brief for the last 24 hours, 3, 7 or 30 days, or any dates you pick (try 1–15 October for the Pidilite CFO change). Results cards lead with what the numbers say ("Profit down 36% YoY even as revenue grew 12%"), show QoQ and YoY, and are cross-checked against screener.in. A management change shows the incoming person's background and your path to them. Each card names the person to call and why. Routine filings are folded away.
 2. **Alert settings** (top right). Change the volume or price threshold and the feed re-ranks.
 3. **Ask → Kaynes.** The promise scorecard: FY26 revenue ₹3,626 Cr against ₹4,000 Cr+ guided, working capital 133 days against ≤85, each with the verbatim quote, call and page beside the reported number.
 4. **Ask FINN** on the same page: "Why did receivables go up?" The answer cites call pages, and uncited points are removed by code.
@@ -52,7 +52,6 @@ docs/       Requirements, architecture, build log, deploy guide
 - **Live intraday data and push notifications.** The brief is end of day by design; NSE EOD files are free and reliable, while intraday feeds are paid.
 - **Real LinkedIn data.** Scraping it breaks its terms. The network is synthetic, and production would use official APIs or the user's own data export.
 - **An open-ended research agent.** A fixed pipeline with code-enforced citations is cheaper, cacheable and testable. The judgement step gets the strongest model instead.
-- **A custom date range in Today.** Fixed 24h, 7-day and 30-day windows cover most of the demo, but an older event such as the Pidilite CFO change (9 October) falls outside them.
 - **"Questions worth asking" before a meeting, and an interactive network map.** Both were "could haves" and were cut for time.
 - **Multi-user accounts.** One demo user. The production design (row-level security, encrypted per-user data) is in the architecture doc.
 

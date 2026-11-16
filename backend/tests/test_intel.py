@@ -2,8 +2,15 @@ from datetime import datetime
 
 import pytest
 
-from app.intel.results import PeriodFigures, ResultsExtraction, build_results_card, pct_change
-from app.intel.taxonomy import classify_rules
+from app.intel.results import (
+    PeriodFigures,
+    ResultsExtraction,
+    build_results_card,
+    change_note,
+    pct_change,
+    refresh_changes,
+)
+from app.intel.taxonomy import classify_rules, folds_as_routine
 from app.network.graph import Person, Role, School, overlaps
 
 
@@ -112,8 +119,30 @@ def test_lender_has_no_ebitda():
 
 def test_pct_change_edge_cases():
     assert pct_change(110, 100) == 10.0
-    assert pct_change(-50, -100) == 50.0  # loss narrowed
     assert pct_change(1, 0) is None and pct_change(None, 5) is None
+
+
+@pytest.mark.parametrize(
+    ("new", "old", "note"),
+    [
+        (5, -10, "turned profitable"),  # would print +150% with an abs() base
+        (-50, -100, "loss narrowed"),
+        (-120, -100, "loss widened"),
+        (-5, 0, "loss from nil"),
+        (110, 100, None),
+    ],
+)
+def test_no_percentage_off_a_loss_or_zero_base(new, old, note):
+    """PU-8: a move off a loss or zero shows both values and words, never a %."""
+    if note:
+        assert pct_change(new, old) is None
+    assert change_note(new, old) == note
+
+
+def test_stored_cards_follow_the_current_rule():
+    card = {"rows": [{"metric": "pat", "value": 5, "prev": -10, "year_ago": 4, "qoq": 150.0}]}
+    row = refresh_changes(card)["rows"][0]
+    assert row["qoq"] is None and row["qoq_note"] == "turned profitable" and row["yoy"] == 25.0
 
 
 # ------------------------------------------------------------------ overlaps (FR-NET-02)
@@ -135,6 +164,31 @@ def test_overlap_possible_when_years_unknown_and_none_when_disjoint():
     assert o.kind == "same_employer" and o.confidence == "possible"
     c = _person("c", [Role("Tetra Pak", None, "z", 2001, 2005)])
     assert overlaps(a, c) == []  # provably different years
+
+
+def test_inferred_links_are_worded_as_overlap_never_as_knowing():
+    """N-2: an overlap is inferred from two career records and says so."""
+    a = _person("a", [Role("SRF", "SRF", "x", 2012, 2018)], [School("IIM A", None, 2008, 2010)])
+    b = _person("b", [Role("SRF", "SRF", "y", 2016, 2020)], [School("IIM A", None, 2009, 2011)])
+    found = overlaps(a, b)
+    assert found and all(o.basis == "inferred" for o in found)
+    for o in found:
+        assert o.detail.startswith("Both") and "with" not in o.detail and "know" not in o.detail
+        assert any(ch.isdigit() for ch in o.detail)  # confirmed overlaps carry their years
+
+
+def test_current_employee_is_marked_as_insider(monkeypatch):
+    """N-4: a contact who works at the company now is shown, and marked."""
+    from app.network import graph
+
+    monkeypatch.setattr(graph, "company_links", lambda: {})
+    monkeypatch.setattr(graph, "_theme_for", lambda s: None)
+    now = _person("now", [Role("Kaynes Technology", "KAYNES", "CFO", 2021, None)])
+    was = _person("was", [Role("Kaynes Technology", "KAYNES", "VP", 2015, 2019)])
+    for p in (now, was):
+        p.relationship = {"type": "friend", "strength": 0.6}
+    ranked = {h["contact"]["id"]: h for h in graph.who_can_help("KAYNES", {"now": now, "was": was})}
+    assert ranked["now"]["insider"] is True and ranked["was"]["insider"] is False
 
 
 def test_school_overlap():
@@ -166,6 +220,47 @@ def test_alerts_volume_and_price_thresholds():
     assert kinds["price"]["value"] == pytest.approx(7.0)
     alerts.set_rules(rules | {"volume_multiple": 3.5, "price_abs_pct": 8.0})
     assert alerts.evaluate(datetime(2026, 10, 25), datetime(2026, 10, 25, 23)) == []
+
+
+def _split_setup(with_filing: bool):
+    from app.db import session
+
+    with session() as db:
+        db.execute("INSERT INTO companies (symbol, name, in_portfolio) VALUES ('ABC','Abc',1)")
+        for i in range(25):
+            close, vol = (100, 1000) if i < 24 else (50.5, 2600)  # 1:2 split, volume doubles
+            db.execute(
+                "INSERT INTO prices VALUES ('ABC', ?, 0,0,0, ?, ?)",
+                (f"2026-10-{i + 1:02d}", close, vol),
+            )
+        if with_filing:
+            db.execute(
+                "INSERT INTO announcements (id, symbol, ts, subject, category) VALUES "
+                "('s1','ABC','2026-09-20T10:00:00','Record date for sub-division','bonus_split')"
+            )
+
+
+@pytest.mark.parametrize("with_filing", [True, False])
+def test_split_day_raises_no_price_or_volume_alert(with_filing):
+    """PU-11: a 1:2 split halves the price. With a split filing on record it is not news;
+    the same drop with no such filing still alerts."""
+    from app.intel import alerts
+
+    _split_setup(with_filing)
+    alerts.set_rules({"volume_multiple": 2.0, "price_abs_pct": 5.0, "categories": []})
+    found = alerts.evaluate(datetime(2026, 10, 25), datetime(2026, 10, 25, 23))
+    assert (found == []) is with_filing
+
+
+def test_adjustment_ratio_needs_a_standard_ratio():
+    from datetime import date
+
+    from app.intel.alerts import is_adjustment_day
+
+    filed = [date(2026, 9, 20)]
+    assert is_adjustment_day(-66.0, date(2026, 10, 1), filed)  # 1:2 bonus → 1/3
+    assert not is_adjustment_day(-12.0, date(2026, 10, 1), filed)  # a real fall
+    assert not is_adjustment_day(-50.0, date(2027, 3, 1), filed)  # filing too old
 
 
 def test_is_bank_ignores_ttm_row_without_balance_sheet():
@@ -203,3 +298,23 @@ def test_cross_check_separates_pat_basis_gap(pat, status):
     cur = {"period": "2026-09", "revenue": 1000.0, "pbt": 130.0, "pat": pat}
     assert cross_check("XCHK", cur)["status"] == status
     assert cross_check("XCHK", {**cur, "revenue": 900.0})["status"] == "differs"
+
+
+# ------------------------------------------------------------------ unsure is not routine (PU-5)
+@pytest.mark.parametrize(
+    ("cat", "materiality", "desc", "subject", "folds"),
+    [
+        # rules could not place it and the model scored it material: stays visible
+        ("unclassified", 70, "General Updates", "Jio Platforms IPO issue price", False),
+        # rules could not place it and triage never ran: stays visible
+        ("unclassified", None, "Updates", "Something new", False),
+        # rules could not place it; the model read it and called it paperwork
+        ("unclassified", 5, "Updates", "Unclaimed dividend reminder", True),
+        # known paperwork, confidently routine
+        ("unclassified", 3, "Trading Window", "Closure of trading window", True),
+        ("agm_egm", 40, "Shareholders Meeting", "Notice of AGM", True),
+        ("results", 80, "Outcome of Board Meeting", "Financial results", False),
+    ],
+)
+def test_unsure_filings_are_not_folded(cat, materiality, desc, subject, folds):
+    assert folds_as_routine(cat, materiality, desc, subject) is folds

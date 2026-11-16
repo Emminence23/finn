@@ -136,3 +136,22 @@ def test_seed_loads_everything_and_network_is_consistent(real_fixtures):
     main()  # idempotent
     with session() as db:
         assert db.execute("SELECT COUNT(*) FROM alert_rules").fetchone()[0] == 3
+
+
+def test_stale_prices_are_flagged_by_trading_session():
+    """Q-3: EOD prices are stale once a finished session is missing; weekends don't count."""
+    from datetime import date, datetime
+
+    from app.clock import freshness, latest_session, sessions_between
+    from app.db import session
+
+    assert latest_session(datetime(2026, 11, 15, 23)) == date(2026, 11, 13)  # Sunday → Friday
+    assert latest_session(datetime(2026, 11, 16, 12)) == date(2026, 11, 13)  # Monday, pre-close
+    assert latest_session(datetime(2026, 11, 16, 19)) == date(2026, 11, 16)
+    assert sessions_between(date(2026, 11, 12), date(2026, 11, 16)) == 2  # Fri + Mon
+
+    with session() as db:
+        db.execute("INSERT INTO prices VALUES ('ABC', '2026-11-13', 0,0,0, 1, 1)")
+    assert freshness(datetime(2026, 11, 15, 23))["stale"] is False
+    late = freshness(datetime(2026, 11, 17, 19))
+    assert late["stale"] is True and late["sessions_behind"] == 2

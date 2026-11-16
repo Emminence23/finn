@@ -109,7 +109,10 @@ function Profile({ p }: { p: PersonProfile }) {
             {p.overlaps_with_you.map((o, i) => (
               <p key={i} className="text-[13px] leading-snug">
                 {o.detail}
-                <span className={o.confidence === "confirmed" ? "text-good" : "text-ink-3"}> · {o.confidence}</span>
+                <span className="text-ink-3">
+                  {" "}
+                  · inferred, {o.confidence === "confirmed" ? "years overlap" : "years unknown"}
+                </span>
               </p>
             ))}
           </Panel>

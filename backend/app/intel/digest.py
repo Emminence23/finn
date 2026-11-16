@@ -9,12 +9,12 @@ from __future__ import annotations
 import json
 from datetime import datetime
 
-from app.clock import window_bounds
+from app.clock import freshness, window_bounds
 from app.db import session
 from app.ingest.universe import fixtures_dir
 from app.intel import alerts as alerts_mod
-from app.intel.results import screener_results_card
-from app.intel.taxonomy import CATEGORY_WEIGHT, MATERIAL_EVENTS, ROUTINE
+from app.intel.results import refresh_changes, screener_results_card
+from app.intel.taxonomy import CATEGORY_WEIGHT, MATERIAL_EVENTS, folds_as_routine, is_unsure
 from app.network import graph
 
 
@@ -117,13 +117,16 @@ def build_digest(
     routine = []
     for a in anns:
         cat = a["category"] or "unclassified"
-        if cat in ROUTINE or (a["materiality"] or 0) < 10:
+        if folds_as_routine(cat, a["materiality"], a["exch_category"], a["subject"]):
             routine.append(_item(a))
             continue
-        groups.setdefault((a["symbol"], cat), []).append(a)
+        # unrelated filings FINN couldn't place are never merged into one card
+        key = f"{cat}:{a['id']}" if cat == "unclassified" else cat
+        groups.setdefault((a["symbol"], key), []).append(a)
 
     cards = []
-    for (symbol, cat), items in groups.items():
+    for (symbol, key), items in groups.items():
+        cat = key.split(":")[0]
         items.sort(key=lambda x: (-(x["materiality"] or 0), x["ts"]))
         enr_by_id = {x["id"]: json.loads(x["enrichment_json"] or "{}") for x in items}
         primary = next((x for x in items if "results" in enr_by_id[x["id"]]), items[0])
@@ -142,10 +145,11 @@ def build_digest(
             "related": [_item(x) for x in items if x is not primary],
             "alerts": alerts_by_symbol.get(symbol, []),
             "in_portfolio": bool(co["in_portfolio"]),
+            "unsure": is_unsure(cat, primary["exch_category"], primary["subject"]),
         }
         if cat == "results":
             card["kind"] = "results"
-            card["results"] = enr.get("results") or screener_results_card(symbol)
+            card["results"] = refresh_changes(enr.get("results")) or screener_results_card(symbol)
         elif cat == "management_change":
             card["kind"] = "management_change"
             card["people"] = _people_block(primary, enr, golden, people)
@@ -169,6 +173,7 @@ def build_digest(
         "nudges": graph.reconnect_nudges(t0.isoformat(), t1.isoformat(), people=people)
         if (t1 - t0).days >= 3
         else [],
+        "freshness": freshness(),
         "counts": {
             "filings": len(anns),
             "cards": len(cards),
@@ -181,7 +186,9 @@ def build_digest(
 def _priority(card: dict, co: dict) -> float:
     """FR-PUSH-03: category weight × materiality, nudged by position size, alerts and
     whether the network can help."""
-    base = CATEGORY_WEIGHT.get(card["category"], 0.1) * (card["materiality"] / 100)
+    # An unsure filing ranks as a mid-weight item on its triage score, not as paperwork
+    weight = 0.5 if card.get("unsure") else CATEGORY_WEIGHT.get(card["category"], 0.1)
+    base = weight * (card["materiality"] / 100)
     size = 1.0 + 2.0 * (co["weight"] or 0) if co["in_portfolio"] else 0.7
     boost = 0.05 * min(len(card["alerts"]), 2)
     if card.get("helpers") and card["helpers"][0]["score"] >= 0.5:
