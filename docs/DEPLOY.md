@@ -26,12 +26,8 @@ Both deploy from `main` on every push: Render through Blueprint auto-sync, Verce
 4. Saved reports: create a free Key Value instance in the same region (**New → Key Value**, maxmemory policy `volatile-ttl`) and set `REDIS_URL` on the API to its internal URL (`redis://<id>:6379`). `/health` then shows `"saved_reports":"key-value"`. Without it, reports are saved in the local SQLite and lost on each deploy; if the instance can't be reached, the API falls back to local for 5 minutes.
 
 ## 2. Web app on Vercel
-```bash
-cd frontend
-npx vercel link                     # new project, root = frontend
-npx vercel env add NEXT_PUBLIC_API_URL production   # https://<service>.onrender.com
-npx vercel --prod
-```
+1. Vercel dashboard → **Add New → Project** → import this repo, **Root Directory** `frontend` (framework is detected as Next.js).
+2. Add `NEXT_PUBLIC_API_URL` = `https://<service>.onrender.com` for Production, then deploy. Every push to `main` redeploys from then on.
 Then put the production URL into `ALLOWED_ORIGINS` on Render (step 1.2). Render restarts the service when an env var changes.
 
 ## Behaviour on free hosting
