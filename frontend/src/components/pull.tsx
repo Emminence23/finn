@@ -73,6 +73,9 @@ export type PullReply =
       documents: DocRef[];
       as_of: string | null;
       notice?: string;
+      saved_at?: number | null; // epoch seconds: when this report was built (kept a week)
+      from_saved?: boolean;
+      refreshing?: boolean;
     }
   | { kind: "pick"; ready: { symbol: string; company: string }[] }
   | { kind: "not_built"; symbol: string; company: string | null; covered: boolean; builds_left: number };

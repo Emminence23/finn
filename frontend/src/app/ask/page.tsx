@@ -8,6 +8,7 @@ import { shortName } from "@/lib/fmt";
 import { Blocks, type PullReply } from "@/components/pull";
 import { ProgressRing, useElapsed } from "@/components/ProgressRing";
 import { Header } from "@/components/ui";
+import { SavedNote } from "@/components/saved";
 import { useTitle } from "@/lib/title";
 
 /** Pull (FR-PULL-13): ask about a company in plain words and FINN answers in the thread, from
@@ -248,7 +249,14 @@ export default function Ask() {
             </div>
           ) : (
             <div key={m.id} ref={m.id === lastFinn ? lastReply : undefined} className="scroll-mt-3">
-              <FinnMessage m={m} latest={m.id === lastFinn} send={send} readLive={readLive} building={building} />
+              <FinnMessage
+                m={m}
+                latest={m.id === lastFinn}
+                send={send}
+                readLive={readLive}
+                building={building}
+                replace={(reply) => setMsgs((all) => all.map((x) => (x.id === m.id ? { ...x, reply } : x)))}
+              />
             </div>
           ),
         )}
@@ -317,8 +325,10 @@ function FinnMessage({
   send,
   readLive,
   building,
+  replace,
 }: {
   m: Exclude<Msg, { role: "user" }>;
+  replace: (reply: PullReply) => void;
   latest: boolean;
   send: (t: string, o?: { intent?: string; label?: string; symbol?: string | null }) => void;
   readLive: (sym: string, asked: string) => void;
@@ -414,6 +424,11 @@ function FinnMessage({
           </Link>
         )}
       </p>
+      {r.symbol && r.saved_at && r.from_saved && (
+        <div className="mt-1">
+          <SavedNote<PullReply> key={r.saved_at} savedAt={r.saved_at} refreshing={r.refreshing} kind={r.intent} symbol={r.symbol} onFresh={replace} />
+        </div>
+      )}
       {r.notice && <p className="mt-2 rounded-xl bg-warn-soft/60 px-3 py-2 text-[12px] leading-snug">{r.notice}</p>}
       <div className="mt-3">
         <Blocks blocks={r.blocks} docs={docs} base={base} />

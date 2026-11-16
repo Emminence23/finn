@@ -80,7 +80,9 @@ def health() -> dict:
             t: db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
             for t in ("companies", "announcements", "prices", "people")
         }
-    return {"status": "ok", "counts": counts}
+    from app import store
+
+    return {"status": "ok", "counts": counts, "saved_reports": store.backend()}
 
 
 @app.get("/admin/costs", dependencies=[Depends(require_passcode)])

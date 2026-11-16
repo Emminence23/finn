@@ -67,6 +67,13 @@ def run(name: str, **kw):
     return out
 
 
+def forget(ticker: str) -> None:
+    """Drop a company's cached tool results, so a fresh report fetches everything again."""
+    with _lock:
+        for k in [k for k in _cache if ("ticker", ticker) in k[1]]:
+            del _cache[k]
+
+
 def company_name(ticker: str) -> str | None:
     with session() as db:
         r = db.execute("SELECT name FROM companies WHERE symbol=?", (ticker.upper(),)).fetchone()

@@ -18,6 +18,7 @@ import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 
+from app import store
 from app.clock import now
 from app.db import init_db, session
 from app.ingest.fundamentals import NotCovered, fetch_fundamentals
@@ -83,7 +84,11 @@ def get_cached(symbol: str) -> dict | None:
         ).fetchall()
     path = research_fixture(symbol)
     fixture = json.loads(path.read_text()) if path.exists() else None
-    candidates = [json.loads(r["payload_json"]) for r in rows] + ([fixture] if fixture else [])
+    candidates = [json.loads(r["payload_json"]) for r in rows]
+    saved = store.get(f"research:{symbol}")  # outlives the redeploys that reset the database
+    if saved and not any(v.get("key") == saved[0].get("key") for v in candidates):
+        candidates.append(saved[0])
+    candidates += [fixture] if fixture else []
     if not candidates:
         return None
     view = next((v for v in candidates if want and v.get("key") == want), candidates[0])
@@ -180,7 +185,7 @@ def ready_symbols() -> set[str]:
     out = {p.stem for p in (fixtures_dir() / "research").glob("*.json")}
     with session() as db:
         out |= {r[0] for r in db.execute("SELECT DISTINCT symbol FROM research_cache")}
-    return out
+    return out | {k.split(":", 1)[1] for k in store.keys("research:")}
 
 
 def summaries() -> list[dict]:
@@ -188,6 +193,7 @@ def summaries() -> list[dict]:
     symbols = {path.stem for path in (fixtures_dir() / "research").glob("*.json")}
     with session() as db:
         symbols |= {r["symbol"] for r in db.execute("SELECT DISTINCT symbol FROM research_cache")}
+    symbols |= {k.split(":", 1)[1] for k in store.keys("research:")}
     # the same choice as the research page: the view built from today's inputs if there is one
     views = {s: v for s in sorted(symbols) if (v := get_cached(s))}
     out = []
@@ -245,6 +251,9 @@ def build(symbol: str, progress: Progress = _noop, force: bool = False) -> dict:
         if r:
             progress("done", "Loaded from cache")
             return json.loads(r["payload_json"])
+        if (sv := store.get(f"research:{symbol}")) and sv[0].get("key") == key:
+            progress("done", "Loaded FINN's saved read")
+            return sv[0]
 
     fin = build_financials(f)
     refs = select_docs(f["documents"])
@@ -267,6 +276,7 @@ def build(symbol: str, progress: Progress = _noop, force: bool = False) -> dict:
             "INSERT OR REPLACE INTO research_cache (symbol, key, payload_json) VALUES (?,?,?)",
             (symbol, key, json.dumps(view, ensure_ascii=False)),
         )
+    store.put(f"research:{symbol}", view)
     progress("done", f"Built in {view['build_seconds']}s")
     return view
 

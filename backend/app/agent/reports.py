@@ -166,36 +166,17 @@ def scorecard_block(a: dict) -> dict:
 
 
 def bull_bear_blocks(a: dict) -> list[dict]:
+    """One bull case and one bear case: the rules on the numbers first, then what FINN read
+    in the earnings calls where it has read them."""
     bb = a["bull_bear"]
+    rsch = a.get("research") or {}
+    bull = [_pt(x) for x in bb["bull"]] + [_pt(f"From the calls: {x}") for x in rsch.get("bull", [])[:2]]
+    bear = [_pt(x) for x in bb["bear"]] + [_pt(f"From the calls: {x}") for x in rsch.get("bear", [])[:2]]
     out = []
-    if bb["bull"]:
-        out.append(
-            {
-                "type": "points",
-                "title": "Bull case",
-                "tone": "positive",
-                "items": [_pt(x) for x in bb["bull"]],
-            }
-        )
-    if bb["bear"]:
-        out.append(
-            {
-                "type": "points",
-                "title": "Bear case",
-                "tone": "negative",
-                "items": [_pt(x) for x in bb["bear"]],
-            }
-        )
-    rsch = a.get("research")
-    if rsch and (rsch["bull"] or rsch["bear"]):
-        out.append(
-            {
-                "type": "points",
-                "title": "From FINN's reading of the calls",
-                "items": [_pt(f"Bull: {x}") for x in rsch["bull"][:2]]
-                + [_pt(f"Bear: {x}") for x in rsch["bear"][:2]],
-            }
-        )
+    if bull:
+        out.append({"type": "points", "title": "Bull case", "tone": "positive", "items": bull})
+    if bear:
+        out.append({"type": "points", "title": "Bear case", "tone": "negative", "items": bear})
     if not out:
         out.append(_txt("No rule fired strongly either way on these numbers."))
     return out

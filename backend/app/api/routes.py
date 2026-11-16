@@ -553,8 +553,28 @@ def research_list() -> list[dict]:
     return service.summaries()
 
 
+class Refresh(BaseModel):
+    kind: str = "full"
+    tickers: list[str] = Field(min_length=1, max_length=3)
+
+
+@router.post("/report/refresh")
+def report_refresh(body: Refresh) -> dict:
+    """Build a fresh copy of a saved report in the background (FR-PULL-19). The caller keeps
+    showing the saved one and polls the report until `saved_at` moves."""
+    from app.agent import reports as agent_reports
+    from app.agent import run as agent
+
+    if body.kind not in agent_reports.KINDS or body.kind == "portfolio":
+        raise HTTPException(400, "unknown report")
+    tickers = [t.upper() for t in body.tickers if _listed(t)]
+    if not tickers:
+        raise HTTPException(404, "not listed")
+    return {"started": agent.refresh(body.kind, tickers)}
+
+
 @router.get("/report/{symbol}")
-def company_report(symbol: str) -> dict:
+def company_report(symbol: str, kind: str = "full") -> dict:
     """The company page (FR-PULL-18): the same computed full report Ask builds, for any listed
     company, with no read needed. The page adds FINN's deeper research and brokerage views
     under it where they exist, so there is one report, not two."""
@@ -565,7 +585,10 @@ def company_report(symbol: str) -> dict:
     listed = _listed(sym)
     if not listed:
         raise HTTPException(404, {"status": "not_listed", "symbol": sym})
-    out = agent.reply(Plan(report="full", tickers=[sym]), current_owner())
+    from app.agent import reports as agent_reports
+
+    kind = kind if kind in agent_reports.KINDS and kind not in ("portfolio", "compare") else "full"
+    out = agent.reply(Plan(report=kind, tickers=[sym]), current_owner())
     out["researched"] = service.get_cached(sym) is not None
     out["builds_left"] = BUDGET.left(get_settings().max_live_builds_per_day)
     return out

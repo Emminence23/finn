@@ -26,6 +26,7 @@ import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
 import { BrokerSection } from "@/components/brokers";
 import { Blocks, type Block } from "@/components/pull";
+import { SavedNote } from "@/components/saved";
 import { ContactNotes } from "@/components/notes";
 import { useTitle } from "@/lib/title";
 import { usePageLoading } from "@/lib/pageload";
@@ -40,7 +41,16 @@ const STEPS = [
 
 /** The computed full report (GET /report/{symbol}): the same one Ask builds, for any listed
  *  company. FINN's deeper reading and the brokerage views sit under it on the same page. */
-type Report = { symbol: string; company: string; blocks: Block[]; researched: boolean; builds_left: number };
+type Report = {
+  symbol: string;
+  company: string;
+  blocks: Block[];
+  researched: boolean;
+  builds_left: number;
+  saved_at: number | null;
+  from_saved: boolean;
+  refreshing: boolean;
+};
 
 type State =
   | { kind: "loading" }
@@ -58,6 +68,10 @@ export default function CompanyPage() {
   const abort = useRef<AbortController | null>(null);
   const router = useRouter();
   const report = useApi<Report>(`/report/${symbol}`);
+  // a fresh read of a company FINN has read before runs behind the saved one, which stays up
+  const [rereading, setRereading] = useState<string | null>(null);
+  const viewRef = useRef<Research | null>(null);
+  if (state.kind === "ready") viewRef.current = state.view;
   usePageLoading(state.kind === "loading"); // a live read has its own progress, so not that
 
   const build = useCallback(
@@ -66,13 +80,20 @@ export default function CompanyPage() {
       const ctl = new AbortController();
       abort.current = ctl;
       const done: string[] = [];
-      setState({ kind: "building", done, message: "Starting…" });
+      const behind = force && viewRef.current != null;
+      if (behind) setRereading("Starting…");
+      else setState({ kind: "building", done, message: "Starting…" });
       try {
         await stream(
           `/research/${symbol}/stream${force ? "?force=true" : ""}`,
           (event, data) => {
             const d = data as Record<string, unknown>;
-            if (event === "progress") {
+            if (event === "progress" && behind) setRereading(String(d.message));
+            else if (event === "result" && behind) {
+              setRereading(null);
+              setState({ kind: "ready", view: d as unknown as Research });
+            } else if (event === "error" && behind) setRereading(`Couldn't finish the fresh read (${String(d.message).slice(0, 80)}). The saved one stands.`);
+            else if (event === "progress") {
               const i = STEPS.findIndex((s) => s.step === d.step);
               const finished = i > 0 ? STEPS.slice(0, i).map((s) => s.step) : d.step === "done" ? STEPS.map((s) => s.step) : [];
               setState({ kind: "building", done: finished, message: String(d.message) });
@@ -88,7 +109,8 @@ export default function CompanyPage() {
           ctl.signal,
         );
       } catch (e) {
-        if (!ctl.signal.aborted) setState({ kind: "error", message: e instanceof Error ? e.message : String(e) });
+        if (behind) setRereading("The connection dropped. The fresh read carries on at FINN; reopen the page in a couple of minutes.");
+        else if (!ctl.signal.aborted) setState({ kind: "error", message: e instanceof Error ? e.message : String(e) });
       }
     },
     [symbol],
@@ -128,7 +150,14 @@ export default function CompanyPage() {
         <span className="text-[13px] font-medium text-ink-3">{symbol}</span>
       </div>
       {state.kind === "ready" ? (
-        <ResearchView v={state.view} rebuild={() => build(true)} initialQ={initialQ} computed={report.data} />
+        <ResearchView
+          v={state.view}
+          rebuild={() => build(true)}
+          rereading={rereading}
+          initialQ={initialQ}
+          computed={report.data}
+          onFresh={(r) => report.mutate(r, false)}
+        />
       ) : report.error && !report.data ? (
         <UnreadView symbol={symbol} name={null} left={0} read={() => {}} />
       ) : !report.data ? (
@@ -143,6 +172,11 @@ export default function CompanyPage() {
               </div>
             </div>
             <p className="mt-1 text-[12px] text-ink-3">From reported financials, NSE prices and filings, and brokerage reports where FINN has them.</p>
+            {report.data.saved_at && (
+              <div className="mt-1.5">
+                <SavedNote<Report> key={report.data.saved_at} savedAt={report.data.saved_at} refreshing={report.data.refreshing} kind="full" symbol={symbol} onFresh={(r) => report.mutate(r, false)} />
+              </div>
+            )}
           </header>
           <Computed report={report.data} />
           <BrokerSection symbol={symbol} />
@@ -195,11 +229,31 @@ function LoadingView() {
   );
 }
 
+/** The rule-based points of the computed report's bull or bear case (the call-read ones are
+ *  already in the cited list above them). */
+function rulePoints(r: Report | undefined, title: string): string[] {
+  const b = r?.blocks.find((x) => x.type === "points" && x.title === title);
+  return b && b.type === "points" ? b.items.map((i) => i.text).filter((t) => !t.startsWith("From the calls:")) : [];
+}
+
+function RulePoints({ items }: { items: string[] }) {
+  if (!items.length) return null;
+  return (
+    <ul className="mt-2 space-y-1.5">
+      {items.map((t) => (
+        <li key={t} className="text-[13px] leading-snug text-ink">
+          {t} <span className="text-[11px] text-ink-3">from the numbers</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** The computed report's blocks. The brokerage summary is left out: the brokerage section
  *  under it shows the same reports in full. */
 function Computed({ report, deep = false }: { report: Report; deep?: boolean }) {
   const blocks = report.blocks.filter(
-    (b) => !(b.type === "points" && (b.title === "Brokerage views FINN holds" || (deep && b.title === "From FINN's reading of the calls"))),
+    (b) => !(b.type === "points" && (b.title === "Brokerage views FINN holds" || (deep && (b.title === "Bull case" || b.title === "Bear case")))),
   );
   return (
     <Panel className="mt-3 p-4">
@@ -277,7 +331,21 @@ function BuildingView({ symbol, done, message }: { symbol: string; done: string[
   );
 }
 
-function ResearchView({ v, rebuild, initialQ, computed }: { v: Research; rebuild: () => void; initialQ?: string; computed?: Report }) {
+function ResearchView({
+  v,
+  rebuild,
+  rereading,
+  initialQ,
+  computed,
+  onFresh,
+}: {
+  v: Research;
+  rebuild: () => void;
+  rereading: string | null;
+  initialQ?: string;
+  computed?: Report;
+  onFresh: (r: Report) => void;
+}) {
   const docs = useDocs(v.documents);
   const f = v.financials;
   const s = f.snapshot;
@@ -348,9 +416,25 @@ function ResearchView({ v, rebuild, initialQ, computed }: { v: Research; rebuild
             </button>
           </p>
         )}
+        {computed?.saved_at && (
+          <div className="mt-2">
+            <SavedNote<Report> key={computed.saved_at} savedAt={computed.saved_at} refreshing={computed.refreshing} kind="full" symbol={v.symbol} onFresh={onFresh} />
+          </div>
+        )}
+        <p className="mt-1 flex flex-wrap items-center gap-x-2 text-[12px] text-ink-3" role="status">
+          <span>Calls and annual report read {new Date(v.generated_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>
+          <span aria-hidden>·</span>
+          {rereading ? (
+            <span className="text-ink-2">Reading them again in the background: {rereading}</span>
+          ) : (
+            <button onClick={rebuild} className="font-medium text-accent">
+              Read them again
+            </button>
+          )}
+        </p>
         <VoiceLegend />
       </header>
-      {computed && <Computed report={computed} deep />}
+      {computed && <Computed report={computed} deep={!!v.bull_bear} />}
 
       {v.incomplete.length > 0 && (
         <Panel className="mt-3 flex items-start gap-2 p-3 text-[13px]">
@@ -549,10 +633,12 @@ function ResearchView({ v, rebuild, initialQ, computed }: { v: Research; rebuild
             <div className="p-4">
               <p className="mb-2 text-[12px] font-semibold text-good">Bull</p>
               <ClaimList claims={v.bull_bear.bull} docs={docs} />
+              <RulePoints items={rulePoints(computed, "Bull case")} />
             </div>
             <div className="p-4">
               <p className="mb-2 text-[12px] font-semibold text-bad">Bear</p>
               <ClaimList claims={v.bull_bear.bear} docs={docs} />
+              <RulePoints items={rulePoints(computed, "Bear case")} />
             </div>
             {v.bull_bear.watch.length > 0 && (
               <div className="p-4">
@@ -561,7 +647,7 @@ function ResearchView({ v, rebuild, initialQ, computed }: { v: Research; rebuild
               </div>
             )}
             <div className="px-4 py-2.5">
-              <AiTag from="from the last two calls and the flags above" model={v.models?.bull_bear} />
+              <AiTag from="from the last two calls and the flags above; points marked “from the numbers” are FINN's fixed rules" model={v.models?.bull_bear} />
             </div>
           </Panel>
         </>
