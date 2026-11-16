@@ -105,6 +105,19 @@ CREATE TABLE IF NOT EXISTS relationships (
     strength REAL,
     last_contact TEXT
 );
+-- AI reviews of the suggested portfolio, keyed by a hash of every input (portfolio/review.py)
+CREATE TABLE IF NOT EXISTS portfolio_reviews (
+    key TEXT PRIMARY KEY,
+    output_json TEXT NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+-- Per-account holdings (edit your portfolio). No rows = the demo universe's weights.
+CREATE TABLE IF NOT EXISTS holdings (
+    owner_id TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    weight REAL NOT NULL,
+    PRIMARY KEY (owner_id, symbol)
+);
 -- Meetings the investor plans (prep shows on Today from two days before). Owner-scoped.
 CREATE TABLE IF NOT EXISTS meetings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

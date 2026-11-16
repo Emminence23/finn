@@ -109,8 +109,9 @@ def evaluate(start: datetime, end: datetime, rules: dict | None = None) -> list[
     """Alerts for the window. EOD alerts use trading days in the window, or the latest
     session before `end` if the window holds none (e.g. a weekend)."""
     rules = rules or get_rules()
-    with session() as db:
-        portfolio = [r[0] for r in db.execute("SELECT symbol FROM companies WHERE in_portfolio=1")]
+    from app.portfolio.holdings import get_holdings
+
+    portfolio = list(get_holdings())
     alerts: list[dict] = []
 
     sig = _signals(portfolio)
@@ -164,16 +165,17 @@ def evaluate(start: datetime, end: datetime, rules: dict | None = None) -> list[
                     }
                 )
 
-    if rules["enabled"].get("category") and rules["categories"]:
+    if rules["enabled"].get("category") and rules["categories"] and portfolio:
         q = ",".join("?" * len(rules["categories"]))
+        p = ",".join("?" * len(portfolio))
         with session() as db:
             rows = db.execute(
                 f"""SELECT a.id, a.symbol, a.ts, a.category, a.summary, a.materiality
-                    FROM announcements a JOIN companies c ON c.symbol = a.symbol
-                    WHERE c.in_portfolio = 1 AND a.ts BETWEEN ? AND ?
+                    FROM announcements a
+                    WHERE a.symbol IN ({p}) AND a.ts BETWEEN ? AND ?
                       AND a.category IN ({q}) AND a.materiality >= 50
                     ORDER BY a.materiality DESC""",
-                (start.isoformat(), end.isoformat(), *rules["categories"]),
+                (*portfolio, start.isoformat(), end.isoformat(), *rules["categories"]),
             ).fetchall()
         for r in rows:
             alerts.append(

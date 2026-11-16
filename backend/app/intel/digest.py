@@ -27,14 +27,24 @@ def _golden_people() -> dict[str, list[dict]]:
 
 
 def _companies() -> dict[str, dict]:
+    """Followed companies, with portfolio membership and weight from the account's holdings."""
+    from app.portfolio.holdings import get_holdings
+
+    held = get_holdings()
     with session() as db:
-        return {
-            r["symbol"]: dict(r)
-            for r in db.execute(
-                "SELECT symbol, name, sector, in_portfolio, in_research_set, weight FROM companies "
-                "WHERE in_portfolio=1 OR in_research_set=1"
-            )
-        }
+        rows = [
+            dict(r)
+            for r in db.execute("SELECT symbol, name, sector, in_research_set FROM companies")
+        ]
+    out = {}
+    for r in rows:
+        if r["symbol"] in held or r["in_research_set"]:
+            out[r["symbol"]] = {
+                **r,
+                "in_portfolio": int(r["symbol"] in held),
+                "weight": held.get(r["symbol"]),
+            }
+    return out
 
 
 def _people_block(ann: dict, enrichment: dict, golden: dict, people) -> list[dict]:

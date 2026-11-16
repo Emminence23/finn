@@ -1,0 +1,40 @@
+{
+ "7df342782c2c1966dfe9": {
+  "adjustments": [
+   {
+    "symbol": "CGPOWER",
+    "delta_pp": -0.8,
+    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at the Waluj facility.",
+    "cites": [
+     "A:106846618"
+    ]
+   },
+   {
+    "symbol": "KAYNES",
+    "delta_pp": -1.0,
+    "reason": "Management has failed to deliver on past guidance while three-year operating cash flows remain negative compared to reported profits.",
+    "cites": [
+     "P:KAYNES",
+     "F:KAYNES"
+    ]
+   },
+   {
+    "symbol": "HDFCBANK",
+    "delta_pp": -0.5,
+    "reason": "Anup Bagchi assumed charge as MD and CEO following the completion of Sashidhar Jagdishan's tenure.",
+    "cites": [
+     "A:106829496"
+    ]
+   },
+   {
+    "symbol": "TRENT",
+    "delta_pp": -0.5,
+    "reason": "Chairman Noel N. Tata is retiring from the board, introducing leadership transition risk.",
+    "cites": [
+     "A:106834506"
+    ]
+   }
+  ],
+  "summary": "Filings highlight regulatory operational risk at CG Power, leadership transitions at HDFC Bank and Trent, and persistent cash conversion issues at Kaynes. Modest downward adjustments account for these qualitative risks missed by purely quantitative sizing."
+ }
+}

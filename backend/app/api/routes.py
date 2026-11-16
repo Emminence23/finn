@@ -23,6 +23,83 @@ from app.research import qa, service
 router = APIRouter()
 
 
+# ------------------------------------------------------------------ Portfolio
+@router.get("/portfolio")
+def portfolio_overview() -> dict:
+    from app.portfolio import analytics
+
+    return analytics.overview()
+
+
+@router.get("/portfolio/suggested")
+def portfolio_suggested() -> dict:
+    """Code's suggested weights, plus the AI review if one is stored for these inputs."""
+    from app.portfolio import analytics, review
+
+    return {**analytics.suggest(), "review": review.get_review(run=False)}
+
+
+@router.post("/portfolio/suggested/review")
+def portfolio_review() -> dict:
+    """Ask the model to review the suggestion (uses quota; stored by input hash)."""
+    from app.llm.base import LLMError
+    from app.portfolio import review
+
+    try:
+        return review.get_review(run=True)
+    except LLMError as e:
+        raise HTTPException(503, f"AI review unavailable: {e}") from e
+
+
+@router.get("/portfolio/holdings")
+def holdings_get() -> dict:
+    from app.portfolio import holdings
+
+    return {
+        "holdings": holdings.get_holdings(),
+        "custom": holdings.is_custom(),
+        "candidates": holdings.candidates(),
+    }
+
+
+def _holdings_call(fn, *args):
+    try:
+        return {"holdings": fn(*args)}
+    except KeyError as e:
+        raise HTTPException(404, str(e).strip("'")) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+
+
+@router.put("/portfolio/holdings")
+def holdings_put(body: dict) -> dict:
+    """Replace weights (any scale; normalised). Body: {"weights": {"TCS": 6, ...}}."""
+    from app.portfolio import holdings
+
+    return _holdings_call(holdings.set_holdings, body.get("weights") or {})
+
+
+@router.post("/portfolio/holdings")
+def holdings_add(body: dict) -> dict:
+    from app.portfolio import holdings
+
+    return _holdings_call(holdings.add_holding, str(body.get("symbol", "")))
+
+
+@router.delete("/portfolio/holdings/{symbol}")
+def holdings_remove(symbol: str) -> dict:
+    from app.portfolio import holdings
+
+    return _holdings_call(holdings.remove_holding, symbol)
+
+
+@router.post("/portfolio/holdings/reset")
+def holdings_reset() -> dict:
+    from app.portfolio import holdings
+
+    return _holdings_call(holdings.reset_holdings)
+
+
 # ------------------------------------------------------------------ Accuracy
 @router.get("/eval")
 def eval_report() -> dict:
