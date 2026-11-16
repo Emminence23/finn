@@ -553,6 +553,24 @@ def research_list() -> list[dict]:
     return service.summaries()
 
 
+@router.get("/report/{symbol}")
+def company_report(symbol: str) -> dict:
+    """The company page (FR-PULL-18): the same computed full report Ask builds, for any listed
+    company, with no read needed. The page adds FINN's deeper research and brokerage views
+    under it where they exist, so there is one report, not two."""
+    from app.agent import run as agent
+    from app.agent.plan import Plan
+
+    sym = symbol.upper()
+    listed = _listed(sym)
+    if not listed:
+        raise HTTPException(404, {"status": "not_listed", "symbol": sym})
+    out = agent.reply(Plan(report="full", tickers=[sym]), current_owner())
+    out["researched"] = service.get_cached(sym) is not None
+    out["builds_left"] = BUDGET.left(get_settings().max_live_builds_per_day)
+    return out
+
+
 @router.get("/research/{symbol}")
 def research(symbol: str) -> dict:
     """Cached or precomputed research view. 404 with `build_url` when not built yet; the UI

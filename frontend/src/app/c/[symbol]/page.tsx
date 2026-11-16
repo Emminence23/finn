@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, ChevronDown, Loader2, TriangleAlert } from "lucide-react";
 import clsx from "clsx";
@@ -25,6 +25,7 @@ import {
 import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
 import { BrokerSection } from "@/components/brokers";
+import { Blocks, type Block } from "@/components/pull";
 import { ContactNotes } from "@/components/notes";
 import { useTitle } from "@/lib/title";
 import { usePageLoading } from "@/lib/pageload";
@@ -36,6 +37,10 @@ const STEPS = [
   { step: "promises", label: "Promised vs delivered" },
   { step: "narrative", label: "Business and bull vs bear" },
 ];
+
+/** The computed full report (GET /report/{symbol}): the same one Ask builds, for any listed
+ *  company. FINN's deeper reading and the brokerage views sit under it on the same page. */
+type Report = { symbol: string; company: string; blocks: Block[]; researched: boolean; builds_left: number };
 
 type State =
   | { kind: "loading" }
@@ -51,6 +56,8 @@ export default function CompanyPage() {
   const initialQ = useSearchParams().get("q") ?? undefined;
   const [state, setState] = useState<State>({ kind: "loading" });
   const abort = useRef<AbortController | null>(null);
+  const router = useRouter();
+  const report = useApi<Report>(`/report/${symbol}`);
   usePageLoading(state.kind === "loading"); // a live read has its own progress, so not that
 
   const build = useCallback(
@@ -111,14 +118,38 @@ export default function CompanyPage() {
   return (
     <main>
       <div className="flex items-center gap-2 px-3 pt-[calc(12px+env(safe-area-inset-top))]">
-        <Link href="/" aria-label="Back" className="rounded-full p-2 text-ink-2 active:bg-surface-2">
+        <button
+          aria-label="Back"
+          onClick={() => (window.history.length > 1 ? router.back() : router.push("/"))}
+          className="rounded-full p-2 text-ink-2 active:bg-surface-2"
+        >
           <ArrowLeft size={19} />
-        </Link>
+        </button>
         <span className="text-[13px] font-medium text-ink-3">{symbol}</span>
       </div>
-      {state.kind === "loading" && <LoadingView />}
-      {state.kind === "unread" && <UnreadView symbol={symbol} name={state.name} left={state.left} read={() => build()} />}
-      {state.kind === "building" && <BuildingView symbol={symbol} done={state.done} message={state.message} />}
+      {state.kind === "ready" ? (
+        <ResearchView v={state.view} rebuild={() => build(true)} initialQ={initialQ} computed={report.data} />
+      ) : report.error && !report.data ? (
+        <UnreadView symbol={symbol} name={null} left={0} read={() => {}} />
+      ) : !report.data ? (
+        <LoadingView />
+      ) : (
+        <div>
+          <header className="px-4 pb-1 pt-1">
+            <div className="flex items-start justify-between gap-3">
+              <h1 className="text-[26px] font-semibold leading-tight tracking-[-0.02em]">{shortName(report.data.company)}</h1>
+              <div className="mt-1.5 shrink-0">
+                <WatchStar symbol={symbol} />
+              </div>
+            </div>
+            <p className="mt-1 text-[12px] text-ink-3">From reported financials, NSE prices and filings, and brokerage reports where FINN has them.</p>
+          </header>
+          <Computed report={report.data} />
+          <BrokerSection symbol={symbol} />
+          <SectionTitle aside="annual report and calls">Go deeper</SectionTitle>
+          {state.kind === "loading" && <Skeleton className="mx-3 h-24" />}
+          {state.kind === "unread" && <UnreadView symbol={symbol} name={state.name ?? report.data.company} left={state.left} read={() => build()} />}
+          {state.kind === "building" && <BuildingView symbol={symbol} done={state.done} message={state.message} />}
       {state.kind === "error" && (
         <Panel className="mt-4 p-4">
           <p className="text-[15px] font-semibold">
@@ -147,7 +178,8 @@ export default function CompanyPage() {
           )}
         </Panel>
       )}
-      {state.kind === "ready" && <ResearchView v={state.view} rebuild={() => build(true)} initialQ={initialQ} />}
+        </div>
+      )}
     </main>
   );
 }
@@ -163,6 +195,19 @@ function LoadingView() {
   );
 }
 
+/** The computed report's blocks. The brokerage summary is left out: the brokerage section
+ *  under it shows the same reports in full. */
+function Computed({ report, deep = false }: { report: Report; deep?: boolean }) {
+  const blocks = report.blocks.filter(
+    (b) => !(b.type === "points" && (b.title === "Brokerage views FINN holds" || (deep && b.title === "From FINN's reading of the calls"))),
+  );
+  return (
+    <Panel className="mt-3 p-4">
+      <Blocks blocks={blocks} docs={new Map()} base={`/c/${report.symbol}`} />
+    </Panel>
+  );
+}
+
 function UnreadView({ symbol, name, left, read }: { symbol: string; name: string | null; left: number; read: () => void }) {
   if (!name)
     return (
@@ -175,10 +220,10 @@ function UnreadView({ symbol, name, left, read }: { symbol: string; name: string
       </Panel>
     );
   return (
-    <div className="px-4 pt-2">
-      <h1 className="text-[24px] font-semibold tracking-[-0.02em]">{shortName(name)}</h1>
-      <p className="mt-2 text-[15px] leading-relaxed text-ink">
-        I haven&apos;t read {shortName(name)} yet. Reading its annual report and last four earnings calls takes about a minute.
+    <Panel className="p-4">
+      <p className="text-[14px] leading-relaxed text-ink">
+        FINN hasn&apos;t read {shortName(name)}&apos;s annual report and last four earnings calls yet. Reading them adds promised vs delivered,
+        a cited bull vs bear, the business, and questions answered with page references. About a minute.
       </p>
       {left > 0 ? (
         <>
@@ -194,7 +239,7 @@ function UnreadView({ symbol, name, left, read }: { symbol: string; name: string
           Today&apos;s live reads on this demo are used up. The ready companies are on the Ask screen.
         </p>
       )}
-    </div>
+    </Panel>
   );
 }
 
@@ -232,7 +277,7 @@ function BuildingView({ symbol, done, message }: { symbol: string; done: string[
   );
 }
 
-function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => void; initialQ?: string }) {
+function ResearchView({ v, rebuild, initialQ, computed }: { v: Research; rebuild: () => void; initialQ?: string; computed?: Report }) {
   const docs = useDocs(v.documents);
   const f = v.financials;
   const s = f.snapshot;
@@ -292,7 +337,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
         </p>
         <p className="mt-1 text-[12px] text-ink-3">
           From {transcripts.length} earnings calls and the annual report
-          {v.filed_results ? `, plus the ${fq(v.filed_results.period)} results filed ${day(v.filed_results.filed)}` : ""}. No news, no broker notes.
+          {v.filed_results ? `, plus the ${fq(v.filed_results.period)} results filed ${day(v.filed_results.filed)}` : ""}{computed ? ", reported financials, NSE prices and filings, and brokerage reports where FINN has them" : ""}.
         </p>
         <Listen lines={companyScript(v)} className="mt-2.5" />
         {v.freshness?.status === "stale" && (
@@ -305,6 +350,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
         )}
         <VoiceLegend />
       </header>
+      {computed && <Computed report={computed} deep />}
 
       {v.incomplete.length > 0 && (
         <Panel className="mt-3 flex items-start gap-2 p-3 text-[13px]">
