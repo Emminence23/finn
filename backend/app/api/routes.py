@@ -23,6 +23,27 @@ from app.research import qa, service
 router = APIRouter()
 
 
+# ------------------------------------------------------------------ Compare
+@router.get("/compare/peers")
+def compare_peers(symbol: str) -> dict:
+    from app.research.compare import peers
+
+    return {"symbol": symbol.upper(), "peers": peers(symbol)}
+
+
+@router.get("/compare")
+def compare_two(a: str, b: str) -> dict:
+    """Two companies side by side, computed in code from reported financials (no LLM)."""
+    from app.research.compare import compare
+
+    try:
+        return compare(a, b)
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    except Exception as e:  # unknown ticker or numbers unavailable
+        raise HTTPException(404, f"couldn't load numbers for {a.upper()} or {b.upper()}") from e
+
+
 # ------------------------------------------------------------------ Push
 @router.get("/digest/brief")
 def digest_brief(window: str = "24h", start: str | None = None, end: str | None = None) -> dict:

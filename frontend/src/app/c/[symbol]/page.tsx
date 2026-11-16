@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, ChevronDown, Loader2, TriangleAlert } from "lucide-react";
 import clsx from "clsx";
-import { ApiError, api, type Research, stream } from "@/lib/api";
+import { ApiError, api, type Research, stream, useApi } from "@/lib/api";
 import { crore, fq, pct, shortName, times } from "@/lib/fmt";
 import { HelperList } from "@/components/network";
 import {
@@ -317,6 +317,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
       <SectionTitle aside={`${f.basis} · ₹ crore`}>
         <span id="numbers">The numbers</span>
       </SectionTitle>
+      <ComparePeers symbol={v.symbol} />
       <div className="grid grid-cols-2 gap-2 px-3">
         <StatTile
           label={`Revenue ${s.fy ? fq(s.fy, true) : ""}`}
@@ -470,4 +471,24 @@ function headline(c: Research["promises"]["counts"]): string {
   if (missed > delivered) return `Missed ${missed} of ${judged} promises that came due.`;
   if (missed === 0) return `Delivered on all ${judged} promises that came due.`;
   return `Kept ${delivered} of ${judged} promises that came due.`;
+}
+
+/** Entry to the side-by-side comparison: named competitors first, then the same sector. */
+function ComparePeers({ symbol }: { symbol: string }) {
+  const { data } = useApi<{ peers: { symbol: string; kind: string }[] }>(`/compare/peers?symbol=${symbol}`);
+  if (!data?.peers.length) return null;
+  return (
+    <div className="no-scrollbar mb-2 flex items-center gap-1.5 overflow-x-auto px-4">
+      <span className="shrink-0 text-[12px] text-ink-3">Compare with</span>
+      {data.peers.map((p) => (
+        <Link
+          key={p.symbol}
+          href={`/compare?a=${symbol}&b=${p.symbol}`}
+          className="shrink-0 rounded-full border border-line bg-surface px-2.5 py-0.5 text-[12px] font-medium text-accent"
+        >
+          {p.symbol}
+        </Link>
+      ))}
+    </div>
+  );
 }

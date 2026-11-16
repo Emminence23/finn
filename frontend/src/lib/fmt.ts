@@ -75,6 +75,7 @@ export const CATEGORY_LABEL: Record<string, string> = {
 export function shortName(company: string): string {
   return company
     .replace(/\b(Limited|Ltd\.?|India|Industries|Company|Technologies|Technology)\b/g, "")
+    .replace("()", "")
     .replace(/\s+/g, " ")
     .replace(/[\s(]+$/, "")
     .trim();

@@ -205,3 +205,11 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - the year boxes inherited `w-full` from the shared input style and pushed the page to 1,478px wide at phone size. They now use their own fixed-width style;
   - accounts without stored alert rules got empty category alerts (the second demo account had been affected silently since 4f). Accounts with no rules now fall back to the defaults.
 - **Checked end to end at 390px:** a single Hindustan Unilever stint produces "You and Amit both worked at Hindustan Unilever", and an imported Pfizer connection becomes the route to him.
+
+## Phase 4o: compare two companies (FR-PULL-16)
+- **Built from what was already computed.** `build_financials` gives every company the same snapshot, growth, cash and balance-sheet tables, so a comparison is a pairing plus rules: which direction is better for each row, and which gaps are big enough to say out loud. No LLM, no cost; works for all 21 companies with stored numbers and, live, any NSE ticker.
+- **Refuses to compare what isn't comparable.** A bank's "margin", cash flow and gearing mean something else, so a lender against a non-lender drops those rows with a note rather than declaring a winner. Different financial year ends are flagged.
+- **Bugs found:**
+  - competitor links are stored as company names, so the first peer list for Kaynes was empty. Names are now resolved to tickers, with the same sector as a fallback;
+  - the app's short-name rule turned "Dixon Technologies (India) Limited" into "Dixon ()". Fixed in both the frontend and the backend copies.
+- **Checked at 390px**, light and dark: Kaynes vs Dixon (Dixon better on 8 of 10; Kaynes on margin and gearing) and HDFC Bank vs ICICI Bank (lender rows only).
