@@ -327,3 +327,10 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Top movers** across holdings and watchlist: on Portfolio and Watchlist, and at the foot of Today, not above the note, so the note still leads.
 - **Not taken from Groww:** order placement, F&O, mutual funds, intraday charts. FINN doesn't trade, and the prices are end of day.
 
+## Phase 5e: friends' feedback
+- **"Summary is too brief and weirdly phrased."** The lead is now three short paragraphs: the last close (down 0.8%, ₹41,719, with Pidilite and Polycab), what came in with the items themselves and the holding's size, and what is still open. Phrases like "read it rather than act on it" and "Nothing new needs a decision" are gone; a second item about the same company says "Its board…" instead of repeating the name. A note about a past window leaves out the last close.
+- **"Listen is on very few screens."** It was on Today only, and only when there were cards. It is now also on company pages, Portfolio, Watchlist and profiles, and on quiet days. One component, each screen's script written in code from what it shows.
+- **"Progress circle."** A progress ring for every wait: it fills over the minute a sleeping server can take, spins with the elapsed seconds elsewhere, shows on Saving, and while Listen plays it tracks how far through the script it is.
+- **"Tour is laggy."** At 4× CPU slowdown the card vanished for over a second on the way to Kaynes and could jump top-to-bottom 0.7 s into a step. Pages are now prefetched, the card stays up with "Opening Kaynes…", targets are found per frame rather than every 150 ms, and the card's side is fixed per step. Every card now shows within 0.2 s.
+- **"Alerts not loading."** The settings sheet showed a grey block until the rules arrived and had no error state, so a failed or slow request (a sleeping server) left it grey forever. It now shows a ring, then an error with Try again; a failed save says so.
+

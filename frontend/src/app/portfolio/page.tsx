@@ -12,6 +12,7 @@ import { type Point, YearChart } from "@/components/YearChart";
 import { ErrorNote, Header, Panel, SectionTitle, Segmented, Sheet, Skeleton, SlowHint } from "@/components/ui";
 import { useTitle } from "@/lib/title";
 import { HoldingsCard, MoversStrip, signedInr, tone } from "@/components/market";
+import { Listen } from "@/components/Listen";
 
 type Holding = {
   symbol: string;
@@ -250,6 +251,7 @@ function Now({ d }: { d: Overview }) {
   const beat = s.nifty_1y != null ? r1(s.return_1y) - r1(s.nifty_1y) : null;
   return (
     <>
+      <Listen lines={portfolioScript(d)} className="mx-3 mt-3" />
       <HoldingsCard value={s.value} invested={s.invested} gain={s.gain} gainPct={s.gain_pct} dayGain={s.day_gain} dayPct={s.day_gain_pct} asOf={d.as_of} />
       <MoversStrip className="mt-4" />
       <HoldingsList holdings={d.holdings} />
@@ -335,6 +337,23 @@ function Now({ d }: { d: Overview }) {
       </p>
     </>
   );
+}
+
+/** The page's top in words: value and returns, the last day, the biggest holdings, and
+ *  the warnings. Computed figures only. */
+function portfolioScript(d: Overview): string[] {
+  const s = d.summary;
+  const out = [
+    `Your portfolio is worth ${inr(s.value)}, against ${inr(s.invested)} invested: ${s.gain >= 0 ? "up" : "down"} ${Math.abs(s.gain_pct).toFixed(1)}%.`,
+  ];
+  if (d.as_of) out.push(`On ${day(d.as_of)}, the last close, it moved ${s.day_gain >= 0 ? "up" : "down"} ${Math.abs(s.day_gain_pct).toFixed(1)}%, ${inr(Math.abs(s.day_gain))}.`);
+  if (s.nifty_1y != null) out.push(`Over the past year, ${pct(s.return_1y)} against the Nifty's ${pct(s.nifty_1y)}.`);
+  const top = [...d.holdings].sort((a, b) => b.weight - a.weight).slice(0, 3);
+  out.push(`Largest holdings: ${top.map((h) => `${h.symbol} ${h.weight.toFixed(0)}%`).join(", ")}.`);
+  const moves = [...d.holdings].sort((a, b) => Math.abs(b.day_pct) - Math.abs(a.day_pct)).filter((h) => Math.abs(h.day_pct) >= 1).slice(0, 2);
+  if (moves.length) out.push(`Biggest moves that day: ${moves.map((h) => `${h.symbol} ${h.day_pct >= 0 ? "up" : "down"} ${Math.abs(h.day_pct).toFixed(1)}%`).join(", ")}.`);
+  out.push(...d.flags.slice(0, 3));
+  return out;
 }
 
 type SortKey = "value" | "returns" | "day";

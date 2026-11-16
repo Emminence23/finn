@@ -41,9 +41,7 @@ def test_lines_put_the_company_first_and_say_the_size():
         "Kaynes' profit fell 66% from a year ago, on revenue up 4%."
     )
     real, text = stake(_card(), 18, 27440)
-    assert not real and text == (
-        "It's 0.5% of your portfolio (₹27,440), so read it rather than act on it."
-    )
+    assert not real and text == ("It's 0.5% of your portfolio (₹27,440), a small holding.")
     assert stake(_card(weight=12.0), 18, 670000)[0]  # 12% of 18 holdings is a real position
 
 
@@ -70,7 +68,17 @@ def test_quiet_day_keeps_big_open_events_in_view(seeded):
     assert "CGPOWER" in carried  # the closure order from 5 Nov, with the court's stay
     cg = next(c for c in d["carry"] if c["symbol"] == "CGPOWER")
     assert cg["update"] and "High Court stayed" in cg["update"]
-    assert d["lead"].startswith("Nothing new needs a decision.")
+    lead = d["lead"]
+    assert "none needs a decision" in lead and "Kaynes is a small holding" in lead
+    assert "Two earlier events at larger holdings are still open" in lead
+    assert lead.startswith("Your portfolio ended 13 Nov, the last close, down")
+
+
+def test_note_for_a_past_window_leaves_out_the_last_close(seeded):
+    from app.intel.digest import build_digest
+
+    lead = build_digest("custom", start="2026-10-01", end="2026-10-15")["lead"]
+    assert lead.startswith("Between 1 Oct and 15 Oct,") and "last close" not in lead
 
 
 def test_contact_questions_come_from_the_card(seeded):

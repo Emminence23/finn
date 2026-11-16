@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { X } from "lucide-react";
+import { ProgressRing } from "./ProgressRing";
+
+const PAGE_NAME: Record<string, string> = { "/": "Today", "/c/KAYNES": "Kaynes", "/portfolio": "Portfolio" };
 
 const DONE_KEY = "finn.tour";
 
@@ -71,6 +74,12 @@ export function Tour() {
     return () => window.removeEventListener("finn:tour", replay);
   }, []);
 
+  // the tour's pages are fetched ahead, so a step doesn't wait on code it could have had
+  useEffect(() => {
+    if (step === null) return;
+    for (const h of new Set(STEPS.map((x) => x.href))) router.prefetch(h);
+  }, [step === null, router]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (step === null) return;
     const s = STEPS[step];
@@ -79,28 +88,32 @@ export function Tour() {
       return;
     }
     let el: Element | null = null;
-    let tries = 0;
-    const find = setInterval(() => {
-      el = document.querySelector(s.target);
-      if (el || ++tries > 40) {
-        clearInterval(find);
-        if (!el) return;
-        const target = el;
-        target.classList.add("tour-target");
-        // near the top, clear of the card; if the page can't scroll that far, move the card up.
-        // Run again once late data (meeting prep, alerts) has settled the layout.
-        const place = () => {
-          const top = target.getBoundingClientRect().top + window.scrollY - 96;
-          window.scrollTo({ top: Math.max(0, top), behavior: "instant" as ScrollBehavior });
-          setCardOnTop(target.getBoundingClientRect().top > window.innerHeight * 0.45);
-        };
-        place();
-        settle = setTimeout(place, 700);
-      }
-    }, 150);
+    let frame = 0;
     let settle: ReturnType<typeof setTimeout> | undefined;
+    const t0 = performance.now();
+    // Placed once, when the target exists; the card's side is chosen then and kept, so it
+    // never jumps under a thumb reaching for Next. One quiet re-scroll only if late data
+    // pushed the target well away.
+    const place = (first: boolean) => {
+      if (!el) return;
+      const top = el.getBoundingClientRect().top;
+      if (!first && Math.abs(top - 96) < 48) return;
+      window.scrollTo({ top: Math.max(0, top + window.scrollY - 96), behavior: "instant" as ScrollBehavior });
+      if (first) setCardOnTop(el.getBoundingClientRect().top > window.innerHeight * 0.45);
+    };
+    const look = () => {
+      el = document.querySelector(s.target);
+      if (el) {
+        el.classList.add("tour-target");
+        place(true);
+        settle = setTimeout(() => place(false), 900);
+        return;
+      }
+      if (performance.now() - t0 < 8000) frame = requestAnimationFrame(look);
+    };
+    frame = requestAnimationFrame(look);
     return () => {
-      clearInterval(find);
+      cancelAnimationFrame(frame);
       clearTimeout(settle);
       el?.classList.remove("tour-target");
     };
@@ -108,7 +121,7 @@ export function Tour() {
 
   if (step === null) return null;
   const s = STEPS[step];
-  if (path !== s.href) return null; // on its way to the step's page: don't hang over this one
+  const moving = path !== s.href; // on its way to the step's page: say so instead of vanishing
   const finish = () => {
     try {
       localStorage.setItem(DONE_KEY, "done");
@@ -123,7 +136,7 @@ export function Tour() {
       role="dialog"
       aria-label={`Tour, step ${step + 1} of ${STEPS.length}: ${s.title}`}
       className="fixed inset-x-0 z-50 mx-auto max-w-xl px-3"
-      style={cardOnTop ? { top: "calc(12px + env(safe-area-inset-top))" } : { bottom: "calc(84px + env(safe-area-inset-bottom))" }}
+      style={cardOnTop && !moving ? { top: "calc(12px + env(safe-area-inset-top))" } : { bottom: "calc(84px + env(safe-area-inset-bottom))" }}
     >
       <div className="rounded-2xl bg-ink p-4 text-bg shadow-xl">
         <div className="flex items-start justify-between gap-3">
@@ -135,7 +148,13 @@ export function Tour() {
           </button>
         </div>
         <p className="mt-0.5 text-[16px] font-semibold">{s.title}</p>
-        <p className="mt-1 text-[13px] leading-snug opacity-85">{s.body}</p>
+        {moving ? (
+          <p className="mt-1 flex items-center gap-2 text-[13px] opacity-85" role="status">
+            <ProgressRing size={15} /> Opening {PAGE_NAME[s.href] ?? "the page"}…
+          </p>
+        ) : (
+          <p className="mt-1 text-[13px] leading-snug opacity-85">{s.body}</p>
+        )}
         <div className="mt-3 flex items-center justify-between">
           {last ? (
             <span />

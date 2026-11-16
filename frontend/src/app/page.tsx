@@ -104,7 +104,13 @@ export default function Today() {
       <header className="px-4 pt-3" data-tour="lead">
         <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.02em]">{hello.greeting}</h1>
         {data && !isLoading ? (
-          <p className="mt-2 text-[18px] leading-[1.45] tracking-[-0.01em] text-ink">{data.lead}</p>
+          <div className="mt-2 space-y-2.5">
+            {(data.lead ?? "").split("\n\n").map((para, i) => (
+              <p key={i} className={i === 0 ? "text-[18px] leading-[1.45] tracking-[-0.01em] text-ink" : "text-[16px] leading-[1.5] text-ink"}>
+                {para}
+              </p>
+            ))}
+          </div>
         ) : (
           <div className="mt-3 space-y-2" aria-label="Reading your portfolio's filings">
             <Skeleton className="h-5 w-11/12" />
@@ -113,7 +119,7 @@ export default function Today() {
             {slow && <SlowHint retry={() => mutate()} />}
           </div>
         )}
-        {data && !isLoading && data.cards.length > 0 && (
+        {data && !isLoading && (
           <div className="mt-3">
             <ListenBrief query={path.split("?")[1]} />
           </div>

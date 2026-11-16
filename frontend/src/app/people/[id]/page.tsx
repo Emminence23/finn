@@ -8,6 +8,7 @@ import { useSWRConfig } from "swr";
 import { type PersonProfile, api, useApi } from "@/lib/api";
 import { day } from "@/lib/fmt";
 import { InsiderNote, PathView, ReachButtons, firstName } from "@/components/network";
+import { Listen } from "@/components/Listen";
 import { PlanMeeting } from "@/components/meetings";
 import { Avatar, ErrorNote, Panel, Pill, SectionTitle, Skeleton } from "@/components/ui";
 
@@ -72,6 +73,7 @@ function Profile({ p }: { p: PersonProfile }) {
         </div>
       )}
       {p.bio && <p className="px-4 pt-3 text-[14px] leading-relaxed">{p.bio}</p>}
+      <Listen lines={personScript(p)} className="mx-4 mt-3" />
 
       {p.can_help_on && p.can_help_on.length > 0 && (
         <>
@@ -195,6 +197,18 @@ function Profile({ p }: { p: PersonProfile }) {
 
 /** N-7: the investor can remove anyone. Their paths, overlaps, "who can help" and nudges go
  *  with them, because all of those are computed from the stored contact on every read. */
+/** Before a call, in the car: who they are, how you know them, what to ask them about. */
+function personScript(p: PersonProfile): string[] {
+  const first = firstName(p.name);
+  const rel = p.relationship;
+  const out = [`${p.name}${p.current ?? p.headline ? `, ${p.current ?? p.headline}` : ""}.`];
+  if (rel?.context) out.push(rel.context.endsWith(".") ? rel.context : `${rel.context}.`);
+  if (rel?.last_contact) out.push(`You last spoke on ${day(rel.last_contact)}.`);
+  const help = (p.can_help_on ?? []).slice(0, 3);
+  if (help.length) out.push(`Ask ${first} about ${help.map((c) => c.symbol).join(", ")}.`, ...help.map((c) => `${c.symbol}: ${c.why}`));
+  return out;
+}
+
 function RemoveContact({ id, name }: { id: string; name: string }) {
   const router = useRouter();
   const { mutate } = useSWRConfig();

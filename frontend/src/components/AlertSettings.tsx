@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { api, type AlertRules, useApi } from "@/lib/api";
 import { CATEGORY_LABEL } from "@/lib/fmt";
-import { Segmented, Sheet } from "./ui";
+import { ErrorNote, Segmented, Sheet } from "./ui";
+import { Loading, ProgressRing } from "./ProgressRing";
 import { NumberSlider } from "./NumberSlider";
 
 /** FR-ALERT-04: thresholds are the investor's, not ours. */
 export function AlertSettings({ open, onClose, onSaved }: { open: boolean; onClose: () => void; onSaved: () => void }) {
-  const { data, mutate } = useApi<AlertRules>(open ? "/alert-rules" : null);
+  const { data, error, mutate } = useApi<AlertRules>(open ? "/alert-rules" : null);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [draft, setDraft] = useState<AlertRules | null>(null);
   const [saving, setSaving] = useState(false);
   useEffect(() => {
@@ -19,6 +21,7 @@ export function AlertSettings({ open, onClose, onSaved }: { open: boolean; onClo
   async function save() {
     if (!draft) return;
     setSaving(true);
+    setSaveError(null);
     try {
       const { all_categories: _all, ...body } = draft;
       void _all;
@@ -26,6 +29,8 @@ export function AlertSettings({ open, onClose, onSaved }: { open: boolean; onClo
       await mutate({ ...next, all_categories: draft.all_categories }, false);
       onSaved();
       onClose();
+    } catch {
+      setSaveError("Couldn't save. Check the connection and try again; nothing was changed.");
     } finally {
       setSaving(false);
     }
@@ -34,8 +39,12 @@ export function AlertSettings({ open, onClose, onSaved }: { open: boolean; onClo
   const all = draft?.all_categories ?? [];
   return (
     <Sheet open={open} onClose={onClose} title="Alerts">
-      {!draft ? (
-        <div className="skeleton my-4 h-40" />
+      {!draft && error ? (
+        <div className="my-4">
+          <ErrorNote error={error} retry={() => mutate()} />
+        </div>
+      ) : !draft ? (
+        <Loading what="Loading your alert rules" />
       ) : (
         <div className="space-y-6 pb-2">
           <div>
@@ -195,12 +204,23 @@ export function AlertSettings({ open, onClose, onSaved }: { open: boolean; onClo
                 })}
             </div>
           </div>
+          {saveError && (
+            <p role="alert" className="rounded-xl bg-bad-soft px-3 py-2 text-[13px]">
+              {saveError}
+            </p>
+          )}
           <button
             onClick={save}
             disabled={saving}
             className="w-full rounded-xl bg-ink py-3 text-[15px] font-medium text-surface disabled:opacity-60"
           >
-            {saving ? "Saving…" : "Save"}
+            {saving ? (
+              <span className="inline-flex items-center gap-2">
+                <ProgressRing size={16} /> Saving
+              </span>
+            ) : (
+              "Save"
+            )}
           </button>
         </div>
       )}

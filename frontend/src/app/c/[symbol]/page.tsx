@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { ApiError, api, type Research, stream, useApi } from "@/lib/api";
 import { ShareButton } from "@/components/ShareButton";
 import { WatchStar } from "@/components/market";
+import { Listen } from "@/components/Listen";
 import { crore, day, fq, pct, shortName, times } from "@/lib/fmt";
 import { HelperList } from "@/components/network";
 import {
@@ -290,6 +291,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
           From {transcripts.length} earnings calls and the annual report
           {v.filed_results ? `, plus the ${fq(v.filed_results.period)} results filed ${day(v.filed_results.filed)}` : ""}. No news, no broker notes.
         </p>
+        <Listen lines={companyScript(v)} className="mt-2.5" />
         {v.freshness?.status === "stale" && (
           <p className="mt-2 rounded-lg bg-warn-soft px-3 py-2 text-[12px] leading-snug text-warn">
             Out of date: {v.freshness.reason}{" "}
@@ -556,6 +558,27 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
       </p>
     </div>
   );
+}
+
+/** What the page says, in order, for Listen: price, the latest quarter, the delivery record
+ *  and the promises missed. Numbers and verdicts only, no AI-written text. */
+function companyScript(v: Research): string[] {
+  const name = shortName(v.company);
+  const s = v.financials.snapshot;
+  const q = v.financials.trajectory.quarterly.at(-1);
+  const move = (x: number | null, what: string) => (x == null ? null : `${what} ${x >= 0 ? "up" : "down"} ${Math.abs(x).toFixed(0)}%`);
+  const p = v.promises;
+  const parts = [
+    `${name}.${s.price != null ? ` Share price ₹${Math.round(s.price).toLocaleString("en-IN")}` : ""}${s.pe != null ? `, P/E ${Math.round(s.pe)}` : ""}.`,
+  ];
+  if (q) {
+    const bits = [move(q.revenue_yoy, "revenue"), move(q.pat_yoy, "profit")].filter(Boolean);
+    if (bits.length) parts.push(`In ${fq(q.period)}, ${bits.join(" and ")} from a year ago.`);
+  }
+  if (p.items.length) parts.push(`Management's record over the last ${v.documents.filter((d) => d.kind === "transcript").length} earnings calls: ${headline(p.counts)}${p.score != null ? ` Delivery score ${p.score} out of 100.` : ""}`);
+  for (const i of p.items.filter((x) => x.verdict === "missed").slice(0, 3)) parts.push(`Missed: ${i.target}. Reported: ${i.actual}.`);
+  if (v.helpers?.length) parts.push(`${v.helpers.length === 1 ? "One person" : `${v.helpers.length} people`} in your network can help with ${name}; they're listed under Who you know.`);
+  return parts;
 }
 
 function headline(c: Research["promises"]["counts"]): string {

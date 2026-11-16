@@ -124,7 +124,7 @@ export default function Ask() {
                     "Finding the company…"
                   ) : today?.lead ? (
                     <>
-                      <span className="block text-ink">For your portfolio, today: {today.lead}</span>
+                      <span className="block text-ink">For your portfolio, today: {today.lead.replace(/\n\n/g, " ")}</span>
                       <span className="mt-1 block">
                         To ask a company&apos;s own documents, name it: “Is Kaynes fixing its cash flow?”{" "}
                         <Link href="/" className="font-medium text-accent">

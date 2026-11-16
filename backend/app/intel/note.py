@@ -131,7 +131,7 @@ def stake(card: dict, n_held: int, value: float | None) -> tuple[bool, str]:
     held = f"{size} of your portfolio" + (f" ({money})" if money else "")
     if real:
         return True, f"It's {held}."
-    return False, f"It's {held}, so read it rather than act on it."
+    return False, f"It's {held}, a small holding."
 
 
 def questions(card: dict, helper: dict) -> list[str]:
@@ -268,7 +268,8 @@ def annotate(d: dict) -> dict:
     `lead`, `carry`, `moves_note` and `set_aside` summary to the digest."""
     from app.portfolio.holdings import get_positions
 
-    pos = {p["symbol"]: p for p in get_positions()["positions"]}
+    book = get_positions()
+    pos = {p["symbol"]: p for p in book["positions"]}
     n_held = len(pos) or 1
     for c in d["cards"]:
         c["short"] = short(c["company"])
@@ -308,44 +309,172 @@ def annotate(d: dict) -> dict:
         "rule": f"Routine paperwork, and items FINN rates under {SET_ASIDE_BELOW} of 100 "
         "with no price reaction.",
     }
-    d["lead"] = lead(d)
+    d["lead"] = lead(d, book)
     return d
 
 
-def lead(d: dict) -> str:
-    """One paragraph a fund manager could read aloud: how many things need them, the first
-    of them with its size, anything still open from earlier, and unexplained moves."""
+def _span(w: dict) -> str:
+    name = w.get("name") or ""
+    if name == "24h":
+        return "in the last day"
+    m = re.fullmatch(r"(\d+)d", name)
+    if m:
+        return f"in the last {m.group(1)} days"
+    a, b = (datetime.fromisoformat(w[k]) for k in ("start", "end"))
+    return f"between {a.day} {a:%b} and {b.day} {b:%b}"
+
+
+def _cap(t: str) -> str:
+    return t[:1].upper() + t[1:]
+
+
+def _again(text: str, name: str) -> str:
+    """A second line about the same company, without repeating its name."""
+    for head, repl in ((possessive(name) + " ", "Its "), (name + ": ", ""), (name + " ", "It ")):
+        if text.startswith(head):
+            rest = text[len(head) :]
+            if repl:
+                return repl + rest
+            keep = rest[1:2].isupper() or rest[1:2].isdigit()  # "H1 FY27", "Q2"
+            return "Also, " + (rest if keep else rest[:1].lower() + rest[1:])
+    return text
+
+
+def _size(c: dict, book: dict) -> str:
+    """'0.5% of your portfolio, ₹27,440'"""
+    pos = next((p for p in book["positions"] if p["symbol"] == c["symbol"]), None)
+    money = rupees(pos["value"]) if pos else None
+    w = c.get("weight") or 0.0
+    pct = f"{w:.1f}%" if w < 1 else f"{w:.0f}%"
+    return f"{pct} of your portfolio" + (f", {money}" if money else "")
+
+
+def _day(book: dict, moves: list[str]) -> str | None:
+    """The last close: the portfolio's move in rupees, and its biggest movers."""
+    if not book.get("as_of") or not book.get("positions"):
+        return None
+    dt = datetime.fromisoformat(book["as_of"])
+    g, gp = book["day_gain"], book["day_gain_pct"]
+    if abs(gp) < 0.05:
+        head = f"Your portfolio ended {dt.day} {dt:%b}, the last close, about flat"
+    else:
+        word = "up" if g > 0 else "down"
+        head = (
+            f"Your portfolio ended {dt.day} {dt:%b}, the last close, {word} "
+            f"{abs(gp):.1f}% ({rupees(abs(g))}) at {rupees(book['value'])}"
+        )
+    big = sorted(
+        (p for p in book["positions"] if abs(p["day_pct"]) >= 2),
+        key=lambda p: -abs(p["day_pct"]),
+    )[:2]
+    if not big:
+        return head + "."
+    unexplained = " ".join(moves)
+    said, prev = [], None
+    for p in big:
+        n = short(p["name"])
+        verb = "rose" if p["day_pct"] > 0 else "fell"
+        why = " with no filing to explain it" if n in unexplained else ""
+        said.append(f"{n}{'' if verb == prev else ' ' + verb} {abs(p['day_pct']):.1f}%{why}")
+        prev = verb
+    return f"{head}; {' and '.join(said)}."
+
+
+PARA = "\u00b6"
+
+
+def lead(d: dict, book: dict | None = None) -> str:
+    """A short paragraph a fund manager could read aloud: the last close, what came in and
+    whether any of it needs a decision, the items themselves, what is still open from
+    earlier, and what was set aside."""
+    book = book or {"positions": []}
     act = [c for c in d["cards"] if c["band"] == "act"]
     know = [c for c in d["cards"] if c["band"] == "know"]
     carry = d.get("carry") or []
-    moves = " ".join(d.get("moves_note") or [])
+    moves = d.get("moves_note") or []
+    span = _span(d["window"])
     parts: list[str] = []
+    # the last close belongs in today's note, not in one about a past fortnight
+    end = datetime.fromisoformat(d["window"]["end"]).date().isoformat()
+    day = _day(book, moves) if end >= (book.get("as_of") or "9999") else None
+    if day:
+        parts += [day, PARA]
+    named_moves = " ".join(parts)
+    n_items = len(act) + len(know)
     if act:
         n = len(act)
-        count = NUMBER_WORDS[n] if n < len(NUMBER_WORDS) else f"{n} things"
         parts.append(
-            f"{count} need{'s' if n == 1 else ''} you" + ("; the biggest:" if n > 3 else ".")
+            f"{_cap(span)}, {n_items} {'item matters' if n_items == 1 else 'items matter'}"
+            f" and {NUMBER_WORDS[min(n, 6)].split()[0].lower() if n <= 6 else n}"
+            f" {'needs' if n == 1 else 'need'} a decision."
         )
-        parts.append(f"{act[0]['line']} {act[0]['stake']}")
-        others = list(dict.fromkeys(c["short"] for c in act[1:] if c["short"] != act[0]["short"]))
-        if others and n <= 3:
-            parts.append(f"Also {' and '.join(others[:2])}.")
-    elif carry:
-        parts.append("Nothing new needs a decision.")
-        if know:
-            k = know[0]
-            parts.append(f"{k['line']} {k['stake']}")
-        named = [
-            f"{possessive(short(c['company']))} {EVENT_WORD[c['category']]}" for c in carry[:2]
-        ]
-        parts.append(f"Still open from earlier: {' and '.join(named)}.")
+        last = None
+        for c in act[:2]:
+            same = c["short"] == last
+            parts.append(_again(c["line"], c["short"]) if same else c["line"])
+            if not same:
+                parts.append(f"{c['short']} is {_size(c, book)}.")
+            last = c["short"]
+        rest = list(dict.fromkeys(c["short"] for c in act[2:]))
+        if rest:
+            parts.append(f"Also at {' and '.join(rest[:2])}: see Needs you below.")
     elif know:
-        k = know[0]
-        parts.append("Nothing needs a decision.")
-        parts.append(f"The biggest item: {k['line']} {k['stake']}")
+        parts.append(
+            f"{_cap(span)}, {n_items} {'item matters' if n_items == 1 else 'items matter'} and"
+            " none needs a decision."
+        )
     else:
         n = d["counts"]["filings"]
-        parts.append(f"Quiet. Nothing in {n} filing{'s' if n != 1 else ''} needs you.")
-    if moves:
-        parts.append(moves)
-    return " ".join(parts)
+        parts.append(f"{_cap(span)}, nothing in {n} filing{'s' if n != 1 else ''} needs you.")
+    if not act and know:
+        shown, last = [], None
+        for c in know[:3]:
+            shown.append(_again(c["line"], c["short"]) if c["short"] == last else c["line"])
+            last = c["short"]
+        parts.extend(shown)
+        cos = list(dict.fromkeys(c["short"] for c in know[:3]))
+        if len(cos) == 1 and not know[0]["in_portfolio"]:
+            parts.append(f"You follow {cos[0]} but don't hold it.")
+        elif len(cos) == 1:
+            c = know[0]
+            if "small holding" in c["stake"]:
+                parts.append(
+                    f"{cos[0]} is a small holding ({_size(c, book)}), so there's nothing to act on."
+                )
+            else:
+                parts.append(f"{cos[0]} is {_size(c, book)}.")
+        elif cos:
+            sizes = []
+            for co in cos:
+                c = next(k for k in know if k["short"] == co)
+                w = c.get("weight") or 0.0
+                pct = f"{w:.1f}%" if w < 1 else f"{w:.0f}%"
+                sizes.append(f"{co} {pct}" if sizes else f"{co} is {pct} of your portfolio")
+            parts.append(
+                ", ".join(sizes[:-1]) + f" and {sizes[-1]}." if len(sizes) > 1 else sizes[0] + "."
+            )
+    if carry or moves or (d.get("set_aside") or {}).get("count"):
+        parts.append(PARA)
+    if carry:
+        n = len(carry[:2])
+        named = [
+            f"{possessive(short(c['company']))} {EVENT_WORD[c['category']]} "
+            f"({c['weight']:.0f}%{' of your portfolio' if i == 0 else ''})"
+            for i, c in enumerate(carry[:2])
+        ]
+        lead_in = "One earlier event" if n == 1 else "Two earlier events"
+        parts.append(
+            f"{lead_in} at larger holdings {'is' if n == 1 else 'are'} still open: "
+            f"{' and '.join(named)}."
+        )
+    left = [m for m in moves if m.split(" ")[0] not in named_moves]
+    parts.extend(left)
+    aside = (d.get("set_aside") or {}).get("count") or 0
+    if aside:
+        parts.append(
+            f"{aside} routine filing{'s were' if aside != 1 else ' was'} set aside, "
+            "listed at the end."
+        )
+    # paragraphs: the last close; what came in; what is still open and what was set aside
+    text = " ".join(parts).replace(f" {PARA} ", "\n\n").replace(PARA, "")
+    return re.sub(r"(\n\n)+", "\n\n", text).strip()

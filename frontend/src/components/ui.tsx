@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { ProgressRing } from "./ProgressRing";
 import { useEffect, useRef } from "react";
 import { Sparkles, X } from "lucide-react";
 import { initials, modelName } from "@/lib/fmt";
@@ -282,11 +283,14 @@ export function SlowHint({ retry }: { retry?: () => void }) {
   const slow = useSlow(true);
   if (!slow) return null;
   return (
-    <p className="pt-2 text-[13px] leading-snug text-ink-2" role="status">
+    <p className="flex items-start gap-2 pt-2 text-[13px] leading-snug text-ink-2" role="status">
+      <ProgressRing size={16} className="mt-0.5 text-accent" />
+      <span>
       Still loading. The server may be waking up or busy with a live analysis.{" "}
       <button onClick={retry ?? (() => window.location.reload())} className="font-medium text-accent">
         Try again
       </button>
+      </span>
     </p>
   );
 }

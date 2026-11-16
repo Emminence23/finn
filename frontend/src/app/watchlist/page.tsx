@@ -10,6 +10,7 @@ import { CATEGORY_LABEL, day, pct, price } from "@/lib/fmt";
 import { detail, MoversStrip, shortCo, signedPrice, Spark, tone, type Watchlist } from "@/components/market";
 import { ErrorNote, Header, Panel, Sheet, Skeleton, SlowHint } from "@/components/ui";
 import { useTitle } from "@/lib/title";
+import { Listen } from "@/components/Listen";
 
 type Addable = { symbol: string; name: string; held: boolean };
 
@@ -41,6 +42,7 @@ export default function WatchlistPage() {
           </button>
         }
       />
+      {data && data.items.length > 0 && <Listen lines={watchScript(data)} className="mx-4 mb-3" />}
       {note && (
         <p role="status" className="mx-4 mb-2 rounded-xl bg-warn-soft/60 px-3 py-2 text-[13px]">
           {note}
@@ -160,4 +162,12 @@ function AddList({ items, onAdd }: { items: Addable[]; onAdd: (s: string) => Pro
       </ul>
     </div>
   );
+}
+
+function watchScript(w: Watchlist): string[] {
+  return w.items.map((i) => {
+    const move = i.day_pct == null ? "" : `, ${i.day_pct >= 0 ? "up" : "down"} ${Math.abs(i.day_pct).toFixed(1)}% on the day`;
+    const filing = i.latest_filing ? ` Latest filing, ${day(i.latest_filing.ts)}: ${i.latest_filing.text}` : "";
+    return `${shortCo(i.name)}, ${price(i.price)}${move}.${filing}`;
+  });
 }
