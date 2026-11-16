@@ -24,6 +24,7 @@ import {
 } from "@/components/research";
 import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
+import { BrokerSection } from "@/components/brokers";
 import { ContactNotes } from "@/components/notes";
 import { useTitle } from "@/lib/title";
 import { usePageLoading } from "@/lib/pageload";
@@ -491,6 +492,8 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
           <p className="mt-2 text-[11px] text-ink-3">Computed from reported financials, not by AI.</p>
         </Panel>
       )}
+
+      <BrokerSection symbol={v.symbol} />
 
       {/* ---------------------------------------------------------------- judgement */}
       {v.bull_bear && (

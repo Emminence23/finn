@@ -1,0 +1,101 @@
+{
+ "about": "Hand-checked by reading each report's cover (and, for Motilal Oswal, its rating definitions: 'Expected return (over 12-month)'). PL Capital and Sharekhan print no horizon. Checked 17 Nov 2026 before the extraction was compared against it.",
+ "reports": [
+  {
+   "file": "idirect_lt_q3fy26.pdf",
+   "published_at": "2026-01-29",
+   "rating": "BUY",
+   "target_price": 5030,
+   "reference_price": 3800,
+   "horizon": "12 months"
+  },
+  {
+   "file": "idirect_lt_q4fy26.pdf",
+   "published_at": "2026-05-06",
+   "rating": "BUY",
+   "target_price": 4955,
+   "reference_price": 3930,
+   "horizon": "12 months"
+  },
+  {
+   "file": "idirect_lt_q1fy27.pdf",
+   "published_at": "2026-07-29",
+   "rating": "BUY",
+   "target_price": 5000,
+   "reference_price": 3930,
+   "horizon": "12 months"
+  },
+  {
+   "file": "idirect_lt_q2fy27.pdf",
+   "published_at": "2026-10-28",
+   "rating": "BUY",
+   "target_price": 4710,
+   "reference_price": 3860,
+   "horizon": "12 months"
+  },
+  {
+   "file": "pl_LT-29-1-26.pdf",
+   "published_at": "2026-01-29",
+   "rating": "BUY",
+   "target_price": 4806,
+   "reference_price": 3794,
+   "horizon": "not stated"
+  },
+  {
+   "file": "pl_LT-6-5-26.pdf",
+   "published_at": "2026-05-06",
+   "rating": "BUY",
+   "target_price": 4632,
+   "reference_price": 4055,
+   "horizon": "not stated"
+  },
+  {
+   "file": "pl_LT-29-7-26.pdf",
+   "published_at": "2026-07-29",
+   "rating": "BUY",
+   "target_price": 4425,
+   "reference_price": 3832,
+   "horizon": "not stated"
+  },
+  {
+   "file": "pl_LT-28-10-26.pdf",
+   "published_at": "2026-10-28",
+   "rating": "BUY",
+   "target_price": 4437,
+   "reference_price": 3665,
+   "horizon": "not stated"
+  },
+  {
+   "file": "mofsl_LT-20260506-RU.pdf",
+   "published_at": "2026-05-06",
+   "rating": "BUY",
+   "target_price": 4550,
+   "reference_price": 4055,
+   "horizon": "12 months"
+  },
+  {
+   "file": "mofsl_LT-20260728-RU.pdf",
+   "published_at": "2026-07-28",
+   "rating": "BUY",
+   "target_price": 4550,
+   "reference_price": 3833,
+   "horizon": "12 months"
+  },
+  {
+   "file": "mofsl_LT-20261007-CU.pdf",
+   "published_at": "2026-10-07",
+   "rating": "BUY",
+   "target_price": 4400,
+   "reference_price": 3702,
+   "horizon": "12 months"
+  },
+  {
+   "file": "sharekhan_LT-20260129.pdf",
+   "published_at": "2026-01-29",
+   "rating": "BUY",
+   "target_price": 4700,
+   "reference_price": 3794,
+   "horizon": "not stated"
+  }
+ ]
+}

@@ -151,6 +151,13 @@ def report() -> dict:
             "when": "Phase 5j",
         },
         {
+            "what": "Brokerage report fields read correctly",
+            "result": "60 of 60 cover fields; 285 of 285 estimates found on their page",
+            "how": "12 L&T reports from 4 brokerages; rating, target, price, horizon and date "
+            "hand-read from each cover, every estimate checked in code against its page text",
+            "when": "Phase 5k",
+        },
+        {
             "what": "Promises found in one company's four calls, small vs mid model",
             "result": "5 vs 10, including all 3 misses",
             "how": "Same calls, two model tiers; why the scorecard uses the larger one",

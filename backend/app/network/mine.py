@@ -49,6 +49,13 @@ def _wipe(db, owner: str) -> None:
     ):
         db.execute(f"DELETE FROM {table} WHERE owner_id=?", (owner,))
     db.execute("DELETE FROM people WHERE owner_id=?", (owner,))
+    # brokerage reports this investor uploaded, with everything read from them
+    mine = "SELECT id FROM brokerage_reports WHERE owner_id=?"
+    obs = f"SELECT id FROM brokerage_observations WHERE report_id IN ({mine})"
+    db.execute(f"DELETE FROM brokerage_estimates WHERE observation_id IN ({obs})", (owner,))
+    db.execute(f"DELETE FROM brokerage_observations WHERE report_id IN ({mine})", (owner,))
+    db.execute("DELETE FROM brokerage_reports WHERE owner_id=?", (owner,))
+    db.execute("DELETE FROM brokerage_jobs WHERE owner_id=?", (owner,))
 
 
 def _blank_investor(db, owner: str) -> None:

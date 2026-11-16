@@ -9,6 +9,7 @@ from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.brokerage import router as brokerage_router
 from app.api.routes import router
 from app.config import get_settings
 from app.db import init_db, session
@@ -63,6 +64,10 @@ async def valid_symbols(request: Request) -> None:
 
 app.include_router(
     router,
+    dependencies=[Depends(require_passcode), Depends(select_account), Depends(valid_symbols)],
+)
+app.include_router(
+    brokerage_router,
     dependencies=[Depends(require_passcode), Depends(select_account), Depends(valid_symbols)],
 )
 

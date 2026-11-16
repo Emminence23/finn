@@ -296,6 +296,9 @@ def main() -> None:
     from app.intel.enrich import apply_enrichment
 
     log.info("enrichment applied to %d announcements", apply_enrichment())
+    from app.brokerage.store import seed_from_fixtures
+
+    log.info("brokerage reports loaded: %d", seed_from_fixtures())
     log.info("seed complete")
 
 

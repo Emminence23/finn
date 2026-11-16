@@ -750,6 +750,11 @@ def pull_chat(body: PullMessage) -> dict:
                 "kind": "reply",
                 **pull.network(symbol, name, body.message, current_owner(), docs),
             }
+    if intent == "brokers":  # read from brokerage reports, not the research view
+        listed = _listed(symbol)
+        if listed or view:
+            name = view["company"] if view else listed["name"]
+            return {"kind": "reply", **pull.brokers(symbol, name, current_owner())}
     if view is None:
         listed = _listed(symbol)
         return {

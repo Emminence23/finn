@@ -131,6 +131,12 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | FR-PULL-11 | Results cached per (ticker, prompt versions, documents read, latest quarter, every value in the financial tables) | M | A repeat request for the same company returns in <1s. A view whose inputs changed since it was built is still shown, marked out of date, with a rebuild button; the check uses committed fundamentals only, so a read never triggers a live fetch |
 | FR-PULL-12 | Ask FINN (was a "could"; promoted after review): a free-text question about a company, answered only from its documents and numbers. Ask routes a typed question to the right company | S | Every point cites a page, number or promise that was in the prompt; uncited points are removed in code; unanswerable questions say so. A figure in a point that code can't find on the pages it cites is shown under the point ("Not found on the cited page: 1,158"); the wait shows its stage and seconds |
 | FR-PULL-18 | **Retrieval is measured** (added from the queued review items): a committed set of investor questions with their answer pages marks whether Ask FINN's ranking sends the answer to the model. Investor phrasings ("take to pay", "owe its lenders") add the filing's terms at a lower weight | S | All tuning questions found in the top 8; at least 9 of 11 held-out questions, which were never used to change the ranking |
+| FR-BRK-01 | **What brokers expect** (Task C upgrade, brief "Brokerage Intelligence"): per company, the brokerages covering it, report count, newest date and age, ratings (as written and mapped to positive / neutral / negative), and target ranges grouped by horizon. Targets with different or unstated horizons are never pooled; reports older than 120 days are listed but left out of the ranges; fewer than 3 houses is a range, not a consensus | M | Computed in code; tested on L&T (two 12-month targets, PL's unstated horizon kept apart, Sharekhan stale) |
+| FR-BRK-02 | **Extraction with evidence.** The AI reads each report into a fixed schema (rating, target, price used, horizon and its basis, valuation and assumptions, thesis, risks, estimates by metric and year, each with page and excerpt). Code checks every material field and estimate against its page text, normalises ratings, years and units, and marks anything it can't find; nothing is guessed | M | 60 of 60 cover fields against a hand-read gold set; 285 of 285 estimates found on their page |
+| FR-BRK-03 | **History and revisions.** Reports are insert-only (deduplicated by content hash); each house is compared with its own previous report: rating move, target change, estimate changes like for like (same metric, year, unit family, definition). Momentum over 30 / 90 / 180 days: houses revising, targets up / down, median target and EPS change | M | Tested: four ICICI reports kept; ICICI ₹5,000 → ₹4,710 (−5.8%) |
+| FR-BRK-04 | **Disagreement.** Target dispersion per horizon, estimate dispersion between houses on the same basis (a report whose own reported years don't match the company's consolidated figures is kept out), houses bullish while cutting estimates, and their stated assumptions. An AI explanation is written from an evidence pack built in code; any point with a figure not in the reports it cites is dropped in code | S | Tested: unsourced points dropped; stored explanation served without a model call |
+| FR-BRK-05 | **Track record, honestly.** A target is evaluated only once its stated horizon has passed, against closes on or before that date (no look-ahead). Below 10 comparable observations: "Track record unavailable — insufficient comparable observations."; below 20, marked a small sample; no ranking either way. Earnings forecasts made before the year ended are compared with reported results, with their caveats | M | Tested: horizon not passed → nothing evaluated; later prices never used |
+| FR-BRK-06 | **APIs, chat and upload.** `GET /companies/{symbol}/brokerage/overview · reports · revisions · divergence · track-record`, `GET /brokerages/{id}/track-record`, `POST /brokerage/reports/ingest`, `GET /brokerage/ingest/{job_id}` (the brief's paths without the `/api` prefix this API doesn't use). Ask routes "brokers / target price / consensus / ratings" to the same view. An upload needs the investor's own space and a confirmation that they may use the report, spends the daily AI budget, runs in the background with stages, and stays private to them | M | Tested: demo account refused, non-PDF refused, duplicate refused, the upload invisible to others |
 
 ### 3.5 Network (`FR-NET`)
 
@@ -281,7 +287,11 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 `education(person_id, school, program, from, to)` · `relationships(owner_id, person_id, type, strength, last_contact)` ·
 `company_links(symbol, other, kind: competitor|supplier|customer)` ·
 `alert_rules(owner_id, kind, params_json, enabled)` · `alerts(id, rule_id, symbol, ts, reason, payload)` ·
-`llm_cache(key, task, model, prompt_version, output_json, tokens_in, tokens_out, created_at)`
+`llm_cache(key, task, model, prompt_version, output_json, tokens_in, tokens_out, created_at)` ·
+`brokerages(id, name, aliases)` · `brokerage_reports(id, symbol, brokerage_id, owner_id, published_at, source_type, source_url, content_hash, extraction_version, checks)` ·
+`brokerage_observations(report_id, rating, rating_raw, target_price, reference_price, horizon_*, horizon_basis, valuation, thesis, risks, evidence, confidence, review_status)` ·
+`brokerage_estimates(observation_id, metric, fiscal_period, value, unit, value_cr, is_actual, definition, scenario, source_page, source_excerpt, verified)` ·
+`forecast_evaluations(...)` · `brokerage_jobs(id, owner_id, stage, status)`
 
 ### 6.6 API contract (v1)
 | Method | Path | Purpose | Req |
@@ -293,6 +303,8 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 | GET | `/research/{symbol}` · GET `/research/{symbol}/stream` (SSE) | Pull | FR-PULL |
 | GET | `/people/help?symbol=` · `/people/{id}` · `/people/{id}/paths` · `/people/expertise?theme=` · `/people/nudges` | Network | FR-NET |
 | GET · POST · DELETE | `/people/account` · `/people/reset` · `/people/{id}` (header `X-Finn-User`) | Account switch, restore demo network, remove a contact | FR-NET-11 |
+| GET | `/companies/{symbol}/brokerage/{overview,reports,revisions,divergence,track-record}` · `/brokerages/{id}/track-record` | Brokerage intelligence | FR-BRK |
+| POST · GET | `/brokerage/reports/ingest` · `/brokerage/ingest/{job_id}` | Add a report (private, background) | FR-BRK-06 |
 | GET | `/admin/costs` | LLM usage summary | NFR-12 |
 
 ---

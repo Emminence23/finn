@@ -1,0 +1,89 @@
+{
+ "a71ff35a93fcb50b9c9a": {
+  "summary": "All three currently available brokerage reports on LT assign a BUY rating using a sum-of-the-parts (SoTP) valuation approach. They differ in their price targets, spanning 4400.0 to 4710.0, due to differences in core valuation multiples, valuation periods, holding company discounts, and segment valuations.",
+  "points": [
+   {
+    "text": "All three reports rate LT a BUY, with a 7.0% spread between the 12-month targets of Motilal Oswal at 4400.0 and ICICI Securities (Retail Research) at 4710.0, while PL Capital (Prabhudas Lilladher) sets a target of 4437.0 with its horizon not stated.",
+    "cites": [
+     {
+      "report_id": "30491e44ed13f78d",
+      "brokerage": "ICICI Securities (Retail Research)",
+      "date": "2026-10-28"
+     },
+     {
+      "report_id": "1a102a06002445f4",
+      "brokerage": "PL Capital (Prabhudas Lilladher)",
+      "date": "2026-10-28"
+     },
+     {
+      "report_id": "0cf328f4437a2417",
+      "brokerage": "Motilal Oswal",
+      "date": "2026-10-07"
+     }
+    ]
+   },
+   {
+    "text": "PL Capital (Prabhudas Lilladher) and Motilal Oswal have close earnings forecasts—with FY27 spreads of 3.5% on EPS (141.3 INR vs. 146.2 INR/share) and 3.4% on PAT (194,317 INR mn vs. 201 INR b), and FY28 EPS estimates of 174.2 INR vs. 174.7 INR/share—showing their target gap stems from valuation assumptions rather than earnings.",
+    "cites": [
+     {
+      "report_id": "1a102a06002445f4",
+      "brokerage": "PL Capital (Prabhudas Lilladher)",
+      "date": "2026-10-28"
+     },
+     {
+      "report_id": "0cf328f4437a2417",
+      "brokerage": "Motilal Oswal",
+      "date": "2026-10-07"
+     }
+    ]
+   },
+   {
+    "text": "Motilal Oswal values the core E&C business at 25x Dec’28E earnings, whereas PL Capital (Prabhudas Lilladher) values L&T Core Business at 21x Sep'28 EPS and applies a 15% holding co. disc. on subsidiaries along with 1x equity investment or 1x equity value for other businesses.",
+    "cites": [
+     {
+      "report_id": "1a102a06002445f4",
+      "brokerage": "PL Capital (Prabhudas Lilladher)",
+      "date": "2026-10-28"
+     },
+     {
+      "report_id": "0cf328f4437a2417",
+      "brokerage": "Motilal Oswal",
+      "date": "2026-10-07"
+     }
+    ]
+   },
+   {
+    "text": "ICICI Securities (Retail Research) reaches its 4710.0 target via explicit segment values—Base Business at 3645.4, L&T IT Subsidiaries at 822, L&T Finance Holdings at 220, Other E&C, MIP & E&E Sub at 10.0, L&T Power Development at 8.6, and L&T MHI JV at 5.0—while its estimates are excluded as non-comparable because its financial table is not on a reported consolidated basis.",
+    "cites": [
+     {
+      "report_id": "30491e44ed13f78d",
+      "brokerage": "ICICI Securities (Retail Research)",
+      "date": "2026-10-28"
+     }
+    ]
+   },
+   {
+    "text": "On risks, PL Capital (Prabhudas Lilladher) and Motilal Oswal highlight Middle East or West Asia conflict disruptions, margin recovery delays, order inflow slowdowns, project completion delays, and commodity price rises, whereas ICICI Securities (Retail Research) flags delays in order execution and lesser than expected improvement in return ratios.",
+    "cites": [
+     {
+      "report_id": "30491e44ed13f78d",
+      "brokerage": "ICICI Securities (Retail Research)",
+      "date": "2026-10-28"
+     },
+     {
+      "report_id": "1a102a06002445f4",
+      "brokerage": "PL Capital (Prabhudas Lilladher)",
+      "date": "2026-10-28"
+     },
+     {
+      "report_id": "0cf328f4437a2417",
+      "brokerage": "Motilal Oswal",
+      "date": "2026-10-07"
+     }
+    ]
+   }
+  ],
+  "dropped": [],
+  "model_note": "AI · read from the reports below"
+ }
+}

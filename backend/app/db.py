@@ -244,6 +244,103 @@ CREATE TABLE IF NOT EXISTS llm_calls (
     error TEXT,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
+CREATE TABLE IF NOT EXISTS brokerages (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    aliases_json TEXT NOT NULL DEFAULT '[]',
+    website TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+-- brokerage intelligence (brief §4): reports and observations are insert-only; a new
+-- report never overwrites an older one, so revisions stay visible
+CREATE TABLE IF NOT EXISTS brokerage_reports (
+    id TEXT PRIMARY KEY,
+    symbol TEXT NOT NULL,
+    brokerage_id TEXT NOT NULL REFERENCES brokerages(id),
+    owner_id TEXT,                     -- NULL: FINN's shared set; else the uploader's own
+    analyst_name TEXT,
+    title TEXT,
+    report_type TEXT,
+    published_at TEXT,
+    ingested_at TEXT NOT NULL,
+    source_type TEXT NOT NULL,         -- public_url | licensed_feed | user_upload | manual_entry
+    source_url TEXT,
+    storage_uri TEXT,
+    content_hash TEXT NOT NULL,
+    page_count INTEGER,
+    extraction_status TEXT NOT NULL,   -- pending | parsed | reviewed | failed
+    extraction_version TEXT NOT NULL,
+    checks_json TEXT NOT NULL DEFAULT '{}',
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE (symbol, brokerage_id, published_at, content_hash, owner_id)
+);
+CREATE TABLE IF NOT EXISTS brokerage_observations (
+    id TEXT PRIMARY KEY,
+    report_id TEXT NOT NULL REFERENCES brokerage_reports(id),
+    symbol TEXT NOT NULL,
+    rating TEXT,                       -- positive | neutral | negative | NULL (not mapped)
+    rating_raw TEXT,
+    target_price REAL,
+    target_currency TEXT,
+    reference_price REAL,
+    reference_price_date TEXT,
+    horizon_value REAL,
+    horizon_unit TEXT,
+    horizon_raw TEXT,
+    horizon_basis TEXT,                -- on the target | rating definition | NULL
+    previous_target REAL,
+    previous_rating TEXT,
+    thesis_summary TEXT,
+    catalysts_json TEXT NOT NULL DEFAULT '[]',
+    risks_json TEXT NOT NULL DEFAULT '[]',
+    valuation_method TEXT,
+    valuation_assumptions_json TEXT NOT NULL DEFAULT '[]',
+    evidence_json TEXT NOT NULL DEFAULT '{}',
+    extraction_confidence REAL,        -- share of material fields code verified, not a probability
+    review_status TEXT NOT NULL DEFAULT 'unreviewed',
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE TABLE IF NOT EXISTS brokerage_estimates (
+    id TEXT PRIMARY KEY,
+    observation_id TEXT NOT NULL REFERENCES brokerage_observations(id),
+    metric TEXT NOT NULL,
+    metric_raw TEXT,
+    fiscal_period TEXT,                -- normalised, e.g. FY27; NULL when it can't be
+    fiscal_period_raw TEXT NOT NULL,
+    value REAL NOT NULL,               -- as printed
+    unit TEXT NOT NULL,                -- as printed
+    value_cr REAL,                     -- aggregate amounts converted to INR crore by code
+    is_actual INTEGER NOT NULL,
+    definition TEXT,
+    scenario TEXT,
+    source_page INTEGER,
+    source_excerpt TEXT,
+    verified INTEGER NOT NULL
+);
+-- market prices for alignment come from `prices` (unadjusted NSE closes)
+CREATE TABLE IF NOT EXISTS forecast_evaluations (
+    id TEXT PRIMARY KEY,
+    observation_id TEXT NOT NULL REFERENCES brokerage_observations(id),
+    metric_name TEXT NOT NULL,
+    horizon_days INTEGER,
+    start_price REAL,
+    end_price REAL,
+    predicted_value REAL,
+    actual_value REAL NOT NULL,
+    metric_value REAL NOT NULL,
+    methodology_version TEXT NOT NULL,
+    evaluated_at TEXT NOT NULL,
+    caveats_json TEXT NOT NULL DEFAULT '[]'
+);
+CREATE TABLE IF NOT EXISTS brokerage_jobs (
+    id TEXT PRIMARY KEY,
+    owner_id TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    stage TEXT NOT NULL,
+    status TEXT NOT NULL,              -- running | done | failed | duplicate
+    detail_json TEXT NOT NULL DEFAULT '{}',
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
 CREATE TABLE IF NOT EXISTS research_cache (
     symbol TEXT NOT NULL,
     key TEXT NOT NULL,

@@ -1,0 +1,127 @@
+{
+ "_note": "Reports FINN reads, all from the brokerage's own public download server (no login, no paywall). The PDFs are not redistributed: FINN keeps the extracted figures, short evidence excerpts and a link to the original. Permission basis: publicly posted by the brokerage for its clients and the public; display limited to facts and short quotes with attribution.",
+ "accessed": "2026-11-17",
+ "brokerages": {
+  "icici-securities": {
+   "name": "ICICI Securities (Retail Research)",
+   "aliases": [
+    "ICICI Securities",
+    "ICICI Direct",
+    "ICICIdirect"
+   ],
+   "website": "https://www.icicidirect.com"
+  },
+  "pl-capital": {
+   "name": "PL Capital (Prabhudas Lilladher)",
+   "aliases": [
+    "Prabhudas Lilladher",
+    "PL Capital",
+    "PL Research"
+   ],
+   "website": "https://www.plindia.com"
+  },
+  "motilal-oswal": {
+   "name": "Motilal Oswal",
+   "aliases": [
+    "Motilal Oswal Financial Services",
+    "MOFSL",
+    "MOSL"
+   ],
+   "website": "https://www.motilaloswal.com"
+  },
+  "sharekhan": {
+   "name": "Sharekhan",
+   "aliases": [
+    "Sharekhan by BNP Paribas",
+    "Mirae Asset Sharekhan"
+   ],
+   "website": "https://www.sharekhan.com"
+  }
+ },
+ "sources": [
+  {
+   "symbol": "LT",
+   "brokerage": "icici-securities",
+   "url": "https://mailcontent.icicidirect.com/mailcontent/idirect_lt_q3fy26.pdf",
+   "file": "idirect_lt_q3fy26.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "icici-securities",
+   "url": "https://mailcontent.icicidirect.com/mailcontent/idirect_lt_q4fy26.pdf",
+   "file": "idirect_lt_q4fy26.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "icici-securities",
+   "url": "https://mailcontent.icicidirect.com/mailcontent/idirect_lt_q1fy27.pdf",
+   "file": "idirect_lt_q1fy27.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "icici-securities",
+   "url": "https://mailcontent.icicidirect.com/mailcontent/idirect_lt_q2fy27.pdf",
+   "file": "idirect_lt_q2fy27.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "pl-capital",
+   "url": "https://www.plindia.com/ResReport/LT-29-1-26-PL.pdf",
+   "file": "pl_LT-29-1-26.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "pl-capital",
+   "url": "https://www.plindia.com/ResReport/LT-6-5-26-PL.pdf",
+   "file": "pl_LT-6-5-26.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "pl-capital",
+   "url": "https://www.plindia.com/ResReport/LT-29-7-26-PL.pdf",
+   "file": "pl_LT-29-7-26.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "pl-capital",
+   "url": "https://www.plindia.com/ResReport/LT-28-10-26-PL.pdf",
+   "file": "pl_LT-28-10-26.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "motilal-oswal",
+   "url": "https://ftp.motilaloswal.com/emailer/Research/2026/LT-20260506-MOFSL-RU-PG016.pdf",
+   "file": "mofsl_LT-20260506-RU.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "motilal-oswal",
+   "url": "https://ftp.motilaloswal.com/emailer/Research/2026/LT-20260728-MOFSL-RU-PG014.pdf",
+   "file": "mofsl_LT-20260728-RU.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "motilal-oswal",
+   "url": "https://ftp.motilaloswal.com/emailer/Research/2026/LT-20261007-MOFSL-CU-PG012.pdf",
+   "file": "mofsl_LT-20261007-CU.pdf",
+   "source_type": "public_url"
+  },
+  {
+   "symbol": "LT",
+   "brokerage": "sharekhan",
+   "url": "https://www.sharekhan.com/MediaGalary/docs/LnT-Jan29_2026-202601291453331422287.pdf",
+   "file": "sharekhan_LT-20260129.pdf",
+   "source_type": "public_url"
+  }
+ ]
+}

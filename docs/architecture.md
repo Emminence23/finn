@@ -79,6 +79,7 @@ flowchart LR
   - guidance extraction, promised-vs-delivered, business snapshot and bull/bear are written by the LLM;
   - "who can help" is attached at read time.
   - Views are cached by (ticker, document set, prompt version). An incomplete view is never cached.
+- **Brokerage reports** (`app/brokerage/`): `ingest.py` fetches reports from the brokers' own public servers (listed in `fixtures/brokerage/sources.json`), `extract.py` reads each into a schema with evidence and checks it against the page text, `store.py` saves it insert-only (deduplicated by content hash), `calc.py` holds every formula (implied return, percentiles, revisions, momentum, dispersion, point-in-time evaluation) and `service.py` shapes the API. Uploads (`jobs.py`) run in a background thread with recorded stages and are scoped to the uploader's space.
 
 ## LLMs and agents
 Every call names a **task**; `config/models.yaml` maps tasks to a tier and tiers to a model per provider. `LLM_PROVIDER=anthropic` switches everything to Claude with no code change. Every call is cached in SQLite and logged with model, tokens, latency and cache hit (`/admin/costs`).
@@ -91,6 +92,8 @@ Every call names a **task**; `config/models.yaml` maps tasks to a tier and tiers
 | `extract_guidance` | mid | Sonnet 5.5 | Measured: flash-lite found 5 promises in one company's four calls, flash found 10 including all 3 misses | 14.2k / 1.0k | $0.04 |
 | `business_snapshot`, `bull_bear` | mid | Sonnet 5.5 | Synthesis with citations | 22–28k / 0.8–0.9k | $0.05–0.07 |
 | `promise_vs_delivery` | strong | Opus 5.5 | The judgement the product is built around | 4.8k / 1.2k | $0.04 |
+| `extract_brokerage` | mid | Sonnet 5.5 | A 5–30 page report into a fixed schema with page and excerpt per field; code verifies every field and estimate (60/60, 285/285) | 9.0k / 2.3k | $0.04 |
+| `explain_divergence` | mid | Sonnet 5.5 | Why brokerages differ, from a code-built evidence pack; points with unsourced figures dropped | not logged separately (one stored call per company) | under $0.02 |
 | `answer_question` | mid | Sonnet 5.5 | Grounded Q&A over 8 retrieved pages and the numbers | 9.2k / 0.47k | $0.02 |
 
 Prices per million tokens, from `models.yaml`: Haiku $0.10 / $0.50, Sonnet $2 / $10, Opus $4 / $20.

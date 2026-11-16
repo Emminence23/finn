@@ -7,6 +7,7 @@ import type { Cite, Claim, DocRef, QaAnswer, Verdict } from "@/lib/api";
 import { CiteChips, CredibilityText, FinnRead, VERDICT, VerdictBar, VerdictPill, cleanClaim } from "./research";
 import { AiTag } from "./ui";
 import { ContactRow, type Contact } from "./signal";
+import { BrokerBody, type Divergence, type Overview, type Revisions, type Track } from "./brokers";
 
 // ------------------------------------------------------------------ types (backend app/research/pull.py)
 export type LedgerItem = {
@@ -55,7 +56,8 @@ export type Block =
   | { type: "themes"; items: Theme[] }
   | { type: "guidance"; title: string; items: GuidanceItem[] }
   | ({ type: "answer" } & QaAnswer)
-  | { type: "contacts"; items: Contact[]; topic: string; event: string | null };
+  | { type: "contacts"; items: Contact[]; topic: string; event: string | null }
+  | { type: "brokers"; symbol: string; overview: Overview; revisions?: Revisions; divergence?: Divergence; track?: Track };
 
 export type PullReply =
   | {
@@ -379,6 +381,12 @@ export function Blocks({ blocks, docs, base }: { blocks: Block[]; docs: Map<stri
                     ))}
                   </ul>
                 )}
+              </div>
+            );
+          case "brokers":
+            return (
+              <div key={i} className="-mx-4">
+                <BrokerBody ov={b.overview} rev={b.revisions} div={b.divergence} track={b.track} symbol={b.symbol} compact />
               </div>
             );
           case "answer":

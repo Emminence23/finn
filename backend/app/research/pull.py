@@ -60,7 +60,12 @@ MENU = [
     ("guidance", "Guidance"),
     ("bull_bear", "Bull vs bear"),
 ]
-TITLES = dict(MENU) | {"overview": "Overview", "qa": "Answer", "network": "Who can help"}
+TITLES = dict(MENU) | {
+    "overview": "Overview",
+    "qa": "Answer",
+    "network": "Who can help",
+    "brokers": "What brokers expect",
+}
 
 # Routing is code, so the same words always open the same analysis. First match wins.
 _INTENTS = [
@@ -68,6 +73,11 @@ _INTENTS = [
         "network",
         r"who (can|could|should|would|in my network|do i know|knows)|whom|who to (call|ask)|"
         r"anyone (who|i know)|introduc|my network|my contacts",
+    ),
+    (
+        "brokers",
+        r"broker|analysts?\b|street|consensus|target price|price target|\btps?\b|"
+        r"ratings?\b|upgrade|downgrade|sell[- ]side|research reports?",
     ),
     (
         "ledger",
@@ -906,6 +916,30 @@ def reply(view: dict, intent: str) -> dict:
         "menu": [{"intent": k, "label": v} for k, v in MENU if k != intent],
         "documents": view["documents"],
         "as_of": view["latest_quarter"],
+    }
+
+
+# ------------------------------------------------------------------ what brokers expect
+def brokers(symbol: str, company: str | None, owner: str) -> dict:
+    """The brokerage block for the chat: computed in code from stored reports, plus the
+    stored, checked explanation of where they differ."""
+    from app.brokerage import explain
+    from app.brokerage import service as bs
+
+    ov = bs.overview(symbol, owner)
+    block = {"type": "brokers", "symbol": symbol, "overview": ov}
+    if ov["reports"]:
+        block["revisions"] = bs.revisions(symbol, owner)
+        block["divergence"] = bs.divergence(symbol, owner) | {"explanation": explain.get(symbol)}
+        block["track"] = bs.track_record(symbol=symbol, owner=owner)
+    return {
+        "symbol": symbol,
+        "company": company or symbol,
+        "intent": "brokers",
+        "title": TITLES["brokers"],
+        "blocks": [block],
+        "menu": [{"intent": k, "label": v} for k, v in MENU],
+        "documents": [],
     }
 
 
