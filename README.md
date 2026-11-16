@@ -60,6 +60,8 @@ docs/       Requirements, architecture, build log, deploy guide
 - **Real sign-in.** Two demo accounts show that networks are kept apart, but the switch is a header, not authentication. The production design (row-level security, encrypted per-user data) is in the architecture doc.
 
 ## Measured, not assumed
+The same table lives in the app at **How accurate is FINN?** (Today's footer), where the first three rows are recomputed from the current data and each of the 100 labelled filings can be checked against where FINN puts it.
+
 | What | Result | How |
 |---|---|---|
 | Material filings kept out of Routine | 25 of 25 | 100 portfolio filings, picked at random and labelled before the levels were tuned (`backend/data/fixtures/eval/materiality_labels.json`) |

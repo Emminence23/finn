@@ -219,3 +219,8 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Assembled in code** from the 30-day digest and the meeting questions, so nothing about who you're meeting goes to an LLM. Meetings are owner-scoped and deleted with the contact or a reset.
 - **First version was too narrow:** for ex-Kaynes Karthik all three "what changed" lines were Kaynes filings, one of them boilerplate ("Approved un-audited ... results"). Now there are at most two per company, ordered with the companies they worked at first, and results say what the numbers did ("Profit down 66% year on year even as revenue grew 4%").
 - **Tooling note:** `pkill -f "uvicorn app.main"` matched the shell running it and killed the command. Restarts go through the restart script.
+
+## Phase 4q: how accurate is FINN, in the app (NFR-15)
+- **Why:** the calibration numbers lived in the README and a test file. A reviewer using the app on a phone would never see them, and a README number can go stale.
+- **Live where possible.** `/eval` recomputes priority calibration, the Important share and the screener cross-check from the current data on each request. It reuses the digest, so it measures exactly what the feed shows. Build-time measurements (rule coverage, people extraction, the model comparison) need a model run or hand check, so they are labelled with how and when.
+- **Misses shown, not hidden.** The labelled set is listed filing by filing with FINN's current level. It shows that 25 filings labelled not material still appear as Notable or Important, which is the intended error direction (recall first), and says so.

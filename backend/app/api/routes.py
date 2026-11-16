@@ -23,6 +23,23 @@ from app.research import qa, service
 router = APIRouter()
 
 
+# ------------------------------------------------------------------ Accuracy
+@router.get("/eval")
+def eval_report() -> dict:
+    """How accurate is FINN: live checks recomputed from current data, plus build-time ones."""
+    from app import evals
+
+    return evals.report()
+
+
+@router.get("/eval/labels")
+def eval_labels() -> dict:
+    """The hand-labelled filings next to where FINN puts each one today."""
+    from app import evals
+
+    return evals.labelled_filings()
+
+
 # ------------------------------------------------------------------ Compare
 @router.get("/compare/peers")
 def compare_peers(symbol: str) -> dict:

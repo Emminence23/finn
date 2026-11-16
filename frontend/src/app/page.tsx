@@ -114,6 +114,9 @@ export default function Today() {
             NSE filings to {day(data.freshness?.filings_as_of ?? now)},{" "}
             {new Date(data.freshness?.filings_as_of ?? now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
             {data.freshness?.prices_as_of && <> · EOD prices to {day(data.freshness.prices_as_of)}</>}
+            <Link href="/accuracy" className="mt-1 block font-medium text-accent">
+              How accurate is FINN?
+            </Link>
           </p>
         </>
       )}

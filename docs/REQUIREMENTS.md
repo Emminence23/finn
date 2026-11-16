@@ -172,6 +172,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | NFR-12 | Observability | Structured logs. Per-LLM-call log of model, tokens, latency, cache hit; a cost summary endpoint. |
 | NFR-13 | Untrusted documents | Text inside a filing or transcript cannot steer FINN. Prompts mark document text as data; code validators drop any citation, evidence id or quote the model returns that code did not send. Tested with an "obedient" fake model (`test_instructions_inside_a_document_are_not_obeyed`). |
 | NFR-14 | Freshness | Today shows how old filings and prices are; EOD prices are flagged once a finished trading session is missing (weekends skipped; exchange holidays not modelled). |
+| NFR-15 | Visible accuracy | `/accuracy` in the app (linked from Today's footer) shows FINN's measurements. Live checks (priority calibration on the 100 labelled filings, Important share on 7 and 30 days, results figures against screener.in) are recomputed from current data on every request, so the page can't drift from the product. Build-time measurements say how and when they were taken. Every labelled filing is listed with its label, FINN's current level and a link to the filing, misses included. `test_evals.py` checks the page reports what the calibration tests assert. |
 
 ---
 
