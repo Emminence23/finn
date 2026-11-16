@@ -79,11 +79,6 @@ function CardShell({ card, now, read, children }: { card: Card; now: string; rea
         )}
         {card.level === "important" && <Pill tone="strong">Important</Pill>}
         {!card.in_portfolio && <Pill tone="accent">Research</Pill>}
-        {card.in_portfolio && card.weight != null && (
-          <span className="tnum shrink-0 text-[12px] text-ink-3" title="Share of your portfolio">
-            {card.weight < 1 ? card.weight.toFixed(1) : Math.round(card.weight)}% held
-          </span>
-        )}
         <span className="tnum ml-auto shrink-0 text-[12px] text-ink-3">
           {read?.isNew ? (
             <span className="mr-1.5 inline-flex items-center gap-1 font-semibold text-accent">
@@ -103,6 +98,9 @@ function CardShell({ card, now, read, children }: { card: Card; now: string; rea
         <p className="mt-1 text-[12px] leading-snug text-ink-3">
           <span className="sr-only">{card.level === "important" ? "Important" : "Notable"} because: </span>
           {card.level_reason}
+          {card.in_portfolio && card.weight != null && (
+            <span className="tnum"> · {card.weight < 1 ? card.weight.toFixed(1) : Math.round(card.weight)}% of your portfolio</span>
+          )}
         </p>
       )}
       {moves.length > 0 && (

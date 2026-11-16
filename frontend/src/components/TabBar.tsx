@@ -7,8 +7,8 @@ import clsx from "clsx";
 
 const TABS = [
   { href: "/", label: "Today", icon: Newspaper, match: (p: string) => p === "/" },
-  { href: "/ask", label: "Ask", icon: Search, match: (p: string) => p.startsWith("/ask") || p.startsWith("/c/") },
-  { href: "/portfolio", label: "Portfolio", icon: PieChart, match: (p: string) => p.startsWith("/portfolio") || p.startsWith("/compare") },
+  { href: "/ask", label: "Ask", icon: Search, match: (p: string) => p.startsWith("/ask") || p.startsWith("/c/") || p.startsWith("/compare") },
+  { href: "/portfolio", label: "Portfolio", icon: PieChart, match: (p: string) => p.startsWith("/portfolio") },
   { href: "/people", label: "People", icon: Users, match: (p: string) => p.startsWith("/people") },
 ];
 

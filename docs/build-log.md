@@ -270,3 +270,16 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Web app on Vercel** (Hobby), with the API address set as a production env var.
 - **Vercel refused the first deploy** because Next.js 15.5.4 has a known vulnerability. Upgraded to 15.5.29 and React 19.1.10 (`npm audit fix` for sharp too); `make check` passes. What `npm audit` still lists is PostCSS inside Next, which only processes FINN's own stylesheets at build time; the fix is Next 16, a major upgrade left for later.
 - **Secrets** (the Gemini key) are entered in Render's dashboard, never in the repo or the chat.
+
+## Phase 4y: a fresh reviewer's pass
+- **How:** a new agent with no context used the live app on a 390px phone as a fund manager would and reported bugs, trust problems and ranked improvements. Everything below came from that report.
+- **Numbers that disagreed, fixed:**
+  - *Kaynes growth three ways.* The research view's tables stopped at Q1 FY27 (+40.6%), while Today had the Q2 FY27 results filed on 14 Nov (+4.4%). Compare had also been setting Kaynes' Q1 against Dixon's Q2 without saying so. A newer results filing is now added as the latest quarter, in code and on the same basis, for the research page and Compare; the page names the filing, and Compare flags different latest quarters.
+  - *Unusual moves mixed days.* "+11.6% · Volume 2.27×" for Reliance took the price from 2 Nov and the volume from 3 Nov. Tiles and card chips now take one session and show its date. A card only shows moves from the sessions after its filing, and the Important reason dates the move.
+  - *Card age.* A grouped card showed the newest filing's age next to an older headline; it now shows the headline filing's time.
+  - *Theme labels.* CG Power was "semiconductors" (it has an assembly venture) and Kaynes wasn't with Dixon; Pidilite and Asian Paints were split across chemicals and staples. Now capital goods (CG Power, Polycab), electronics manufacturing (Kaynes, Dixon) and home improvement (Pidilite, Asian Paints); the three contacts who track paints and adhesives carry the new tag.
+  - *Suggestion reasons.* "Held back to keep its theme within the cap" appeared for IT at 6% against a 20% cap. It now appears only when the theme is at the cap; otherwise the reason names the step limit slowing the larger cuts.
+  - *Ask FINN* gave a receivables answer that contradicted itself. Code now marks any figure it can't find on the cited page, and the prompt asks for the date and basis when figures differ.
+- **Improvements:** Today weighs position size (a 0.5% holding no longer ranks like a 12% one) and each card says its share of the portfolio; As it stands names holdings outside your own min and max; materiality, delivery and contact scores explain themselves where they appear; Ask FINN's wait shows stages; Compare lights the Ask tab; contact gaps use the same months on Today and People.
+- **The stored AI review was regenerated** (one free Gemini call; the main model was at quota, so its free fallback answered): the same three nudges, CG Power −1.3, Kaynes −0.4 and Sun Pharma asked +1.0 with no room.
+- **Not done yet:** the reviewer's other items (a calmer Today header, a warm-up ping, undo on "Reset to demo", Indian date order, number formats).
