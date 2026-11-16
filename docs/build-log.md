@@ -334,3 +334,6 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **"Tour is laggy."** At 4× CPU slowdown the card vanished for over a second on the way to Kaynes and could jump top-to-bottom 0.7 s into a step. Pages are now prefetched, the card stays up with "Opening Kaynes…", targets are found per frame rather than every 150 ms, and the card's side is fixed per step. Every card now shows within 0.2 s.
 - **"Alerts not loading."** The settings sheet showed a grey block until the rules arrived and had no error state, so a failed or slow request (a sleeping server) left it grey forever. It now shows a ring, then an error with Try again; a failed save says so.
 
+## Phase 5f: queued by the user, (A) whole pages, (B) tours by use case
+- **A. Pages appear whole.** Instead of lazy-loading the long company page (declined), every page now waits behind a loading bar and ring until all its parts have their data, then appears at once. Components register their first load through `useApi` (`lib/pageload.ts`); the company page and the Listen script register their own. A tapped link starts the bar before the next route's code arrives; later loads (sheets, questions) never bring it back. The tour treats a loading page as "Opening…".
+

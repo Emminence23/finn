@@ -26,6 +26,7 @@ import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
 import { ContactNotes } from "@/components/notes";
 import { useTitle } from "@/lib/title";
+import { usePageLoading } from "@/lib/pageload";
 
 const STEPS = [
   { step: "fundamentals", label: "Reported financials" },
@@ -49,6 +50,7 @@ export default function CompanyPage() {
   const initialQ = useSearchParams().get("q") ?? undefined;
   const [state, setState] = useState<State>({ kind: "loading" });
   const abort = useRef<AbortController | null>(null);
+  usePageLoading(state.kind === "loading"); // a live read has its own progress, so not that
 
   const build = useCallback(
     async (force = false) => {

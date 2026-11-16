@@ -1,4 +1,5 @@
 // Single typed entry point to the FINN API.
+import { usePageLoading } from "./pageload";
 import useSWR, { type SWRConfiguration } from "swr";
 
 export const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -124,11 +125,13 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
 }
 
 export function useApi<T>(path: string | null, config?: SWRConfiguration<T>) {
-  return useSWR<T>(path, (p: string) => api<T>(p), {
+  const r = useSWR<T>(path, (p: string) => api<T>(p), {
     revalidateOnFocus: false,
     keepPreviousData: true,
     ...config,
   });
+  usePageLoading(r.isLoading); // the page appears when its first data is in (lib/pageload)
+  return r;
 }
 
 /** Server-sent events over fetch (EventSource cannot send the passcode header). */

@@ -7,6 +7,7 @@ import { WakeNote } from "@/components/WakeNote";
 import { OfflineNote } from "@/components/OfflineNote";
 import { ServiceWorker } from "@/components/ServiceWorker";
 import { Tour } from "@/components/Tour";
+import { PageFrame } from "@/components/PageFrame";
 import { THEME_SCRIPT } from "@/lib/theme";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -40,7 +41,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <WakeNote />
         <Gate>
           <div className="mx-auto min-h-dvh max-w-xl pb-[calc(76px+env(safe-area-inset-bottom))]">
-            {children}
+            <PageFrame>{children}</PageFrame>
           </div>
           <TabBar />
           <Tour />

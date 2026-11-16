@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { Listen } from "./Listen";
+import { usePageLoading } from "@/lib/pageload";
 
 type Brief = { lines: { id: string; text: string }[]; seconds: number };
 
@@ -10,11 +11,15 @@ type Brief = { lines: { id: string; text: string }[]; seconds: number };
  *  digest, so it says what the cards say and costs nothing. */
 export function ListenBrief({ query }: { query: string }) {
   const [lines, setLines] = useState<string[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  usePageLoading(loading);
   useEffect(() => {
     let live = true;
+    setLoading(true);
     api<Brief>(`/digest/brief?${query}`)
       .then((b) => live && setLines(b.lines.map((l) => l.text)))
-      .catch(() => live && setLines(null));
+      .catch(() => live && setLines(null))
+      .finally(() => live && setLoading(false));
     return () => {
       live = false;
     };

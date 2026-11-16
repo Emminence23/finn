@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { ProgressRing } from "./ProgressRing";
+import { usePageLoadState } from "@/lib/pageload";
 
 const PAGE_NAME: Record<string, string> = { "/": "Today", "/c/KAYNES": "Kaynes", "/portfolio": "Portfolio" };
 
@@ -65,6 +66,7 @@ export function Tour() {
   const path = usePathname();
   const [step, setStep] = useState<number | null>(null);
   const [cardOnTop, setCardOnTop] = useState(false);
+  const loading = usePageLoadState().active;
 
   useEffect(() => {
     // first visit to Today only: a shared link to a company page opens straight on it
@@ -109,7 +111,7 @@ export function Tour() {
         settle = setTimeout(() => place(false), 900);
         return;
       }
-      if (performance.now() - t0 < 8000) frame = requestAnimationFrame(look);
+      if (performance.now() - t0 < 75000) frame = requestAnimationFrame(look); // a waking server can take a minute
     };
     frame = requestAnimationFrame(look);
     return () => {
@@ -121,7 +123,7 @@ export function Tour() {
 
   if (step === null) return null;
   const s = STEPS[step];
-  const moving = path !== s.href; // on its way to the step's page: say so instead of vanishing
+  const moving = path !== s.href || loading; // on its way, or its page still loading: say so
   const finish = () => {
     try {
       localStorage.setItem(DONE_KEY, "done");
