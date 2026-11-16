@@ -86,19 +86,19 @@ function shortLabel(d: DocRef): string {
   return d.kind === "annual_report" ? `AR ${d.period.replace("FY20", "FY")}` : d.label.replace(/ \(.*\)$/, "");
 }
 
-export function CiteChips({ cites, docs }: { cites: Cite[]; docs: Map<string, DocRef> }) {
+export function CiteChips({ cites, docs, base = "" }: { cites: Cite[]; docs: Map<string, DocRef>; base?: string }) {
   return (
     <span className="ml-1 inline-flex flex-wrap gap-1 align-middle">
       {cites.slice(0, 3).map((c, i) => {
         if (/^(fin:|Q:|FY:)/.test(c.doc))
           return (
-            <a key={i} href="#numbers" className="rounded bg-surface-2 px-1 text-[10px] font-medium text-ink-3">
+            <a key={i} href={`${base}#numbers`} className="rounded bg-surface-2 px-1 text-[10px] font-medium text-ink-3">
               {c.doc.startsWith("fin:") ? "financials" : c.doc.startsWith("Q:") ? `${fq(c.doc.slice(2))} reported` : `${fq(c.doc.slice(3), true)} reported`}
             </a>
           );
         if (/^P\d+$/.test(c.doc))
           return (
-            <a key={i} href="#promises" className="rounded bg-surface-2 px-1 text-[10px] font-medium text-ink-3">
+            <a key={i} href={`${base}#promises`} className="rounded bg-surface-2 px-1 text-[10px] font-medium text-ink-3">
               scorecard
             </a>
           );

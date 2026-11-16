@@ -19,7 +19,7 @@ from app.intel import alerts as alerts_mod
 from app.intel.digest import build_digest
 from app.intel.taxonomy import CATEGORIES
 from app.network import graph
-from app.research import qa, service
+from app.research import pull, qa, service
 
 router = APIRouter()
 
@@ -659,6 +659,72 @@ def research_ask(symbol: str, body: Question) -> dict:
         return qa.answer(view, body.question)
     except Exception as e:  # LLM quota or provider error: say so instead of a 500
         raise HTTPException(503, f"FINN couldn't answer right now ({type(e).__name__})") from e
+
+
+class PullMessage(BaseModel):
+    message: str = Field(min_length=1, max_length=300)
+    symbol: str | None = Field(default=None, max_length=20)
+    intent: str | None = Field(default=None, max_length=20)
+
+
+@router.post("/pull/chat")
+def pull_chat(body: PullMessage) -> dict:
+    """Pull as a conversation (FR-PULL-13). A message names a company or continues with the
+    one already in the conversation; code routes it to one research output, built from the
+    company's annual report, last four calls and reported numbers. Open questions go to
+    grounded Q&A (one model call, cited pages only)."""
+    with session() as db:
+        rows = [
+            dict(r)
+            for r in db.execute(
+                "SELECT symbol, name, in_portfolio, in_research_set FROM companies"
+            ).fetchall()
+        ]
+    summaries = service.summaries()
+    ready = {s["symbol"] for s in summaries}
+    named = qa.resolve_company(body.message, rows, ready)
+    symbol = (named or body.symbol or "").upper() or None
+    if not symbol:
+        return {
+            "kind": "pick",
+            "ready": [{"symbol": s["symbol"], "company": s["company"]} for s in summaries],
+        }
+    view = service.get_cached(symbol)
+    if view is None:
+        listed = _listed(symbol)
+        return {
+            "kind": "not_built",
+            "symbol": symbol,
+            "company": listed["name"] if listed else None,
+            "covered": bool(listed),
+            "builds_left": BUDGET.left(get_settings().max_live_builds_per_day),
+        }
+    intent = body.intent if body.intent in pull.TITLES else pull.route(body.message)
+    if intent == "qa":
+        today = datetime.now(UTC).date().isoformat()
+        if not QUESTIONS.take(get_settings().max_questions_per_day, today):
+            out = pull.reply(view, "overview")
+            return {
+                "kind": "reply",
+                **out,
+                "notice": "Today's open questions are used up on "
+                "this demo, so here is the overview. The menu below still works.",
+            }
+        try:
+            answer = qa.answer(view, body.message)
+        except Exception as e:  # LLM quota or provider error: the code-built outputs still work
+            out = pull.reply(view, "overview")
+            return {
+                "kind": "reply",
+                **out,
+                "notice": f"FINN couldn't answer that right now "
+                f"({type(e).__name__}). The outputs below are built in code and still work.",
+            }
+        out = pull.reply(view, "overview")
+        out.update(intent="qa", title="Answer", blocks=[{"type": "answer", **answer}])
+        out["menu"] = [{"intent": k, "label": v} for k, v in pull.MENU]
+        return {"kind": "reply", **out}
+    return {"kind": "reply", **pull.reply(view, intent)}
 
 
 @router.get("/research/{symbol}/stream")
