@@ -382,3 +382,10 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 ## Phase 5m: "Should I buy it?"
 - **The gap.** Generic questions ("Should I buy L&T?", "Buy or sell?") went to open Q&A, which replied that its sources "lack share prices, valuations, or buy/sell ratings", although FINN holds L&T's valuation, bull and bear cases and 12 brokerage reports. "Is L&T cheap?" got the overview.
 - **Fix.** These now open "Weighing it up": valuation and quality numbers, the promise record, both cases and the brokers' ratings and target ranges, built in code. FINN still gives no verdict and says so first.
+
+## Phase 5n: Ask anything, built by tools and code
+- **Why.** Ask only worked well on companies FINN had pre-read, and a model-written answer for any stock costs a full call with thousands of tokens of data. Near submission, the free Gemini quota matters, and stored per-stock reports go stale the next day.
+- **Design.** `backend/app/agent/`: `plan.py` decides the report and tickers (rules first; a fast-tier call with no data only when they can't), `tools.py` fetches fresh data, `analyse.py` computes every figure and grade, `reports.py` writes the blocks the Ask screen already draws. Each runs from the command line. `digest` is the few hundred tokens a model would get if a written answer is ever wanted, instead of raw tables.
+- **Found while testing.** Banks have no EBITDA: screener's "financing profit" is after provisions and often negative, so lenders show net interest income. A P/E of 16 was called "rich" on PEG alone; valuation now weighs P/E and PEG together. "network" and similar words matched listed company names; a stop list fixed it. Some stored accounts label periods "Mar 2026", now normalised.
+- **Measured.** Eleven phrasings plan correctly with no model; five questions in the browser took 0.8 to 4.2 s with no model call. 249 tests.
+- **Tried and dropped the same day.** Pre-writing research for all 19 other holdings (stale by the next day), and one Gemini call per question with Google Search (works on gemini-2.5-flash's free tier, but costs a full call each time).

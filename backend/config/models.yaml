@@ -12,6 +12,7 @@ tasks:
   business_snapshot:   {tier: mid}
   bull_bear:           {tier: mid}
   answer_question:     {tier: mid}     # Ask FINN: grounded Q&A over one company
+  plan_question:       {tier: fast}    # Ask: picks a report and tickers when code's rules can't (no data sent)
   portfolio_review:    {tier: mid}     # nudges code's suggested weights from filings, ±2 pts
   extract_brokerage:   {tier: mid}     # brokerage report -> observation; code verifies every quote
   explain_divergence:  {tier: mid}     # why brokerages disagree, numbers checked in code

@@ -292,7 +292,13 @@ def _analyse(symbol, name, f, fin, refs, pages, progress) -> dict:
 
     latest = fin["trajectory"]["quarterly"][-1]["period"] if fin["trajectory"]["quarterly"] else ""
     progress("promises", f"Checking {n_promises} promises against reported numbers")
-    scorecard = failed.guard("promises", promises.build_scorecard, statements, fin, latest) or {
+    # a later step never runs on a failed earlier one: the view isn't saved incomplete, so
+    # a call on partial input would be wasted
+    after_guidance = not failed
+    scorecard = (
+        after_guidance
+        and failed.guard("promises", promises.build_scorecard, statements, fin, latest)
+    ) or {
         "items": [],
         "credibility": None,
         "counts": {},
@@ -308,12 +314,19 @@ def _analyse(symbol, name, f, fin, refs, pages, progress) -> dict:
         t1 = transcripts[0]
         snap_docs.append((t1, pages[t1.id], list(range(1, min(8, len(pages[t1.id])) + 1))))
     bb_docs = [(r, pages[r.id], None) for r in transcripts[:2]]
+    scored = not failed  # read before the business snapshot can add its own failure
     with ThreadPoolExecutor(max_workers=2) as ex:
         fs = ex.submit(failed.guard, "business", narrative.business_snapshot, name, snap_docs)
-        fb = ex.submit(
-            failed.guard, "bull_bear", narrative.bull_bear, name, bb_docs, fin, scorecard
+        fb = (
+            ex.submit(failed.guard, "bull_bear", narrative.bull_bear, name, bb_docs, fin, scorecard)
+            if scored
+            else None
         )
-        snapshot, bb = fs.result(), fb.result()
+        snapshot, bb = fs.result(), fb.result() if fb else None
+    if not after_guidance:
+        failed.extend(x for x in ("promises", "bull_bear") if x not in failed)
+    elif "promises" in failed and "bull_bear" not in failed:
+        failed.append("bull_bear")
 
     view = {
         "symbol": symbol,

@@ -62,14 +62,16 @@ export type Block =
 export type PullReply =
   | {
       kind: "reply";
-      symbol: string;
+      symbol: string | null; // null for a comparison or the portfolio
+      symbols?: string[];
+      planned_by?: "rules" | "model";
       company: string;
       intent: string;
       title: string;
       blocks: Block[];
       menu: { intent: string; label: string }[];
       documents: DocRef[];
-      as_of: string;
+      as_of: string | null;
       notice?: string;
     }
   | { kind: "pick"; ready: { symbol: string; company: string }[] }

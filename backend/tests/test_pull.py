@@ -82,8 +82,16 @@ def test_every_output_builds_for_every_company():
             assert all(m["intent"] != intent for m in out["menu"])
 
 
-def test_chat_names_carries_and_asks(seeded):
+def test_chat_names_carries_and_asks(seeded, monkeypatch):
+    from app.agent import tools
     from app.main import app
+
+    # offline: a company FINN hasn't read is fetched live, so stub its data source
+    def offline(**kw):
+        raise ConnectionError("offline in tests")
+
+    tools._cache.clear()
+    monkeypatch.setitem(tools.TOOLS, "financials", tools.Tool("financials", offline, {}, ""))
 
     with TestClient(app) as c:
         r = c.post(
@@ -106,9 +114,11 @@ def test_chat_names_carries_and_asks(seeded):
         assert (
             c.post("/pull/chat", json={"message": "what should I look at"}).json()["kind"] == "pick"
         )
-        # a company FINN hasn't read: offer the live read instead of guessing
+        # a company FINN hasn't read is answered from fresh data, built in code (FR-PULL-18);
+        # here the source is down, and the reply says so instead of failing
         r = c.post("/pull/chat", json={"message": "tell me about DIXON"}).json()
-        assert r["kind"] == "not_built" and r["symbol"] == "DIXON"
+        assert r["kind"] == "reply" and r["symbol"] == "DIXON" and r["intent"] == "full"
+        assert "couldn't fetch" in r["blocks"][0]["text"]
 
 
 def test_an_open_question_without_a_model_still_answers_with_the_code_outputs(seeded):

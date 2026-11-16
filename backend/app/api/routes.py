@@ -719,76 +719,90 @@ class PullMessage(BaseModel):
 
 @router.post("/pull/chat")
 def pull_chat(body: PullMessage) -> dict:
-    """Pull as a conversation (FR-PULL-13). A message names a company or continues with the
-    one already in the conversation; code routes it to one research output, built from the
-    company's annual report, last four calls and reported numbers. Open questions go to
-    grounded Q&A (one model call, cited pages only)."""
-    with session() as db:
-        rows = [
-            dict(r)
-            for r in db.execute(
-                "SELECT symbol, name, in_portfolio, in_research_set FROM companies"
-            ).fetchall()
-        ]
-    summaries = service.summaries()
-    ready = {s["symbol"] for s in summaries}
-    named = qa.resolve_company(body.message, rows, ready)
-    symbol = (named or body.symbol or "").upper() or None
-    if not symbol:
-        return {
-            "kind": "pick",
-            "ready": [{"symbol": s["symbol"], "company": s["company"]} for s in summaries],
-        }
-    view = service.get_cached(symbol)
+    """Ask (FR-PULL-13, FR-PULL-18). A message is planned in code: which report, about which
+    of the ~2,600 listed companies. Data tools fetch fresh financials, prices and filings;
+    analysis and the report are code, so most answers cost no model tokens. FINN's deeper
+    research (promised vs delivered and the rest) answers its own questions where it has read
+    the company, and open "why" questions on those go to grounded Q&A."""
+    from app.agent import reports as agent_reports
+    from app.agent import run as agent
+    from app.agent.plan import plan
+
+    owner = current_owner()
+    if body.intent in agent_reports.KINDS:  # a tap on a report in the menu
+        return agent.ask(body.message, body.symbol, body.intent, owner)
+
     intent = body.intent if body.intent in pull.TITLES else pull.route(body.message)
-    if intent == "network":  # needs the investor's network, not a research view
+    p = plan(body.message, body.symbol, use_model=False)
+    symbol = p.tickers[0] if len(p.tickers) == 1 or (intent == "network" and p.tickers) else None
+    view = service.get_cached(symbol) if symbol else None
+    if symbol and intent == "network":  # needs the investor's network
         listed = _listed(symbol)
         if listed or view:
             name = view["company"] if view else listed["name"]
             docs = view["documents"] if view else []
-            return {
-                "kind": "reply",
-                **pull.network(symbol, name, body.message, current_owner(), docs),
-            }
-    if intent == "brokers":  # read from brokerage reports, not the research view
+            return {"kind": "reply", **pull.network(symbol, name, body.message, owner, docs)}
+    if symbol and intent == "brokers":  # read from brokerage reports
         listed = _listed(symbol)
         if listed or view:
-            name = view["company"] if view else listed["name"]
-            return {"kind": "reply", **pull.brokers(symbol, name, current_owner())}
-    if view is None:
-        listed = _listed(symbol)
+            return {
+                "kind": "reply",
+                **pull.brokers(symbol, (view or {}).get("company") or listed["name"], owner),
+            }
+    if view and intent == "qa" and pull._WHY.search(body.message.strip().lower()):
+        return _grounded_answer(view, body.message)  # an open "why" on a company FINN has read
+    if view and (intent in RESEARCH_INTENTS or body.intent in pull.TITLES) and intent != "qa":
+        return {"kind": "reply", **pull.reply(view, intent, owner)}
+    out = (
+        agent.reply(p, owner)
+        if p.tickers or p.report == "portfolio"
+        else agent.ask(body.message, body.symbol, None, owner)
+    )
+    if out["kind"] == "pick":
         return {
-            "kind": "not_built",
-            "symbol": symbol,
-            "company": listed["name"] if listed else None,
-            "covered": bool(listed),
-            "builds_left": BUDGET.left(get_settings().max_live_builds_per_day),
+            "kind": "pick",
+            "ready": [
+                {"symbol": s["symbol"], "company": s["company"]} for s in service.summaries()
+            ],
         }
-    if intent == "qa":
-        today = datetime.now(UTC).date().isoformat()
-        if not QUESTIONS.take(get_settings().max_questions_per_day, today):
-            out = pull.reply(view, "overview")
-            return {
-                "kind": "reply",
-                **out,
-                "notice": "Today's open questions are used up on "
-                "this demo, so here is the overview. The menu below still works.",
-            }
-        try:
-            answer = qa.answer(view, body.message)
-        except Exception as e:  # LLM quota or provider error: the code-built outputs still work
-            out = pull.reply(view, "overview")
-            return {
-                "kind": "reply",
-                **out,
-                "notice": f"FINN couldn't answer that right now "
-                f"({type(e).__name__}). The outputs below are built in code and still work.",
-            }
-        out = pull.reply(view, "overview")
-        out.update(intent="qa", title="Answer", blocks=[{"type": "answer", **answer}])
-        out["menu"] = [{"intent": k, "label": v} for k, v in pull.MENU]
-        return {"kind": "reply", **out}
-    return {"kind": "reply", **pull.reply(view, intent, current_owner())}
+    return out
+
+
+# What FINN's built research answers better than a computed report: the call-by-call promise
+# check, narrative vs numbers, the guidance read from calls, and open "why" questions.
+RESEARCH_INTENTS = {
+    "ledger",
+    "narrative",
+    "guidance",
+    "balance",
+    "cash",
+    "trajectory",
+    "business",
+    "bull_bear",
+}
+
+
+def _grounded_answer(view: dict, message: str) -> dict:
+    today = datetime.now(UTC).date().isoformat()
+    if not QUESTIONS.take(get_settings().max_questions_per_day, today):
+        return {
+            "kind": "reply",
+            **pull.reply(view, "overview"),
+            "notice": "Today's open questions are used up on this demo, so here is the overview.",
+        }
+    try:
+        answer = qa.answer(view, message)
+    except Exception as e:  # LLM quota or provider error: the code-built outputs still work
+        return {
+            "kind": "reply",
+            **pull.reply(view, "overview"),
+            "notice": f"FINN couldn't answer that right now ({type(e).__name__}). "
+            "The outputs below are built in code and still work.",
+        }
+    out = pull.reply(view, "overview")
+    out.update(intent="qa", title="Answer", blocks=[{"type": "answer", **answer}])
+    out["menu"] = [{"intent": k, "label": v} for k, v in pull.MENU]
+    return {"kind": "reply", **out}
 
 
 @router.get("/research/{symbol}/stream")

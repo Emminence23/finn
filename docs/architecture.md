@@ -108,6 +108,8 @@ Prices per million tokens, from `models.yaml`: Haiku $0.10 / $0.50, Sonnet $2 / 
 - A promise is "Revised" only when a cited management update says so; a statement with no number, direction or date gets no verdict.
 - **Documents are untrusted input.** Prompts mark document text as data, not instructions. The validators above are the real defence: models only return structured data, and anything that points outside what code sent is dropped (`app/llm/safety.py`).
 
+**Ask (any listed company):** a tool pipeline in `backend/app/agent/`. `plan` chooses a report and tickers (the company resolver and keyword rules; only a message they can't place goes to a fast-tier call that sees the question, the report list and the tool list, never data). `tools` fetches fresh data (screener.in accounts, Yahoo Finance prices, NSE filings, stored brokerage reports, holdings, the latest call) with a 4-hour in-memory cache. `analyse` computes every figure and grade; `reports` writes the blocks. Most answers cost no tokens; `digest` is the compact computed summary a model would be given if a written answer is ever needed.
+
 **What is agent-like and what isn't:** nothing in FINN is an open-ended agent. Research is a fixed pipeline whose steps run in parallel where possible, and Ask FINN is retrieval plus one grounded call. That is deliberate. Every step is testable, cacheable and cheap, and the place where judgement matters (promised vs delivered) gets the strongest model.
 
 **Fallbacks:** on a daily-quota error the router moves to the next model configured for that tier and skips the exhausted one for an hour. The model that actually answered is recorded per section and shown in the app's AI labels.

@@ -23,12 +23,12 @@ type Msg =
 
 const KEY = "finn.pull";
 const STARTERS = [
+  "Should I buy Trent?",
+  "Compare TCS and Infosys",
+  "How was HDFC Bank's latest quarter?",
   "L&T: promised vs delivered over the last four quarters",
-  "Aarti Industries: narrative vs numbers",
-  "Persistent: bull vs bear",
-  "How is L&T's order book holding up?",
-  "Manappuram's balance sheet",
-  "Who in my network can help me understand Dabur's CEO change?",
+  "Is Titan expensive?",
+  "How is my portfolio doing?",
 ];
 
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -133,7 +133,7 @@ export default function Ask() {
             return;
           }
         }
-        if (reply.kind === "reply") setSymbol(reply.symbol);
+        if (reply.kind === "reply" && reply.symbol) setSymbol(reply.symbol);
         setMsgs((m) => [...m, { id: uid(), role: "finn", asked: t, reply }]);
       } catch (e) {
         const msg = e instanceof ApiError && e.status === 401 ? "Enter the passcode first." : "FINN couldn't reach the server. Try again in a moment.";
@@ -200,9 +200,9 @@ export default function Ask() {
       {msgs.length === 0 && (
         <div className="px-3">
           <div className="rounded-2xl border border-line bg-surface p-4">
-            <p className="text-[15px] font-semibold">Dig into a company</p>
+            <p className="text-[15px] font-semibold">Ask about any listed company</p>
             <p className="mt-1 text-[13px] leading-snug text-ink-2">
-              Ask in your own words. FINN answers from the company&apos;s annual report, its last four earnings calls and its reported numbers. No news, no broker notes, nothing from the model&apos;s own memory.
+              Any NSE stock, in your own words: buy or sell, results, valuation, bull vs bear, a comparison, your portfolio. FINN fetches today&apos;s reported numbers, prices and filings and works the answer out in code, so every figure is computed, not written by a model.
             </p>
             <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-ink-3">Try</p>
             <div className="mt-1.5 flex flex-col items-start gap-1.5">
@@ -295,7 +295,9 @@ export default function Ask() {
 function Thinking({ open }: { open: boolean }) {
   const s = useElapsed(true);
   const stage = !open
-    ? "Building it from the reported numbers and the calls…"
+    ? s < 2
+      ? "Fetching the reported numbers, prices and filings…"
+      : "Working out the figures and writing the report…"
     : s < 3
       ? "Finding the relevant pages in the calls and annual report…"
       : s < 9
@@ -398,17 +400,19 @@ function FinnMessage({
     );
   }
 
-  const base = `/c/${r.symbol}`;
+  const base = r.symbol ? `/c/${r.symbol}` : "/";
   return (
     <div className={card}>
       <p className="flex items-baseline justify-between gap-2">
         <span className="text-[16px] font-semibold tracking-[-0.01em]">
-          {shortName(r.company)}
+          {r.symbol ? shortName(r.company) : r.company}
           <span className="font-normal text-ink-3"> · {r.title}</span>
         </span>
-        <Link href={base} className="shrink-0 text-[12px] font-medium text-accent">
-          Full page →
-        </Link>
+        {r.symbol && (
+          <Link href={base} className="shrink-0 text-[12px] font-medium text-accent">
+            Full page →
+          </Link>
+        )}
       </p>
       {r.notice && <p className="mt-2 rounded-xl bg-warn-soft/60 px-3 py-2 text-[12px] leading-snug">{r.notice}</p>}
       <div className="mt-3">
@@ -425,7 +429,7 @@ function FinnMessage({
               ))}
             </div>
           )}
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-3">More on {shortName(r.company)}</p>
+          {r.menu.length > 0 && <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-3">More on {shortName(r.company)}</p>}
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {r.menu.map((x) => (
               <button
