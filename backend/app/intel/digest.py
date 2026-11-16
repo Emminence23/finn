@@ -16,6 +16,7 @@ from app.intel import alerts as alerts_mod
 from app.intel.results import refresh_changes, screener_results_card
 from app.intel.taxonomy import CATEGORY_WEIGHT, MATERIAL_EVENTS, folds_as_routine, is_unsure
 from app.network import graph
+from app.research.service import ready_symbols
 
 
 def _golden_people() -> dict[str, list[dict]]:
@@ -79,6 +80,64 @@ def _people_block(ann: dict, enrichment: dict, golden: dict, people) -> list[dic
             }
         )
     return out
+
+
+def _first(name: str) -> str:
+    parts = name.split()
+    return (
+        " ".join(parts[:2])
+        if parts and parts[0].rstrip(".") in ("Dr", "Mr", "Mrs", "Ms")
+        else (parts[0] if parts else name)
+    )
+
+
+def next_action(card: dict, researched: set[str]) -> dict:
+    """PLAN v2 principle 5: every card opens the next step, chosen by code, never left
+    implicit. A card leads to the person, the research or the source, in that order of
+    usefulness for its kind."""
+    sym = card["symbol"]
+    if card["kind"] == "management_change":
+        incoming = [p for p in card.get("people") or [] if p["direction"] == "incoming"]
+        p = incoming[0] if incoming else None
+        if p and p["id"]:
+            via = p["paths"]["via"]
+            why = (
+                f"through {via[0]['contact']['name']}"
+                if via
+                else "career and paths from the filing"
+            )
+            return {
+                "label": f"See how you reach {_first(p['name'])}",
+                "href": f"/people/{p['id']}",
+                "why": why,
+            }
+    helper = (card.get("helpers") or [None])[0]
+    if card["kind"] == "material_event" and helper and helper["score"] >= 0.5:
+        c = helper["contact"]
+        return {
+            "label": f"Call {_first(c['name'])}",
+            "href": f"/people/{c['id']}",
+            "why": helper["why"],
+        }
+    if card["kind"] == "results":
+        if sym in researched:
+            return {
+                "label": "Check their promises",
+                "href": f"/c/{sym}#promises",
+                "why": "promise scorecard from the last four calls",
+            }
+        return {
+            "label": "Build the research",
+            "href": f"/c/{sym}",
+            "why": "builds live in about a minute",
+        }
+    if card.get("unsure") and card.get("pdf_url"):
+        return {
+            "label": "Open the filing",
+            "href": card["pdf_url"],
+            "why": "FINN couldn't place it",
+        }
+    return {"label": "Research", "href": f"/c/{sym}", "why": "snapshot, scorecard and numbers"}
 
 
 def build_digest(
@@ -161,8 +220,10 @@ def build_digest(
         cards.append(card)
 
     _attach_results_decks(cards, routine)
+    researched = ready_symbols()
     for c in cards:
         c["level"], c["level_reason"] = level(c)
+        c["next_action"] = next_action(c, researched)
     cards.sort(key=lambda c: (c["level"] != "important", -c["priority"]))
     return {
         "window": {

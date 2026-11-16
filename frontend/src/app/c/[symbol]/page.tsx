@@ -190,6 +190,12 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
   const a = f.trajectory.annual;
   const last = f.balance_sheet.annual.at(-1);
   const transcripts = v.documents.filter((d) => d.kind === "transcript");
+  // a card's next action can link straight to a section (#promises, #numbers): the view
+  // renders after data loads, so the browser's own jump to the anchor has already missed
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id) document.getElementById(id)?.scrollIntoView({ block: "start" });
+  }, []);
   const ask = (
     <>
       <SectionTitle aside="answers cite their pages">Ask FINN</SectionTitle>

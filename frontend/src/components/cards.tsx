@@ -39,6 +39,21 @@ export function resultsTakeaway(r: ResultsCard): string | null {
   return `Profit up ${P} YoY on ${V} ${top} growth`;
 }
 
+function NextAction({ card }: { card: Card }) {
+  const a = card.next_action ?? { label: "Research", href: `/c/${card.symbol}`, why: "" };
+  const cls = "ml-auto min-w-0 truncate text-right font-medium text-accent";
+  const label = `${a.label} →`;
+  return a.href.startsWith("http") ? (
+    <a href={a.href} target="_blank" rel="noreferrer" className={cls} title={a.why}>
+      {label}
+    </a>
+  ) : (
+    <Link href={a.href} className={cls} title={a.why}>
+      {label}
+    </Link>
+  );
+}
+
 function CardShell({ card, now, children }: { card: Card; now: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const moves = dedupeMoves(card.alerts);
@@ -76,19 +91,17 @@ function CardShell({ card, now, children }: { card: Card; now: string; children:
       <div className="mt-3 space-y-3">{children}</div>
       <div className="mt-3 flex items-center gap-3 text-[12px] text-ink-3">
         {card.pdf_url && (
-          <a href={card.pdf_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 active:opacity-70">
+          <a href={card.pdf_url} target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-1 active:opacity-70">
             <FileText size={13} /> Filing
           </a>
         )}
         {card.related.length > 0 && (
-          <button onClick={() => setOpen(!open)} className="inline-flex items-center gap-0.5" aria-expanded={open}>
+          <button onClick={() => setOpen(!open)} className="inline-flex shrink-0 items-center gap-0.5 whitespace-nowrap" aria-expanded={open}>
             {card.related.length} related
             <ChevronDown size={13} className={clsx("transition-transform", open && "rotate-180")} />
           </button>
         )}
-        <Link href={`/c/${card.symbol}`} className="ml-auto font-medium text-accent">
-          Research →
-        </Link>
+        <NextAction card={card} />
       </div>
       {open && (
         <ul className="mt-2 space-y-1.5 border-t border-line pt-2">

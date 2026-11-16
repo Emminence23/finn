@@ -80,6 +80,14 @@ def get_cached(symbol: str) -> dict | None:
     return json.loads(path.read_text()) if path.exists() else None
 
 
+def ready_symbols() -> set[str]:
+    """Symbols with a research view that opens instantly (cheap: no view is parsed)."""
+    out = {p.stem for p in (fixtures_dir() / "research").glob("*.json")}
+    with session() as db:
+        out |= {r[0] for r in db.execute("SELECT DISTINCT symbol FROM research_cache")}
+    return out
+
+
 def summaries() -> list[dict]:
     """One line per ready view: enough for a list, without shipping whole views."""
     views: dict[str, dict] = {}

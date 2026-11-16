@@ -238,6 +238,8 @@ export type Card = {
   ts: string;
   category: string;
   kind: "results" | "management_change" | "material_event" | "filing";
+  /** PLAN v2 principle 5: the step this card leads to, chosen in code. */
+  next_action?: { label: string; href: string; why: string };
   materiality: number;
   title: string;
   pdf_url: string | null;

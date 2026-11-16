@@ -68,3 +68,26 @@ def test_results_are_important_only_when_the_numbers_move():
     assert level(card(6.0)) == ("notable", "Neither PAT nor revenue moved 15% YoY")
     assert level(card(-36.0))[0] == "important"
     assert level(card(None, "turned profitable"))[0] == "important"
+
+
+def test_every_card_opens_a_next_action(seeded):
+    """PLAN v2 principle 5: a card leads to a person, the research or the source."""
+    from app.intel.digest import build_digest
+    from app.research.service import ready_symbols
+
+    researched = ready_symbols()
+    seen = set()
+    for window in ("7d", "30d"):
+        for c in build_digest(window)["cards"]:
+            a = c["next_action"]
+            assert a["label"] and a["why"], c["title"]
+            assert a["href"].startswith(("/people/", "/c/", "http")), a
+            seen.add(c["kind"])
+            if c["kind"] == "results" and c["symbol"] in researched:
+                assert a["href"] == f"/c/{c['symbol']}#promises"
+    assert {"results", "filing"} <= seen
+    # the management-change demo case leads to the incoming person
+    cards = build_digest(start="2026-10-01", end="2026-10-15")["cards"]
+    cfo = next(c for c in cards if c["symbol"] == "PIDILITIND" and c["kind"] == "management_change")
+    assert cfo["next_action"]["href"] == "/people/fp_amit_agarwal_pidilite"
+    assert cfo["next_action"]["label"] == "See how you reach Amit"

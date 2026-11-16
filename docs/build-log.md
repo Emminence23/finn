@@ -153,3 +153,9 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Planted cases:**
   - *Amit Agarwal*, a Jaipur chartered accountant in the main demo network, sits next to Pidilite's incoming CFO of the same name. He is "possible", with nothing else in the two records agreeing.
   - *Rajat Shah* in the second account shares Ingersoll Rand and IIT Guwahati with CG Power's new VP Services, so he is "likely".
+
+## Phase 4h: a next action on every card (plan v2, principle 5)
+- **Before:** every card ended in the same "Research →" link. The step that mattered (the new CFO, the scorecard, the contact who knows) was sometimes on the card and sometimes not.
+- **Now:** `next_action()` in the digest picks one target per card, in code and in order of usefulness for that card's kind: person, contact, scorecard, filing, research. The card footer shows it.
+- **Fix:** `#promises` links landed at the top of the page, because the browser jumps to the anchor before the view has loaded. The view now scrolls to the anchor itself once it renders.
+- **Checked at 390px:** "Check their promises →" on a results card, "Call Karthik →" on the Kaynes M&A card. Footer items no longer wrap.
