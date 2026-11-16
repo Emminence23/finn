@@ -343,6 +343,20 @@ export type Research = {
   about: string | null;
   incomplete: string[];
   helpers: Helper[];
+  /** task -> "provider/model" that wrote it; absent on views built before provenance. */
+  models?: Record<string, string>;
+  suggested_questions?: string[];
+};
+
+export type QaAnswer = {
+  question: string;
+  answerable: "yes" | "partly" | "no";
+  points: Claim[];
+  dropped: number;
+  follow_ups: string[];
+  searched: { doc: string; pages: number[] }[];
+  model: string | null;
+  seconds: number;
 };
 
 export type ResearchSummary = {

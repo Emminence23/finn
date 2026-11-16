@@ -7,7 +7,7 @@ import clsx from "clsx";
 import type { Alert, Card, CardPerson, ResultsCard } from "@/lib/api";
 import { CATEGORY_LABEL, ago, crore, fq, pct, shortName } from "@/lib/fmt";
 import { HelperLine, PathView } from "./network";
-import { Pill } from "./ui";
+import { AiTag, Pill } from "./ui";
 
 export function AlertChip({ a }: { a: Alert }) {
   if (a.kind === "category") return null; // the card itself is the category alert
@@ -136,7 +136,8 @@ export function ResultsTable({ r }: { r: ResultsCard }) {
       </table>
       <p className="mt-1.5 text-[11px] text-ink-3">
         {r.ebitda_margin != null && <>EBITDA margin {r.ebitda_margin}% · </>}
-        {r.basis} ·{" "}
+        {r.basis}
+        {(r.cross_check.status !== "unavailable" || r.source.startsWith("screener")) && " · "}
         {r.cross_check.status === "match" ? (
           <span className="text-good">✓ matches screener.in</span>
         ) : r.cross_check.status === "pat_basis" ? (
@@ -154,10 +155,13 @@ export function ResultsTable({ r }: { r: ResultsCard }) {
           </span>
         ) : r.source.startsWith("screener") ? (
           <span>from screener.in (filing not parsed)</span>
-        ) : (
-          <span>parsed from the filing</span>
-        )}
+        ) : null}
       </p>
+      {!r.source.startsWith("screener") && (
+        <div className="mt-1">
+          <AiTag from="figures read from the results filing; % changes computed" />
+        </div>
+      )}
     </div>
   );
 }
@@ -183,7 +187,13 @@ function PersonBlock({ p }: { p: CardPerson }) {
       <div className="mt-2.5 border-t border-line pt-2.5">
         <PathView paths={p.paths} compact />
       </div>
-      <p className="mt-2 text-[10px] uppercase tracking-wide text-ink-3">Source: {p.source}</p>
+      <div className="mt-2">
+        {p.source.includes("AI") ? (
+          <AiTag from="bio read from the filing" />
+        ) : (
+          <span className="text-[11px] text-ink-3">From the filing, checked by hand</span>
+        )}
+      </div>
     </div>
   );
 }

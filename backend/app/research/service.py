@@ -22,9 +22,10 @@ from app.clock import now
 from app.db import init_db, session
 from app.ingest.fundamentals import NotCovered, fetch_fundamentals
 from app.ingest.universe import fixtures_dir, research_symbols
+from app.llm import get_llm
 from app.network import graph
-from app.research import guidance, narrative, promises
-from app.research.docs import annual_report_pages, ensure_pdf, page_texts, select_docs
+from app.research import guidance, narrative, promises, qa
+from app.research.docs import annual_report_pages, load_pages, pages_fixture, select_docs
 from app.research.financials import build_financials
 
 log = logging.getLogger(__name__)
@@ -113,6 +114,7 @@ def with_network(view: dict) -> dict:
     """Attach 'who can help' (FR-NET-03 inside Pull). Themes come from the business snapshot."""
     view = dict(view)
     view["helpers"] = graph.who_can_help(view["symbol"], limit=5)
+    view["suggested_questions"] = qa.suggested_questions(view)
     return view
 
 
@@ -141,9 +143,27 @@ def build(symbol: str, progress: Progress = _noop, force: bool = False) -> dict:
     progress("documents", f"Fetching {len(refs)} primary documents (annual report, transcripts)")
     pages: dict[str, list[str]] = {}
     for r in refs:
-        pdf = ensure_pdf(symbol, r)
-        pages[r.id] = page_texts(pdf) if pdf else []
+        pages[r.id] = load_pages(symbol, r)
         r.pages = len(pages[r.id])
+    with get_llm().recording() as models:
+        view = _analyse(symbol, name, f, fin, refs, pages, progress)
+    view["models"] = models  # which model wrote each section (shown as AI labels)
+    view["build_seconds"] = round(time.perf_counter() - t0, 1)
+    view["key"] = key
+    failed = view["incomplete"]
+    if failed:
+        progress("done", f"Built in {view['build_seconds']}s, missing: {', '.join(failed)}")
+        return view  # never cache a partial view: the next request retries the gaps
+    with session() as db:
+        db.execute(
+            "INSERT OR REPLACE INTO research_cache (symbol, key, payload_json) VALUES (?,?,?)",
+            (symbol, key, json.dumps(view, ensure_ascii=False)),
+        )
+    progress("done", f"Built in {view['build_seconds']}s")
+    return view
+
+
+def _analyse(symbol, name, f, fin, refs, pages, progress) -> dict:
     available = [r for r in refs if pages[r.id]]
     transcripts = [r for r in available if r.kind == "transcript"]
     ar = next((r for r in available if r.kind == "annual_report"), None)
@@ -199,19 +219,8 @@ def build(symbol: str, progress: Progress = _noop, force: bool = False) -> dict:
         "business": snapshot,
         "bull_bear": bb,
         "about": f.get("about"),
-        "build_seconds": round(time.perf_counter() - t0, 1),
-        "key": key,
         "incomplete": list(failed),  # sections that failed (e.g. LLM quota); shown in the UI
     }
-    if failed:
-        progress("done", f"Built in {view['build_seconds']}s, missing: {', '.join(failed)}")
-        return view  # never cache a partial view: the next request retries the gaps
-    with session() as db:
-        db.execute(
-            "INSERT OR REPLACE INTO research_cache (symbol, key, payload_json) VALUES (?,?,?)",
-            (symbol, key, json.dumps(view, ensure_ascii=False)),
-        )
-    progress("done", f"Built in {view['build_seconds']}s")
     return view
 
 
@@ -254,6 +263,22 @@ def main() -> None:
             path = research_fixture(s)
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(v, indent=1, ensure_ascii=False))
+            export_pages(s, v)
+
+
+def export_pages(symbol: str, view: dict) -> None:
+    """Commit page texts with the fixture so Q&A works on a host without the PDF cache."""
+    from app.research.docs import DocRef
+
+    for d in view["documents"]:
+        ref = DocRef(**d)
+        out = pages_fixture(symbol, ref)
+        if out.exists():
+            continue
+        pages = load_pages(symbol, ref)
+        if pages:
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(json.dumps(pages, ensure_ascii=False))
 
 
 if __name__ == "__main__":

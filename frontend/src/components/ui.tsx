@@ -2,8 +2,8 @@
 
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
-import { X } from "lucide-react";
-import { initials } from "@/lib/fmt";
+import { Sparkles, X } from "lucide-react";
+import { initials, modelName } from "@/lib/fmt";
 
 export function Header({ title, sub, right }: { title: string; sub?: React.ReactNode; right?: React.ReactNode }) {
   return (
@@ -171,5 +171,20 @@ export function Segmented<T extends string>({
         </button>
       ))}
     </div>
+  );
+}
+
+/** Marks text an LLM wrote, and with what. Computed numbers never carry it. */
+export function AiTag({ from, model }: { from?: string; model?: string | null }) {
+  const name = modelName(model);
+  return (
+    <span className="inline-flex items-center gap-1 text-[11px] text-ink-3" title={model ?? undefined}>
+      <Sparkles size={11} className="text-accent" aria-hidden />
+      <span>
+        <span className="font-medium text-ink-2">AI</span>
+        {from && <> · {from}</>}
+        {name && <> · {name}</>}
+      </span>
+    </span>
   );
 }

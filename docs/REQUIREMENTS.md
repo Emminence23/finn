@@ -110,6 +110,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | FR-PULL-09 | **Bull vs bear:** 3 points each, each cited | C | — |
 | FR-PULL-10 | Progress streaming for live (uncached) research | S | UI shows step-by-step progress via SSE |
 | FR-PULL-11 | Results cached per (ticker, document set, prompt version) | M | A repeat request for the same company returns in <1s |
+| FR-PULL-12 | Ask FINN: a free-text question about a company, answered only from its documents and numbers. Ask routes a typed question to the right company | S | Every point cites a page, number or promise that was in the prompt; uncited points are removed in code; unanswerable questions say so |
 | FR-PULL-12 | Natural-language question over one company's documents ("did they deliver on margin guidance?") | C | Answer is cited |
 
 ### 3.5 Network (`FR-NET`)
@@ -136,6 +137,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | FR-APP-03 | Installable PWA (manifest, icons) | S | "Add to Home Screen" works |
 | FR-APP-04 | Demo passcode gate (protects LLM budget) | S | API rejects requests without the passcode |
 | FR-APP-05 | Loading skeletons and empty and error states everywhere | M | No blank screens; no raw stack traces |
+| FR-APP-06 | AI labels: every LLM-written section says it is AI, what it was read from, and which model wrote it | S | Computed numbers never carry the label; a fallback model shows under its own name |
 
 ---
 

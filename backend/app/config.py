@@ -57,6 +57,10 @@ class Settings:
         default_factory=lambda: int(_env("FINN_MAX_LIVE_BUILDS_PER_DAY", "20"))
     )
 
+    max_questions_per_day: int = field(
+        default_factory=lambda: int(_env("FINN_MAX_QUESTIONS_PER_DAY", "60"))
+    )
+
     # Scraping politeness (NFR-11)
     min_seconds_between_requests: float = field(
         default_factory=lambda: float(_env("FINN_MIN_REQ_INTERVAL", "1.0"))

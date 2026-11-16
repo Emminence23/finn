@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, ChevronDown, Loader2, TriangleAlert } from "lucide-react";
 import clsx from "clsx";
@@ -9,7 +9,8 @@ import { ApiError, api, type Research, stream } from "@/lib/api";
 import { crore, fq, pct, shortName, times } from "@/lib/fmt";
 import { HelperList } from "@/components/network";
 import { ClaimList, CredibilityText, PromiseRow, StatTile, VerdictBar, useDocs } from "@/components/research";
-import { Panel, SectionTitle, Skeleton } from "@/components/ui";
+import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
+import { AskFinn } from "@/components/AskFinn";
 
 const STEPS = [
   { step: "fundamentals", label: "Reported financials" },
@@ -28,6 +29,7 @@ type State =
 export default function CompanyPage() {
   const { symbol: raw } = useParams<{ symbol: string }>();
   const symbol = decodeURIComponent(raw).toUpperCase();
+  const initialQ = useSearchParams().get("q") ?? undefined;
   const [state, setState] = useState<State>({ kind: "loading" });
   const abort = useRef<AbortController | null>(null);
 
@@ -116,7 +118,7 @@ export default function CompanyPage() {
           )}
         </Panel>
       )}
-      {state.kind === "ready" && <ResearchView v={state.view} rebuild={() => build(true)} />}
+      {state.kind === "ready" && <ResearchView v={state.view} rebuild={() => build(true)} initialQ={initialQ} />}
     </main>
   );
 }
@@ -166,7 +168,7 @@ function BuildingView({ symbol, done, message }: { symbol: string; done: string[
   );
 }
 
-function ResearchView({ v, rebuild }: { v: Research; rebuild: () => void }) {
+function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => void; initialQ?: string }) {
   const docs = useDocs(v.documents);
   const f = v.financials;
   const s = f.snapshot;
@@ -178,6 +180,12 @@ function ResearchView({ v, rebuild }: { v: Research; rebuild: () => void }) {
   const a = f.trajectory.annual;
   const last = f.balance_sheet.annual.at(-1);
   const transcripts = v.documents.filter((d) => d.kind === "transcript");
+  const ask = (
+    <>
+      <SectionTitle aside="answers cite their pages">Ask FINN</SectionTitle>
+      <AskFinn symbol={v.symbol} docs={docs} suggestions={v.suggested_questions ?? []} initial={initialQ} />
+    </>
+  );
 
   return (
     <div>
@@ -208,8 +216,12 @@ function ResearchView({ v, rebuild }: { v: Research; rebuild: () => void }) {
         </Panel>
       )}
 
+      {initialQ && ask}
+
       {/* ---------------------------------------------------------------- the hero */}
-      <SectionTitle aside={`last ${transcripts.length} calls`}>Did management deliver?</SectionTitle>
+      <SectionTitle aside={`last ${transcripts.length} calls`}>
+        <span id="promises">Did management deliver?</span>
+      </SectionTitle>
       <Panel className="p-4">
         {p.items.length === 0 ? (
           <p className="text-[13px] text-ink-2">No checkable promises found in the last four calls.</p>
@@ -258,9 +270,17 @@ function ResearchView({ v, rebuild }: { v: Research; rebuild: () => void }) {
                 )}
               </>
             )}
+            <div className="mt-3 border-t border-line pt-2.5">
+              <AiTag
+                from={`promises read from ${transcripts.length} calls, judged against reported numbers`}
+                model={v.models?.promise_vs_delivery}
+              />
+            </div>
           </>
         )}
       </Panel>
+
+      {!initialQ && ask}
 
       {/* ---------------------------------------------------------------- network, woven in */}
       <SectionTitle>Who you know</SectionTitle>
@@ -366,6 +386,9 @@ function ResearchView({ v, rebuild }: { v: Research; rebuild: () => void }) {
                 <ClaimList claims={v.bull_bear.watch} docs={docs} />
               </div>
             )}
+            <div className="px-4 py-2.5">
+              <AiTag from="from the last two calls and the flags above" model={v.models?.bull_bear} />
+            </div>
           </Panel>
         </>
       )}
@@ -392,6 +415,7 @@ function ResearchView({ v, rebuild }: { v: Research; rebuild: () => void }) {
                 <ClaimList claims={v.business.recent_developments} docs={docs} />
               </div>
             )}
+            <AiTag from="from the annual report and latest call" model={v.models?.business_snapshot} />
           </Panel>
         </>
       )}

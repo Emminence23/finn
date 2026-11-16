@@ -1099,15 +1099,15 @@
    "cites": [
     {
      "doc": "AR",
+     "page": 7
+    },
+    {
+     "doc": "AR",
      "page": 9
     },
     {
      "doc": "AR",
      "page": 5
-    },
-    {
-     "doc": "AR",
-     "page": 7
     }
    ]
   },
@@ -1200,11 +1200,11 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 5
+      "page": 6
      },
      {
       "doc": "T1",
-      "page": 6
+      "page": 5
      }
     ]
    }
@@ -1217,10 +1217,6 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 8
-     },
-     {
-      "doc": "T1",
       "page": 4
      },
      {
@@ -1230,6 +1226,10 @@
      {
       "doc": "fin:growth",
       "page": null
+     },
+     {
+      "doc": "T1",
+      "page": 8
      }
     ]
    },
@@ -1237,20 +1237,20 @@
     "text": "Record collections lowered billed DSO from 61 to 50 days and lifted TTM OCF-to-PAT to 96.6% in Q2 FY27 (in line with a 3-year CFO/PAT ratio of 0.97x), alongside Rs 29,996.7 million in cash and low pre-deal debt/equity of 0.06x.",
     "cites": [
      {
-      "doc": "T1",
-      "page": 10
-     },
-     {
       "doc": "fin:leverage",
       "page": null
      },
      {
-      "doc": "fin:cash_conversion",
-      "page": null
+      "doc": "T1",
+      "page": 10
      },
      {
       "doc": "T1",
       "page": 9
+     },
+     {
+      "doc": "fin:cash_conversion",
+      "page": null
      }
     ]
    },
@@ -1259,14 +1259,14 @@
     "cites": [
      {
       "doc": "T2",
-      "page": 8
-     },
-     {
-      "doc": "T1",
       "page": 6
      },
      {
       "doc": "T2",
+      "page": 8
+     },
+     {
+      "doc": "T1",
       "page": 6
      },
      {
@@ -1281,16 +1281,16 @@
     "text": "Although management stated in June 2026 that its $650 million+ large deal would be margin accretive from Q2 onwards, Q2 FY27 EBIT margin fell 130 bps YoY to 15% (with EBITDA margin contracting 5 pts YoY to 14%), weighed down by a 90 bps drag from ~$4 million in quarterly amortization on third-party tools and licenses.",
     "cites": [
      {
-      "doc": "T1",
-      "page": 8
-     },
-     {
       "doc": "fin:margin_trend",
       "page": null
      },
      {
       "doc": "T2",
       "page": 25
+     },
+     {
+      "doc": "T1",
+      "page": 8
      }
     ]
    },
@@ -1299,15 +1299,15 @@
     "cites": [
      {
       "doc": "T2",
-      "page": 11
-     },
-     {
-      "doc": "T2",
       "page": 25
      },
      {
       "doc": "T1",
       "page": 7
+     },
+     {
+      "doc": "T2",
+      "page": 11
      },
      {
       "doc": "T1",
@@ -1320,7 +1320,7 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 19
+      "page": 4
      },
      {
       "doc": "T1",
@@ -1328,7 +1328,7 @@
      },
      {
       "doc": "T1",
-      "page": 4
+      "page": 19
      }
     ]
    }
@@ -1343,11 +1343,11 @@
      },
      {
       "doc": "T1",
-      "page": 6
+      "page": 9
      },
      {
       "doc": "T1",
-      "page": 9
+      "page": 6
      }
     ]
    },
@@ -1356,7 +1356,7 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 8
+      "page": 19
      },
      {
       "doc": "T1",
@@ -1364,7 +1364,7 @@
      },
      {
       "doc": "T1",
-      "page": 19
+      "page": 8
      }
     ]
    },
@@ -1373,11 +1373,7 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 19
-     },
-     {
-      "doc": "T1",
-      "page": 5
+      "page": 4
      },
      {
       "doc": "T1",
@@ -1385,14 +1381,24 @@
      },
      {
       "doc": "T1",
-      "page": 4
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 19
      }
     ]
    }
   ]
  },
  "about": "Persistent Systems provides software engineering and strategy services to help companies implement and modernize their businesses. It has its own software and frameworks with pre-built integration and acceleration [1] . It also has partnership with providers such as Salesforce and AWS [2] .",
- "build_seconds": 61.4,
- "key": "0ce3949b7e393a7a",
- "incomplete": []
+ "incomplete": [],
+ "models": {
+  "extract_guidance": "gemini/gemini-3.5-flash",
+  "promise_vs_delivery": "gemini/gemini-4-hydrogen",
+  "business_snapshot": "gemini/gemini-3.5-flash",
+  "bull_bear": "gemini/gemini-4-hydrogen"
+ },
+ "build_seconds": 0.3,
+ "key": "0ce3949b7e393a7a"
 }

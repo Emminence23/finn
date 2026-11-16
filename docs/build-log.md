@@ -76,3 +76,17 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Honest cross-check labels.** The remaining HDFC Bank and ICICI Bank gap is PAT only (−3.9%, −6.1%): the filing's owners' share against screener's total profit. These now show as "revenue and PBT match; PAT −x% (owners' share vs total)" instead of a bare "differs".
 - **Bug: blank revenue label** on screener-fallback cards (Trent): fixed.
 - **PWA basics:** icon, manifest and theme colour, so it can be added to a phone's home screen.
+
+## Phase 4b: Ask FINN and AI labels (added after a review of the build)
+- **Why:** walking through the app, the LLM was invisible. It runs ahead of time and only leaves structured output, nothing says which text an AI wrote, and "Ask" was a search box. The plan had questions in Ask ("did Dixon deliver on margin guidance?") but Phase 4 shipped search only. AI labels were not in the plan.
+- **Ask FINN** (`app/research/qa.py`, FR-PULL-12):
+  - retrieval is deterministic: BM25 over every page of the company's 4 calls and annual report, top 8 pages, plus the computed numbers, flags and promise scorecard;
+  - the model may cite only those pages and ids (`FY:2026-03`, `fin:receivables`, `P2`); code removes uncited points and reports how many were removed;
+  - "the documents don't answer this" is a valid answer;
+  - suggested questions are built in code from the misses and red flags, so they cost nothing;
+  - the Ask tab detects a question, finds which company it is about, and opens that company with the question asked.
+- **Bug caught by a test:** the company resolver matched the lowercase word "margin" to a ticker called MARGIN. Lowercase tickers and names now match only companies FINN follows.
+- **AI labels** (FR-APP-06): the router records which model answered every call, cache hits included, and research views store it per section. Scorecard, bull/bear, business, answers, AI-read results tables and AI-extracted bios carry "AI · read from … · model". Computed numbers don't, and the flags say "Computed from reported financials, not by AI."
+- **Page texts ship with the image** (`data/fixtures/pages/`, 6 MB), so Q&A works on the deployed API without the 600 MB PDF cache.
+- **Fixtures rebuilt from the LLM cache** at no cost to add model records. Manappuram's scorecard was redone on Gemini 3.5 Flash: 15 items, mostly "can't tell" because segment numbers aren't reported. Kaynes keeps its earlier scorecard until the strong model is available.
+- **Budget:** questions are capped at `FINN_MAX_QUESTIONS_PER_DAY` (default 60); a repeated question is answered from the cache.

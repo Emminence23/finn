@@ -478,7 +478,7 @@
     "promise_ids": [
      "T4.3"
     ],
-    "verdict": "missed",
+    "verdict": "unclear",
     "quote": "So that way, we expected the losses to come down further and Q4 at least, I think we should see the financials as green.",
     "said_in": "Q2 FY26 call (Nov 2025)",
     "doc_id": "T4",
@@ -486,49 +486,32 @@
     "target": "Asirvad MFI losses to reduce and turn profitable by Q4 FY26",
     "horizon": "Q4 FY26",
     "deadline": "2026-03",
-    "actual": "Q4 FY26 (period ending 2026-03) reported PAT of 405 Cr, but Asirvad MFI standalone financials were not provided as green turn-around.",
-    "evidence": [
-     "Q:2026-03"
-    ],
-    "note": "While consolidated PAT returned to growth, the specific turnaround of Asirvad MFI as a profitable unit by Q4 FY26 was not clearly evidenced in reported financials.",
+    "actual": "Asirvad MFI standalone quarterly net profit is not separately reported in actuals.",
+    "evidence": [],
+    "note": "The target deadline of Q4 FY26 has passed, but standalone MFI financial results are missing from the inputs.",
     "guard": null,
     "repeated_in": []
    },
    {
     "promise_ids": [
-     "T3.2"
+     "T3.2",
+     "T3.4"
     ],
     "verdict": "unclear",
     "quote": "We hope to go back to a growth mode from quarter 1 FY '27 onwards after strengthening our systems, processes, controls and teams.",
     "said_in": "Q3 FY26 call (Feb 2026)",
     "doc_id": "T3",
     "page": 4,
-    "target": "Return to growth mode in non-gold lending from Q1 FY27",
-    "horizon": "Q1 FY27",
-    "deadline": "2026-06",
-    "actual": "Not yet reported",
-    "evidence": [],
-    "note": "The inputs do not provide a segment breakdown to verify the return to growth in non-gold lending from Q1 FY27.",
-    "guard": null,
-    "repeated_in": []
-   },
-   {
-    "promise_ids": [
-     "T3.4"
-    ],
-    "verdict": "unclear",
-    "quote": "A top-quality team is being put together for the same and should be in place by quarter 1 FY '27. Till then, you can expect low to moderate growth in the housing finance company.",
-    "said_in": "Q3 FY26 call (Feb 2026)",
-    "doc_id": "T3",
-    "page": 6,
     "target": "Low to moderate growth in Housing Finance until Q1 FY27",
     "horizon": "Q1 FY27",
     "deadline": "2026-06",
-    "actual": "Not yet reported",
+    "actual": "Non-gold and housing finance segment growth rates are not disclosed.",
     "evidence": [],
-    "note": "Housing finance segment performance is not explicitly broken out in the provided actuals.",
+    "note": "The deadline of Q1 FY27 has passed, but segment-wise growth data is missing from reported actuals.",
     "guard": null,
-    "repeated_in": []
+    "repeated_in": [
+     "Q3 FY26 call (Feb 2026)"
+    ]
    },
    {
     "promise_ids": [
@@ -542,107 +525,275 @@
     "target": "Asirvad new book to constitute 57% to 60% of portfolio by Q2 FY27",
     "horizon": "Q2 FY27",
     "deadline": "2026-09",
-    "actual": "Not yet reported",
+    "actual": "Asirvad portfolio vintage breakdown is not disclosed in actuals.",
     "evidence": [],
-    "note": "Portfolio composition data for Asirvad MFI is not provided in the actuals.",
+    "note": "The Q2 FY27 deadline has passed without disclosures regarding the share of the new book in Asirvad's portfolio.",
     "guard": null,
     "repeated_in": []
    },
    {
     "promise_ids": [
-     "T4.10"
+     "T4.10",
+     "T3.7"
     ],
     "verdict": "unclear",
     "quote": "So the first focus, immediate focus, will be to grow Gold Loan Portfolio direct as well as through co-lending. So we will start this without much delay, most probably during the first week of next month.",
     "said_in": "Q2 FY26 call (Nov 2025)",
     "doc_id": "T4",
     "page": 10,
-    "target": "Start gold loan co-lending in first week of November 2025",
-    "horizon": "Nov 2025",
-    "deadline": "2025-11",
+    "target": "Minimum 3 co-lending partners to go live within 2 to 3 weeks",
+    "horizon": "next 2-3 weeks",
+    "deadline": null,
+    "actual": "Co-lending launch status and active partner count are not reported.",
+    "evidence": [],
+    "note": "The November 2025 deadline for co-lending launch has passed, but no operational status was disclosed in inputs.",
+    "guard": null,
+    "repeated_in": [
+     "Q3 FY26 call (Feb 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T4.1",
+     "T4.2",
+     "T2.2",
+     "T1.1"
+    ],
+    "verdict": "too_early",
+    "quote": "So at the same time, from our level with the changes in the interest rate etc., we are confident that whatever I have said, 25% CAGR can be maintained in gold loan in the coming years also.",
+    "said_in": "Q2 FY26 call (Nov 2025)",
+    "doc_id": "T4",
+    "page": 13,
+    "target": "FY27 gold loan AUM growth of 25-30%",
+    "horizon": "FY27",
+    "deadline": "2027-03",
     "actual": "Not yet reported",
     "evidence": [],
-    "note": "The actual start date of gold loan co-lending is not specified in the provided data.",
+    "note": "Target deadlines for 20-30% gold loan AUM growth in FY27 have not passed and segment AUM metrics are missing from actuals.",
+    "guard": null,
+    "repeated_in": [
+     "Q2 FY26 call (Nov 2025)",
+     "Q4 FY26 call (May 2026)",
+     "Q1 FY27 call (Aug 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T4.4",
+     "T4.6",
+     "T3.3",
+     "T2.3",
+     "T1.4"
+    ],
+    "verdict": "too_early",
+    "quote": "So even if it is 18.5%, we don't expect a reduction in NIM as the banks are resetting their rates when it is renewed, etc. So we don't have a discomfort of the reduction in NIM, even though the rate may go down by another 50 to 100 basis points.",
+    "said_in": "Q2 FY26 call (Nov 2025)",
+    "doc_id": "T4",
+    "page": 16,
+    "target": "Maintain gold loan yield around 18%",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [
+     "T1.5",
+     "T4.7"
+    ],
+    "note": "Gold loan yield guidance of 17.5-18.15% is ongoing; Q1 FY27 saw a 59 bps yield improvement per update T1.5, but absolute yield is not reported.",
+    "guard": null,
+    "repeated_in": [
+     "Q2 FY26 call (Nov 2025)",
+     "Q3 FY26 call (Feb 2026)",
+     "Q4 FY26 call (May 2026)",
+     "Q1 FY27 call (Aug 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T3.1",
+     "T2.1",
+     "T2.4",
+     "T1.2",
+     "T1.3"
+    ],
+    "verdict": "too_early",
+    "quote": "I would say, yes, we should definitely be looking at 4.25% to 4.5%.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T3",
+    "page": 13,
+    "target": "Increase ROE to around 18% in three years",
+    "horizon": "next 3 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Return metrics targets ranging from 13-18% ROE and 3.5-4.5% ROA cover multi-year periods extending through FY27 and beyond.",
+    "guard": null,
+    "repeated_in": [
+     "Q4 FY26 call (May 2026)",
+     "Q4 FY26 call (May 2026)",
+     "Q1 FY27 call (Aug 2026)",
+     "Q1 FY27 call (Aug 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
+     "T4.5"
+    ],
+    "verdict": "too_early",
+    "quote": "This quarter, we have seen a 12 basis points reduction, and we expect the momentum to continue at least for the next two quarters.",
+    "said_in": "Q2 FY26 call (Nov 2025)",
+    "doc_id": "T4",
+    "page": 9,
+    "target": "Continue 12 bps quarterly reduction in borrowing cost for next 2 quarters",
+    "horizon": "next 2 quarters",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Quarterly borrowing cost rate movements are not disclosed in the provided financials.",
     "guard": null,
     "repeated_in": []
    },
    {
     "promise_ids": [
-     "T1.1",
-     "T1.2",
-     "T1.3",
-     "T1.4",
      "T1.6",
-     "T1.7",
-     "T1.8",
-     "T1.9",
-     "T1.10",
-     "T2.1",
-     "T2.2",
-     "T2.3",
-     "T2.4",
-     "T2.5",
-     "T2.6",
-     "T3.1",
-     "T3.3",
-     "T3.6",
-     "T3.7",
-     "T4.1",
-     "T4.2",
-     "T4.4",
-     "T4.5",
-     "T4.6",
+     "T1.7"
+    ],
+    "verdict": "too_early",
+    "quote": "We want to maintain around 75%-80% of the consolidated AUM in gold.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T1",
+    "page": 13,
+    "target": "Contain microfinance share below 10% of consolidated AUM",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Consolidated AUM product mix targets for gold loan (>75-80%) and MFI (<10%) are ongoing.",
+    "guard": null,
+    "repeated_in": [
+     "Q1 FY27 call (Aug 2026)"
+    ]
+   },
+   {
+    "promise_ids": [
      "T4.11"
     ],
     "verdict": "too_early",
-    "quote": "Our expectation for growth of gold loan this year is around 30%, because some quarters are as per season, some quarters are off seasons. We expect that to be some between 25%-30%.",
-    "said_in": "Q1 FY27 call (Aug 2026)",
-    "doc_id": "T1",
-    "page": 11,
+    "quote": "So it is improving. So in 1 or 2 quarters, we are sure that the momentum will be picked up.",
+    "said_in": "Q2 FY26 call (Nov 2025)",
+    "doc_id": "T4",
+    "page": 8,
     "target": "Vehicle finance and MSME momentum to pick up in 1-2 quarters",
     "horizon": "next 1-2 quarters",
     "deadline": null,
     "actual": "Not yet reported",
     "evidence": [],
-    "note": "These targets relate to ongoing operations, FY27 full-year goals, or future periods where deadlines have not yet passed or reporting is pending.",
+    "note": "Segment performance metrics for vehicle and MSME finance are missing from actuals.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T2.5",
+     "T1.8"
+    ],
+    "verdict": "too_early",
+    "quote": "So we plan to open some 500 to 550 branches in gold loan during this year.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "Open around 500 gold loan branches in FY27",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The target to open 500-550 gold loan branches in FY27 remains ongoing.",
     "guard": null,
     "repeated_in": [
-     "Q1 FY27 call (Aug 2026)",
-     "Q1 FY27 call (Aug 2026)",
-     "Q1 FY27 call (Aug 2026)",
-     "Q1 FY27 call (Aug 2026)",
-     "Q1 FY27 call (Aug 2026)",
-     "Q1 FY27 call (Aug 2026)",
-     "Q1 FY27 call (Aug 2026)",
-     "Q1 FY27 call (Aug 2026)",
-     "Q4 FY26 call (May 2026)",
-     "Q4 FY26 call (May 2026)",
-     "Q4 FY26 call (May 2026)",
-     "Q4 FY26 call (May 2026)",
-     "Q4 FY26 call (May 2026)",
-     "Q4 FY26 call (May 2026)",
-     "Q3 FY26 call (Feb 2026)",
-     "Q3 FY26 call (Feb 2026)",
-     "Q3 FY26 call (Feb 2026)",
-     "Q3 FY26 call (Feb 2026)",
-     "Q2 FY26 call (Nov 2025)",
-     "Q2 FY26 call (Nov 2025)",
-     "Q2 FY26 call (Nov 2025)",
-     "Q2 FY26 call (Nov 2025)",
-     "Q2 FY26 call (Nov 2025)",
-     "Q2 FY26 call (Nov 2025)"
+     "Q1 FY27 call (Aug 2026)"
     ]
+   },
+   {
+    "promise_ids": [
+     "T1.9"
+    ],
+    "verdict": "too_early",
+    "quote": "The growth will remain at a level of, I feel like INR400 crores to INR500 crores, as a disbursement in MFI.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T1",
+    "page": 11,
+    "target": "MFI disbursements to remain around INR 400-500 crores",
+    "horizon": null,
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Disbursement metrics for Asirvad MFI are not provided in actuals.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T1.10"
+    ],
+    "verdict": "too_early",
+    "quote": "We do not want to disburse any more vehicle loans during this year.",
+    "said_in": "Q1 FY27 call (Aug 2026)",
+    "doc_id": "T1",
+    "page": 14,
+    "target": "No new vehicle loan disbursements during FY27",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Vehicle loan disbursement data for FY27 is not disclosed in reported financials.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T2.6"
+    ],
+    "verdict": "too_early",
+    "quote": "We expect slippages to moderate over coming quarters with a gradual improvement in overall efficiency and asset quality.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 12,
+    "target": "Home finance slippages to moderate over coming quarters",
+    "horizon": "coming quarters",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Housing finance asset quality metrics and slippage trends are not reported.",
+    "guard": null,
+    "repeated_in": []
+   },
+   {
+    "promise_ids": [
+     "T3.6"
+    ],
+    "verdict": "too_early",
+    "quote": "So we expect the final approval to come through without much delay. Maybe we expect that to happen within another 1 month.",
+    "said_in": "Q3 FY26 call (Feb 2026)",
+    "doc_id": "T3",
+    "page": 7,
+    "target": "Final RBI approval for Bain transaction expected within 1 month",
+    "horizon": "within 1 month",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Regulatory approval status for the Bain transaction is not updated in the available inputs.",
+    "guard": null,
+    "repeated_in": []
    }
   ],
-  "credibility": "Management has a tendency to make broad strategic commitments, such as segment turnarounds and growth targets [T4.3], without providing the necessary granular data in subsequent disclosures to verify progress [T3.2, T3.4]. While they project confidence in long-term goals like ROE and AUM growth, their track record on specific, time-bound subsidiary improvements remains difficult to validate based on the provided inputs.",
+  "credibility": "Management sets detailed operational targets across gold loans, microfinance, housing, and returns [T4.1, T1.2], but leaves most past deadlines unverifiable due to a lack of segment disclosures [T4.3, T3.2]. While consolidated profitability has rebounded significantly in recent quarters, track record assessment is hindered by missing standalone segment data. Consequently, management's ability to execute on granular promises remains unproven from the provided disclosures.",
   "counts": {
    "delivered": 0,
    "partly": 0,
-   "missed": 1,
+   "missed": 0,
    "unclear": 4,
-   "too_early": 1
+   "too_early": 11
   },
-  "score": 0
+  "score": null
  },
  "guidance": [
   {
@@ -1331,20 +1482,20 @@
    "text": "Manappuram Finance Limited is India's second-largest gold loan NBFC, headquartered in Valapad, Thrissur, providing secured credit against pledged gold jewellery alongside diversified lending across microfinance, MSME and allied loans, vehicle finance, and affordable housing finance. In Q1 FY27, consolidated AUM reached INR 69,635 crores (with gold loans comprising 82% at INR 57,006 crores) and consolidated revenue from operations stood at INR 3,033 crores. Operating over 5,000 branches across India with its subsidiaries, the company leverages its Online Gold Loan (OGL) platform, which accounted for 86% of the gold loan book in Q1 FY27.",
    "cites": [
     {
+     "doc": "AR",
+     "page": 92
+    },
+    {
+     "doc": "T1",
+     "page": 3
+    },
+    {
      "doc": "T1",
      "page": 5
     },
     {
      "doc": "AR",
-     "page": 92
-    },
-    {
-     "doc": "AR",
      "page": 82
-    },
-    {
-     "doc": "T1",
-     "page": 3
     }
    ]
   },
@@ -1354,16 +1505,16 @@
     "share": null,
     "cites": [
      {
-      "doc": "T1",
-      "page": 5
-     },
-     {
       "doc": "AR",
       "page": 92
      },
      {
       "doc": "T1",
       "page": 3
+     },
+     {
+      "doc": "T1",
+      "page": 5
      }
     ]
    },
@@ -1386,12 +1537,12 @@
     "share": null,
     "cites": [
      {
-      "doc": "T1",
-      "page": 5
-     },
-     {
       "doc": "AR",
       "page": 41
+     },
+     {
+      "doc": "T1",
+      "page": 5
      }
     ]
    },
@@ -1400,12 +1551,12 @@
     "share": null,
     "cites": [
      {
-      "doc": "T1",
-      "page": 5
-     },
-     {
       "doc": "AR",
       "page": 92
+     },
+     {
+      "doc": "T1",
+      "page": 5
      }
     ]
    },
@@ -1450,11 +1601,11 @@
     "cites": [
      {
       "doc": "AR",
-      "page": 92
+      "page": 99
      },
      {
       "doc": "AR",
-      "page": 99
+      "page": 92
      }
     ]
    },
@@ -1467,11 +1618,11 @@
      },
      {
       "doc": "AR",
-      "page": 42
+      "page": 41
      },
      {
       "doc": "AR",
-      "page": 41
+      "page": 42
      }
     ]
    },
@@ -1479,16 +1630,16 @@
     "text": "Key customer groups include retail individuals and gold jewellery holders (26.5 lakh outstanding gold loan customers in Q1 FY27), women from economically weaker households in microfinance, MSME entrepreneurs and small traders, and corporate and institutional clients.",
     "cites": [
      {
+      "doc": "AR",
+      "page": 99
+     },
+     {
       "doc": "T1",
       "page": 5
      },
      {
       "doc": "AR",
       "page": 82
-     },
-     {
-      "doc": "AR",
-      "page": 99
      }
     ]
    }
@@ -1539,7 +1690,7 @@
  "bull_bear": {
   "bull": [
    {
-    "text": "The company reported strong Q1 FY27 consolidated profit after tax of Rs 585 crore, representing a 45% growth quarter-on-quarter and 47% year-on-year {",
+    "text": "The company reported strong Q1 FY27 results with a consolidated profit after tax of Rs 585 crore, reflecting a 45% growth quarter-on-quarter and 47% year-on-year",
     "cites": [
      {
       "doc": "T1",
@@ -1548,7 +1699,7 @@
     ]
    },
    {
-    "text": "The core gold loan business continues to show momentum with 12% quarter-on-quarter and 97% year-on-year AUM growth for the standalone entity in Q1 FY27 {",
+    "text": "Gold loan business continues to perform well, with Q1 FY27 standalone gold loan AUM growing 12% quarter-on-quarter and 97% year-on-year, supported by strong customer demand",
     "cites": [
      {
       "doc": "T1",
@@ -1557,27 +1708,27 @@
     ]
    },
    {
-    "text": "Regulatory removal of prior approval requirements allows the company to execute its plan to open 500 new branches in FY27 to drive further growth {",
+    "text": "Financing margins expanded 13 pts year-on-year to 30% in 2026-09, indicating effective yield management in the core business",
     "cites": [
      {
-      "doc": "T1",
-      "page": 10
+      "doc": "fin:margin_trend",
+      "page": null
      }
     ]
    }
   ],
   "bear": [
    {
-    "text": "The company missed the specific target for Asirvad MFI to turn profitable by Q4 FY26, as the entity only reported an incremental PAT improvement but faced significant historical volatility {",
+    "text": "Net profit fell 12.8% a year over 3 years, highlighting longer-term earnings volatility despite recent quarterly improvements",
     "cites": [
      {
-      "doc": "T2",
-      "page": 5
+      "doc": "fin:profit_decline",
+      "page": null
      }
     ]
    },
    {
-    "text": "Vehicle finance asset quality remains a concern, with GNPA levels elevated at 13.3% in Q1 FY27, up from 10.4% in the prior quarter {",
+    "text": "The company has faced elevated asset quality stress in non-gold segments, specifically reporting vehicle finance GNPA at 13.3% for Q1 FY27",
     "cites": [
      {
       "doc": "T1",
@@ -1586,18 +1737,18 @@
     ]
    },
    {
-    "text": "Standalone borrowing costs have experienced upward pressure, rising by 10 bps in the first quarter of FY27 amid elevated interest rate environments {",
+    "text": "The management's prior target to turn Asirvad MFI profitable by Q4 FY26 was met, but the business continues to face industry-wide stress and remains under a calibrated operating approach",
     "cites": [
      {
       "doc": "T1",
-      "page": 5
+      "page": 4
      }
     ]
    }
   ],
   "watch": [
    {
-    "text": "Monitor the success of the 500-branch expansion plan and its impact on AUM growth and opex efficiency throughout the coming quarters {",
+    "text": "Monitoring the progress and execution of the ambitious plan to open 500 new gold loan branches in FY27 following the removal of RBI prior approval requirements",
     "cites": [
      {
       "doc": "T1",
@@ -1606,7 +1757,7 @@
     ]
    },
    {
-    "text": "Observe the performance of the new income-generating gold loan portfolio and whether it maintains the targeted 14%-16% yield and asset quality {",
+    "text": "Tracking the performance and portfolio composition of new income-generating gold loan products which now permit LTVs up to 85%",
     "cites": [
      {
       "doc": "T1",
@@ -1615,7 +1766,7 @@
     ]
    },
    {
-    "text": "Track the integration of the new MD and CEO, Ashish Singh, who is expected to join on January 1, 2027 {",
+    "text": "Observing the impact of the new MD and CEO, Ashish Singh, who is expected to join by January 1st, 2027",
     "cites": [
      {
       "doc": "T1",
@@ -1626,7 +1777,13 @@
   ]
  },
  "about": "Manappuram Finance is a Non-Banking Finance Company (NBFC), which provides a wide range of fund based and fee based services including gold loans, money exchange facilities, etc. The Company is a Systemically Important Non-Deposit taking NBFC(NBFC-ND).(Source : 202003 Annual Report Page No:120)",
- "build_seconds": 8.9,
- "key": "8a62a753baf583c8",
- "incomplete": []
+ "incomplete": [],
+ "models": {
+  "extract_guidance": "gemini/gemini-3.5-flash",
+  "promise_vs_delivery": "gemini/gemini-3.5-flash",
+  "business_snapshot": "gemini/gemini-4-hydrogen",
+  "bull_bear": "gemini/gemini-3.1-flash-lite"
+ },
+ "build_seconds": 71.1,
+ "key": "8a62a753baf583c8"
 }

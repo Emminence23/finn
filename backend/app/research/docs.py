@@ -95,6 +95,22 @@ def ensure_pdf(symbol: str, ref: DocRef) -> Path | None:
     return dest
 
 
+def pages_fixture(symbol: str, ref: DocRef) -> Path:
+    from app.ingest.universe import fixtures_dir
+
+    return fixtures_dir() / "pages" / symbol / f"{ref.kind}_{ref.period}.json"
+
+
+def load_pages(symbol: str, ref: DocRef) -> list[str]:
+    """Page texts for a document: the committed copy (research set, so the deployed API can
+    answer questions without re-downloading PDFs), else download and parse."""
+    fx = pages_fixture(symbol, ref)
+    if fx.exists():
+        return json.loads(fx.read_text())
+    pdf = ensure_pdf(symbol, ref)
+    return page_texts(pdf) if pdf else []
+
+
 def page_texts(pdf: Path) -> list[str]:
     """Per-page text, cached as JSON next to the PDF (annual reports take seconds to parse)."""
     cache = pdf.with_suffix(".pages.json")

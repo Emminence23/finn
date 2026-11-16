@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import clsx from "clsx";
 import { Check, CircleDashed, CircleHelp, Minus, X } from "lucide-react";
 import type { Cite, Claim, DocRef, PromiseItem, Verdict } from "@/lib/api";
+import { fq } from "@/lib/fmt";
 
 // ------------------------------------------------------------------ verdicts
 export const VERDICT: Record<
@@ -78,10 +79,16 @@ export function CiteChips({ cites, docs }: { cites: Cite[]; docs: Map<string, Do
   return (
     <span className="ml-1 inline-flex flex-wrap gap-1 align-middle">
       {cites.slice(0, 3).map((c, i) => {
-        if (c.doc.startsWith("fin:"))
+        if (/^(fin:|Q:|FY:)/.test(c.doc))
           return (
             <a key={i} href="#numbers" className="rounded bg-surface-2 px-1 text-[10px] font-medium text-ink-3">
-              financials
+              {c.doc.startsWith("fin:") ? "financials" : c.doc.startsWith("Q:") ? `${fq(c.doc.slice(2))} reported` : `${fq(c.doc.slice(3), true)} reported`}
+            </a>
+          );
+        if (/^P\d+$/.test(c.doc))
+          return (
+            <a key={i} href="#promises" className="rounded bg-surface-2 px-1 text-[10px] font-medium text-ink-3">
+              scorecard
             </a>
           );
         const d = docs.get(c.doc);

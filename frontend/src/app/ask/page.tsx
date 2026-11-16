@@ -3,11 +3,17 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { Building2, Search, Sparkles, User } from "lucide-react";
+import { Building2, MessageCircleQuestion, Search, Sparkles, User } from "lucide-react";
 import { type Company, type Contact, type ResearchSummary, useApi } from "@/lib/api";
 import { shortName } from "@/lib/fmt";
 import { VerdictBar } from "@/components/research";
 import { Header, Panel, SectionTitle, Skeleton } from "@/components/ui";
+
+const EXAMPLES = [
+  "Why is Kaynes' cash flow negative?",
+  "Did Aarti deliver on volume guidance?",
+  "What is Persistent's deal pipeline?",
+];
 
 function useDebounced<T>(v: T, ms = 160) {
   const [d, setD] = useState(v);
@@ -25,6 +31,14 @@ export default function Ask() {
   const { data: companies } = useApi<Company[]>(dq.length >= 2 ? `/companies?q=${encodeURIComponent(dq)}&limit=6` : null);
   const { data: people } = useApi<Contact[]>("/people");
   const { data: ready } = useApi<ResearchSummary[]>("/research");
+  const isQuestion = dq.includes("?") || dq.split(/\s+/).length >= 4;
+  const { data: target } = useApi<{ symbol: string | null; ready: boolean }>(
+    isQuestion ? `/ask/resolve?q=${encodeURIComponent(dq)}` : null,
+  );
+  const askHref = target?.symbol ? `/c/${target.symbol}?q=${encodeURIComponent(dq)}` : null;
+  const targetName = target?.symbol
+    ? shortName(ready?.find((r) => r.symbol === target.symbol)?.company ?? companies?.find((c) => c.symbol === target.symbol)?.name ?? target.symbol)
+    : null;
 
   const lower = dq.toLowerCase();
   const themes = useMemo(() => {
@@ -40,11 +54,15 @@ export default function Ask() {
 
   return (
     <main>
-      <Header title="Ask" sub="Any NSE company, a person, or a theme" />
+      <Header title="Ask" sub="A company, a person, a theme, or a question" />
       <form
         className="px-3"
         onSubmit={(e) => {
           e.preventDefault();
+          if (isQuestion) {
+            if (askHref) router.push(askHref);
+            return;
+          }
           const top = companies?.[0];
           if (top) router.push(`/c/${top.symbol}`);
           else if (dq) router.push(`/c/${dq.toUpperCase().replace(/\s+/g, "")}`);
@@ -55,19 +73,50 @@ export default function Ask() {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Kaynes, TATAELXSI, semiconductors, Meera…"
+            placeholder="Kaynes, EMS, Meera, or a question…"
             className="w-full bg-transparent text-[16px] outline-none placeholder:text-ink-3"
-            autoCapitalize="characters"
+            autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
             enterKeyHint="search"
-            aria-label="Search companies, people and themes"
+            aria-label="Search companies, people and themes, or ask a question"
           />
         </label>
       </form>
 
+      {dq.length < 2 && (
+        <div className="mt-2 flex flex-wrap gap-1.5 px-3">
+          {EXAMPLES.map((x) => (
+            <button
+              key={x}
+              onClick={() => setQ(x)}
+              className="rounded-full border border-line bg-surface px-2.5 py-1 text-[12px] text-ink-2 active:opacity-70"
+            >
+              {x}
+            </button>
+          ))}
+        </div>
+      )}
+
       {dq.length >= 2 && (
         <Panel className="mt-2 divide-y divide-line">
+          {isQuestion && (
+            <div className="flex items-start gap-3 px-4 py-3">
+              <MessageCircleQuestion size={16} className="mt-0.5 shrink-0 text-accent" />
+              {askHref ? (
+                <Link href={askHref} className="min-w-0 flex-1 active:opacity-70">
+                  <span className="block text-[14px] font-medium">Ask FINN about {targetName}</span>
+                  <span className="block text-[12px] text-ink-3">
+                    Answered from its calls, annual report and numbers{target?.ready ? "" : ", after a live read (about 30s)"}
+                  </span>
+                </Link>
+              ) : (
+                <span className="text-[13px] text-ink-2">
+                  {target ? "Name the company in your question, e.g. “Is Kaynes fixing its cash flow?”" : "Finding the company…"}
+                </span>
+              )}
+            </div>
+          )}
           {(companies ?? []).map((c) => (
             <Link key={c.symbol} href={`/c/${c.symbol}`} className="flex items-center gap-3 px-4 py-2.5 active:bg-surface-2">
               <Building2 size={16} className="shrink-0 text-ink-3" />
@@ -98,7 +147,7 @@ export default function Ask() {
               </span>
             </Link>
           ))}
-          {companies && !companies.length && !themeHits.length && !personHits.length && (
+          {!isQuestion && companies && !companies.length && !themeHits.length && !personHits.length && (
             <p className="px-4 py-3 text-[13px] text-ink-3">No match. Try a ticker like DIXON or a theme like EMS.</p>
           )}
         </Panel>

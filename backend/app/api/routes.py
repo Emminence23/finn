@@ -18,7 +18,7 @@ from app.intel import alerts as alerts_mod
 from app.intel.digest import build_digest
 from app.intel.taxonomy import CATEGORIES
 from app.network import graph
-from app.research import service
+from app.research import qa, service
 
 router = APIRouter()
 
@@ -199,6 +199,45 @@ def _build_once(symbol: str, progress, force: bool) -> dict:
         return service.build(symbol, progress, force)
     finally:
         BUDGET.gate.release()
+
+
+class Question(BaseModel):
+    question: str = Field(min_length=3, max_length=300)
+
+
+QUESTIONS = BuildBudget()
+
+
+@router.get("/ask/resolve")
+def ask_resolve(q: str = Query(min_length=3, max_length=300)) -> dict:
+    """Which company a typed question is about, so Ask can route it (FR-PULL-12)."""
+    with session() as db:
+        rows = [
+            dict(r)
+            for r in db.execute(
+                "SELECT symbol, name, in_portfolio, in_research_set FROM companies"
+            ).fetchall()
+        ]
+    ready = {s["symbol"] for s in service.summaries()}
+    sym = qa.resolve_company(q, rows, ready)
+    return {"symbol": sym, "ready": sym in ready if sym else False}
+
+
+@router.post("/research/{symbol}/ask")
+def research_ask(symbol: str, body: Question) -> dict:
+    """Ask FINN: a grounded answer from this company's documents and numbers."""
+    view = service.get_cached(symbol.upper())
+    if view is None:
+        raise HTTPException(
+            404, {"status": "not_built", "build_url": f"/research/{symbol.upper()}/stream"}
+        )
+    today = datetime.now(UTC).date().isoformat()
+    if not QUESTIONS.take(get_settings().max_questions_per_day, today):
+        raise HTTPException(429, "Today's questions are used up on this demo.")
+    try:
+        return qa.answer(view, body.question)
+    except Exception as e:  # LLM quota or provider error: say so instead of a 500
+        raise HTTPException(503, f"FINN couldn't answer right now ({type(e).__name__})") from e
 
 
 @router.get("/research/{symbol}/stream")

@@ -1559,11 +1559,11 @@
     "cites": [
      {
       "doc": "AR",
-      "page": 8
+      "page": 96
      },
      {
       "doc": "AR",
-      "page": 96
+      "page": 8
      }
     ]
    },
@@ -1580,12 +1580,12 @@
     "text": "Key end-user markets include energy and fuel additives, agrochemicals, pharmaceuticals, polymers and additives (including EV-linked and defense applications), and dyes, pigments, and printing inks.",
     "cites": [
      {
-      "doc": "AR",
-      "page": 96
-     },
-     {
       "doc": "T1",
       "page": 3
+     },
+     {
+      "doc": "AR",
+      "page": 96
      }
     ]
    }
@@ -1608,12 +1608,12 @@
     "text": "Expanded fuel additives capacity from 290 KTPA to 360 KTPA and debottlenecked DCB capacity to 140 KTPA.",
     "cites": [
      {
-      "doc": "AR",
-      "page": 8
-     },
-     {
       "doc": "T1",
       "page": 4
+     },
+     {
+      "doc": "AR",
+      "page": 8
      }
     ]
    },
@@ -1651,12 +1651,12 @@
     "text": "Aarti Industries delivered record Q2 FY27 revenue of Rs 3,887 crore (+73% YoY) and EBITDA of Rs 418 crore (+44% YoY), backed by strong 3-year cash conversion of 2.77x CFO/PAT.",
     "cites": [
      {
-      "doc": "fin:cash_conversion",
-      "page": null
-     },
-     {
       "doc": "T1",
       "page": 4
+     },
+     {
+      "doc": "fin:cash_conversion",
+      "page": null
      }
     ]
    },
@@ -1665,29 +1665,25 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 5
+      "page": 4
      },
      {
-      "doc": "T1",
-      "page": 4
+      "doc": "T2",
+      "page": 3
      },
      {
       "doc": "T1",
       "page": 9
      },
      {
-      "doc": "T2",
-      "page": 3
+      "doc": "T1",
+      "page": 5
      }
     ]
    },
    {
     "text": "The company secured a 10+ year manufacturing agreement in October 2026 with ~Rs 1,500 crore revenue potential starting FY29, while China's 13% VAT rebate removal and capacity rationalizations expanded NCB spreads and boosted Western partnership inquiries.",
     "cites": [
-     {
-      "doc": "T1",
-      "page": 5
-     },
      {
       "doc": "T1",
       "page": 15
@@ -1699,6 +1695,10 @@
      {
       "doc": "T1",
       "page": 3
+     },
+     {
+      "doc": "T1",
+      "page": 5
      }
     ]
    }
@@ -1712,16 +1712,16 @@
       "page": null
      },
      {
-      "doc": "fin:profit_decline",
-      "page": null
+      "doc": "T1",
+      "page": 17
      },
      {
       "doc": "fin:fcf",
       "page": null
      },
      {
-      "doc": "T1",
-      "page": 17
+      "doc": "fin:profit_decline",
+      "page": null
      }
     ]
    },
@@ -1738,16 +1738,16 @@
     "text": "Management missed its H1 FY27 commissioning target for the Augene Superform JV (commercial production still pending in November 2026) and suffered a 3-6 month delay in Zone IV, while Energy rose to 50% of Q2 FY27 revenue amid winter crack softening risks and Chinese dumping in PDA.",
     "cites": [
      {
+      "doc": "T2",
+      "page": 4
+     },
+     {
       "doc": "T1",
-      "page": 11
+      "page": 20
      },
      {
       "doc": "T1",
       "page": 5
-     },
-     {
-      "doc": "T2",
-      "page": 4
      },
      {
       "doc": "T1",
@@ -1755,7 +1755,7 @@
      },
      {
       "doc": "T1",
-      "page": 20
+      "page": 11
      }
     ]
    }
@@ -1766,11 +1766,7 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 8
-     },
-     {
-      "doc": "T1",
-      "page": 5
+      "page": 9
      },
      {
       "doc": "T2",
@@ -1778,7 +1774,11 @@
      },
      {
       "doc": "T1",
-      "page": 9
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 8
      }
     ]
    },
@@ -1791,7 +1791,7 @@
      },
      {
       "doc": "T1",
-      "page": 11
+      "page": 10
      },
      {
       "doc": "T1",
@@ -1799,11 +1799,11 @@
      },
      {
       "doc": "T1",
-      "page": 10
+      "page": 7
      },
      {
       "doc": "T1",
-      "page": 7
+      "page": 11
      }
     ]
    },
@@ -1812,18 +1812,24 @@
     "cites": [
      {
       "doc": "T1",
-      "page": 8
+      "page": 4
      },
      {
       "doc": "T1",
-      "page": 4
+      "page": 8
      }
     ]
    }
   ]
  },
  "about": "Aarti Industries Ltd, the flagship company of the Aarti group, manufacturing organic and inorganic chemicals at its major facilities in Vapi, Jhagadia, Dahej and Kutch, in Gujarat and in Tarapur in Maharashtra. The company has a strong market position in the NCB-based specialty chemicals segment. [1]",
- "build_seconds": 67.8,
- "key": "88c514180d3708c6",
- "incomplete": []
+ "incomplete": [],
+ "models": {
+  "extract_guidance": "gemini/gemini-3.5-flash",
+  "promise_vs_delivery": "gemini/gemini-4-hydrogen",
+  "business_snapshot": "gemini/gemini-3.5-flash",
+  "bull_bear": "gemini/gemini-4-hydrogen"
+ },
+ "build_seconds": 0.4,
+ "key": "88c514180d3708c6"
 }

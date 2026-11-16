@@ -10,7 +10,9 @@ import hashlib
 import json
 import logging
 import os
+import threading
 import time
+from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import TypeVar, overload
 
@@ -40,6 +42,28 @@ class LLMRouter:
         self.config = yaml.safe_load(self.settings.models_config.read_text())
         self._providers: dict[str, Provider] = {}
         self._exhausted: dict[tuple[str, str], float] = {}  # (provider, model) -> when
+        self._recorders: list[dict[str, str]] = []
+        self._rec_lock = threading.Lock()
+
+    # ------------------------------------------------------------ provenance
+    @contextmanager
+    def recording(self):
+        """Collect {task: 'provider/model'} for every call answered inside the block, cache
+        hits included, so a view can say which model wrote each section. Builds that record
+        run one at a time (the API gates them), so worker threads can share recorders."""
+        rec: dict[str, str] = {}
+        with self._rec_lock:
+            self._recorders.append(rec)
+        try:
+            yield rec
+        finally:
+            with self._rec_lock:
+                self._recorders.remove(rec)
+
+    def _served(self, r: Route) -> None:
+        with self._rec_lock:
+            for rec in self._recorders:
+                rec[r.task] = f"{r.provider}/{r.model}"
 
     # ------------------------------------------------------------ routing
     def route(self, task: str) -> Route:
@@ -129,6 +153,7 @@ class LLMRouter:
                 key = _cache_key(r, prompt_version, system, prompt, schema, docs)
                 if (cached := self._cache_get(key)) is not None:
                     self._log_call(r, cache_hit=True)
+                    self._served(r)
                     return _parse(cached, schema)
         quota_err: QuotaExhausted | None = None
         for r in routes:
@@ -186,6 +211,7 @@ class LLMRouter:
             )
             if use_cache:
                 self._cache_put(key, r, prompt_version, resp.text)
+            self._served(r)
             return value
         raise LLMError(f"task {task} failed after retries: {last_err}")
 

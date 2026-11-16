@@ -79,3 +79,11 @@ export function shortName(company: string): string {
     .replace(/[\s(]+$/, "")
     .trim();
 }
+
+/** "gemini/gemini-3.5-flash" -> "Gemini 3.5 Flash"; "anthropic/claude-opus-5-5" -> "Claude Opus 5.5". */
+export function modelName(id: string | null | undefined): string | null {
+  if (!id) return null;
+  const m = id.split("/").pop()!;
+  const words = m.replace(/-(\d+)-(\d+)\b/, "-$1.$2").split("-");
+  return words.map((w) => (/^\d/.test(w) ? w : w[0].toUpperCase() + w.slice(1))).join(" ");
+}
