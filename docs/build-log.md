@@ -135,3 +135,9 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Deletion is simple because nothing derived is stored.** Paths, overlaps, who-can-help, nudges and "knows" links are all computed on read. Deleting the person (roles and schools cascade) and every relationship row naming them removes them everywhere. The test checks each surface rather than trusting that argument.
 - **Second demo account:** a different investor with three contacts (HDFC Bank, Trent, Manappuram). People has a two-way switch, plus "Restore the demo network" to undo removals.
 - **Not done:** real sign-in and row-level security. The header is a demo switch and the docs say so.
+
+## Blocked: Kaynes scorecard rebuild (plan v2, item 4)
+- **What:** re-run `python -m app.research.service --fixtures --force KAYNES` so the scorecard is rebuilt with the v2 prompts (safety rule, statement types).
+- **Tried 16 Nov 2026, 07:53 IST.** Extraction ran and found 32 statements and 28 promises due for checking. Then the scorecard step hit HTTP 429 on both models allowed for it (`gemini-4-hydrogen`, then `gemini-3.5-flash`), and the guidance step's fallbacks were also exhausted.
+- **The build guard worked as designed.** The view was marked incomplete (`missing: promises`) and the fixture was **not** written, so the committed Kaynes view (4 missed, 1 can't tell, 4 not yet due) is still what the demo serves.
+- **To finish:** after the free daily quota resets, run `make research` with `--force KAYNES`, check that the four misses are still found, re-run `make check` and commit the fixture. No paid model was used; Claude stays off unless the owner allows it.
