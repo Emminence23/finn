@@ -191,7 +191,7 @@ def _ann_id():
 
     with session() as db:
         return db.execute(
-            "SELECT id FROM announcements WHERE symbol='PIDILITIND' AND category='management_change' ORDER BY ts DESC"
+            "SELECT id FROM announcements WHERE symbol='DABUR' AND category='management_change' ORDER BY ts DESC"
         ).fetchone()["id"]
 
 
@@ -217,9 +217,7 @@ def test_analyze_end_to_end_is_idempotent_and_scoped_to_the_investor(seeded):
             m["person_id"] for m in other["network_matches"] if m["connection_degree"] == 1
         }
         assert c.post("/announcements/analyze", json={"announcement_id": "nope"}).status_code == 404
-        s = c.post(
-            "/network/search", json={"company_ticker": "KAYNES", "theme": "operations"}
-        ).json()
+        s = c.post("/network/search", json={"company_ticker": "LT", "theme": "operations"}).json()
         assert (
             s["matches"]
             and s["matches"][0]["relevance_score"] >= s["matches"][-1]["relevance_score"]
@@ -256,3 +254,16 @@ def test_bands_against_hand_labels(seeded):
     up, n_mat = ev["material_at_medium_or_above"]
     down, n_non = ev["not_material_below_medium"]
     assert ev["n"] == 100 and up / n_mat >= 0.7 and down / n_non >= 0.95
+
+
+def test_an_issue_stated_as_shares_at_a_price_has_its_amount():
+    from app.intel.signal import extract_facts
+
+    f = extract_facts(
+        "", "Closed QIP through allocation of 114,146,341 equity shares at ₹1,025 per share.", {}
+    )
+    amt = [x for x in f if x["field"] == "amount"]
+    assert len(amt) == 1 and amt[0]["value"] == 11700.0  # crore, the product and nothing else
+    assert amt[0]["computed"] == "114,146,341 shares × ₹1,025"
+    # a face value alone is not an amount
+    assert not [x for x in extract_facts("", "Shares of ₹2 each", {}) if x["field"] == "amount"]

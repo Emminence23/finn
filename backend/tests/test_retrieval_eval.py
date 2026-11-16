@@ -9,9 +9,9 @@ def test_answer_pages_reach_the_model(seeded):
     from app.research.retrieval_eval import run
 
     r = run()
-    assert r["tuning"]["found"] == "20 of 20"
+    assert r["tuning"]["found"] == "13 of 13"
     # written after the synonym list and never used to change it: a floor, not a target
-    assert _found(r["held-out"]["found"]) >= 9
+    assert _found(r["held-out"]["found"]) >= 21
 
 
 def test_investor_words_reach_filing_words():

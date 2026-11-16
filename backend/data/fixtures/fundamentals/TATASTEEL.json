@@ -1,0 +1,1449 @@
+{
+ "name": "Tata Steel Ltd",
+ "about": "Tata Steel Ltd is Asia's first integrated private steel company setup in 1907. [1] The company has presence across the entire value chain of steel manufacturing from mining and processing iron ore and coal to producing and distributing finished products. [2] The company has a target to increase domestic steelmaking capacity to 30 MnTPA by 2025. [3]",
+ "top_ratios": {
+  "Market Cap": "₹ 2,27,135 Cr.",
+  "Current Price": "₹ 182",
+  "High / Low": "₹ 224 / 160",
+  "Stock P/E": "19.1",
+  "Book Value": "₹ 83.1",
+  "Dividend Yield": "2.19 %",
+  "ROCE": "12.5 %",
+  "ROE": "11.7 %",
+  "Face Value": "₹ 1.00"
+ },
+ "is_financial": false,
+ "tables": {
+  "quarters": {
+   "Sales": {
+    "2023-09": 55682.0,
+    "2023-12": 55312.0,
+    "2024-03": 58687.0,
+    "2024-06": 54771.0,
+    "2024-09": 53905.0,
+    "2024-12": 53648.0,
+    "2025-03": 56218.0,
+    "2025-06": 53178.0,
+    "2025-09": 58689.0,
+    "2025-12": 57002.0,
+    "2026-03": 63270.0,
+    "2026-06": 60794.0,
+    "2026-09": 65436.0
+   },
+   "YoY Sales growth": {
+    "2023-09": -7.0,
+    "2023-12": -3.0,
+    "2024-03": -7.0,
+    "2024-06": -8.0,
+    "2024-09": -3.0,
+    "2024-12": -3.0,
+    "2025-03": -4.0,
+    "2025-06": -3.0,
+    "2025-09": 9.0,
+    "2025-12": 6.0,
+    "2026-03": 13.0,
+    "2026-06": 14.0,
+    "2026-09": 12.0
+   },
+   "Expenses": {
+    "2023-09": 51414.0,
+    "2023-12": 49048.0,
+    "2024-03": 52087.0,
+    "2024-06": 48077.0,
+    "2024-09": 47789.0,
+    "2024-12": 47745.0,
+    "2025-03": 49659.0,
+    "2025-06": 45751.0,
+    "2025-09": 49793.0,
+    "2025-12": 48803.0,
+    "2026-03": 53441.0,
+    "2026-06": 51530.0,
+    "2026-09": 54903.0
+   },
+   "Operating Profit": {
+    "2023-09": 4268.0,
+    "2023-12": 6264.0,
+    "2024-03": 6601.0,
+    "2024-06": 6694.0,
+    "2024-09": 6116.0,
+    "2024-12": 5903.0,
+    "2025-03": 6559.0,
+    "2025-06": 7428.0,
+    "2025-09": 8897.0,
+    "2025-12": 8200.0,
+    "2026-03": 9829.0,
+    "2026-06": 9264.0,
+    "2026-09": 10533.0
+   },
+   "OPM %": {
+    "2023-09": 8.0,
+    "2023-12": 11.0,
+    "2024-03": 11.0,
+    "2024-06": 12.0,
+    "2024-09": 11.0,
+    "2024-12": 11.0,
+    "2025-03": 12.0,
+    "2025-06": 14.0,
+    "2025-09": 15.0,
+    "2025-12": 14.0,
+    "2026-03": 16.0,
+    "2026-06": 15.0,
+    "2026-09": 16.0
+   },
+   "Other Income": {
+    "2023-09": -6568.0,
+    "2023-12": -33.0,
+    "2024-03": -382.0,
+    "2024-06": -6.0,
+    "2024-09": 617.0,
+    "2024-12": 142.0,
+    "2025-03": 149.0,
+    "2025-06": 236.0,
+    "2025-09": -6.0,
+    "2025-12": 465.0,
+    "2026-03": 42.0,
+    "2026-06": -17.0,
+    "2026-09": 709.0
+   },
+   "Interest": {
+    "2023-09": 1959.0,
+    "2023-12": 1881.0,
+    "2024-03": 1842.0,
+    "2024-06": 1777.0,
+    "2024-09": 1971.0,
+    "2024-12": 1804.0,
+    "2025-03": 1789.0,
+    "2025-06": 1852.0,
+    "2025-09": 1775.0,
+    "2025-12": 1747.0,
+    "2026-03": 1792.0,
+    "2026-06": 1771.0,
+    "2026-09": 2005.0
+   },
+   "Depreciation": {
+    "2023-09": 2480.0,
+    "2023-12": 2422.0,
+    "2024-03": 2568.0,
+    "2024-06": 2535.0,
+    "2024-09": 2597.0,
+    "2024-12": 2569.0,
+    "2025-03": 2720.0,
+    "2025-06": 2744.0,
+    "2025-09": 2893.0,
+    "2025-12": 3049.0,
+    "2026-03": 3268.0,
+    "2026-06": 3640.0,
+    "2026-09": 3782.0
+   },
+   "Profit before tax": {
+    "2023-09": -6739.0,
+    "2023-12": 1928.0,
+    "2024-03": 1809.0,
+    "2024-06": 2377.0,
+    "2024-09": 2164.0,
+    "2024-12": 1672.0,
+    "2025-03": 2200.0,
+    "2025-06": 3067.0,
+    "2025-09": 4222.0,
+    "2025-12": 3869.0,
+    "2026-03": 4810.0,
+    "2026-06": 3838.0,
+    "2026-09": 5455.0
+   },
+   "Tax %": {
+    "2023-09": -3.0,
+    "2023-12": 73.0,
+    "2024-03": 69.0,
+    "2024-06": 61.0,
+    "2024-09": 65.0,
+    "2024-12": 82.0,
+    "2025-03": 45.0,
+    "2025-06": 35.0,
+    "2025-09": 25.0,
+    "2025-12": 29.0,
+    "2026-03": 38.0,
+    "2026-06": 38.0,
+    "2026-09": 32.0
+   },
+   "Net Profit": {
+    "2023-09": -6511.0,
+    "2023-12": 522.0,
+    "2024-03": 555.0,
+    "2024-06": 919.0,
+    "2024-09": 759.0,
+    "2024-12": 295.0,
+    "2025-03": 1201.0,
+    "2025-06": 2007.0,
+    "2025-09": 3183.0,
+    "2025-12": 2730.0,
+    "2026-03": 2965.0,
+    "2026-06": 2385.0,
+    "2026-09": 3700.0
+   },
+   "EPS in Rs": {
+    "2023-09": -5.07,
+    "2023-12": 0.42,
+    "2024-03": 0.49,
+    "2024-06": 0.77,
+    "2024-09": 0.67,
+    "2024-12": 0.26,
+    "2025-03": 1.04,
+    "2025-06": 1.66,
+    "2025-09": 2.48,
+    "2025-12": 2.15,
+    "2026-03": 2.34,
+    "2026-06": 1.86,
+    "2026-09": 2.94
+   }
+  },
+  "annual_pl": {
+   "Sales": {
+    "2015-03": 139504.0,
+    "2016-03": 101965.0,
+    "2017-03": 112299.0,
+    "2018-03": 123249.0,
+    "2019-03": 157669.0,
+    "2020-03": 139817.0,
+    "2021-03": 156477.0,
+    "2022-03": 243959.0,
+    "2023-03": 243353.0,
+    "2024-03": 229171.0,
+    "2025-03": 218543.0,
+    "2026-03": 232140.0,
+    "TTM": 246503.0
+   },
+   "Sales growth": {
+    "2015-03": -6.0,
+    "2016-03": -27.0,
+    "2017-03": 10.0,
+    "2018-03": 10.0,
+    "2019-03": 28.0,
+    "2020-03": -11.0,
+    "2021-03": 12.0,
+    "2022-03": 56.0,
+    "2023-03": -0.0,
+    "2024-03": -6.0,
+    "2025-03": -5.0,
+    "2026-03": 6.0,
+    "TTM": 11.0
+   },
+   "Expenses": {
+    "2015-03": 136095.0,
+    "2016-03": 102590.0,
+    "2017-03": 99156.0,
+    "2018-03": 101816.0,
+    "2019-03": 128351.0,
+    "2020-03": 122354.0,
+    "2021-03": 125973.0,
+    "2022-03": 180469.0,
+    "2023-03": 211053.0,
+    "2024-03": 206923.0,
+    "2025-03": 193244.0,
+    "2026-03": 197788.0,
+    "TTM": 208677.0
+   },
+   "Operating Profit": {
+    "2015-03": 3409.0,
+    "2016-03": -625.0,
+    "2017-03": 13144.0,
+    "2018-03": 21433.0,
+    "2019-03": 29318.0,
+    "2020-03": 17463.0,
+    "2021-03": 30504.0,
+    "2022-03": 63490.0,
+    "2023-03": 32300.0,
+    "2024-03": 22248.0,
+    "2025-03": 25298.0,
+    "2026-03": 34352.0,
+    "TTM": 37826.0
+   },
+   "OPM %": {
+    "2015-03": 2.4,
+    "2016-03": -0.6,
+    "2017-03": 12.0,
+    "2018-03": 17.0,
+    "2019-03": 19.0,
+    "2020-03": 12.0,
+    "2021-03": 19.0,
+    "2022-03": 26.0,
+    "2023-03": 13.0,
+    "2024-03": 10.0,
+    "2025-03": 12.0,
+    "2026-03": 15.0,
+    "TTM": 15.0
+   },
+   "Other Income": {
+    "2015-03": 5994.0,
+    "2016-03": 10346.0,
+    "2017-03": -3789.0,
+    "2018-03": 10898.0,
+    "2019-03": 1524.0,
+    "2020-03": -2884.0,
+    "2021-03": 180.0,
+    "2022-03": 1300.0,
+    "2023-03": 1569.0,
+    "2024-03": -6005.0,
+    "2025-03": 877.0,
+    "2026-03": 738.0,
+    "TTM": 1200.0
+   },
+   "Interest": {
+    "2015-03": 4848.0,
+    "2016-03": 4221.0,
+    "2017-03": 5072.0,
+    "2018-03": 5455.0,
+    "2019-03": 7660.0,
+    "2020-03": 7533.0,
+    "2021-03": 7607.0,
+    "2022-03": 5462.0,
+    "2023-03": 6299.0,
+    "2024-03": 7508.0,
+    "2025-03": 7341.0,
+    "2026-03": 7167.0,
+    "TTM": 7316.0
+   },
+   "Depreciation": {
+    "2015-03": 5944.0,
+    "2016-03": 5306.0,
+    "2017-03": 5673.0,
+    "2018-03": 5742.0,
+    "2019-03": 7342.0,
+    "2020-03": 8441.0,
+    "2021-03": 9234.0,
+    "2022-03": 9101.0,
+    "2023-03": 9335.0,
+    "2024-03": 9882.0,
+    "2025-03": 10421.0,
+    "2026-03": 11955.0,
+    "TTM": 13739.0
+   },
+   "Profit before tax": {
+    "2015-03": -1388.0,
+    "2016-03": 193.0,
+    "2017-03": -1391.0,
+    "2018-03": 21135.0,
+    "2019-03": 15841.0,
+    "2020-03": -1395.0,
+    "2021-03": 13844.0,
+    "2022-03": 50227.0,
+    "2023-03": 18235.0,
+    "2024-03": -1147.0,
+    "2025-03": 8413.0,
+    "2026-03": 15969.0,
+    "TTM": 17972.0
+   },
+   "Tax %": {
+    "2015-03": 185.0,
+    "2016-03": 358.0,
+    "2017-03": 200.0,
+    "2018-03": 16.0,
+    "2019-03": 42.0,
+    "2020-03": -184.0,
+    "2021-03": 41.0,
+    "2022-03": 17.0,
+    "2023-03": 56.0,
+    "2024-03": 328.0,
+    "2025-03": 62.0,
+    "2026-03": 32.0,
+    "TTM": null
+   },
+   "Net Profit": {
+    "2015-03": -3939.0,
+    "2016-03": -497.0,
+    "2017-03": -4169.0,
+    "2018-03": 17743.0,
+    "2019-03": 9122.0,
+    "2020-03": 1174.0,
+    "2021-03": 8190.0,
+    "2022-03": 41749.0,
+    "2023-03": 8075.0,
+    "2024-03": -4910.0,
+    "2025-03": 3174.0,
+    "2026-03": 10886.0,
+    "TTM": 11780.0
+   },
+   "EPS in Rs": {
+    "2015-03": -3.85,
+    "2016-03": -0.38,
+    "2017-03": -4.16,
+    "2018-03": 11.93,
+    "2019-03": 9.07,
+    "2020-03": 1.38,
+    "2021-03": 6.26,
+    "2022-03": 32.88,
+    "2023-03": 7.17,
+    "2024-03": -3.55,
+    "2025-03": 2.74,
+    "2026-03": 8.65,
+    "TTM": 9.29
+   },
+   "Dividend Payout %": {
+    "2015-03": -20.0,
+    "2016-03": -203.0,
+    "2017-03": -23.0,
+    "2018-03": 9.0,
+    "2019-03": 15.0,
+    "2020-03": 74.0,
+    "2021-03": 40.0,
+    "2022-03": 16.0,
+    "2023-03": 50.0,
+    "2024-03": -101.0,
+    "2025-03": 131.0,
+    "2026-03": 46.0,
+    "TTM": null
+   }
+  },
+  "balance_sheet": {
+   "Equity Capital": {
+    "2015-03": 971.0,
+    "2016-03": 970.0,
+    "2017-03": 970.0,
+    "2018-03": 1145.0,
+    "2019-03": 1145.0,
+    "2020-03": 1145.0,
+    "2021-03": 1198.0,
+    "2022-03": 1221.0,
+    "2023-03": 1221.0,
+    "2024-03": 1247.0,
+    "2025-03": 1247.0,
+    "2026-03": 1247.0,
+    "2026-09": 1247.0
+   },
+   "Reserves": {
+    "2015-03": 30378.0,
+    "2016-03": 42762.0,
+    "2017-03": 36849.0,
+    "2018-03": 59726.0,
+    "2019-03": 67780.0,
+    "2020-03": 72431.0,
+    "2021-03": 73041.0,
+    "2022-03": 113222.0,
+    "2023-03": 101861.0,
+    "2024-03": 90788.0,
+    "2025-03": 89922.0,
+    "2026-03": 100920.0,
+    "2026-09": 102489.0
+   },
+   "Borrowings": {
+    "2015-03": 80701.0,
+    "2016-03": 81987.0,
+    "2017-03": 83014.0,
+    "2018-03": 92147.0,
+    "2019-03": 100816.0,
+    "2020-03": 116328.0,
+    "2021-03": 88501.0,
+    "2022-03": 75561.0,
+    "2023-03": 84893.0,
+    "2024-03": 87082.0,
+    "2025-03": 94801.0,
+    "2026-03": 92382.0,
+    "2026-09": 102368.0
+   },
+   "Other Liabilities": {
+    "2015-03": 47059.0,
+    "2016-03": 51165.0,
+    "2017-03": 51614.0,
+    "2018-03": 55704.0,
+    "2019-03": 63032.0,
+    "2020-03": 59245.0,
+    "2021-03": 81169.0,
+    "2022-03": 92417.0,
+    "2023-03": 97421.0,
+    "2024-03": 90195.0,
+    "2025-03": 89488.0,
+    "2026-03": 101965.0,
+    "2026-09": 106418.0
+   },
+   "Total Liabilities": {
+    "2015-03": 159109.0,
+    "2016-03": 176884.0,
+    "2017-03": 172447.0,
+    "2018-03": 208722.0,
+    "2019-03": 232773.0,
+    "2020-03": 249149.0,
+    "2021-03": 243909.0,
+    "2022-03": 282422.0,
+    "2023-03": 285396.0,
+    "2024-03": 269312.0,
+    "2025-03": 275459.0,
+    "2026-03": 296515.0,
+    "2026-09": 312522.0
+   },
+   "Fixed Assets": {
+    "2015-03": 68100.0,
+    "2016-03": 72200.0,
+    "2017-03": 92007.0,
+    "2018-03": 96105.0,
+    "2019-03": 124442.0,
+    "2020-03": 134551.0,
+    "2021-03": 135775.0,
+    "2022-03": 133288.0,
+    "2023-03": 146621.0,
+    "2024-03": 148814.0,
+    "2025-03": 150914.0,
+    "2026-03": 179908.0,
+    "2026-09": 186090.0
+   },
+   "CWIP": {
+    "2015-03": 28678.0,
+    "2016-03": 35996.0,
+    "2017-03": 15784.0,
+    "2018-03": 16614.0,
+    "2019-03": 18641.0,
+    "2020-03": 19497.0,
+    "2021-03": 19007.0,
+    "2022-03": 22046.0,
+    "2023-03": 31213.0,
+    "2024-03": 34356.0,
+    "2025-03": 41622.0,
+    "2026-03": 28497.0,
+    "2026-09": 25543.0
+   },
+   "Investments": {
+    "2015-03": 3455.0,
+    "2016-03": 10714.0,
+    "2017-03": 12457.0,
+    "2018-03": 17899.0,
+    "2019-03": 5738.0,
+    "2020-03": 6285.0,
+    "2021-03": 10682.0,
+    "2022-03": 13140.0,
+    "2023-03": 8410.0,
+    "2024-03": 6258.0,
+    "2025-03": 6194.0,
+    "2026-03": 7089.0,
+    "2026-09": 7559.0
+   },
+   "Other Assets": {
+    "2015-03": 58876.0,
+    "2016-03": 57974.0,
+    "2017-03": 52200.0,
+    "2018-03": 78103.0,
+    "2019-03": 83952.0,
+    "2020-03": 88816.0,
+    "2021-03": 78445.0,
+    "2022-03": 113948.0,
+    "2023-03": 99151.0,
+    "2024-03": 79885.0,
+    "2025-03": 76728.0,
+    "2026-03": 81021.0,
+    "2026-09": 93330.0
+   },
+   "Total Assets": {
+    "2015-03": 159109.0,
+    "2016-03": 176884.0,
+    "2017-03": 172447.0,
+    "2018-03": 208722.0,
+    "2019-03": 232773.0,
+    "2020-03": 249149.0,
+    "2021-03": 243909.0,
+    "2022-03": 282422.0,
+    "2023-03": 285396.0,
+    "2024-03": 269312.0,
+    "2025-03": 275459.0,
+    "2026-03": 296515.0,
+    "2026-09": 312522.0
+   }
+  },
+  "cash_flow": {
+   "Cash from Operating Activity": {
+    "2015-03": 11880.0,
+    "2016-03": 11455.0,
+    "2017-03": 10824.0,
+    "2018-03": 8023.0,
+    "2019-03": 25336.0,
+    "2020-03": 20169.0,
+    "2021-03": 44327.0,
+    "2022-03": 44381.0,
+    "2023-03": 21683.0,
+    "2024-03": 20301.0,
+    "2025-03": 23138.0,
+    "2026-03": 35064.0
+   },
+   "Cash from Investing Activity": {
+    "2015-03": -9021.0,
+    "2016-03": -8794.0,
+    "2017-03": -9490.0,
+    "2018-03": -11730.0,
+    "2019-03": -29176.0,
+    "2020-03": -14012.0,
+    "2021-03": -9437.0,
+    "2022-03": -10905.0,
+    "2023-03": -18179.0,
+    "2024-03": -14253.0,
+    "2025-03": -13611.0,
+    "2026-03": -14397.0
+   },
+   "Cash from Financing Activity": {
+    "2015-03": -2617.0,
+    "2016-03": -4729.0,
+    "2017-03": -2579.0,
+    "2018-03": 6640.0,
+    "2019-03": -673.0,
+    "2020-03": -1695.0,
+    "2021-03": -37090.0,
+    "2022-03": -23401.0,
+    "2023-03": -6981.0,
+    "2024-03": -11097.0,
+    "2025-03": -7002.0,
+    "2026-03": -21387.0
+   },
+   "Net Cash Flow": {
+    "2015-03": 241.0,
+    "2016-03": -2068.0,
+    "2017-03": -1245.0,
+    "2018-03": 2933.0,
+    "2019-03": -4513.0,
+    "2020-03": 4462.0,
+    "2021-03": -2200.0,
+    "2022-03": 10075.0,
+    "2023-03": -3477.0,
+    "2024-03": -5049.0,
+    "2025-03": 2524.0,
+    "2026-03": -720.0
+   },
+   "Free Cash Flow": {
+    "2015-03": -169.0,
+    "2016-03": 1523.0,
+    "2017-03": 3397.0,
+    "2018-03": 724.0,
+    "2019-03": 16712.0,
+    "2020-03": 10156.0,
+    "2021-03": 37793.0,
+    "2022-03": 34428.0,
+    "2023-03": 7868.0,
+    "2024-03": 2569.0,
+    "2025-03": 8731.0,
+    "2026-03": 21906.0
+   },
+   "CFO/EBITDA": {
+    "2015-03": 420.0,
+    "2016-03": -2078.0,
+    "2017-03": 96.0,
+    "2018-03": 51.0,
+    "2019-03": 104.0,
+    "2020-03": 128.0,
+    "2021-03": 148.0,
+    "2022-03": 89.0,
+    "2023-03": 84.0,
+    "2024-03": 115.0,
+    "2025-03": 103.0,
+    "2026-03": 115.0
+   }
+  },
+  "ratios": {
+   "Debtor Days": {
+    "2015-03": 35.0,
+    "2016-03": 43.0,
+    "2017-03": 38.0,
+    "2018-03": 37.0,
+    "2019-03": 27.0,
+    "2020-03": 21.0,
+    "2021-03": 22.0,
+    "2022-03": 18.0,
+    "2023-03": 12.0,
+    "2024-03": 10.0,
+    "2025-03": 9.0,
+    "2026-03": 8.0
+   },
+   "Inventory Days": {
+    "2015-03": 165.0,
+    "2016-03": 180.0,
+    "2017-03": 230.0,
+    "2018-03": 224.0,
+    "2019-03": 190.0,
+    "2020-03": 197.0,
+    "2021-03": 215.0,
+    "2022-03": 213.0,
+    "2023-03": 175.0,
+    "2024-03": 176.0,
+    "2025-03": 171.0,
+    "2026-03": 184.0
+   },
+   "Days Payable": {
+    "2015-03": 126.0,
+    "2016-03": 167.0,
+    "2017-03": 172.0,
+    "2018-03": 161.0,
+    "2019-03": 130.0,
+    "2020-03": 136.0,
+    "2021-03": 167.0,
+    "2022-03": 161.0,
+    "2023-03": 122.0,
+    "2024-03": 108.0,
+    "2025-03": 113.0,
+    "2026-03": 136.0
+   },
+   "Cash Conversion Cycle": {
+    "2015-03": 74.0,
+    "2016-03": 56.0,
+    "2017-03": 96.0,
+    "2018-03": 99.0,
+    "2019-03": 87.0,
+    "2020-03": 82.0,
+    "2021-03": 69.0,
+    "2022-03": 71.0,
+    "2023-03": 66.0,
+    "2024-03": 78.0,
+    "2025-03": 67.0,
+    "2026-03": 56.0
+   },
+   "Working Capital Days": {
+    "2015-03": -6.0,
+    "2016-03": -47.0,
+    "2017-03": -32.0,
+    "2018-03": -31.0,
+    "2019-03": -18.0,
+    "2020-03": -38.0,
+    "2021-03": -55.0,
+    "2022-03": -34.0,
+    "2023-03": -42.0,
+    "2024-03": -59.0,
+    "2025-03": -50.0,
+    "2026-03": -56.0
+   },
+   "ROCE %": {
+    "2015-03": 1.0,
+    "2016-03": 1.0,
+    "2017-03": 6.0,
+    "2018-03": 12.0,
+    "2019-03": 14.0,
+    "2020-03": 6.0,
+    "2021-03": 12.0,
+    "2022-03": 31.0,
+    "2023-03": 13.0,
+    "2024-03": 7.0,
+    "2025-03": 9.0,
+    "2026-03": 13.0
+   }
+  }
+ },
+ "quarterly_headline": [
+  {
+   "period": "2023-09",
+   "revenue": 55682.0,
+   "ebitda": 4268.0,
+   "pbt": -6739.0,
+   "pat": -6511.0
+  },
+  {
+   "period": "2023-12",
+   "revenue": 55312.0,
+   "ebitda": 6264.0,
+   "pbt": 1928.0,
+   "pat": 522.0
+  },
+  {
+   "period": "2024-03",
+   "revenue": 58687.0,
+   "ebitda": 6601.0,
+   "pbt": 1809.0,
+   "pat": 555.0
+  },
+  {
+   "period": "2024-06",
+   "revenue": 54771.0,
+   "ebitda": 6694.0,
+   "pbt": 2377.0,
+   "pat": 919.0
+  },
+  {
+   "period": "2024-09",
+   "revenue": 53905.0,
+   "ebitda": 6116.0,
+   "pbt": 2164.0,
+   "pat": 759.0
+  },
+  {
+   "period": "2024-12",
+   "revenue": 53648.0,
+   "ebitda": 5903.0,
+   "pbt": 1672.0,
+   "pat": 295.0
+  },
+  {
+   "period": "2025-03",
+   "revenue": 56218.0,
+   "ebitda": 6559.0,
+   "pbt": 2200.0,
+   "pat": 1201.0
+  },
+  {
+   "period": "2025-06",
+   "revenue": 53178.0,
+   "ebitda": 7428.0,
+   "pbt": 3067.0,
+   "pat": 2007.0
+  },
+  {
+   "period": "2025-09",
+   "revenue": 58689.0,
+   "ebitda": 8897.0,
+   "pbt": 4222.0,
+   "pat": 3183.0
+  },
+  {
+   "period": "2025-12",
+   "revenue": 57002.0,
+   "ebitda": 8200.0,
+   "pbt": 3869.0,
+   "pat": 2730.0
+  },
+  {
+   "period": "2026-03",
+   "revenue": 63270.0,
+   "ebitda": 9829.0,
+   "pbt": 4810.0,
+   "pat": 2965.0
+  },
+  {
+   "period": "2026-06",
+   "revenue": 60794.0,
+   "ebitda": 9264.0,
+   "pbt": 3838.0,
+   "pat": 2385.0
+  },
+  {
+   "period": "2026-09",
+   "revenue": 65436.0,
+   "ebitda": 10533.0,
+   "pbt": 5455.0,
+   "pat": 3700.0
+  }
+ ],
+ "documents": [
+  {
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report 2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/eb836c3a-cf5f-427d-bc71-e368d5861e02.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2025",
+   "label": "Annual Report 2025",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/8fcf51ce-ba80-4b6a-90cf-1ce556bbf3ed.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2024",
+   "label": "Annual Report 2024",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/4259054b-0c8e-4eaf-950a-56b318b34256.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2023",
+   "label": "Annual Report 2023",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/ceb63cf5-e23c-4a80-8a6b-42d71afc754c.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2022",
+   "label": "Annual Report 2022",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/73142500470.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2021",
+   "label": "Annual Report 2021",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/68536500470.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2020",
+   "label": "Annual Report 2020",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700320.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2019",
+   "label": "Annual Report 2019",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700319.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2018",
+   "label": "Annual Report 2018",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700318.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2017",
+   "label": "Annual Report 2017",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700317.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2016",
+   "label": "Annual Report 2016",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700316.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2015",
+   "label": "Annual Report 2015",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700315.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2014",
+   "label": "Annual Report 2014",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700314.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2013",
+   "label": "Annual Report 2013",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700313.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2012",
+   "label": "Annual Report 2012",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500470/5004700312.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=eeedbcb3-2b63-4718-b5b7-b498eedf2b4e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5a739d21-7ea5-4c1a-b220-45f77e240c2e.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.youtube.com/watch?v=ObB5CVe8KeA"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=569d3f9e-82d7-45c9-bb22-81509bb8ec3c.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a10cb52b-e846-4a80-a709-c94b264e6532.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=63e5dca7-ef35-405c-b2ef-7044e356d873.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.youtube.com/watch?v=0049iaS1Twc"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=42e1b521-5f11-46c5-b3b1-bb7c269524e9.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-05",
+   "label": "May 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6d6e2d40-e300-4aae-94bc-b1dc1136656c.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-05",
+   "label": "May 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=33960741-5849-4d90-951d-5733a2d40f46.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-05",
+   "label": "May 2026",
+   "url": "https://www.youtube.com/watch?v=LRBFf3Uin2g"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-02",
+   "label": "Feb 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7e178a2e-ea18-4b55-8e55-56e03dc5bea5.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-02",
+   "label": "Feb 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4390fd0f-eb71-4d34-81f0-615195bb519b.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-11",
+   "label": "Nov 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=816939c9-f6c8-404b-afce-29aee1c980ed.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-11",
+   "label": "Nov 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=85350610-bed3-4627-a46d-9471960f8c7d.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-08",
+   "label": "Aug 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=536435e3-b37b-4fca-98bf-d611bc8a4416.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-08",
+   "label": "Aug 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=28738faa-17b9-402b-aa1c-a74fc8f01c65.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e0a1ae78-3def-4931-9964-78fccb7b1163.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-05",
+   "label": "May 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7f425b16-21e6-48ac-bfe7-27a5b6117095.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-05",
+   "label": "May 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0fe02ad7-ca57-4b01-94b7-92428b91a3af.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-05",
+   "label": "May 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=06069496-e5b6-4d6f-bb5a-1ce119eb1e02.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-02",
+   "label": "Feb 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0fb45195-081f-436c-aa0a-909a6306d88e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-02",
+   "label": "Feb 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=80d4f439-4696-4d87-ad35-c1fd2ef766d1.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-02",
+   "label": "Feb 2025",
+   "url": "https://youtu.be/OGcpPC3VnWA"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://www.tatasteel.com/media/23351/3qfy25-results-presentation.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-11",
+   "label": "Nov 2024",
+   "url": "https://www.tatasteel.com/media/22471/2qfy2025-transcript-v7.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-11",
+   "label": "Nov 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f7411ac9-3bf1-48ca-a89b-41531a4ad064.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-11",
+   "label": "Nov 2024",
+   "url": "https://www.youtube.com/live/rXvQ982ielA"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-08",
+   "label": "Aug 2024",
+   "url": "https://www.tatasteel.com/media/21718/1qfy2025-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-08",
+   "label": "Aug 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6ab180d0-2ff6-45b3-a6a9-aef99d713c6d.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-08",
+   "label": "Aug 2024",
+   "url": "https://www.youtube.com/watch?v=qd6US0MrtQw"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=79ed35be-7052-40b9-bdf8-a7ddeffe4a5d.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=61e28e39-13d1-443c-bcb6-95090f464f16.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-06",
+   "label": "Jun 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1751901f-3da7-4ef9-9a83-b428601cb3df.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2024-06",
+   "label": "Jun 2024",
+   "url": "https://www.youtube.com/watch?v=124Z8lhzU0w"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-05",
+   "label": "May 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=23dae557-0854-4e52-95dd-dd9c118f59d7.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=94c8d5aa-ef6f-4ee6-9389-6fc8e0202c72.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-11",
+   "label": "Nov 2023",
+   "url": "https://www.tatasteel.com/media/19542/2qfy24-transcript-v7.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-11",
+   "label": "Nov 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=07a8b2e9-a276-4413-8351-cb22e2618c6f.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-07",
+   "label": "Jul 2023",
+   "url": "https://www.tatasteel.com/media/18677/1qfy24-transcript-v7.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-07",
+   "label": "Jul 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f5d5f9a0-c179-4c22-844f-e45c78e48bcf.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-07",
+   "label": "Jul 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e1b9e934-cca1-4c1c-9cf9-aef13ca92e0d.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-05",
+   "label": "May 2023",
+   "url": "https://www.tatasteel.com/media/18022/4qfy23-and-fy23-transcript-v7.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-05",
+   "label": "May 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=36716ba4-0e53-4154-a0f8-c00fb5ff1c93.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-05",
+   "label": "May 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8cf79e43-35c1-4c63-9fbc-06ca4f714317.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-02",
+   "label": "Feb 2023",
+   "url": "https://www.tatasteel.com/media/17447/3qfy23-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-02",
+   "label": "Feb 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0f7d57f9-77a2-49d6-b990-988d033dea52.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-10",
+   "label": "Oct 2022",
+   "url": "https://www.tatasteel.com/media/16797/2qfy23-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-10",
+   "label": "Oct 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ca52d9d2-a495-4f15-9c04-f0b490a86a53.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-07",
+   "label": "Jul 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=dd5f2c38-b828-40ef-8de3-42e6865b76b9.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-07",
+   "label": "Jul 2022",
+   "url": "https://www.tatasteel.com/media/16242/1qfy23-transcript.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-07",
+   "label": "Jul 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=dcd68b32-9a98-46bd-b4c1-cef3cd13e68b.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-06",
+   "label": "Jun 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d4519975-0226-4d63-896c-66f463f367ca.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-05",
+   "label": "May 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9032eb54-061a-43bf-8193-222dc876b65c.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-02",
+   "label": "Feb 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0cc0f96c-d198-4a94-bbfa-ceb7ddeac40a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-11",
+   "label": "Nov 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fdde7b5d-ecca-42e0-a1cc-474ac3a4fdbe.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-08",
+   "label": "Aug 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1e2a6d4d-20cf-40e9-953b-fd725981d6a9.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-07",
+   "label": "Jul 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=92eac8d5-dc42-4565-b4e3-bea0b038ce58.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-06",
+   "label": "Jun 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b8001b10-1a8d-4364-ab67-8c37e24c72ea.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-06",
+   "label": "Jun 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=04899d16-d68e-4c4e-ab19-7b76f5756d98.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-05",
+   "label": "May 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fadbe349-153f-42ad-a35f-425433b14f79.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-02",
+   "label": "Feb 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=667eeb6e-bbf2-4a0c-b750-25bd9e797f6a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2021-02",
+   "label": "Feb 2021",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4d9aa73a-b951-4995-8850-a73cb770742a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-11",
+   "label": "Nov 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f25207d3-cb97-4e6a-89e4-8fa0a31fa524.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-08",
+   "label": "Aug 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=eb5a4e9d-7218-456a-981b-87c7d0c6c60a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-06",
+   "label": "Jun 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1b9b2e05-36c9-4dd2-be44-956ac3165664.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-02",
+   "label": "Feb 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=bb2a172b-ba81-4d27-9993-aa7b0d3c4c20.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2020-02",
+   "label": "Feb 2020",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3a73c07b-b8c6-437e-bccb-2f75c6da48c6.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-11",
+   "label": "Nov 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ec2ea2d0-16c2-4892-a8f0-6aecb5ed3b68.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-08",
+   "label": "Aug 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=11b727f3-3c9f-48f5-9e01-063e30f15602.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-08",
+   "label": "Aug 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=30ed54d1-7265-4fe5-a1ba-062291fa752f.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-08",
+   "label": "Aug 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d553f629-a7d2-4381-ba45-282230866c2e.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-08",
+   "label": "Aug 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4fb10ba6-3f39-46fb-b627-908dde74eb4d.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-08",
+   "label": "Aug 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d6cd176e-c72e-4824-b3fe-6070091fcefe.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-04",
+   "label": "Apr 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=48b43b1a-e66a-48e4-8a2e-b0a3a6736a2b.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-04",
+   "label": "Apr 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5bcead84-91b2-4e8d-b234-55700b1d63a3.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-02",
+   "label": "Feb 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6981b75c-7bb8-4fab-8a04-8abe07db3fe1.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-02",
+   "label": "Feb 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c4c7c947-d481-410c-a78d-82dc5e4217ad.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-11",
+   "label": "Nov 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1a9454d7-da52-407d-9bdd-d174da2a62ed.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-11",
+   "label": "Nov 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b9d2868e-8f22-45c1-b913-cb94a96ff003.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-08",
+   "label": "Aug 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b2752a60-a3c9-4dba-af9a-a37e824a083f.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-06",
+   "label": "Jun 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0e75d74d-f364-4655-af02-fc1ceb60eac2.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-05",
+   "label": "May 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6c5d8f7d-1e65-497f-935f-86c4ed280100.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-02",
+   "label": "Feb 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=125f8295-a72d-48e9-bb8b-25f2a485616f.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2018-02",
+   "label": "Feb 2018",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9c300522-5673-4820-85a8-7b1a16f8b031.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-10",
+   "label": "Oct 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2b6336cd-8ad7-48d7-ab9b-393b4d574736.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-10",
+   "label": "Oct 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f9c79a35-f691-4274-951e-a010d33c7374.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-09",
+   "label": "Sep 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e870f0dd-df7c-4407-8067-7f473de1cbd6.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2017-05",
+   "label": "May 2017",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d380cc7e-e4fb-4bbf-bc12-ba1ea9d1730a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2016-05",
+   "label": "May 2016",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1FDB8016_039C_4614_B0A0_0A62D89F7FC9_173346.pdf"
+  }
+ ],
+ "symbol": "TATASTEEL",
+ "basis": "consolidated",
+ "source_url": "https://www.screener.in/company/TATASTEEL/consolidated/"
+}

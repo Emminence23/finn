@@ -11,8 +11,8 @@ const DONE_KEY = "finn.tour";
 type Step = { href: string; target: string; title: string; body: string };
 type Track = { id: string; title: string; blurb: string; Icon: typeof Compass; steps: Step[] };
 
-const KARTHIK = "/people/c_karthik_subramanian";
-const PIDILITE_CFO = "/people/fp_amit_agarwal_pidilite";
+const VIVEK = "/people/c_vivek_rao";
+const DABUR_CFO = "/people/fp_ankush_jain_dabur";
 
 /** Tours by what the person wants to do. The Tour button asks first, then each tour opens
  *  its pages and outlines the thing each step describes. */
@@ -39,7 +39,7 @@ export const TRACKS: Track[] = [
         href: "/",
         target: '[aria-label="Time window"]',
         title: "Any window",
-        body: "The last day by default. Pick up to 30 days, or any dates: 1 to 15 October has the Pidilite CFO change.",
+        body: "The last day by default. Pick up to 30 days, or any dates: 1 to 15 November has Dabur's CEO change.",
       },
       {
         href: "/",
@@ -74,31 +74,31 @@ export const TRACKS: Track[] = [
         body: "A ticker, a company, a person or a plain question. A company FINN hasn't read yet is read live, after it asks you.",
       },
       {
-        href: "/c/KAYNES",
+        href: "/c/LT",
         target: "#promises",
         title: "Did management deliver?",
         body: "Every promise from four earnings calls, with its quote and page, against the reported number. Numeric promises are judged by arithmetic, not AI.",
       },
       {
-        href: "/c/KAYNES",
+        href: "/c/LT",
         target: "#numbers",
         title: "The numbers",
-        body: "Growth, margins, cash conversion and the balance sheet. Compare with puts Kaynes beside Dixon or another peer, row by row.",
+        body: "Growth, margins, cash conversion and the balance sheet. Compare with puts L&T beside BHEL or another peer, row by row.",
       },
       {
-        href: "/c/KAYNES",
+        href: "/c/LT",
         target: "[data-tour=askfinn]",
-        title: "Ask about Kaynes",
+        title: "Ask about L&T",
         body: "Try “Why did receivables go up?”. Answers cite the call pages they came from, and points without a source are removed by code.",
       },
       {
-        href: "/c/KAYNES",
+        href: "/c/LT",
         target: "[data-tour=whoyouknow]",
         title: "Who you know",
         body: "People in your network who can explain this company, and how you know them.",
       },
       {
-        href: "/c/KAYNES",
+        href: "/c/LT",
         target: "[data-tour=watch]",
         title: "Watch it",
         body: "Adds the company to your Watchlist with its price, the day's move and its latest filing.",
@@ -174,28 +174,28 @@ export const TRACKS: Track[] = [
         body: "People you haven't spoken to in a while who know something about your holdings right now.",
       },
       {
-        href: KARTHIK,
+        href: VIVEK,
         target: "[data-tour=askabout]",
         title: "What to ask them about",
-        body: "The companies this person can help with, and why: here, Karthik's years at Kaynes.",
+        body: "The companies this person can help with, and why: here, Vivek's years running projects at L&T.",
       },
       {
-        href: KARTHIK,
+        href: VIVEK,
         target: "[data-tour=beforemeet]",
         title: "Before you meet",
         body: "Questions built from FINN's research, each with its source, so you walk in with management's own numbers.",
       },
       {
-        href: KARTHIK,
+        href: VIVEK,
         target: "[data-tour=meeting]",
         title: "Meeting soon?",
         body: "Note a date. From two days before, Today opens with a prep card for it.",
       },
       {
-        href: PIDILITE_CFO,
+        href: DABUR_CFO,
         target: "[data-tour=samename]",
         title: "Same name, not assumed",
-        body: "Pidilite's new CFO shares a name with one of your contacts. FINN asks you to confirm instead of assuming they're the same person.",
+        body: "Dabur's CFO, newly named Compliance Officer too, shares a name with one of your contacts. FINN asks you to confirm instead of assuming they're the same person.",
       },
       {
         href: "/people",
@@ -224,7 +224,7 @@ export const TRACKS: Track[] = [
         body: "Each item gives its size in your portfolio and the rule that let it through. Open one for the evidence and the contact who can explain it.",
       },
       {
-        href: "/c/KAYNES",
+        href: "/c/LT",
         target: "#promises",
         title: "Did management deliver?",
         body: "Promises from four earnings calls, checked against the reported numbers. Numeric ones are judged by arithmetic, not AI.",
@@ -253,8 +253,8 @@ export const TRACKS: Track[] = [
 
 function pageName(href: string): string {
   if (href === "/") return "Today";
-  if (href === KARTHIK) return "Karthik's profile";
-  if (href === PIDILITE_CFO) return "Amit Agarwal's profile";
+  if (href === VIVEK) return "Vivek's profile";
+  if (href === DABUR_CFO) return "Ankush Jain's profile";
   if (href.startsWith("/c/")) return href.slice(3);
   return ({ "/portfolio": "Portfolio", "/watchlist": "Watchlist", "/people": "your network", "/ask": "Ask" } as Record<string, string>)[href] ?? "the page";
 }

@@ -1,55 +1,6 @@
 {
- "_note": "Ask FINN retrieval test. Each question is phrased as an investor would ask it. Its answer pages are the pages whose text matches `evidence`, a pattern for the answer's own wording (not the question's), checked by hand against the documents when the set was written (16 Nov 2026). `words` says whether the question shares the documents' vocabulary ('same') or uses an investor's ('different'). A question is found when one of its answer pages is among the pages Ask FINN sends the model (top 8). `set`: 'tuning' questions were used to write qa.SYNONYMS; 'held-out' ones were written after it and never used to change it.",
+ "_note": "Ask FINN retrieval test. Each question is phrased as an investor would ask it. Its answer pages are the pages whose text matches `evidence`, a pattern for the answer's own wording (not the question's), checked by hand against the documents when the set was written (16 Nov 2026; the L&T questions on 17 Nov 2026, after qa.SYNONYMS was written, so all of them are held out). `words` says whether the question shares the documents' vocabulary ('same') or uses an investor's ('different'). A question is found when one of its answer pages is among the pages Ask FINN sends the model (top 8). `set`: 'tuning' questions were used to write qa.SYNONYMS; 'held-out' ones were written after it and never used to change it.",
  "questions": [
-  {
-   "symbol": "KAYNES",
-   "q": "How big is Kaynes' order book?",
-   "evidence": "order book (of|stood|is)",
-   "words": "same",
-   "set": "tuning"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "How large is Kaynes' backlog of unexecuted orders?",
-   "evidence": "order book (of|stood|is)",
-   "words": "different",
-   "set": "tuning"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "How long do Kaynes' customers take to pay?",
-   "evidence": "receivable days",
-   "words": "different",
-   "set": "tuning"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "What are Kaynes' working capital days and the target?",
-   "evidence": "working capital days",
-   "words": "same",
-   "set": "tuning"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "When will the chip packaging plant start production?",
-   "evidence": "OSAT",
-   "words": "different",
-   "set": "tuning"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "Why was the smart meter business scaled down?",
-   "evidence": "smart meter",
-   "words": "same",
-   "set": "tuning"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "How much does Kaynes owe its lenders?",
-   "evidence": "borrowings|net debt|gross debt",
-   "words": "different",
-   "set": "tuning"
-  },
   {
    "symbol": "AARTIIND",
    "q": "What volume growth did Aarti guide for?",
@@ -142,27 +93,6 @@
    "set": "tuning"
   },
   {
-   "symbol": "KAYNES",
-   "q": "Are Kaynes' margins holding up?",
-   "evidence": "EBITDA margin",
-   "words": "different",
-   "set": "held-out"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "Is Kaynes generating cash from its business?",
-   "evidence": "operating cash flow|cash flow from operations|cash from operations",
-   "words": "different",
-   "set": "held-out"
-  },
-  {
-   "symbol": "KAYNES",
-   "q": "How much stock is Kaynes sitting on?",
-   "evidence": "inventory",
-   "words": "different",
-   "set": "held-out"
-  },
-  {
    "symbol": "AARTIIND",
    "q": "What is Aarti's outlook for next year?",
    "evidence": "guidance|outlook",
@@ -216,6 +146,111 @@
    "q": "How many branches does Manappuram run?",
    "evidence": "branches",
    "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How big is L&T's order book?",
+   "evidence": "order book (of|stood|is|at)",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How large is L&T's backlog of unexecuted work?",
+   "evidence": "order book (of|stood|is|at)",
+   "words": "different",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "What order inflow growth did management guide for?",
+   "evidence": "order inflow.{0,120}guid|guid.{0,120}order inflow",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How much new business came from the Middle East?",
+   "evidence": "middle east.{0,150}(order|inflow)|(order|inflow).{0,150}middle east",
+   "words": "different",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "What is net working capital as a share of revenue?",
+   "evidence": "net working capital",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How long do L&T's customers take to pay?",
+   "evidence": "receivable",
+   "words": "different",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "What margin did L&T guide for?",
+   "evidence": "margin.{0,120}guid|guid.{0,120}margin",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "What is L&T doing in semiconductors?",
+   "evidence": "semiconductor",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "Is L&T building data centres?",
+   "evidence": "data cent",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "What is the plan for the Hyderabad Metro?",
+   "evidence": "hyderabad metro",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "What return on equity is L&T aiming for?",
+   "evidence": "\\broe\\b|return on equity",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How much does L&T earn on shareholders' money?",
+   "evidence": "\\broe\\b|return on equity",
+   "words": "different",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How much is L&T putting into green hydrogen?",
+   "evidence": "green hydrogen|electrolys",
+   "words": "same",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How big is the pipeline of bids L&T is chasing?",
+   "evidence": "prospects",
+   "words": "different",
+   "set": "held-out"
+  },
+  {
+   "symbol": "LT",
+   "q": "How much will L&T spend on new plants and equipment?",
+   "evidence": "capex",
+   "words": "different",
    "set": "held-out"
   }
  ]

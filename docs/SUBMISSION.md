@@ -35,7 +35,7 @@ Portfolio, Watchlist and Top movers round it out in a Groww-like layout.
 - **Tool:** Claude Code (CLI), one long session plus a short setup session. Gemini (free tier) runs inside the product.
 - **Transcripts:** the raw session exports are the `.jsonl` files under `~/.claude/projects/-home-tattwa-quant-enam-assignment/`. The main session can be shared as a link from claude.ai/code.
 - **Decision record:** `docs/build-log.md` is the phase-by-phase record of what was built, what was measured, what went wrong and what was rejected. Examples:
-  - a Kaynes scorecard rebuild was blocked and recorded;
+  - a scorecard rebuild that ran out of model quota was blocked and recorded, never shipped half-done;
   - comparing target numbers across restatements was rejected because it invented revisions;
   - lazy-loading lower sections was overruled in favour of whole-page loading.
 - **How I steered it:**

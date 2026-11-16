@@ -25,15 +25,19 @@ def test_position_size_weighs_on_priority():
 
 
 def test_newer_results_filing_becomes_the_latest_quarter(seeded):
-    from app.research.compare import _fq, compare
-    from app.research.service import get_cached
+    import copy
 
-    v = get_cached("KAYNES")
-    last = v["financials"]["trajectory"]["quarterly"][-1]
-    assert v["latest_quarter"] == "2026-09" and last["source"] == "results filing"
-    assert last["revenue_yoy"] == pytest.approx(4.4)  # the same figure Today's card shows
-    row = next(m for m in compare("KAYNES", "DIXON")["metrics"] if m["key"] == "revenue_yoy_q")
-    assert row["values"][0] == pytest.approx(4.4)
+    from app.research.compare import _fq
+    from app.research.service import add_filed_quarter, get_cached
+
+    # the standardised table stops a quarter short: L&T's results filing of 27 Oct fills it
+    fin = copy.deepcopy(get_cached("LT")["financials"])
+    fin["trajectory"]["quarterly"] = fin["trajectory"]["quarterly"][:-1]
+    assert add_filed_quarter(fin, "LT")["period"] == "2026-09"
+    last = fin["trajectory"]["quarterly"][-1]
+    assert last["source"] == "results filing" and last["filed"].startswith("2026-10-27")
+    assert last["revenue_yoy"] == pytest.approx(15.8)  # the same figure Today's card shows
+    assert add_filed_quarter(fin, "LT") is None  # never added twice
     assert (_fq("2026-09"), _fq("2026-06"), _fq("2026-03")) == ("Q2 FY27", "Q1 FY27", "Q4 FY26")
 
 
@@ -48,11 +52,15 @@ def test_answer_figures_missing_from_the_cited_page_are_marked():
 
 
 def test_as_it_stands_names_holdings_outside_your_limits(seeded):
-    from app.portfolio import analytics
+    from app.network.owner import set_owner
+    from app.portfolio import analytics, settings
 
+    set_owner("demo")
+    assert not any("maximum" in f or "minimum" in f for f in analytics.overview()["flags"])
+    settings.set_settings({"max_pct": 7.5, "min_pct": 3.5})
     flags = analytics.overview()["flags"]
-    assert any(f.startswith("6 holdings are above your 9% maximum: TITAN") for f in flags)
-    assert any("below your 2% minimum: KAYNES" in f for f in flags)
+    assert "1 holding is above your 7.5% maximum: ICICIBANK 7.9%." in flags
+    assert any(f.startswith("4 holdings are below your 3.5% minimum: DABUR") for f in flags)
 
 
 def test_suggestion_reasons_name_the_limit_that_binds(seeded):
@@ -67,8 +75,8 @@ def test_suggestion_reasons_name_the_limit_that_binds(seeded):
         if "theme within the cap" in h["reason"]:
             assert by_theme[h["theme"]] >= cap - 0.01, h
     themes = {h["symbol"]: h["theme"] for h in sug["holdings"]}
-    assert themes["CGPOWER"] == themes["POLYCAB"] == "capital goods"
-    assert themes["KAYNES"] == themes["DIXON"] == "electronics manufacturing"
+    assert themes["LT"] == themes["BHEL"] == "capital goods"
+    assert themes["HDFCBANK"] == themes["ICICIBANK"] == "private banking"
 
 
 def test_reset_can_be_undone_with_the_same_buy_prices(seeded):

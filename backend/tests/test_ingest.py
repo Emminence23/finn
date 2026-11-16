@@ -107,7 +107,8 @@ def test_resolve_symbol(real_fixtures):
     from app.network.companies import resolve_symbol
 
     assert resolve_symbol("ICICI Bank Limited") == "ICICIBANK"
-    assert resolve_symbol("Kaynes Technology India Ltd.") == "KAYNES"
+    assert resolve_symbol("Larsen & Toubro Ltd.") == "LT"
+    assert resolve_symbol("Zomato Limited") == "ETERNAL"
     assert resolve_symbol("Tetra Pak") is None
     assert resolve_symbol("HDFC Securities Private") is None  # must not fuzzy-match HDFCBANK
 
@@ -122,7 +123,7 @@ def test_seed_loads_everything_and_network_is_consistent(real_fixtures):
         assert count("announcements") > 100
         assert count("prices") > 1000
         assert count("financials_quarterly") > 100
-        assert db.execute("SELECT COUNT(*) FROM companies WHERE in_portfolio=1").fetchone()[0] == 18
+        assert db.execute("SELECT COUNT(*) FROM companies WHERE in_portfolio=1").fetchone()[0] == 20
         # every second-degree edge points at a real person
         dangling = db.execute(
             "SELECT other_id FROM relationships WHERE other_id IS NOT NULL "

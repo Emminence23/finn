@@ -46,10 +46,19 @@ def filing_pdf(url: str) -> Path | None:
     return dest
 
 
+def _page(page) -> str:
+    """A malformed page (pypdf's token guard on a huge stream) costs that page only."""
+    try:
+        return page.extract_text() or ""
+    except Exception as e:
+        log.warning("page skipped: %s", e)
+        return ""
+
+
 def pdf_text(path: Path, max_pages: int = 6) -> str:
     try:
         reader = PdfReader(str(path))
-        text = "\n".join((p.extract_text() or "") for p in reader.pages[:max_pages])
+        text = "\n".join(_page(p) for p in reader.pages[:max_pages])
     except Exception as e:
         log.warning("pdf parse failed %s: %s", path, e)
         return ""

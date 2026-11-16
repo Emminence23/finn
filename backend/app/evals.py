@@ -138,18 +138,20 @@ def report() -> dict:
     measured = [
         {
             "what": "Filings decided by rules, with no LLM call",
-            "result": "454 of 517",
-            "how": "Ingested portfolio filings; the rest went to batched triage",
-            "when": "Phase 2",
+            "result": "380 of 455",
+            "how": "The 20-stock portfolio's filings, 18 Sep to 17 Nov 2026; the rest went "
+            "to batched triage",
+            "when": "Phase 5j",
         },
         {
             "what": "People read from management-change filings",
-            "result": "7/7 people and roles, 17/18 prior employers, 8/10 schools",
-            "how": "Hand-checked golden set of the seven people in the demo filings",
-            "when": "Phase 2",
+            "result": "7/7 people, 6/7 roles, 10/14 prior employers, 8/11 schools",
+            "how": "Hand-checked golden set of the seven people in the demo filings, each "
+            "checked against the filing PDF",
+            "when": "Phase 5j",
         },
         {
-            "what": "Promises found in Kaynes' four calls, small vs mid model",
+            "what": "Promises found in one company's four calls, small vs mid model",
             "result": "5 vs 10, including all 3 misses",
             "how": "Same calls, two model tiers; why the scorecard uses the larger one",
             "when": "Phase 3",

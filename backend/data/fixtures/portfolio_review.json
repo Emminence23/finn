@@ -1,64 +1,39 @@
 {
- "ec83ada57eed94f42e80": {
+ "d8e02ef3c02d9e61a03f": {
   "adjustments": [
    {
-    "symbol": "CGPOWER",
-    "delta_pp": -1.5,
-    "reason": "The Maharashtra Pollution Control Board ordered closure of manufacturing operations at CG Power's Waluj unit, adding regulatory and operational risk beyond the model's initial cut.",
+    "symbol": "DABUR",
+    "delta_pp": -1.0,
+    "reason": "Dabur India's Global CEO Mohit Malhotra resigned from his position.",
     "cites": [
-     "A:106846618"
+     "A:106847129"
     ]
    },
    {
-    "symbol": "KAYNES",
-    "delta_pp": -1.5,
-    "reason": "Kaynes carries a 0/100 management delivery score on promises over the last four calls and negative 3-year operating cash flow at -0.71x reported profit, warranting a smaller increase than suggested.",
+    "symbol": "BHEL",
+    "delta_pp": 1.5,
+    "reason": "BHEL secured four major power project orders from Adani Power valued up to ₹28,000 crore.",
     "cites": [
-     "P:KAYNES",
-     "F:KAYNES"
+     "A:106843331"
     ]
    },
    {
     "symbol": "HDFCBANK",
     "delta_pp": -1.0,
-    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 alongside the recent MD and CEO handover to Anup Bagchi, justifying a more cautious addition.",
+    "reason": "MD and CEO Sashidhar Jagdishan vacated his office at HDFC Bank.",
     "cites": [
-     "A:106821168",
      "A:106829496"
     ]
-   }
-  ],
-  "summary": "Filings and records warrant trimming the suggested weights for CG Power due to a regulatory unit closure order, Kaynes due to poor promise delivery and negative cash conversion, and HDFC Bank due to a Deputy MD exit during a CEO transition. The remaining filings reflect routine financial results, capital raises, or non-executive transitions already captured by or neutral to the quantitative weights."
- },
- "69ec67b380e45b52518b": {
-  "adjustments": [
-   {
-    "symbol": "CGPOWER",
-    "delta_pp": -1.5,
-    "reason": "The Maharashtra Pollution Control Board ordered closure of manufacturing operations at CG Power's Waluj unit, adding regulatory and operational risk beyond the model's initial cut.",
-    "cites": [
-     "A:106846618"
-    ]
    },
    {
-    "symbol": "KAYNES",
-    "delta_pp": -1.5,
-    "reason": "Kaynes carries a 0/100 management delivery score on promises over the last four calls and negative 3-year operating cash flow at -0.71x reported profit, warranting a smaller increase than suggested.",
-    "cites": [
-     "P:KAYNES",
-     "F:KAYNES"
-    ]
-   },
-   {
-    "symbol": "HDFCBANK",
+    "symbol": "LT",
     "delta_pp": -1.0,
-    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 alongside the recent MD and CEO handover to Anup Bagchi, justifying a more cautious addition.",
+    "reason": "L&T shows poor execution tracking with a management delivery score of 25/100 on recent earnings call promises.",
     "cites": [
-     "A:106821168",
-     "A:106829496"
+     "P:LT"
     ]
    }
   ],
-  "summary": "Filings and records warrant trimming the suggested weights for CG Power due to a regulatory unit closure order, Kaynes due to poor promise delivery and negative cash conversion, and HDFC Bank due to a Deputy MD exit during a CEO transition. The remaining filings reflect routine financial results, capital raises, or non-executive transitions already captured by or neutral to the quantitative weights."
+  "summary": "Recent filings and records highlight leadership transitions at Dabur and HDFC Bank, execution reliability issues at L&T, and major project order wins for BHEL. These qualitative developments justify targeted adjustments to the quantitative recommendations."
  }
 }

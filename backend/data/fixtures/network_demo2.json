@@ -5,10 +5,28 @@
   "name": "Second investor",
   "headline": "Analyst, financials and consumer",
   "roles": [
-   {"company": "HDFC Bank Limited", "symbol": "HDFCBANK", "title": "Credit Analyst", "start_year": 2011, "end_year": 2015},
-   {"company": "Long-short fund", "title": "Analyst, Financials", "start_year": 2015, "end_year": null}
+   {
+    "company": "HDFC Bank Limited",
+    "symbol": "HDFCBANK",
+    "title": "Credit Analyst",
+    "start_year": 2011,
+    "end_year": 2015
+   },
+   {
+    "company": "Long-short fund",
+    "title": "Analyst, Financials",
+    "start_year": 2015,
+    "end_year": null
+   }
   ],
-  "education": [{"school": "IIM Bangalore", "program": "PGP", "start_year": 2009, "end_year": 2011}]
+  "education": [
+   {
+    "school": "IIM Bangalore",
+    "program": "PGP",
+    "start_year": 2009,
+    "end_year": 2011
+   }
+  ]
  },
  "contacts": [
   {
@@ -16,49 +34,155 @@
    "name": "Ananya Rao",
    "headline": "Product lead, retail lending",
    "roles": [
-    {"company": "HDFC Bank Limited", "symbol": "HDFCBANK", "title": "Senior Manager, Retail Assets", "start_year": 2012, "end_year": 2019},
-    {"company": "Fintech lender", "title": "Product Lead, Retail Lending", "start_year": 2019, "end_year": null}
+    {
+     "company": "HDFC Bank Limited",
+     "symbol": "HDFCBANK",
+     "title": "Senior Manager, Retail Assets",
+     "start_year": 2012,
+     "end_year": 2019
+    },
+    {
+     "company": "Fintech lender",
+     "title": "Product Lead, Retail Lending",
+     "start_year": 2019,
+     "end_year": null
+    }
    ],
-   "education": [{"school": "IIM Bangalore", "program": "PGP", "start_year": 2009, "end_year": 2011}],
-   "themes": ["retail lending", "private banking"],
-   "relationship": {"type": "former colleague", "strength": 0.75, "last_contact": "2026-10-02", "context": "Sat two rows apart at HDFC Bank credit; frank on unsecured loan growth", "email": "ananya.rao@example.com"}
+   "education": [
+    {
+     "school": "IIM Bangalore",
+     "program": "PGP",
+     "start_year": 2009,
+     "end_year": 2011
+    }
+   ],
+   "themes": [
+    "retail lending",
+    "private banking"
+   ],
+   "relationship": {
+    "type": "former colleague",
+    "strength": 0.75,
+    "last_contact": "2026-10-02",
+    "context": "Sat two rows apart at HDFC Bank credit; frank on unsecured loan growth",
+    "email": "ananya.rao@example.com"
+   }
   },
   {
    "id": "d2_vikram_shetty",
    "name": "Vikram Shetty",
    "headline": "Category head, consumer retail",
    "roles": [
-    {"company": "Trent Limited", "symbol": "TRENT", "title": "Category Manager, Westside", "start_year": 2014, "end_year": 2020},
-    {"company": "Apparel retailer", "title": "Category Head", "start_year": 2020, "end_year": null}
+    {
+     "company": "Meesho",
+     "title": "Category Head, Home & Kitchen",
+     "start_year": 2019,
+     "end_year": 2024,
+     "symbol": "MEESHO"
+    },
+    {
+     "company": "Apparel retailer",
+     "title": "Category Head",
+     "start_year": 2024,
+     "end_year": null
+    }
    ],
-   "education": [{"school": "NIFT Mumbai", "program": "M.FTech", "start_year": 2011, "end_year": 2013}],
-   "themes": ["apparel retail", "consumer"],
-   "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-03-14", "context": "Met at a retail conference; knows store economics well", "email": "vikram.shetty@example.com"}
+   "education": [
+    {
+     "school": "NIFT Mumbai",
+     "program": "M.FTech",
+     "start_year": 2011,
+     "end_year": 2013
+    }
+   ],
+   "themes": [
+    "internet consumer",
+    "retail"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.5,
+    "last_contact": "2026-03-14",
+    "context": "Met at a retail conference; knows store economics well",
+    "email": "vikram.shetty@example.com"
+   }
   },
   {
    "id": "d2_farah_khan",
    "name": "Farah Khan",
    "headline": "Gold loan operations",
    "roles": [
-    {"company": "Manappuram Finance Limited", "symbol": "MANAPPURAM", "title": "Regional Manager, Gold Loans", "start_year": 2016, "end_year": 2023},
-    {"company": "Small finance bank", "title": "Head, Secured Retail", "start_year": 2023, "end_year": null}
+    {
+     "company": "Manappuram Finance Limited",
+     "symbol": "MANAPPURAM",
+     "title": "Regional Manager, Gold Loans",
+     "start_year": 2016,
+     "end_year": 2023
+    },
+    {
+     "company": "Small finance bank",
+     "title": "Head, Secured Retail",
+     "start_year": 2023,
+     "end_year": null
+    }
    ],
-   "education": [{"school": "Christ University", "program": "MBA", "start_year": 2013, "end_year": 2015}],
-   "themes": ["gold loans", "rural lending"],
-   "relationship": {"type": "friend", "strength": 0.65, "last_contact": "2026-07-21", "context": "College friend's sister; the best read I have on gold loan branches", "email": "farah.khan@example.com"}
+   "education": [
+    {
+     "school": "Christ University",
+     "program": "MBA",
+     "start_year": 2013,
+     "end_year": 2015
+    }
+   ],
+   "themes": [
+    "gold loans",
+    "rural lending"
+   ],
+   "relationship": {
+    "type": "friend",
+    "strength": 0.65,
+    "last_contact": "2026-07-21",
+    "context": "College friend's sister; the best read I have on gold loan branches",
+    "email": "farah.khan@example.com"
+   }
   },
   {
-   "id": "d2_rajat_shah",
-   "name": "Rajat Shah",
+   "id": "d2_manoj_murali",
+   "name": "Manoj Murali",
    "_planted": "FR-NET-05: same name as CG Power's new VP Services, and employer and school agree. FINN may say 'likely', not assert it.",
-   "headline": "Services leader, industrial equipment",
+   "headline": "Sales leader, telecom",
    "roles": [
-    {"company": "Ingersoll Rand", "title": "Director, Aftermarket Services", "start_year": 2014, "end_year": 2021},
-    {"company": "Industrial equipment maker", "title": "Head of Services", "start_year": 2021, "end_year": null}
+    {
+     "company": "Bharti Airtel",
+     "title": "Zonal Sales Head",
+     "start_year": 2004,
+     "end_year": 2012
+    },
+    {
+     "company": "Telecom distributor",
+     "title": "Head of Sales",
+     "start_year": 2012,
+     "end_year": null
+    }
    ],
-   "education": [{"school": "IIT Guwahati", "program": "B.Tech", "start_year": 1998, "end_year": 2002}],
-   "themes": ["industrial services"],
-   "relationship": {"type": "former colleague", "strength": 0.55, "last_contact": "2026-05-30", "context": "Worked together on a services pricing project", "email": "rajat.shah@example.com"}
+   "education": [
+    {
+     "school": "SIBM Pune",
+     "program": "MBA",
+     "start_year": 1996,
+     "end_year": 1998
+    }
+   ],
+   "themes": [
+    "telecom"
+   ],
+   "relationship": {
+    "type": "former colleague",
+    "strength": 0.55,
+    "last_contact": "2026-05-30",
+    "context": "Former client; shares a name with a telecom executive",
+    "email": "manoj.m@example.com"
+   }
   }
  ]
 }

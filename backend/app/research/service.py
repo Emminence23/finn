@@ -1,6 +1,6 @@
 """Research view for any NSE ticker (FR-PULL-01, 10, 11).
 
-    uv run python -m app.research.service KAYNES PERSISTENT      # build + print summary
+    uv run python -m app.research.service LT PERSISTENT          # build + print summary
     uv run python -m app.research.service --fixtures             # precompute the research set
 
 Order of lookup for GET /research/{symbol}: DB cache -> committed fixture -> not built.

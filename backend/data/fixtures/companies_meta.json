@@ -1,47 +1,401 @@
 {
-  "_note": "Hand-curated competitor/supplier/customer links and name aliases for the demo universe. Powers FR-NET-03 ('worked at a competitor, supplier or customer') and entity resolution of employer names.",
-  "companies": {
-    "RELIANCE":   {"aliases": ["Reliance Industries", "Reliance Industries Limited", "RIL", "Reliance Jio", "Jio Platforms", "Reliance Retail"],
-                   "competitor": ["Bharti Airtel", "Vodafone Idea", "Avenue Supermarts", "Trent Limited"], "supplier": [], "customer": []},
-    "HDFCBANK":   {"aliases": ["HDFC Bank", "HDFC Bank Limited", "HDFC Limited"],
-                   "competitor": ["ICICI Bank Limited", "Axis Bank Limited", "Kotak Mahindra Bank", "State Bank of India"], "supplier": [], "customer": []},
-    "ICICIBANK":  {"aliases": ["ICICI Bank", "ICICI Bank Limited", "ICICI Group", "ICICI Securities"],
-                   "competitor": ["HDFC Bank Limited", "Axis Bank Limited", "Kotak Mahindra Bank", "State Bank of India"], "supplier": [], "customer": []},
-    "INFY":       {"aliases": ["Infosys", "Infosys Limited"],
-                   "competitor": ["Tata Consultancy Services", "Wipro", "HCLTech", "Persistent Systems", "Accenture"], "supplier": [], "customer": []},
-    "TCS":        {"aliases": ["Tata Consultancy Services", "TCS"],
-                   "competitor": ["Infosys", "Wipro", "HCLTech", "Persistent Systems", "Accenture"], "supplier": [], "customer": []},
-    "BAJFINANCE": {"aliases": ["Bajaj Finance", "Bajaj Finance Limited", "Bajaj Finserv"],
-                   "competitor": ["Cholamandalam Investment and Finance", "Shriram Finance", "HDB Financial Services", "Credit bureau"], "supplier": ["Credit bureau"], "customer": []},
-    "CHOLAFIN":   {"aliases": ["Cholamandalam Investment and Finance", "Chola", "Cholamandalam Finance"],
-                   "competitor": ["Shriram Finance", "Mahindra Finance", "Bajaj Finance"], "supplier": [], "customer": []},
-    "TITAN":      {"aliases": ["Titan Company", "Titan Company Limited", "Tanishq"],
-                   "competitor": ["Kalyan Jewellers", "Senco Gold", "D2C jewellery brand"], "supplier": [], "customer": []},
-    "ASIANPAINT": {"aliases": ["Asian Paints", "Asian Paints Limited"],
-                   "competitor": ["Berger Paints", "Kansai Nerolac", "Birla Opus", "JSW Paints"], "supplier": ["Pidilite Industries"], "customer": []},
-    "TRENT":      {"aliases": ["Trent", "Trent Limited", "Westside", "Zudio"],
-                   "competitor": ["Avenue Supermarts", "Reliance Retail", "Aditya Birla Fashion"], "supplier": [], "customer": []},
-    "SRF":        {"aliases": ["SRF", "SRF Limited", "SRF Ltd"],
-                   "competitor": ["Navin Fluorine International", "Gujarat Fluorochemicals", "Aarti Industries"], "supplier": [], "customer": []},
-    "DEEPAKNTR":  {"aliases": ["Deepak Nitrite", "Deepak Nitrite Limited", "Deepak Phenolics"],
-                   "competitor": ["Aarti Industries", "Atul", "Vinati Organics"], "supplier": [], "customer": []},
-    "PIDILITIND": {"aliases": ["Pidilite", "Pidilite Industries", "Pidilite Industries Limited"],
-                   "competitor": ["Asian Paints", "Astral", "Henkel"], "supplier": [], "customer": ["Asian Paints"]},
-    "SUNPHARMA":  {"aliases": ["Sun Pharma", "Sun Pharmaceutical Industries", "Sun Pharmaceutical Industries Limited"],
-                   "competitor": ["Dr. Reddy's Laboratories", "Cipla", "Lupin"], "supplier": [], "customer": []},
-    "DIXON":      {"aliases": ["Dixon", "Dixon Technologies", "Dixon Technologies (India) Limited"],
-                   "competitor": ["Kaynes Technology India", "Amber Enterprises", "Syrma SGS", "Smartphone ODM"], "supplier": [], "customer": ["Reliance Industries"]},
-    "KAYNES":     {"aliases": ["Kaynes", "Kaynes Technology", "Kaynes Technology India", "Kaynes Technology India Limited", "Kaynes Semicon"],
-                   "competitor": ["Dixon Technologies", "Syrma SGS", "Semiconductor OSAT startup", "Micron Technology India", "CG Power and Industrial Solutions"], "supplier": [], "customer": []},
-    "POLYCAB":    {"aliases": ["Polycab", "Polycab India", "Polycab India Limited"],
-                   "competitor": ["KEI Industries", "Havells", "Finolex Cables"], "supplier": [], "customer": []},
-    "CGPOWER":    {"aliases": ["CG Power", "CG Power and Industrial Solutions", "CG Power and Industrial Solutions Limited", "CG Semi"],
-                   "competitor": ["Hitachi Energy India", "Siemens", "ABB India", "Kaynes Technology India", "Micron Technology India"], "supplier": [], "customer": []},
-    "AARTIIND":   {"aliases": ["Aarti Industries", "Aarti Industries Limited"],
-                   "competitor": ["Deepak Nitrite", "Atul", "SRF Limited", "Navin Fluorine International"], "supplier": [], "customer": []},
-    "PERSISTENT": {"aliases": ["Persistent", "Persistent Systems", "Persistent Systems Limited"],
-                   "competitor": ["Infosys", "Tata Consultancy Services", "LTIMindtree", "Coforge"], "supplier": [], "customer": []},
-    "MANAPPURAM": {"aliases": ["Manappuram", "Manappuram Finance", "Manappuram Finance Limited"],
-                   "competitor": ["Muthoot Finance", "IIFL Finance", "Lending fintech"], "supplier": [], "customer": []}
+ "_note": "Hand-curated competitor/supplier/customer links and name aliases for the demo universe. Powers FR-NET-03 ('worked at a competitor, supplier or customer') and entity resolution of employer names.",
+ "companies": {
+  "RELIANCE": {
+   "aliases": [
+    "Reliance Industries",
+    "Reliance Industries Limited",
+    "RIL",
+    "Reliance Jio",
+    "Jio Platforms",
+    "Reliance Retail"
+   ],
+   "competitor": [
+    "Bharti Airtel",
+    "Vodafone Idea",
+    "Avenue Supermarts"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "HDFCBANK": {
+   "aliases": [
+    "HDFC Bank",
+    "HDFC Bank Limited",
+    "HDFC Limited"
+   ],
+   "competitor": [
+    "ICICI Bank Limited",
+    "Axis Bank Limited",
+    "Kotak Mahindra Bank",
+    "State Bank of India"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "ICICIBANK": {
+   "aliases": [
+    "ICICI Bank",
+    "ICICI Bank Limited",
+    "ICICI Group",
+    "ICICI Securities"
+   ],
+   "competitor": [
+    "HDFC Bank Limited",
+    "Axis Bank Limited",
+    "Kotak Mahindra Bank",
+    "State Bank of India"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "TCS": {
+   "aliases": [
+    "Tata Consultancy Services",
+    "TCS"
+   ],
+   "competitor": [
+    "Infosys",
+    "Wipro",
+    "HCLTech",
+    "Persistent Systems",
+    "Accenture"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "AARTIIND": {
+   "aliases": [
+    "Aarti Industries",
+    "Aarti Industries Limited"
+   ],
+   "competitor": [
+    "Deepak Nitrite",
+    "Atul",
+    "SRF Limited",
+    "Navin Fluorine International"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "PERSISTENT": {
+   "aliases": [
+    "Persistent",
+    "Persistent Systems",
+    "Persistent Systems Limited"
+   ],
+   "competitor": [
+    "Infosys",
+    "Tata Consultancy Services",
+    "LTIMindtree",
+    "Coforge"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "MANAPPURAM": {
+   "aliases": [
+    "Manappuram",
+    "Manappuram Finance",
+    "Manappuram Finance Limited"
+   ],
+   "competitor": [
+    "Muthoot Finance",
+    "IIFL Finance",
+    "Lending fintech"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "ITC": {
+   "aliases": [
+    "ITC",
+    "ITC Limited",
+    "ITC Foods",
+    "ITC Hotels"
+   ],
+   "competitor": [
+    "Hindustan Unilever Limited",
+    "Nestle India",
+    "Dabur India",
+    "Britannia Industries",
+    "Godfrey Phillips"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "LT": {
+   "aliases": [
+    "Larsen & Toubro",
+    "Larsen and Toubro",
+    "Larsen & Toubro Limited",
+    "L&T",
+    "L&T Construction",
+    "L&T Heavy Engineering",
+    "L&T Energy"
+   ],
+   "competitor": [
+    "Bharat Heavy Electricals",
+    "Tata Projects",
+    "Afcons Infrastructure",
+    "KEC International",
+    "Siemens"
+   ],
+   "supplier": [
+    "Tata Steel Limited"
+   ],
+   "customer": [
+    "NTPC"
+   ]
+  },
+  "TATASTEEL": {
+   "aliases": [
+    "Tata Steel",
+    "Tata Steel Limited",
+    "Tata Steel Europe"
+   ],
+   "competitor": [
+    "JSW Steel",
+    "Steel Authority of India",
+    "Jindal Steel"
+   ],
+   "supplier": [
+    "HEG Limited",
+    "Graphite India"
+   ],
+   "customer": [
+    "Tata Motors Limited",
+    "Larsen & Toubro"
+   ]
+  },
+  "ETERNAL": {
+   "aliases": [
+    "Eternal",
+    "Eternal Limited",
+    "Zomato",
+    "Zomato Limited",
+    "Blinkit"
+   ],
+   "competitor": [
+    "Swiggy",
+    "Zepto"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "NESTLEIND": {
+   "aliases": [
+    "Nestle India",
+    "Nestlé India",
+    "Nestle India Limited"
+   ],
+   "competitor": [
+    "Hindustan Unilever Limited",
+    "ITC Limited",
+    "Britannia Industries",
+    "Dabur India"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "JIOFIN": {
+   "aliases": [
+    "Jio Financial Services",
+    "Jio Financial",
+    "Jio Payments Bank",
+    "Reliance Strategic Investments"
+   ],
+   "competitor": [
+    "Bajaj Finance",
+    "One 97 Communications",
+    "Paytm"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "TMPV": {
+   "aliases": [
+    "Tata Motors Passenger Vehicles",
+    "Tata Motors Limited",
+    "Tata Motors",
+    "Jaguar Land Rover"
+   ],
+   "competitor": [
+    "Maruti Suzuki",
+    "Mahindra & Mahindra",
+    "Hyundai Motor India"
+   ],
+   "supplier": [
+    "Tata Steel Limited"
+   ],
+   "customer": []
+  },
+  "BHEL": {
+   "aliases": [
+    "Bharat Heavy Electricals",
+    "Bharat Heavy Electricals Limited",
+    "BHEL"
+   ],
+   "competitor": [
+    "Larsen & Toubro",
+    "Siemens",
+    "Hitachi Energy India",
+    "GE Vernova T&D India"
+   ],
+   "supplier": [],
+   "customer": [
+    "NTPC"
+   ]
+  },
+  "CANBK": {
+   "aliases": [
+    "Canara Bank"
+   ],
+   "competitor": [
+    "State Bank of India",
+    "Bank of Baroda",
+    "Punjab National Bank",
+    "Union Bank of India"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "DABUR": {
+   "aliases": [
+    "Dabur",
+    "Dabur India",
+    "Dabur India Limited"
+   ],
+   "competitor": [
+    "Hindustan Unilever Limited",
+    "Emami",
+    "Marico",
+    "ITC Limited"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "PAYTM": {
+   "aliases": [
+    "Paytm",
+    "One 97 Communications",
+    "One 97 Communications Limited",
+    "Paytm Payments Bank"
+   ],
+   "competitor": [
+    "PhonePe",
+    "Google Pay",
+    "MobiKwik",
+    "Jio Financial Services"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "HEGAM": {
+   "aliases": [
+    "HEG",
+    "HEG Limited",
+    "HEG Advanced Materials",
+    "HEG Advanced Materials Limited"
+   ],
+   "competitor": [
+    "Graphite India"
+   ],
+   "supplier": [],
+   "customer": [
+    "Tata Steel Limited",
+    "JSW Steel"
+   ]
+  },
+  "MEESHO": {
+   "aliases": [
+    "Meesho",
+    "Meesho Limited",
+    "Fashnear Technologies"
+   ],
+   "competitor": [
+    "Flipkart",
+    "Amazon India",
+    "Myntra"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "IDEA": {
+   "aliases": [
+    "Vodafone Idea",
+    "Vodafone Idea Limited",
+    "Vi",
+    "Vodafone India",
+    "Idea Cellular"
+   ],
+   "competitor": [
+    "Bharti Airtel",
+    "Reliance Jio"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "TITAN": {
+   "aliases": [
+    "Titan Company",
+    "Titan Company Limited",
+    "Tanishq"
+   ],
+   "competitor": [
+    "Kalyan Jewellers",
+    "Senco Gold",
+    "D2C jewellery brand"
+   ],
+   "supplier": [],
+   "customer": []
+  },
+  "BAJFINANCE": {
+   "aliases": [
+    "Bajaj Finance",
+    "Bajaj Finance Limited",
+    "Bajaj Finserv"
+   ],
+   "competitor": [
+    "Cholamandalam Investment and Finance",
+    "Shriram Finance",
+    "HDB Financial Services",
+    "Credit bureau"
+   ],
+   "supplier": [
+    "Credit bureau"
+   ],
+   "customer": []
+  },
+  "ASIANPAINT": {
+   "aliases": [
+    "Asian Paints",
+    "Asian Paints Limited"
+   ],
+   "competitor": [
+    "Berger Paints",
+    "Kansai Nerolac",
+    "Birla Opus",
+    "JSW Paints"
+   ],
+   "supplier": [
+    "Pidilite Industries"
+   ],
+   "customer": []
+  },
+  "POLYCAB": {
+   "aliases": [
+    "Polycab",
+    "Polycab India",
+    "Polycab India Limited"
+   ],
+   "competitor": [
+    "KEI Industries",
+    "Havells",
+    "Finolex Cables"
+   ],
+   "supplier": [],
+   "customer": []
   }
+ }
 }

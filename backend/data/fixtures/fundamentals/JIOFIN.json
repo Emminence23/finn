@@ -1,0 +1,936 @@
+{
+ "name": "Jio Financial Services Ltd",
+ "about": "JFSL was originally incorporated as Reliance Strategic Investments Private Limited in July, 1999 under the Companies Act 1956.  Jio Financial Services Limited was incorporated in  July, 23. JFSL is a NBFC-ND-SI registered with RBI. The company is a holding company and will operate its financial services business through its consumer-facing subsidiaries namely Jio Finance Limited (JFL), Jio Insurance Broking Limited (JIBL), and Jio Payment Solutions Limited (JPSL) and joint venture namely Jio Payments Bank Limited (JPBL). [1]",
+ "top_ratios": {
+  "Market Cap": "₹ 1,55,086 Cr.",
+  "Current Price": "₹ 226",
+  "High / Low": "₹ 317 / 203",
+  "Stock P/E": "90.6",
+  "Book Value": "₹ 196",
+  "Dividend Yield": "0.27 %",
+  "ROCE": "1.86 %",
+  "ROE": "1.19 %",
+  "Face Value": "₹ 10.0"
+ },
+ "is_financial": false,
+ "tables": {
+  "quarters": {
+   "Sales": {
+    "2023-09": 608.0,
+    "2023-12": 414.0,
+    "2024-03": 418.0,
+    "2024-06": 418.0,
+    "2024-09": 694.0,
+    "2024-12": 438.0,
+    "2025-03": 493.0,
+    "2025-06": 612.0,
+    "2025-09": 981.0,
+    "2025-12": 901.0,
+    "2026-03": 1019.0,
+    "2026-06": 2004.0,
+    "2026-09": 1699.0
+   },
+   "YoY Sales growth": {
+    "2023-09": null,
+    "2023-12": null,
+    "2024-03": null,
+    "2024-06": 1.0,
+    "2024-09": 14.0,
+    "2024-12": 6.0,
+    "2025-03": 18.0,
+    "2025-06": 47.0,
+    "2025-09": 42.0,
+    "2025-12": 106.0,
+    "2026-03": 106.0,
+    "2026-06": 227.0,
+    "2026-09": 73.0
+   },
+   "Expenses": {
+    "2023-09": 66.0,
+    "2023-12": 94.0,
+    "2024-03": 98.0,
+    "2024-06": 74.0,
+    "2024-09": 140.0,
+    "2024-12": 125.0,
+    "2025-03": 155.0,
+    "2025-06": 156.0,
+    "2025-09": 293.0,
+    "2025-12": 346.0,
+    "2026-03": 414.0,
+    "2026-06": 607.0,
+    "2026-09": 621.0
+   },
+   "Operating Profit": {
+    "2023-09": 542.0,
+    "2023-12": 320.0,
+    "2024-03": 320.0,
+    "2024-06": 344.0,
+    "2024-09": 553.0,
+    "2024-12": 313.0,
+    "2025-03": 338.0,
+    "2025-06": 457.0,
+    "2025-09": 688.0,
+    "2025-12": 555.0,
+    "2026-03": 605.0,
+    "2026-06": 1397.0,
+    "2026-09": 1078.0
+   },
+   "OPM %": {
+    "2023-09": 89.0,
+    "2023-12": 77.0,
+    "2024-03": 77.0,
+    "2024-06": 82.0,
+    "2024-09": 80.0,
+    "2024-12": 71.0,
+    "2025-03": 69.0,
+    "2025-06": 75.0,
+    "2025-09": 70.0,
+    "2025-12": 62.0,
+    "2026-03": 59.0,
+    "2026-06": 70.0,
+    "2026-09": 63.0
+   },
+   "Other Income": {
+    "2023-09": 218.0,
+    "2023-12": 67.0,
+    "2024-03": 78.0,
+    "2024-06": 62.0,
+    "2024-09": 226.0,
+    "2024-12": 70.0,
+    "2025-03": 71.0,
+    "2025-06": 67.0,
+    "2025-09": 238.0,
+    "2025-12": 36.0,
+    "2026-03": 40.0,
+    "2026-06": 0.0,
+    "2026-09": 0.0
+   },
+   "Interest": {
+    "2023-09": 0.0,
+    "2023-12": 0.0,
+    "2024-03": 0.0,
+    "2024-06": 0.0,
+    "2024-09": 0.0,
+    "2024-12": 0.0,
+    "2025-03": 8.0,
+    "2025-06": 99.0,
+    "2025-09": 136.0,
+    "2025-12": 212.0,
+    "2026-03": 298.0,
+    "2026-06": 418.0,
+    "2026-09": 578.0
+   },
+   "Depreciation": {
+    "2023-09": 5.0,
+    "2023-12": 5.0,
+    "2024-03": 5.0,
+    "2024-06": 5.0,
+    "2024-09": 6.0,
+    "2024-12": 6.0,
+    "2025-03": 6.0,
+    "2025-06": 6.0,
+    "2025-09": 8.0,
+    "2025-12": 8.0,
+    "2026-03": 8.0,
+    "2026-06": 9.0,
+    "2026-09": 11.0
+   },
+   "Profit before tax": {
+    "2023-09": 754.0,
+    "2023-12": 381.0,
+    "2024-03": 393.0,
+    "2024-06": 400.0,
+    "2024-09": 773.0,
+    "2024-12": 377.0,
+    "2025-03": 396.0,
+    "2025-06": 419.0,
+    "2025-09": 783.0,
+    "2025-12": 371.0,
+    "2026-03": 339.0,
+    "2026-06": 970.0,
+    "2026-09": 489.0
+   },
+   "Tax %": {
+    "2023-09": 11.0,
+    "2023-12": 23.0,
+    "2024-03": 21.0,
+    "2024-06": 22.0,
+    "2024-09": 11.0,
+    "2024-12": 22.0,
+    "2025-03": 20.0,
+    "2025-06": 23.0,
+    "2025-09": 11.0,
+    "2025-12": 28.0,
+    "2026-03": 20.0,
+    "2026-06": 14.0,
+    "2026-09": 30.0
+   },
+   "Net Profit": {
+    "2023-09": 668.0,
+    "2023-12": 294.0,
+    "2024-03": 311.0,
+    "2024-06": 313.0,
+    "2024-09": 689.0,
+    "2024-12": 295.0,
+    "2025-03": 316.0,
+    "2025-06": 325.0,
+    "2025-09": 695.0,
+    "2025-12": 269.0,
+    "2026-03": 272.0,
+    "2026-06": 830.0,
+    "2026-09": 340.0
+   },
+   "EPS in Rs": {
+    "2023-09": 1.05,
+    "2023-12": 0.46,
+    "2024-03": 0.49,
+    "2024-06": 0.49,
+    "2024-09": 1.08,
+    "2024-12": 0.46,
+    "2025-03": 0.5,
+    "2025-06": 0.51,
+    "2025-09": 1.09,
+    "2025-12": 0.42,
+    "2026-03": 0.43,
+    "2026-06": 1.26,
+    "2026-09": 0.52
+   }
+  },
+  "annual_pl": {
+   "Sales": {
+    "Mar 2018\n            \n            (S)": 3.0,
+    "Mar 2019\n            \n            (S)": -105.0,
+    "Mar 2020\n            \n            (S)": 349.0,
+    "Mar 2021\n            \n            (S)": 303.0,
+    "Mar 2022\n            \n            (S)": 149.0,
+    "2023-03": 45.0,
+    "2024-03": 1855.0,
+    "2025-03": 2043.0,
+    "2026-03": 3521.0,
+    "TTM": 5623.0
+   },
+   "Sales growth": {
+    "Mar 2018\n            \n            (S)": null,
+    "Mar 2019\n            \n            (S)": -3636.0,
+    "Mar 2020\n            \n            (S)": -433.0,
+    "Mar 2021\n            \n            (S)": -13.0,
+    "Mar 2022\n            \n            (S)": -51.0,
+    "2023-03": null,
+    "2024-03": 4036.0,
+    "2025-03": 10.0,
+    "2026-03": 72.0,
+    "TTM": 123.0
+   },
+   "Expenses": {
+    "Mar 2018\n            \n            (S)": 0.0,
+    "Mar 2019\n            \n            (S)": 16.0,
+    "Mar 2020\n            \n            (S)": 28.0,
+    "Mar 2021\n            \n            (S)": 82.0,
+    "Mar 2022\n            \n            (S)": 7.0,
+    "2023-03": 6.0,
+    "2024-03": 296.0,
+    "2025-03": 495.0,
+    "2026-03": 1208.0,
+    "TTM": 1988.0
+   },
+   "Operating Profit": {
+    "Mar 2018\n            \n            (S)": 3.0,
+    "Mar 2019\n            \n            (S)": -121.0,
+    "Mar 2020\n            \n            (S)": 322.0,
+    "Mar 2021\n            \n            (S)": 221.0,
+    "Mar 2022\n            \n            (S)": 141.0,
+    "2023-03": 39.0,
+    "2024-03": 1559.0,
+    "2025-03": 1549.0,
+    "2026-03": 2312.0,
+    "TTM": 3635.0
+   },
+   "OPM %": {
+    "Mar 2018\n            \n            (S)": 94.0,
+    "Mar 2019\n            \n            (S)": null,
+    "Mar 2020\n            \n            (S)": 92.0,
+    "Mar 2021\n            \n            (S)": 73.0,
+    "Mar 2022\n            \n            (S)": 95.0,
+    "2023-03": 88.0,
+    "2024-03": 84.0,
+    "2025-03": 76.0,
+    "2026-03": 66.0,
+    "TTM": 65.0
+   },
+   "Other Income": {
+    "Mar 2018\n            \n            (S)": 0.0,
+    "Mar 2019\n            \n            (S)": 0.0,
+    "Mar 2020\n            \n            (S)": 0.0,
+    "Mar 2021\n            \n            (S)": 8.0,
+    "Mar 2022\n            \n            (S)": 35.0,
+    "2023-03": 10.0,
+    "2024-03": 429.0,
+    "2025-03": 428.0,
+    "2026-03": 374.0,
+    "TTM": 76.0
+   },
+   "Interest": {
+    "Mar 2018\n            \n            (S)": 1.0,
+    "Mar 2019\n            \n            (S)": 248.0,
+    "Mar 2020\n            \n            (S)": 128.0,
+    "Mar 2021\n            \n            (S)": 111.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 0.0,
+    "2024-03": 10.0,
+    "2025-03": 8.0,
+    "2026-03": 745.0,
+    "TTM": 1507.0
+   },
+   "Depreciation": {
+    "Mar 2018\n            \n            (S)": 0.0,
+    "Mar 2019\n            \n            (S)": 0.0,
+    "Mar 2020\n            \n            (S)": 0.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 0.0,
+    "2024-03": 22.0,
+    "2025-03": 23.0,
+    "2026-03": 29.0,
+    "TTM": 36.0
+   },
+   "Profit before tax": {
+    "Mar 2018\n            \n            (S)": 2.0,
+    "Mar 2019\n            \n            (S)": -369.0,
+    "Mar 2020\n            \n            (S)": 194.0,
+    "Mar 2021\n            \n            (S)": 118.0,
+    "Mar 2022\n            \n            (S)": 177.0,
+    "2023-03": 49.0,
+    "2024-03": 1956.0,
+    "2025-03": 1947.0,
+    "2026-03": 1912.0,
+    "TTM": 2169.0
+   },
+   "Tax %": {
+    "Mar 2018\n            \n            (S)": -15.0,
+    "Mar 2019\n            \n            (S)": 9.0,
+    "Mar 2020\n            \n            (S)": -19.0,
+    "Mar 2021\n            \n            (S)": -4.0,
+    "Mar 2022\n            \n            (S)": 5.0,
+    "2023-03": 37.0,
+    "2024-03": 18.0,
+    "2025-03": 17.0,
+    "2026-03": 18.0,
+    "TTM": null
+   },
+   "Net Profit": {
+    "Mar 2018\n            \n            (S)": 2.0,
+    "Mar 2019\n            \n            (S)": -402.0,
+    "Mar 2020\n            \n            (S)": 230.0,
+    "Mar 2021\n            \n            (S)": 123.0,
+    "Mar 2022\n            \n            (S)": 168.0,
+    "2023-03": 31.0,
+    "2024-03": 1605.0,
+    "2025-03": 1613.0,
+    "2026-03": 1561.0,
+    "TTM": 1712.0
+   },
+   "EPS in Rs": {
+    "Mar 2018\n            \n            (S)": null,
+    "Mar 2019\n            \n            (S)": null,
+    "Mar 2020\n            \n            (S)": null,
+    "Mar 2021\n            \n            (S)": null,
+    "Mar 2022\n            \n            (S)": null,
+    "2023-03": null,
+    "2024-03": 2.53,
+    "2025-03": 2.54,
+    "2026-03": 2.46,
+    "TTM": 2.63
+   },
+   "Dividend Payout %": {
+    "Mar 2018\n            \n            (S)": 0.0,
+    "Mar 2019\n            \n            (S)": 0.0,
+    "Mar 2020\n            \n            (S)": 0.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 0.0,
+    "2024-03": 0.0,
+    "2025-03": 20.0,
+    "2026-03": 24.0,
+    "TTM": null
+   }
+  },
+  "balance_sheet": {
+   "Equity Capital": {
+    "Mar 2018\n            \n            (S)": 0.02,
+    "Mar 2019\n            \n            (S)": 2.0,
+    "Mar 2020\n            \n            (S)": 2.0,
+    "Mar 2021\n            \n            (S)": 2.0,
+    "Mar 2022\n            \n            (S)": 2.0,
+    "2023-03": 2.0,
+    "2024-03": 6353.0,
+    "2025-03": 6353.0,
+    "2026-03": 6353.0,
+    "2026-09": 6603.0
+   },
+   "Reserves": {
+    "Mar 2018\n            \n            (S)": 21.0,
+    "Mar 2019\n            \n            (S)": 1705.0,
+    "Mar 2020\n            \n            (S)": 1935.0,
+    "Mar 2021\n            \n            (S)": 2058.0,
+    "Mar 2022\n            \n            (S)": 2226.0,
+    "2023-03": 114118.0,
+    "2024-03": 132794.0,
+    "2025-03": 117143.0,
+    "2026-03": 127500.0,
+    "2026-09": 122992.0
+   },
+   "Borrowings": {
+    "Mar 2018\n            \n            (S)": 17.0,
+    "Mar 2019\n            \n            (S)": 2322.0,
+    "Mar 2020\n            \n            (S)": 2420.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 743.0,
+    "2024-03": 0.0,
+    "2025-03": 3970.0,
+    "2026-03": 21768.0,
+    "2026-09": 41325.0
+   },
+   "Other Liabilities": {
+    "Mar 2018\n            \n            (S)": 0.0,
+    "Mar 2019\n            \n            (S)": 72.0,
+    "Mar 2020\n            \n            (S)": 426.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 66.0,
+    "2024-03": 5715.0,
+    "2025-03": 6033.0,
+    "2026-03": 7845.0,
+    "2026-09": 10745.0
+   },
+   "Total Liabilities": {
+    "Mar 2018\n            \n            (S)": 39.0,
+    "Mar 2019\n            \n            (S)": 4100.0,
+    "Mar 2020\n            \n            (S)": 4783.0,
+    "Mar 2021\n            \n            (S)": 2060.0,
+    "Mar 2022\n            \n            (S)": 2228.0,
+    "2023-03": 114930.0,
+    "2024-03": 144863.0,
+    "2025-03": 133500.0,
+    "2026-03": 163467.0,
+    "2026-09": 181666.0
+   },
+   "Fixed Assets": {
+    "Mar 2018\n            \n            (S)": 0.0,
+    "Mar 2019\n            \n            (S)": 0.0,
+    "Mar 2020\n            \n            (S)": 0.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 158.0,
+    "2024-03": 172.0,
+    "2025-03": 180.0,
+    "2026-03": 326.0,
+    "2026-09": 538.0
+   },
+   "CWIP": {
+    "Mar 2018\n            \n            (S)": 0.0,
+    "Mar 2019\n            \n            (S)": 0.0,
+    "Mar 2020\n            \n            (S)": 0.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 38.0,
+    "2024-03": 3.0,
+    "2025-03": 14.0,
+    "2026-03": 105.0,
+    "2026-09": 12.0
+   },
+   "Investments": {
+    "Mar 2018\n            \n            (S)": 37.0,
+    "Mar 2019\n            \n            (S)": 3144.0,
+    "Mar 2020\n            \n            (S)": 206.0,
+    "Mar 2021\n            \n            (S)": 57.0,
+    "Mar 2022\n            \n            (S)": 181.0,
+    "2023-03": 108141.0,
+    "2024-03": 133292.0,
+    "2025-03": 118910.0,
+    "2026-03": 133089.0,
+    "2026-09": 130348.0
+   },
+   "Other Assets": {
+    "Mar 2018\n            \n            (S)": 2.0,
+    "Mar 2019\n            \n            (S)": 956.0,
+    "Mar 2020\n            \n            (S)": 4577.0,
+    "Mar 2021\n            \n            (S)": 2003.0,
+    "Mar 2022\n            \n            (S)": 2047.0,
+    "2023-03": 6593.0,
+    "2024-03": 11395.0,
+    "2025-03": 14395.0,
+    "2026-03": 29947.0,
+    "2026-09": 50767.0
+   },
+   "Total Assets": {
+    "Mar 2018\n            \n            (S)": 39.0,
+    "Mar 2019\n            \n            (S)": 4100.0,
+    "Mar 2020\n            \n            (S)": 4783.0,
+    "Mar 2021\n            \n            (S)": 2060.0,
+    "Mar 2022\n            \n            (S)": 2228.0,
+    "2023-03": 114930.0,
+    "2024-03": 144863.0,
+    "2025-03": 133500.0,
+    "2026-03": 163467.0,
+    "2026-09": 181666.0
+   }
+  },
+  "cash_flow": {
+   "Cash from Operating Activity": {
+    "Mar 2018\n            \n            (S)": 2.0,
+    "Mar 2019\n            \n            (S)": -1.0,
+    "Mar 2020\n            \n            (S)": -3687.0,
+    "Mar 2021\n            \n            (S)": 2434.0,
+    "Mar 2022\n            \n            (S)": 123.0,
+    "2023-03": 2055.0,
+    "2024-03": -678.0,
+    "2025-03": -10089.0,
+    "2026-03": -15439.0
+   },
+   "Cash from Investing Activity": {
+    "Mar 2018\n            \n            (S)": -0.0,
+    "Mar 2019\n            \n            (S)": -2.0,
+    "Mar 2020\n            \n            (S)": 3649.0,
+    "Mar 2021\n            \n            (S)": 163.0,
+    "Mar 2022\n            \n            (S)": -123.0,
+    "2023-03": -1110.0,
+    "2024-03": 1441.0,
+    "2025-03": 6406.0,
+    "2026-03": -5652.0
+   },
+   "Cash from Financing Activity": {
+    "Mar 2018\n            \n            (S)": -2.0,
+    "Mar 2019\n            \n            (S)": 3.0,
+    "Mar 2020\n            \n            (S)": 37.0,
+    "Mar 2021\n            \n            (S)": -2597.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": -889.0,
+    "2024-03": -753.0,
+    "2025-03": 3968.0,
+    "2026-03": 21454.0
+   },
+   "Net Cash Flow": {
+    "Mar 2018\n            \n            (S)": -0.0,
+    "Mar 2019\n            \n            (S)": 0.0,
+    "Mar 2020\n            \n            (S)": -1.0,
+    "Mar 2021\n            \n            (S)": -0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 56.0,
+    "2024-03": 11.0,
+    "2025-03": 285.0,
+    "2026-03": 363.0
+   },
+   "Free Cash Flow": {
+    "Mar 2018\n            \n            (S)": 2.0,
+    "Mar 2019\n            \n            (S)": -1.0,
+    "Mar 2020\n            \n            (S)": -3687.0,
+    "Mar 2021\n            \n            (S)": 2434.0,
+    "Mar 2022\n            \n            (S)": 123.0,
+    "2023-03": 2055.0,
+    "2024-03": -678.0,
+    "2025-03": -10089.0,
+    "2026-03": -15439.0
+   },
+   "CFO/EBITDA": {
+    "Mar 2018\n            \n            (S)": 121.0,
+    "Mar 2019\n            \n            (S)": 1.0,
+    "Mar 2020\n            \n            (S)": -1132.0,
+    "Mar 2021\n            \n            (S)": 1102.0,
+    "Mar 2022\n            \n            (S)": 98.0,
+    "2023-03": 5231.0,
+    "2024-03": -22.0,
+    "2025-03": -633.0,
+    "2026-03": -656.0
+   }
+  },
+  "ratios": {
+   "Debtor Days": {
+    "Mar 2018\n            \n            (S)": 49.0,
+    "Mar 2019\n            \n            (S)": -108.0,
+    "Mar 2020\n            \n            (S)": 8.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 113.0,
+    "2024-03": 3.0,
+    "2025-03": 3.0,
+    "2026-03": 6.0
+   },
+   "Inventory Days": {
+    "Mar 2018\n            \n            (S)": null,
+    "Mar 2019\n            \n            (S)": 0.0,
+    "Mar 2020\n            \n            (S)": null,
+    "Mar 2021\n            \n            (S)": null,
+    "Mar 2022\n            \n            (S)": null,
+    "2023-03": null,
+    "2024-03": null,
+    "2025-03": null,
+    "2026-03": null
+   },
+   "Days Payable": {
+    "Mar 2018\n            \n            (S)": null,
+    "Mar 2019\n            \n            (S)": null,
+    "Mar 2020\n            \n            (S)": null,
+    "Mar 2021\n            \n            (S)": null,
+    "Mar 2022\n            \n            (S)": null,
+    "2023-03": null,
+    "2024-03": null,
+    "2025-03": null,
+    "2026-03": null
+   },
+   "Cash Conversion Cycle": {
+    "Mar 2018\n            \n            (S)": 49.0,
+    "Mar 2019\n            \n            (S)": -108.0,
+    "Mar 2020\n            \n            (S)": 8.0,
+    "Mar 2021\n            \n            (S)": 0.0,
+    "Mar 2022\n            \n            (S)": 0.0,
+    "2023-03": 113.0,
+    "2024-03": 3.0,
+    "2025-03": 3.0,
+    "2026-03": 6.0
+   },
+   "Working Capital Days": {
+    "Mar 2018\n            \n            (S)": 189.0,
+    "Mar 2019\n            \n            (S)": 3231.0,
+    "Mar 2020\n            \n            (S)": -256.0,
+    "Mar 2021\n            \n            (S)": 57.0,
+    "Mar 2022\n            \n            (S)": 99.0,
+    "2023-03": 3644.0,
+    "2024-03": 21.0,
+    "2025-03": -37.0,
+    "2026-03": -112.0
+   },
+   "ROCE %": {
+    "Mar 2018\n            \n            (S)": null,
+    "Mar 2019\n            \n            (S)": -6.0,
+    "Mar 2020\n            \n            (S)": 8.0,
+    "Mar 2021\n            \n            (S)": 7.0,
+    "Mar 2022\n            \n            (S)": 8.0,
+    "2023-03": null,
+    "2024-03": 2.0,
+    "2025-03": 1.0,
+    "2026-03": 2.0
+   }
+  }
+ },
+ "quarterly_headline": [
+  {
+   "period": "2023-09",
+   "revenue": 608.0,
+   "ebitda": 542.0,
+   "pbt": 754.0,
+   "pat": 668.0
+  },
+  {
+   "period": "2023-12",
+   "revenue": 414.0,
+   "ebitda": 320.0,
+   "pbt": 381.0,
+   "pat": 294.0
+  },
+  {
+   "period": "2024-03",
+   "revenue": 418.0,
+   "ebitda": 320.0,
+   "pbt": 393.0,
+   "pat": 311.0
+  },
+  {
+   "period": "2024-06",
+   "revenue": 418.0,
+   "ebitda": 344.0,
+   "pbt": 400.0,
+   "pat": 313.0
+  },
+  {
+   "period": "2024-09",
+   "revenue": 694.0,
+   "ebitda": 553.0,
+   "pbt": 773.0,
+   "pat": 689.0
+  },
+  {
+   "period": "2024-12",
+   "revenue": 438.0,
+   "ebitda": 313.0,
+   "pbt": 377.0,
+   "pat": 295.0
+  },
+  {
+   "period": "2025-03",
+   "revenue": 493.0,
+   "ebitda": 338.0,
+   "pbt": 396.0,
+   "pat": 316.0
+  },
+  {
+   "period": "2025-06",
+   "revenue": 612.0,
+   "ebitda": 457.0,
+   "pbt": 419.0,
+   "pat": 325.0
+  },
+  {
+   "period": "2025-09",
+   "revenue": 981.0,
+   "ebitda": 688.0,
+   "pbt": 783.0,
+   "pat": 695.0
+  },
+  {
+   "period": "2025-12",
+   "revenue": 901.0,
+   "ebitda": 555.0,
+   "pbt": 371.0,
+   "pat": 269.0
+  },
+  {
+   "period": "2026-03",
+   "revenue": 1019.0,
+   "ebitda": 605.0,
+   "pbt": 339.0,
+   "pat": 272.0
+  },
+  {
+   "period": "2026-06",
+   "revenue": 2004.0,
+   "ebitda": 1397.0,
+   "pbt": 970.0,
+   "pat": 830.0
+  },
+  {
+   "period": "2026-09",
+   "revenue": 1699.0,
+   "ebitda": 1078.0,
+   "pbt": 489.0,
+   "pat": 340.0
+  }
+ ],
+ "documents": [
+  {
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report 2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/158fc548-0512-416f-9667-89ca35117647.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2025",
+   "label": "Annual Report 2025",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/9729ee6d-93d4-4f64-b5d9-f7294df8a8e9.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2024",
+   "label": "Annual Report 2024",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/511d1e68-17fd-49f6-b7de-e77bea8325b9.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=07ce63e3-07d3-4b0b-988b-53f339356094.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8b06e656-9995-4c35-b84c-3455a9314416.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.jfs.in/docs/cms/assets/jfs/investor-relations/financials/quarterly-results/video/q2fy2026-27.mp4"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c18cc26c-af73-4c98-bb2f-500c896112ce.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=03719cdd-5b01-497a-85f8-577c640fca2e.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-07",
+   "label": "Jul 2026",
+   "url": "https://myjiostatic.cdn.jio.com/cms/assets/jfs/investor-relations/financials/quarterly-results/video/q1fy2026-27.mp4"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-04",
+   "label": "Apr 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=acc63602-ca98-4278-945c-05825e6f7118.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-04",
+   "label": "Apr 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5209e648-ae3d-4bfe-b83d-3f769de140e7.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-04",
+   "label": "Apr 2026",
+   "url": "https://www.jfs.in/docs/cms/assets/jfs/investor-relations/financials/quarterly-results/video/q4fy2025-26.mp4"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4d7e4dcc-8aed-46e8-aa65-15d3eb5e94ee.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=640533d2-4384-4b44-91bc-ce9a7a98fcff.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-01",
+   "label": "Jan 2026",
+   "url": "https://youtu.be/koVCfTfPXxQ"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-11",
+   "label": "Nov 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=534a6235-d2cf-4e2d-a36f-b2f432291b32.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-11",
+   "label": "Nov 2025",
+   "url": "https://youtu.be/GAhX2EFOwAI"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-10",
+   "label": "Oct 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d41f06fd-0ecd-4311-847e-7827d35512ad.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4616b44e-9537-4b8e-83d3-1145defe744b.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cbe4718c-43a8-4dcc-a97c-cbb795673925.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-07",
+   "label": "Jul 2025",
+   "url": "https://youtu.be/MvxqAXYaXF0?si=AQ_co13q9M_8u54z"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-04",
+   "label": "Apr 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4363eba7-1dcc-4105-bc48-9d80e78c2de2.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-04",
+   "label": "Apr 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9b266e43-df20-4a36-a702-7a7b2ae4582f.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-04",
+   "label": "Apr 2025",
+   "url": "https://www.youtube.com/watch?v=FnSiz2zfkCU"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=160289af-6709-4cab-866d-9ddc128f6ecd.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-01",
+   "label": "Jan 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ce9dae73-0218-47fd-96d6-42419505cab9.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-10",
+   "label": "Oct 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=76534629-017e-40eb-9c3e-4ca5c628569c.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-10",
+   "label": "Oct 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7917cce5-753b-4798-987f-368951c2e69c.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8031beae-c008-4cb7-a4ce-0722c0d070b4.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-07",
+   "label": "Jul 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=771452ca-1559-4a07-b754-90f829c66f81.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cf5f57a6-4686-4ab5-bfd9-21974e4c8506.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://jep-asset.akamaized.net/cms/assets/jfs/investor-relations/financials/quarterly-results/transcript-of-presentation-q3-2023-24.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=36c3d27c-ce23-43c5-8e71-e39605330dde.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2dc906f6-f31e-4c0e-b4e5-3fcb1e01ec61.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-01",
+   "label": "Jan 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=46e64fac-d2c6-4b4d-ac0c-6c306c66efe1.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=043ef477-8cc4-412c-995d-26cde0e3813f.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=eaaf1f2b-9a61-4931-8d3f-9dec05e92c88.pdf"
+  }
+ ],
+ "symbol": "JIOFIN",
+ "basis": "consolidated",
+ "source_url": "https://www.screener.in/company/JIOFIN/consolidated/"
+}

@@ -226,6 +226,11 @@ def classify_rules(exch_category: str, subject: str) -> RuleResult:  # noqa: C90
         return r("press_release")
     if d == "press release":
         return r("results") if _has(s, *RESULT_WORDS) else r("press_release", False)
+    # --- a fund-raise committee deciding the issue (price, allotment) is the fund raise
+    if d == "committee meeting updates" and _has(
+        s, r"\bqip\b", r"\bpi \d{4}\b", r"preferential", r"rights issue", r"fund rais"
+    ):
+        return r("fund_raise")
     # --- routine paperwork
     if d in {
         "esop/esos/esps",

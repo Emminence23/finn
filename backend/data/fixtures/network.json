@@ -1,386 +1,741 @@
 {
-  "_note": "SYNTHETIC investor network for the demo. All contacts are fictional and none of the titles map to a unique real office-holder. Overlaps with real filing people (filing_people.json) are planted through employers and schools stated in official filings. Production would use contacts the user supplies themselves (REQUIREMENTS §6.4).",
-  "investor": {
-    "id": "me",
-    "name": "You",
-    "headline": "Portfolio Manager, long-only Indian equities",
-    "roles": [
-      {"company": "Tata Motors Limited", "title": "Graduate Engineer Trainee, Passenger Vehicles", "start_year": 2008, "end_year": 2010},
-      {"company": "Kotak Institutional Equities", "title": "Research Analyst, Industrials & Chemicals", "start_year": 2012, "end_year": 2017},
-      {"company": "ICICI Prudential AMC", "title": "Fund Manager", "start_year": 2017, "end_year": 2022},
-      {"company": "Long-only fund", "title": "Portfolio Manager", "start_year": 2022, "end_year": null}
-    ],
-    "education": [
-      {"school": "IIT Bombay", "program": "B.Tech, Mechanical Engineering", "start_year": 2004, "end_year": 2008},
-      {"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2010, "end_year": 2012}
-    ]
-  },
-  "contacts": [
-    {
-      "id": "c_meera_iyer", "name": "Meera Iyer", "headline": "Head, Compliance Analytics at a private bank",
-      "roles": [
-        {"company": "ICICI Bank Limited", "symbol": "ICICIBANK", "title": "Manager, Retail Banking Compliance", "start_year": 2013, "end_year": 2021},
-        {"company": "Axis Bank Limited", "title": "Head, Compliance Analytics", "start_year": 2021, "end_year": null}
-      ],
-      "education": [{"school": "PSG College of Technology", "program": "MBA", "start_year": 2011, "end_year": 2013}],
-      "themes": ["private banking", "bank compliance", "regulation"],
-      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-08-20", "context": "Met at an RBI compliance roundtable; good read on regulatory tone", "email": "meera.iyer@example.com"},
-      "knows": [{"person": "fp_vn_srivatsan_hdfcbank", "strength": 0.8, "context": "Reported into his Retail Banking Compliance team at ICICI Bank"}]
-    },
-    {
-      "id": "c_rohan_deshmukh", "name": "Rohan Deshmukh", "headline": "Investment Director at a family office",
-      "roles": [
-        {"company": "ICICI Bank Limited", "symbol": "ICICIBANK", "title": "Senior Manager, Wholesale Banking", "start_year": 2006, "end_year": 2018},
-        {"company": "Family office", "title": "Investment Director", "start_year": 2018, "end_year": null}
-      ],
-      "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2004, "end_year": 2006}],
-      "themes": ["private banking", "wholesale banking"],
-      "relationship": {"type": "alumni", "strength": 0.5, "last_contact": "2026-06-11", "context": "IIM-A alumni network; co-invested once", "email": "rohan.deshmukh@example.com"},
-      "knows": [{"person": "fp_anup_bagchi_hdfcbank", "strength": 0.5, "context": "Worked in ICICI wholesale banking during his tenure"}]
-    },
-    {
-      "id": "c_kavita_menon", "name": "Kavita Menon", "headline": "Banks & NBFC analyst at a mutual fund",
-      "roles": [
-        {"company": "Kotak Institutional Equities", "title": "Associate, Financials", "start_year": 2012, "end_year": 2016},
-        {"company": "Mutual fund", "title": "Analyst, BFSI", "start_year": 2016, "end_year": null}
-      ],
-      "education": [{"school": "IIM Calcutta", "program": "PGP", "start_year": 2010, "end_year": 2012}],
-      "themes": ["private banking", "consumer lending", "rural lending"],
-      "relationship": {"type": "former colleague", "strength": 0.9, "last_contact": "2026-11-02", "context": "Sat next to each other at Kotak for four years", "email": "kavita.menon@example.com"}
-    },
-    {
-      "id": "c_sneha_pillai", "name": "Sneha Pillai", "headline": "Independent consultant, rural credit",
-      "roles": [
-        {"company": "Cholamandalam Investment and Finance", "symbol": "CHOLAFIN", "title": "Regional Credit Manager, Vehicle Finance", "start_year": 2012, "end_year": 2019},
-        {"company": "Rural credit consultancy", "title": "Founder", "start_year": 2019, "end_year": null}
-      ],
-      "education": [{"school": "IRMA Anand", "program": "PGDRM", "start_year": 2010, "end_year": 2012}],
-      "themes": ["rural lending", "vehicle finance", "collections"],
-      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-03-04", "context": "Did two paid expert calls on rural collections", "email": "sneha.pillai@example.com"}
-    },
-    {
-      "id": "c_farhan_qureshi", "name": "Farhan Qureshi", "headline": "Product lead at a lending fintech",
-      "roles": [
-        {"company": "Manappuram Finance", "symbol": "MANAPPURAM", "title": "Manager, Gold Loan Technology", "start_year": 2015, "end_year": 2022},
-        {"company": "Lending fintech", "title": "Product Lead", "start_year": 2022, "end_year": null}
-      ],
-      "education": [{"school": "NIT Calicut", "program": "B.Tech", "start_year": 2010, "end_year": 2014}],
-      "themes": ["gold loans", "lending technology"],
-      "relationship": {"type": "friend of friend", "strength": 0.4, "last_contact": "2025-12-15", "context": "Introduced by Kavita at a fintech meetup", "email": "farhan.qureshi@example.com"}
-    },
-    {
-      "id": "c_deepak_joshi", "name": "Deepak Joshi", "headline": "Head of Analytics at a credit bureau",
-      "roles": [
-        {"company": "Bajaj Finance", "symbol": "BAJFINANCE", "title": "Senior Manager, Risk", "start_year": 2016, "end_year": 2023},
-        {"company": "Credit bureau", "title": "Head of Analytics", "start_year": 2023, "end_year": null}
-      ],
-      "education": [{"school": "IIT Bombay", "program": "B.Tech", "start_year": 2004, "end_year": 2008}],
-      "themes": ["consumer lending", "credit risk"],
-      "relationship": {"type": "classmate", "strength": 0.8, "last_contact": "2026-09-28", "context": "IIT Bombay batchmate, same hostel", "email": "deepak.joshi@example.com"}
-    },
-    {
-      "id": "c_nikhil_bhandari", "name": "Nikhil Bhandari", "headline": "General Manager, Projects at a fluorochemicals company",
-      "roles": [
-        {"company": "SRF Limited", "symbol": "SRF", "title": "Plant Manager, Fluorochemicals (Dahej)", "start_year": 2011, "end_year": 2019},
-        {"company": "Navin Fluorine International", "title": "General Manager, Projects", "start_year": 2019, "end_year": null}
-      ],
-      "education": [{"school": "ICT Mumbai", "program": "B.Chem.Engg", "start_year": 2003, "end_year": 2007}],
-      "themes": ["specialty chemicals", "fluorochemicals", "capex execution"],
-      "relationship": {"type": "industry contact", "strength": 0.7, "last_contact": "2026-04-18", "context": "Plant visit host when covering chemicals at Kotak", "email": "nikhil.bhandari@example.com"}
-    },
-    {
-      "id": "c_pooja_sethi", "name": "Pooja Sethi", "headline": "Procurement advisor, chemicals",
-      "roles": [
-        {"company": "Deepak Nitrite", "symbol": "DEEPAKNTR", "title": "Manager, Raw Material Procurement", "start_year": 2014, "end_year": 2020},
-        {"company": "Chemicals procurement advisory", "title": "Principal", "start_year": 2020, "end_year": null}
-      ],
-      "education": [{"school": "MS University Baroda", "program": "M.Sc Chemistry", "start_year": 2011, "end_year": 2013}],
-      "themes": ["specialty chemicals", "phenol", "raw materials"],
-      "relationship": {"type": "expert network", "strength": 0.5, "last_contact": "2026-07-09", "context": "Tracks benzene and phenol spreads for me", "email": "pooja.sethi@example.com"}
-    },
-    {
-      "id": "c_rajesh_nair", "name": "Rajesh Nair", "headline": "Founder, contract research startup",
-      "roles": [
-        {"company": "Aarti Industries", "symbol": "AARTIIND", "title": "Senior Scientist, Process R&D", "start_year": 2009, "end_year": 2018},
-        {"company": "Contract research startup", "title": "Founder", "start_year": 2018, "end_year": null}
-      ],
-      "education": [{"school": "ICT Mumbai", "program": "PhD", "start_year": 2004, "end_year": 2009}],
-      "themes": ["specialty chemicals", "agrochem intermediates", "R&D"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-01-22", "context": "Met at Chemspec; knows Aarti's customer contracts well", "email": "rajesh.nair@example.com"}
-    },
-    {
-      "id": "c_ishita_kapoor", "name": "Ishita Kapoor", "headline": "Marketing director, consumer brands",
-      "roles": [
-        {"company": "Hindustan Unilever Limited", "title": "Brand Manager", "start_year": 2010, "end_year": 2015},
-        {"company": "Pidilite Industries", "symbol": "PIDILITIND", "title": "Marketing Manager, Consumer Adhesives", "start_year": 2015, "end_year": 2022},
-        {"company": "D2C home brand", "title": "Marketing Director", "start_year": 2022, "end_year": null}
-      ],
-      "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2008, "end_year": 2010}],
-      "themes": ["home improvement", "consumer staples", "adhesives", "distribution"],
-      "relationship": {"type": "alumni", "strength": 0.7, "last_contact": "2026-10-03", "context": "IIM-A senior; mentor in the alumni program", "email": "ishita.kapoor@example.com"}
-    },
-    {
-      "id": "c_varun_malhotra", "name": "Varun Malhotra", "headline": "Principal at a private equity fund",
-      "roles": [
-        {"company": "Vedanta Resources Limited", "title": "Manager, Corporate Finance", "start_year": 2012, "end_year": 2018},
-        {"company": "Private equity fund", "title": "Principal", "start_year": 2018, "end_year": null}
-      ],
-      "education": [{"school": "SRCC Delhi", "program": "B.Com", "start_year": 2006, "end_year": 2009}],
-      "themes": ["metals", "corporate finance"],
-      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2026-05-30", "context": "Met at a PE-public markets dinner", "email": "varun.malhotra@example.com"}
-    },
-    {
-      "id": "c_tanvi_arora", "name": "Tanvi Arora", "headline": "Head of People at a climate-tech startup",
-      "roles": [
-        {"company": "Avaada Manufacturing", "title": "Senior Manager, HR", "start_year": 2021, "end_year": 2024},
-        {"company": "Climate-tech startup", "title": "Head of People", "start_year": 2024, "end_year": null}
-      ],
-      "education": [{"school": "Indraprastha University", "program": "MHRM", "start_year": 2000, "end_year": 2002}],
-      "themes": ["renewables", "HR", "solar manufacturing"],
-      "relationship": {"type": "friend", "strength": 0.6, "last_contact": "2026-09-14", "context": "Family friend in Delhi", "email": "tanvi.arora@example.com"},
-      "knows": [{"person": "fp_jyothsana_vasudevan_srf", "strength": 0.8, "context": "Worked in her HR team at Avaada"}]
-    },
-    {
-      "id": "c_karthik_subramanian", "name": "Karthik Subramanian", "headline": "Operations lead at a semiconductor packaging startup",
-      "roles": [
-        {"company": "Kaynes Technology India", "symbol": "KAYNES", "title": "Program Manager, EMS (Mysuru)", "start_year": 2016, "end_year": 2022},
-        {"company": "Semiconductor OSAT startup", "title": "Operations Lead", "start_year": 2022, "end_year": null}
-      ],
-      "education": [{"school": "NIT Trichy", "program": "B.Tech ECE", "start_year": 2008, "end_year": 2012}],
-      "themes": ["semiconductors", "electronics manufacturing", "OSAT"],
-      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-03-21", "context": "Best person I know on Kaynes' customer mix and OSAT ramp", "email": "karthik.subramanian@example.com"}
-    },
-    {
-      "id": "c_aditi_rao", "name": "Aditi Rao", "headline": "Supply chain head at a smartphone ODM",
-      "roles": [
-        {"company": "Dixon Technologies", "symbol": "DIXON", "title": "Deputy Manager, Mobile Division (Noida)", "start_year": 2018, "end_year": 2023},
-        {"company": "Smartphone ODM", "title": "Supply Chain Head", "start_year": 2023, "end_year": null}
-      ],
-      "education": [{"school": "IIM Lucknow", "program": "PGP", "start_year": 2016, "end_year": 2018}],
-      "themes": ["electronics manufacturing", "smartphones", "PLI"],
-      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-07-30", "context": "Met on a Noida EMS cluster tour", "email": "aditi.rao@example.com"}
-    },
-    {
-      "id": "c_vikram_sinha", "name": "Vikram Sinha", "headline": "Engineering director at an industrial automation firm",
-      "roles": [
-        {"company": "Bosch", "title": "Engineer, Embedded Systems", "start_year": 2004, "end_year": 2008},
-        {"company": "Honeywell", "title": "Engineering Manager", "start_year": 2008, "end_year": 2016},
-        {"company": "Industrial automation firm", "title": "Engineering Director", "start_year": 2016, "end_year": null}
-      ],
-      "education": [{"school": "BITS Pilani", "program": "B.E.", "start_year": 2000, "end_year": 2004}],
-      "themes": ["industrial automation", "capital goods"],
-      "relationship": {"type": "friend", "strength": 0.7, "last_contact": "2026-10-19", "context": "Cousin's college friend; regular badminton partner", "email": "vikram.sinha@example.com"}
-    },
-    {
-      "id": "c_neha_agarwal", "name": "Neha Agarwal", "headline": "Partner, operations consulting",
-      "roles": [
-        {"company": "Ingersoll Rand", "title": "Manager, Aftermarket Services", "start_year": 2009, "end_year": 2015},
-        {"company": "Tetra Pak", "title": "Regional Services Lead", "start_year": 2015, "end_year": 2021},
-        {"company": "Operations consultancy", "title": "Partner", "start_year": 2021, "end_year": null}
-      ],
-      "education": [{"school": "IIT Guwahati", "program": "B.Tech Mechanical", "start_year": 2003, "end_year": 2007}],
-      "themes": ["industrial services", "capital goods"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-02-10", "context": "Ran a channel check for me on industrial services", "email": "neha.agarwal@example.com"},
-      "knows": [{"person": "fp_rajat_shah_cgpower", "strength": 0.7, "context": "Worked in his services organisation at Tetra Pak"}]
-    },
-    {
-      "id": "c_siddharth_menon", "name": "Siddharth Menon", "headline": "Senior manager at a power transformer maker",
-      "roles": [
-        {"company": "CG Power and Industrial Solutions", "symbol": "CGPOWER", "title": "Manager, Power Transformers (Bhopal)", "start_year": 2012, "end_year": 2020},
-        {"company": "Hitachi Energy India", "title": "Senior Manager, Transformers", "start_year": 2020, "end_year": null}
-      ],
-      "education": [{"school": "MANIT Bhopal", "program": "B.Tech Electrical", "start_year": 2008, "end_year": 2012}],
-      "themes": ["power equipment", "transformers", "capital goods"],
-      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-02-26", "context": "Transformer order-book channel checks", "email": "siddharth.menon@example.com"}
-    },
-    {
-      "id": "c_amit_khanna", "name": "Amit Khanna", "headline": "Director, semiconductor policy and partnerships",
-      "roles": [
-        {"company": "Micron Technology India", "title": "Manager, ATMP Operations", "start_year": 2019, "end_year": 2023},
-        {"company": "Semiconductor industry body", "title": "Director, Partnerships", "start_year": 2023, "end_year": null}
-      ],
-      "education": [{"school": "IIT Bombay", "program": "M.Tech, Microelectronics", "start_year": 2006, "end_year": 2008}],
-      "themes": ["semiconductors", "OSAT", "industrial policy"],
-      "relationship": {"type": "classmate", "strength": 0.6, "last_contact": "2026-06-02", "context": "IIT Bombay, overlapped in the same department", "email": "amit.khanna@example.com"}
-    },
-    {
-      "id": "c_ritu_bansal", "name": "Ritu Bansal", "headline": "Senior manager, wires & cables",
-      "roles": [
-        {"company": "Polycab India", "symbol": "POLYCAB", "title": "Manager, Channel Sales (Wires)", "start_year": 2014, "end_year": 2021},
-        {"company": "KEI Industries", "title": "Senior Manager, Retail Wires", "start_year": 2021, "end_year": null}
-      ],
-      "education": [{"school": "NMIMS Mumbai", "program": "MBA", "start_year": 2012, "end_year": 2014}],
-      "themes": ["cables & wires", "capital goods", "distribution"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-05-12", "context": "Dealer-channel checks on wires pricing", "email": "ritu.bansal@example.com"}
-    },
-    {
-      "id": "c_prakash_hegde", "name": "Prakash Hegde", "headline": "Independent advisor, IT services",
-      "roles": [
-        {"company": "Infosys", "symbol": "INFY", "title": "Delivery Manager, BFSI", "start_year": 2003, "end_year": 2015},
-        {"company": "Persistent Systems", "symbol": "PERSISTENT", "title": "Director, Delivery", "start_year": 2015, "end_year": 2022},
-        {"company": "Independent", "title": "Advisor", "start_year": 2022, "end_year": null}
-      ],
-      "education": [{"school": "NIT Surathkal", "program": "B.E.", "start_year": 1999, "end_year": 2003}],
-      "themes": ["IT services", "deal pipelines", "BFSI tech"],
-      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-08-07", "context": "Go-to for IT services deal ramp questions", "email": "prakash.hegde@example.com"}
-    },
-    {
-      "id": "c_lakshmi_narayanan", "name": "Lakshmi Narayanan", "headline": "Board advisor, technology",
-      "roles": [
-        {"company": "Tata Consultancy Services", "symbol": "TCS", "title": "Client Partner", "start_year": 2000, "end_year": 2018},
-        {"company": "Advisory", "title": "Board Advisor", "start_year": 2018, "end_year": null}
-      ],
-      "education": [{"school": "Anna University", "program": "B.E.", "start_year": 1996, "end_year": 2000}],
-      "themes": ["IT services", "large deals"],
-      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2025-11-30", "context": "Met at a NASSCOM event", "email": "lakshmi.narayanan@example.com"}
-    },
-    {
-      "id": "c_gaurav_mehta", "name": "Gaurav Mehta", "headline": "Engineering manager at an IT services firm",
-      "roles": [
-        {"company": "Persistent Systems", "symbol": "PERSISTENT", "title": "Engineering Manager", "start_year": 2019, "end_year": null}
-      ],
-      "education": [{"school": "IIT Bombay", "program": "B.Tech, Mechanical Engineering", "start_year": 2004, "end_year": 2008}],
-      "themes": ["IT services", "product engineering"],
-      "relationship": {"type": "classmate", "strength": 0.9, "last_contact": "2026-10-25", "context": "IIT Bombay wing-mate", "email": "gaurav.mehta@example.com"}
-    },
-    {
-      "id": "c_ananya_krishnan", "name": "Ananya Krishnan", "headline": "Founder, D2C jewellery brand",
-      "roles": [
-        {"company": "Titan Company", "symbol": "TITAN", "title": "Category Manager, Jewellery", "start_year": 2011, "end_year": 2019},
-        {"company": "D2C jewellery brand", "title": "Founder", "start_year": 2019, "end_year": null}
-      ],
-      "education": [{"school": "NIFT Bengaluru", "program": "M.Des", "start_year": 2009, "end_year": 2011}],
-      "themes": ["jewellery", "consumer discretionary", "retail"],
-      "relationship": {"type": "friend", "strength": 0.6, "last_contact": "2026-04-02", "context": "Friend from Bengaluru; candid on gold pricing and demand", "email": "ananya.krishnan@example.com"}
-    },
-    {
-      "id": "c_rahul_shetty", "name": "Rahul Shetty", "headline": "Retail operations consultant",
-      "roles": [
-        {"company": "Trent Limited", "symbol": "TRENT", "title": "Regional Operations Manager, Zudio", "start_year": 2017, "end_year": 2024},
-        {"company": "Retail consultancy", "title": "Consultant", "start_year": 2024, "end_year": null}
-      ],
-      "education": [{"school": "Welingkar Mumbai", "program": "PGDM Retail", "start_year": 2015, "end_year": 2017}],
-      "themes": ["retail", "value fashion", "store economics"],
-      "relationship": {"type": "expert network", "strength": 0.6, "last_contact": "2026-09-05", "context": "Store-level unit economics", "email": "rahul.shetty@example.com"}
-    },
-    {
-      "id": "c_sanjay_patil", "name": "Sanjay Patil", "headline": "Vice President, auto manufacturing",
-      "roles": [
-        {"company": "Tata Motors Limited", "title": "Senior Manager, Passenger Car Business", "start_year": 2002, "end_year": 2014},
-        {"company": "Auto OEM", "title": "Vice President, Manufacturing", "start_year": 2014, "end_year": null}
-      ],
-      "education": [{"school": "COEP Pune", "program": "B.E. Mechanical", "start_year": 1998, "end_year": 2002}],
-      "themes": ["autos", "manufacturing"],
-      "relationship": {"type": "former colleague", "strength": 0.8, "last_contact": "2026-07-17", "context": "My first manager at Tata Motors", "email": "sanjay.patil@example.com"},
-      "knows": [{"person": "fp_rajiv_dube_trent", "strength": 0.6, "context": "Worked in the car business when he was its President"}]
-    },
-    {
-      "id": "c_divya_chawla", "name": "Divya Chawla", "headline": "Supply chain lead at a paints company",
-      "roles": [
-        {"company": "Asian Paints", "symbol": "ASIANPAINT", "title": "Manager, Supply Chain", "start_year": 2013, "end_year": 2020},
-        {"company": "Berger Paints", "title": "Supply Chain Lead", "start_year": 2020, "end_year": null}
-      ],
-      "education": [{"school": "NITIE Mumbai", "program": "PGDIE", "start_year": 2011, "end_year": 2013}],
-      "themes": ["home improvement", "paints", "consumer staples", "supply chain"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-06-24", "context": "Paints competitive intensity checks", "email": "divya.chawla@example.com"}
-    },
-    {
-      "id": "c_harish_venkatesh", "name": "Dr. Harish Venkatesh", "headline": "Regulatory consultant, pharma",
-      "roles": [
-        {"company": "Sun Pharmaceutical Industries", "symbol": "SUNPHARMA", "title": "Associate Director, Regulatory Affairs", "start_year": 2008, "end_year": 2019},
-        {"company": "Pharma regulatory consultancy", "title": "Principal", "start_year": 2019, "end_year": null}
-      ],
-      "education": [{"school": "NIPER Mohali", "program": "PhD", "start_year": 2003, "end_year": 2008}],
-      "themes": ["pharma", "USFDA", "regulatory"],
-      "relationship": {"type": "expert network", "strength": 0.7, "last_contact": "2026-01-15", "context": "First call on any FDA or regulator action", "email": "harish.venkatesh@example.com"}
-    },
-    {
-      "id": "c_arjun_malhotra", "name": "Arjun Malhotra", "headline": "Telecom strategy consultant",
-      "roles": [
-        {"company": "Reliance Industries", "symbol": "RELIANCE", "title": "Manager, Jio Strategy", "start_year": 2015, "end_year": 2021},
-        {"company": "Telecom consultancy", "title": "Partner", "start_year": 2021, "end_year": null}
-      ],
-      "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2010, "end_year": 2012}],
-      "themes": ["telecom", "conglomerate", "digital"],
-      "relationship": {"type": "classmate", "strength": 0.8, "last_contact": "2026-10-11", "context": "IIM-A section-mate", "email": "arjun.malhotra@example.com"}
-    },
-    {
-      "id": "c_abhishek_jain", "name": "Abhishek Jain", "headline": "Portfolio manager at a hedge fund",
-      "roles": [
-        {"company": "Kotak Institutional Equities", "title": "Research Analyst, Capital Goods", "start_year": 2011, "end_year": 2018},
-        {"company": "Hedge fund", "title": "Portfolio Manager", "start_year": 2018, "end_year": null}
-      ],
-      "education": [{"school": "IIM Bangalore", "program": "PGP", "start_year": 2009, "end_year": 2011}],
-      "themes": ["capital goods", "power equipment", "generalist"],
-      "relationship": {"type": "former colleague", "strength": 0.8, "last_contact": "2026-11-10", "context": "Ex-Kotak; trade ideas regularly", "email": "abhishek.jain@example.com"}
-    },
-    {
-      "id": "c_priya_raman", "name": "Priya Raman", "headline": "Partner at a strategy consulting firm",
-      "roles": [
-        {"company": "Strategy consulting firm", "title": "Partner, Consumer & Retail", "start_year": 2012, "end_year": null}
-      ],
-      "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2010, "end_year": 2012}],
-      "themes": ["home improvement", "consumer staples", "retail", "paints"],
-      "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-08-29", "context": "IIM-A batchmate", "email": "priya.raman@example.com"}
-    },
-    {
-      "id": "c_mohit_arora", "name": "Mohit Arora", "headline": "CIO at a family office",
-      "roles": [
-        {"company": "ICICI Prudential AMC", "title": "Fund Manager", "start_year": 2015, "end_year": 2021},
-        {"company": "Family office", "title": "CIO", "start_year": 2021, "end_year": null}
-      ],
-      "education": [{"school": "XLRI Jamshedpur", "program": "PGDM", "start_year": 2006, "end_year": 2008}],
-      "themes": ["generalist", "private banking"],
-      "relationship": {"type": "former colleague", "strength": 0.7, "last_contact": "2026-07-03", "context": "Ex-ICICI Pru colleague", "email": "mohit.arora@example.com"}
-    },
-    {
-      "id": "c_shreya_bose", "name": "Shreya Bose", "headline": "Equity research analyst, chemicals",
-      "roles": [
-        {"company": "Gujarat Fluorochemicals", "title": "Business Analyst", "start_year": 2014, "end_year": 2017},
-        {"company": "Broking firm", "title": "Research Analyst, Chemicals", "start_year": 2017, "end_year": null}
-      ],
-      "education": [{"school": "ICT Mumbai", "program": "B.Tech", "start_year": 2010, "end_year": 2014}],
-      "themes": ["specialty chemicals", "fluorochemicals", "refrigerant gases"],
-      "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-09-30", "context": "Swap notes on refrigerant gas pricing", "email": "shreya.bose@example.com"}
-    },
-    {
-      "id": "c_manish_gupta", "name": "Manish Gupta", "headline": "Venture investor, hardware",
-      "roles": [
-        {"company": "Venture fund", "title": "Partner, Deep-tech", "start_year": 2021, "end_year": null}
-      ],
-      "education": [{"school": "London Business School", "program": "MBA", "start_year": 2019, "end_year": 2021}],
-      "themes": ["electronics manufacturing", "semiconductors", "venture"],
-      "relationship": {"type": "industry contact", "strength": 0.4, "last_contact": "2026-04-28", "context": "Co-panelist on electronics manufacturing", "email": "manish.gupta@example.com"}
-    },
-    {
-      "id": "c_anjali_deshpande", "name": "Anjali Deshpande", "headline": "Head of Risk at a small finance bank",
-      "roles": [
-        {"company": "HDFC Bank Limited", "symbol": "HDFCBANK", "title": "Senior Manager, SME Credit", "start_year": 2009, "end_year": 2019},
-        {"company": "Small finance bank", "title": "Head of Risk", "start_year": 2019, "end_year": null}
-      ],
-      "education": [{"school": "JBIMS Mumbai", "program": "MMS Finance", "start_year": 2007, "end_year": 2009}],
-      "themes": ["private banking", "SME lending", "credit risk"],
-      "relationship": {"type": "industry contact", "strength": 0.6, "last_contact": "2026-02-19", "context": "Knows HDFC Bank's SME franchise inside out", "email": "anjali.deshpande@example.com"}
-    },
-    {
-      "id": "c_kiran_reddy", "name": "Kiran Reddy", "headline": "Plant head, specialty chemicals",
-      "roles": [
-        {"company": "SRF Limited", "symbol": "SRF", "title": "Shift Engineer, Technical Textiles", "start_year": 2008, "end_year": 2012},
-        {"company": "Specialty chemicals company", "title": "Plant Head", "start_year": 2018, "end_year": null}
-      ],
-      "education": [{"school": "IIT Bombay", "program": "B.Tech Chemical", "start_year": 2004, "end_year": 2008}],
-      "themes": ["specialty chemicals", "plant operations"],
-      "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-05-08", "context": "IIT Bombay batchmate", "email": "kiran.reddy@example.com"}
-    },
-    {
-      "id": "c_amit_agarwal_ca",
-      "name": "Amit Agarwal",
-      "_planted": "FR-NET-05 trap: same name as Pidilite's incoming CFO, unrelated career. FINN must not present him as the CFO.",
-      "headline": "Partner, a chartered accountancy firm in Jaipur",
-      "roles": [{"company": "Agarwal & Associates", "title": "Partner", "start_year": 2009, "end_year": null}],
-      "education": [{"school": "University of Rajasthan", "program": "B.Com", "start_year": 2002, "end_year": 2005}],
-      "themes": ["tax", "audit"],
-      "relationship": {"type": "friend", "strength": 0.4, "last_contact": "2026-06-11", "context": "Family friend from Jaipur; does the family's taxes", "email": "amit.agarwal@example.com"}
-    }
+ "_note": "SYNTHETIC investor network for the demo. All contacts are fictional and none of the titles map to a unique real office-holder. Overlaps with real filing people (filing_people.json) are planted through employers and schools stated in official filings. Production would use contacts the user supplies themselves (REQUIREMENTS §6.4).",
+ "investor": {
+  "id": "me",
+  "name": "You",
+  "headline": "Portfolio Manager, long-only Indian equities",
+  "roles": [
+   {
+    "company": "Tata Motors Limited",
+    "title": "Graduate Engineer Trainee, Passenger Vehicles",
+    "start_year": 2008,
+    "end_year": 2010
+   },
+   {
+    "company": "Kotak Institutional Equities",
+    "title": "Research Analyst, Industrials & Chemicals",
+    "start_year": 2012,
+    "end_year": 2017
+   },
+   {
+    "company": "ICICI Prudential AMC",
+    "title": "Fund Manager",
+    "start_year": 2017,
+    "end_year": 2022
+   },
+   {
+    "company": "Long-only fund",
+    "title": "Portfolio Manager",
+    "start_year": 2022,
+    "end_year": null
+   }
+  ],
+  "education": [
+   {
+    "school": "IIT Bombay",
+    "program": "B.Tech, Mechanical Engineering",
+    "start_year": 2004,
+    "end_year": 2008
+   },
+   {
+    "school": "IIM Ahmedabad",
+    "program": "PGP",
+    "start_year": 2010,
+    "end_year": 2012
+   }
   ]
+ },
+ "contacts": [
+  {
+   "id": "c_meera_iyer",
+   "name": "Meera Iyer",
+   "headline": "Head, Compliance Analytics at a private bank",
+   "roles": [
+    {
+     "company": "ICICI Bank Limited",
+     "title": "Manager, Retail Banking Compliance",
+     "start_year": 2013,
+     "end_year": 2021,
+     "symbol": "ICICIBANK"
+    },
+    {
+     "company": "Axis Bank Limited",
+     "title": "Head, Compliance Analytics",
+     "start_year": 2021,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "PSG College of Technology",
+     "program": "MBA",
+     "start_year": 2011,
+     "end_year": 2013
+    }
+   ],
+   "themes": [
+    "private banking",
+    "bank compliance",
+    "regulation"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.6,
+    "last_contact": "2026-08-20",
+    "context": "Met at an RBI compliance roundtable; good read on regulatory tone",
+    "email": "meera.iyer@example.com"
+   },
+   "knows": [
+    {
+     "person": "fp_vn_srivatsan_hdfcbank",
+     "strength": 0.8,
+     "context": "Reported into his Retail Banking Compliance team at ICICI Bank"
+    }
+   ]
+  },
+  {
+   "id": "c_anjali_deshpande",
+   "name": "Anjali Deshpande",
+   "headline": "Head of Risk at a small finance bank",
+   "roles": [
+    {
+     "company": "HDFC Bank Limited",
+     "title": "Senior Manager, Credit Risk",
+     "start_year": 2010,
+     "end_year": 2019,
+     "symbol": "HDFCBANK"
+    },
+    {
+     "company": "Small finance bank",
+     "title": "Head of Risk",
+     "start_year": 2019,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "Symbiosis Institute of Business Management",
+     "program": "MBA",
+     "start_year": 2008,
+     "end_year": 2010
+    }
+   ],
+   "themes": [
+    "private banking",
+    "credit risk"
+   ],
+   "relationship": {
+    "type": "former colleague",
+    "strength": 0.6,
+    "last_contact": "2026-06-11",
+    "context": "Worked on the same credit committee papers in 2015; candid on asset quality",
+    "email": "anjali.deshpande@example.com"
+   }
+  },
+  {
+   "id": "c_kavita_menon",
+   "name": "Kavita Menon",
+   "headline": "Banks & NBFC analyst at a mutual fund",
+   "roles": [
+    {
+     "company": "Kotak Institutional Equities",
+     "title": "Associate, Banks",
+     "start_year": 2013,
+     "end_year": 2017
+    },
+    {
+     "company": "Mutual fund",
+     "title": "Analyst, Banks & NBFCs",
+     "start_year": 2017,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "IIM Ahmedabad",
+     "program": "PGP",
+     "start_year": 2011,
+     "end_year": 2013
+    }
+   ],
+   "themes": [
+    "private banking",
+    "public sector banking",
+    "fintech"
+   ],
+   "relationship": {
+    "type": "former colleague",
+    "strength": 0.9,
+    "last_contact": "2026-10-30",
+    "context": "Sat next to you at Kotak; covers every bank you own",
+    "email": "kavita.menon@example.com",
+    "phone": "+91 98200 00001"
+   },
+   "knows": [
+    {
+     "person": "fp_anup_bagchi_hdfcbank",
+     "strength": 0.5,
+     "context": "Has met him at ICICI investor days for years as a sell-side and buy-side analyst"
+    }
+   ]
+  },
+  {
+   "id": "c_arjun_malhotra",
+   "name": "Arjun Malhotra",
+   "headline": "Telecom strategy consultant",
+   "roles": [
+    {
+     "company": "Reliance Jio Infocomm",
+     "title": "Manager, Strategy",
+     "start_year": 2014,
+     "end_year": 2020,
+     "symbol": "RELIANCE"
+    },
+    {
+     "company": "Telecom consultancy",
+     "title": "Principal",
+     "start_year": 2020,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "XLRI Jamshedpur",
+     "program": "PGDBM",
+     "start_year": 2012,
+     "end_year": 2014
+    }
+   ],
+   "themes": [
+    "telecom",
+    "conglomerate"
+   ],
+   "relationship": {
+    "type": "friend",
+    "strength": 0.8,
+    "last_contact": "2026-09-14",
+    "context": "College friend's brother; explains telecom tariffs better than any report",
+    "email": "arjun.malhotra@example.com"
+   },
+   "knows": [
+    {
+     "person": "fp_manoj_murali_idea",
+     "strength": 0.6,
+     "context": "Worked with him on Jio's distribution roll-out"
+    }
+   ]
+  },
+  {
+   "id": "c_lakshmi_narayanan",
+   "name": "Lakshmi Narayanan",
+   "headline": "Board advisor, technology",
+   "roles": [
+    {
+     "company": "Tata Consultancy Services",
+     "title": "Vice President, BFSI delivery",
+     "start_year": 1998,
+     "end_year": 2019,
+     "symbol": "TCS"
+    },
+    {
+     "company": "Advisory",
+     "title": "Board advisor",
+     "start_year": 2019,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "Anna University",
+     "program": "B.E.",
+     "start_year": 1990,
+     "end_year": 1994
+    }
+   ],
+   "themes": [
+    "IT services"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.4,
+    "last_contact": "2026-02-03",
+    "context": "Met on a panel on AI and IT services pricing",
+    "email": "lakshmi.narayanan@example.com"
+   }
+  },
+  {
+   "id": "c_sanjay_patil",
+   "name": "Sanjay Patil",
+   "headline": "Vice President, auto manufacturing",
+   "roles": [
+    {
+     "company": "Tata Motors Limited",
+     "title": "Plant head, Passenger Vehicles (Pune)",
+     "start_year": 2006,
+     "end_year": 2021,
+     "symbol": "TMPV"
+    },
+    {
+     "company": "Auto OEM",
+     "title": "Vice President, Manufacturing",
+     "start_year": 2021,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "IIT Bombay",
+     "program": "B.Tech, Mechanical Engineering",
+     "start_year": 2002,
+     "end_year": 2006
+    }
+   ],
+   "themes": [
+    "automobiles"
+   ],
+   "relationship": {
+    "type": "former colleague",
+    "strength": 0.8,
+    "last_contact": "2026-07-22",
+    "context": "Your batchmate at IIT Bombay and your manager as a trainee at Tata Motors",
+    "email": "sanjay.patil@example.com"
+   }
+  },
+  {
+   "id": "c_ishita_kapoor",
+   "name": "Ishita Kapoor",
+   "headline": "Marketing director, consumer brands",
+   "roles": [
+    {
+     "company": "Hindustan Unilever Limited",
+     "title": "Brand Manager, Home Care",
+     "start_year": 2010,
+     "end_year": 2015
+    },
+    {
+     "company": "Nestle India",
+     "title": "Marketing Manager, Dairy & Nutrition",
+     "start_year": 2015,
+     "end_year": 2022,
+     "symbol": "NESTLEIND"
+    },
+    {
+     "company": "D2C home brand",
+     "title": "Marketing Director",
+     "start_year": 2022,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "MDI Gurugram",
+     "program": "PGDM",
+     "start_year": 2008,
+     "end_year": 2010
+    }
+   ],
+   "themes": [
+    "consumer staples"
+   ],
+   "relationship": {
+    "type": "friend",
+    "strength": 0.7,
+    "last_contact": "2026-09-02",
+    "context": "Friend from a consumer conference; frank on distributor margins",
+    "email": "ishita.kapoor@example.com"
+   },
+   "knows": [
+    {
+     "person": "fp_herjit_bhalla_dabur",
+     "strength": 0.6,
+     "context": "Worked in his team at Hindustan Unilever"
+    },
+    {
+     "person": "fp_sudhir_sitapati_meesho",
+     "strength": 0.4,
+     "context": "Knew him from Hindustan Unilever's foods business"
+    }
+   ]
+  },
+  {
+   "id": "c_rhea_kulkarni",
+   "name": "Rhea Kulkarni",
+   "headline": "CFO at a D2C ayurveda brand",
+   "roles": [
+    {
+     "company": "Dabur India Limited",
+     "title": "Head, FP&A - Healthcare",
+     "start_year": 2014,
+     "end_year": 2021,
+     "symbol": "DABUR"
+    },
+    {
+     "company": "D2C ayurveda brand",
+     "title": "Chief Financial Officer",
+     "start_year": 2021,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "ICAI",
+     "program": "Chartered Accountant",
+     "start_year": 2008,
+     "end_year": 2012
+    }
+   ],
+   "themes": [
+    "consumer staples"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.6,
+    "last_contact": "2026-05-18",
+    "context": "Introduced by Kavita; ran budgets for Dabur's healthcare business",
+    "email": "rhea.kulkarni@example.com"
+   }
+  },
+  {
+   "id": "c_vivek_rao",
+   "name": "Vivek Rao",
+   "headline": "Projects head at an EPC firm",
+   "roles": [
+    {
+     "company": "Larsen & Toubro",
+     "title": "Project Manager, Heavy Civil Infrastructure",
+     "start_year": 2009,
+     "end_year": 2020,
+     "symbol": "LT"
+    },
+    {
+     "company": "Tata Projects",
+     "title": "Head of Projects, Urban Infrastructure",
+     "start_year": 2020,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "NIT Trichy",
+     "program": "B.Tech, Civil Engineering",
+     "start_year": 2005,
+     "end_year": 2009
+    }
+   ],
+   "themes": [
+    "capital goods",
+    "infrastructure"
+   ],
+   "relationship": {
+    "type": "friend",
+    "strength": 0.7,
+    "last_contact": "2026-04-10",
+    "context": "Old friend from a project-finance course; ran metro and airport packages at L&T",
+    "email": "vivek.rao@example.com",
+    "phone": "+91 98200 00002"
+   }
+  },
+  {
+   "id": "c_suresh_pillai",
+   "name": "Suresh Pillai",
+   "headline": "Senior manager at a power equipment maker",
+   "roles": [
+    {
+     "company": "Bharat Heavy Electricals Limited",
+     "title": "Senior Engineer, Power Projects",
+     "start_year": 2005,
+     "end_year": 2018,
+     "symbol": "BHEL"
+    },
+    {
+     "company": "Hitachi Energy India",
+     "title": "Senior Manager, Grid Projects",
+     "start_year": 2018,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "College of Engineering, Trivandrum",
+     "program": "B.Tech, Electrical",
+     "start_year": 2001,
+     "end_year": 2005
+    }
+   ],
+   "themes": [
+    "capital goods",
+    "power"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.5,
+    "last_contact": "2026-03-28",
+    "context": "Met at a power equipment expo; knows BHEL's order execution well",
+    "email": "suresh.pillai@example.com"
+   }
+  },
+  {
+   "id": "c_nandini_shah",
+   "name": "Nandini Shah",
+   "headline": "Metals consultant",
+   "roles": [
+    {
+     "company": "Tata Steel Limited",
+     "title": "Manager, Raw Materials Procurement",
+     "start_year": 2012,
+     "end_year": 2020,
+     "symbol": "TATASTEEL"
+    },
+    {
+     "company": "Metals consultancy",
+     "title": "Principal",
+     "start_year": 2020,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "IIM Calcutta",
+     "program": "PGP",
+     "start_year": 2010,
+     "end_year": 2012
+    }
+   ],
+   "themes": [
+    "metals"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.6,
+    "last_contact": "2026-08-05",
+    "context": "Bought graphite electrodes for Tata Steel's furnaces; good on steel input costs",
+    "email": "nandini.shah@example.com"
+   }
+  },
+  {
+   "id": "c_aakash_verma",
+   "name": "Aakash Verma",
+   "headline": "Operations lead at a quick commerce startup",
+   "roles": [
+    {
+     "company": "Zomato Limited",
+     "title": "City Head, Delhi NCR",
+     "start_year": 2018,
+     "end_year": 2023,
+     "symbol": "ETERNAL"
+    },
+    {
+     "company": "Quick commerce startup",
+     "title": "Head of Operations",
+     "start_year": 2023,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "IIT Delhi",
+     "program": "B.Tech",
+     "start_year": 2012,
+     "end_year": 2016
+    }
+   ],
+   "themes": [
+    "internet consumer"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.5,
+    "last_contact": "2026-10-08",
+    "context": "Met at a consumer internet meetup; sharp on delivery unit economics",
+    "email": "aakash.verma@example.com"
+   }
+  },
+  {
+   "id": "c_tanya_bhatia",
+   "name": "Tanya Bhatia",
+   "headline": "Product lead at a lending fintech",
+   "roles": [
+    {
+     "company": "One 97 Communications",
+     "title": "Product Manager, Lending",
+     "start_year": 2016,
+     "end_year": 2022,
+     "symbol": "PAYTM"
+    },
+    {
+     "company": "Lending fintech",
+     "title": "Product Lead",
+     "start_year": 2022,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "IIM Lucknow",
+     "program": "PGP",
+     "start_year": 2014,
+     "end_year": 2016
+    }
+   ],
+   "themes": [
+    "fintech"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.5,
+    "last_contact": "2026-01-20",
+    "context": "Built Paytm's merchant loans product; knows the payments regulation detail",
+    "email": "tanya.bhatia@example.com"
+   }
+  },
+  {
+   "id": "c_abhishek_jain",
+   "name": "Abhishek Jain",
+   "headline": "Portfolio manager at a hedge fund",
+   "roles": [
+    {
+     "company": "Kotak Institutional Equities",
+     "title": "Analyst, Metals & Capital Goods",
+     "start_year": 2012,
+     "end_year": 2016
+    },
+    {
+     "company": "Hedge fund",
+     "title": "Portfolio Manager",
+     "start_year": 2016,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "IIM Ahmedabad",
+     "program": "PGP",
+     "start_year": 2010,
+     "end_year": 2012
+    }
+   ],
+   "themes": [
+    "metals",
+    "capital goods"
+   ],
+   "relationship": {
+    "type": "former colleague",
+    "strength": 0.8,
+    "last_contact": "2026-10-25",
+    "context": "Your batchmate and Kotak colleague; good sounding board on positioning",
+    "email": "abhishek.jain@example.com"
+   }
+  },
+  {
+   "id": "c_ankush_jain_ca",
+   "name": "Ankush Jain",
+   "headline": "Partner, a chartered accountancy firm in Delhi",
+   "roles": [
+    {
+     "company": "Jain & Associates",
+     "title": "Partner",
+     "start_year": 2011,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "Shri Ram College of Commerce",
+     "program": "B.Com",
+     "start_year": 2004,
+     "end_year": 2007
+    }
+   ],
+   "themes": [
+    "taxation"
+   ],
+   "relationship": {
+    "type": "acquaintance",
+    "strength": 0.4,
+    "last_contact": "2025-12-12",
+    "context": "Did your family's tax filings once",
+    "email": "ankush.jain@example.com"
+   }
+  },
+  {
+   "id": "c_deepak_joshi",
+   "name": "Deepak Joshi",
+   "headline": "Head of Analytics at a credit bureau",
+   "roles": [
+    {
+     "company": "Bajaj Finance",
+     "symbol": "BAJFINANCE",
+     "title": "Senior Manager, Risk",
+     "start_year": 2016,
+     "end_year": 2023
+    },
+    {
+     "company": "Credit bureau",
+     "title": "Head of Analytics",
+     "start_year": 2023,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "IIT Bombay",
+     "program": "B.Tech",
+     "start_year": 2004,
+     "end_year": 2008
+    }
+   ],
+   "themes": [
+    "consumer lending",
+    "credit risk"
+   ],
+   "relationship": {
+    "type": "classmate",
+    "strength": 0.8,
+    "last_contact": "2026-09-28",
+    "context": "IIT Bombay batchmate, same hostel",
+    "email": "deepak.joshi@example.com"
+   }
+  },
+  {
+   "id": "c_divya_chawla",
+   "name": "Divya Chawla",
+   "headline": "Supply chain lead at Asian Paints",
+   "roles": [
+    {
+     "company": "Berger Paints",
+     "title": "Manager, Supply Chain",
+     "start_year": 2013,
+     "end_year": 2020
+    },
+    {
+     "company": "Asian Paints",
+     "symbol": "ASIANPAINT",
+     "title": "Supply Chain Lead, Decorative",
+     "start_year": 2020,
+     "end_year": null
+    }
+   ],
+   "education": [
+    {
+     "school": "NITIE Mumbai",
+     "program": "PGDIE",
+     "start_year": 2011,
+     "end_year": 2013
+    }
+   ],
+   "themes": [
+    "home improvement",
+    "paints",
+    "consumer staples",
+    "supply chain"
+   ],
+   "relationship": {
+    "type": "industry contact",
+    "strength": 0.5,
+    "last_contact": "2026-06-24",
+    "context": "Paints competitive intensity checks; works at Asian Paints now, so nothing unpublished",
+    "email": "divya.chawla@example.com"
+   }
+  }
+ ]
 }

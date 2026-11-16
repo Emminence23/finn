@@ -8,6 +8,7 @@ promises that were actually in the prompt (the same rule as the research note, N
 
 from __future__ import annotations
 
+import functools
 import json
 import math
 import re
@@ -266,6 +267,22 @@ def suggested_questions(view: dict) -> list[str]:
 _GENERIC = {"the", "india", "indian", "limited", "ltd", "industries", "technologies", "bank"}
 
 
+@functools.lru_cache
+def _aliases() -> dict[str, list[str]]:
+    """Everyday names for a company ("L&T", "Zomato", "Vodafone Idea"), from the curated
+    company meta, so people can ask the way they talk."""
+    from app.ingest.universe import fixtures_dir
+
+    path = fixtures_dir() / "companies_meta.json"
+    if not path.exists():
+        return {}
+    meta = json.loads(path.read_text())["companies"]
+    return {
+        sym: [a.lower() for a in m.get("aliases", []) if len(a) >= 3 or "&" in a]
+        for sym, m in meta.items()
+    }
+
+
 def resolve_company(question: str, rows: list[dict], ready: set[str]) -> str | None:
     """Which company a free-text question is about. A ticker typed in capitals matches any
     company ("is DIXON ..."); lowercase tickers and names match only followed companies, so
@@ -277,7 +294,15 @@ def resolve_company(question: str, rows: list[dict], ready: set[str]) -> str | N
         sym = r["symbol"]
         score = 0
         followed = r["in_portfolio"] or r["in_research_set"] or sym in ready
-        if sym in words or (followed and len(sym) >= 4 and sym.lower() in lower):
+        if (
+            sym in words
+            or (followed and len(sym) >= 4 and sym.lower() in lower)
+            or followed
+            and any(
+                re.search(rf"(?<![a-z0-9]){re.escape(a)}(?![a-z0-9&])", question.lower())
+                for a in _aliases().get(sym, [])
+            )
+        ):
             score = 3
         elif followed:
             first = next(

@@ -17,12 +17,15 @@ def _client():
 def test_overview_adds_up(seeded):
     with _client() as c:
         o = c.get("/portfolio", headers=DEMO).json()
-    assert o["summary"]["holdings"] == 18 and not o["custom"]
+    assert o["summary"]["holdings"] == 20 and not o["custom"]
     assert sum(h["weight"] for h in o["holdings"]) == pytest.approx(100)
     assert sum(t["weight"] for t in o["themes"]) == pytest.approx(100)
     assert sum(h["risk_share"] for h in o["holdings"]) == pytest.approx(100)
-    assert any("Lenders together are 38%" in f for f in o["flags"])
-    assert o["correlated"][0]["a"] in {"INFY", "TCS"}  # the two IT majors move together
+    assert any("Lenders together are 21%" in f for f in o["flags"])
+    assert {o["correlated"][0]["a"], o["correlated"][0]["b"]} == {
+        "BAJFINANCE",
+        "JIOFIN",
+    }  # the most alike pair
     s = o["summary"]
     assert s["value"] == pytest.approx(sum(h["qty"] * h["price"] for h in o["holdings"]))
     # the demo was bought on the chart's first day: the curve starts at the money invested
@@ -52,8 +55,10 @@ def test_suggestion_respects_every_rule_and_is_repeatable(seeded):
         themes[r["theme"]] = themes.get(r["theme"], 0) + r["suggested"]
     assert max(themes.values()) <= a.THEME_CAP * 100 + 1e-6
     assert s1["after"]["volatility"] < s1["before"]["volatility"]
-    titan = next(r for r in rows if r["symbol"] == "TITAN")  # 14% after a strong year
-    assert titan["change"] == pytest.approx(-3) and "3-point step" in titan["reason"]
+    dabur = next(r for r in rows if r["symbol"] == "DABUR")  # the smallest risk share
+    assert dabur["change"] == pytest.approx(3) and "3-point step" in dabur["reason"]
+    top = max(a.overview()["holdings"], key=lambda h: h["risk_share"])["symbol"]
+    assert next(r for r in rows if r["symbol"] == top)["change"] < 0  # the most risk comes down
 
 
 def test_equal_risk_contribution_is_inverse_vol_without_correlation():
@@ -74,24 +79,24 @@ def test_holdings_are_per_account_and_today_follows(seeded):
             c.post("/portfolio/holdings", json={"symbol": "PERSISTENT"}, headers=DEMO).status_code
             == 200
         )
-        h = c.delete("/portfolio/holdings/KAYNES", headers=DEMO).json()["holdings"]
-        assert "KAYNES" not in h and h["PERSISTENT"] == pytest.approx(0.03, abs=0.002)
+        h = c.delete("/portfolio/holdings/IDEA", headers=DEMO).json()["holdings"]
+        assert "IDEA" not in h and h["PERSISTENT"] == pytest.approx(0.03, abs=0.002)
         assert sum(h.values()) == pytest.approx(1)
         # buying more blends the new shares in at today's price; selling keeps the cost
         pos = {
             p["symbol"]: p for p in c.get("/portfolio/holdings", headers=DEMO).json()["positions"]
         }
-        t = pos["TITAN"]
-        qty = {s: p["qty"] for s, p in pos.items()} | {"TITAN": t["qty"] + 10, "TCS": 1}
+        t = pos["RELIANCE"]
+        qty = {s: p["qty"] for s, p in pos.items()} | {"RELIANCE": t["qty"] + 10, "TCS": 1}
         assert c.put("/portfolio/holdings", json={"qty": qty}, headers=DEMO).status_code == 200
         after = {
             p["symbol"]: p for p in c.get("/portfolio/holdings", headers=DEMO).json()["positions"]
         }
         blended = (t["qty"] * t["avg_cost"] + 10 * t["price"]) / (t["qty"] + 10)
-        assert after["TITAN"]["avg_cost"] == pytest.approx(blended, abs=0.01)
+        assert after["RELIANCE"]["avg_cost"] == pytest.approx(blended, abs=0.01)
         assert after["TCS"]["qty"] == 1 and after["TCS"]["avg_cost"] == pos["TCS"]["avg_cost"]
         assert before["value"] == pytest.approx(sum(p["value"] for p in before["positions"]))
-        assert "KAYNES" in c.get("/portfolio/holdings", headers=OTHER).json()["holdings"]
+        assert "IDEA" in c.get("/portfolio/holdings", headers=OTHER).json()["holdings"]
         assert (
             c.post("/portfolio/holdings", json={"symbol": "NOPE"}, headers=DEMO).status_code == 404
         )
@@ -100,13 +105,13 @@ def test_holdings_are_per_account_and_today_follows(seeded):
 
     set_owner("demo")
     cards = build_digest("30d")["cards"]
-    assert not any(x["symbol"] == "KAYNES" and x["in_portfolio"] for x in cards)
+    assert not any(x["symbol"] == "IDEA" and x["in_portfolio"] for x in cards)
     set_owner("demo2")
-    assert any(x["symbol"] == "KAYNES" and x["in_portfolio"] for x in build_digest("30d")["cards"])
+    assert any(x["symbol"] == "IDEA" and x["in_portfolio"] for x in build_digest("30d")["cards"])
 
     with _client() as c:
         back = c.post("/portfolio/holdings/reset", headers=DEMO).json()["holdings"]
-    assert "KAYNES" in back and "PERSISTENT" not in back
+    assert "IDEA" in back and "PERSISTENT" not in back
 
 
 def test_ai_review_is_clipped_cited_and_bounded(seeded):
@@ -114,11 +119,11 @@ def test_ai_review_is_clipped_cited_and_bounded(seeded):
 
     sug = analytics.suggest()
     events = [{"id": "A:1", "symbol": "TCS", "what": "x"}]
-    records = [{"id": "F:KAYNES", "symbol": "KAYNES", "what": "y"}]
+    records = [{"id": "F:PAYTM", "symbol": "PAYTM", "what": "y"}]
     res = review.Review(
         summary="s",
         adjustments=[
-            review.Adjustment(symbol="KAYNES", delta_pp=-5, reason="cash", cites=["F:KAYNES"]),
+            review.Adjustment(symbol="PAYTM", delta_pp=-5, reason="cash", cites=["F:PAYTM"]),
             review.Adjustment(symbol="TCS", delta_pp=1, reason="order", cites=["A:1"]),
             review.Adjustment(symbol="INFY", delta_pp=2, reason="vibes", cites=["A:999"]),
             review.Adjustment(symbol="ZOMATO", delta_pp=1, reason="?", cites=["A:1"]),
@@ -126,7 +131,7 @@ def test_ai_review_is_clipped_cited_and_bounded(seeded):
     )
     out = review.apply(sug, res, events, records)
     kept = {k["symbol"]: k for k in out["adjustments"]}
-    assert set(kept) == {"KAYNES", "TCS"} and kept["KAYNES"]["delta"] == -2
+    assert set(kept) == {"PAYTM", "TCS"} and kept["PAYTM"]["delta"] == -2
     assert {d["symbol"] for d in out["dropped"]} == {"INFY", "ZOMATO"}
     assert sum(out["weights"].values()) == pytest.approx(100)
     rows = {r["symbol"]: r for r in sug["holdings"]}
@@ -150,7 +155,7 @@ def test_review_runs_only_when_asked_and_once(seeded, monkeypatch):
     with _client() as c:
         # the demo portfolio's review ships as a fixture; a changed portfolio has none yet
         assert c.get("/portfolio/suggested", headers=DEMO).json()["review"]["status"] == "done"
-        c.delete("/portfolio/holdings/TRENT", headers=DEMO)
+        c.delete("/portfolio/holdings/IDEA", headers=DEMO)
         assert c.get("/portfolio/suggested", headers=DEMO).json()["review"]["status"] == "not_run"
         assert not calls
         r = c.post("/portfolio/suggested/review", headers=DEMO).json()
@@ -185,7 +190,7 @@ def test_limits_are_the_investors_and_can_be_switched_off(seeded):
     with _client() as c:
         c.put("/portfolio/settings", json={"theme_cap_pct": None, "min_pct": 10}, headers=DEMO)
     s = a.suggest()
-    assert s["rules"]["min"] == pytest.approx(100 / 18) and s["rules"]["notes"]  # relaxed, said so
+    assert s["rules"]["min"] == pytest.approx(100 / 20) and s["rules"]["notes"]  # relaxed, said so
     o = a.overview()
     assert not any("Lenders" in f for f in o["flags"])  # no theme cap, no concentration warning
     with _client() as c:

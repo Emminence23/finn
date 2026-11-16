@@ -88,7 +88,7 @@ Every call names a **task**; `config/models.yaml` maps tasks to a tier and tiers
 | `triage_filings` | fast | Haiku 5.5 | High volume, simple labels; rules handle the confident ones | 5.8k / 0.75k | $0.001 |
 | `extract_results` | fast | Haiku 5.5 | Copying numbers from a table; code does the maths and a cross-check catches errors | 13.3k / 0.46k | $0.002 |
 | `extract_person` | fast | Haiku 5.5 | Short bio extraction; checked against a hand-labelled set (roles 7/7, employers 17/18) | 1.3k / 0.23k | $0.0002 |
-| `extract_guidance` | mid | Sonnet 5.5 | Measured: flash-lite found 5 Kaynes promises, flash found 10 including all 3 misses | 14.2k / 1.0k | $0.04 |
+| `extract_guidance` | mid | Sonnet 5.5 | Measured: flash-lite found 5 promises in one company's four calls, flash found 10 including all 3 misses | 14.2k / 1.0k | $0.04 |
 | `business_snapshot`, `bull_bear` | mid | Sonnet 5.5 | Synthesis with citations | 22–28k / 0.8–0.9k | $0.05–0.07 |
 | `promise_vs_delivery` | strong | Opus 5.5 | The judgement the product is built around | 4.8k / 1.2k | $0.04 |
 | `answer_question` | mid | Sonnet 5.5 | Grounded Q&A over 8 retrieved pages and the numbers | 9.2k / 0.47k | $0.02 |

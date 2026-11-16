@@ -26,13 +26,11 @@ def test_questions_rest_on_the_research_and_fit_the_relation(seeded, monkeypatch
         raise AssertionError("meeting questions must not call a model")
 
     monkeypatch.setattr(router, "get_llm", no_llm)
-    kaynes = json.loads((FIX / "research/KAYNES.json").read_text())
-    misses = {
-        i["target"].rstrip(".") for i in kaynes["promises"]["items"] if i["verdict"] == "missed"
-    }
+    lt = json.loads((FIX / "research/LT.json").read_text())
+    misses = {i["target"].rstrip(".") for i in lt["promises"]["items"] if i["verdict"] == "missed"}
     with _client() as c:
-        out = c.get(f"/people/{_id(c, 'Karthik')}/questions").json()
-        g = next(x for x in out["groups"] if x["symbol"] == "KAYNES")
+        out = c.get(f"/people/{_id(c, 'Vivek')}/questions").json()
+        g = next(x for x in out["groups"] if x["symbol"] == "LT")
         assert g["relation"] == "former" and not g["insider"]
         assert 1 <= len(g["questions"]) <= 3
         first = g["questions"][0]

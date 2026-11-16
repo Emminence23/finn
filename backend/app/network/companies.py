@@ -1,4 +1,4 @@
-"""Resolve free-text employer names ("ICICI Bank Limited", "Kaynes Semicon") to NSE symbols."""
+"""Resolve free-text employer names ("ICICI Bank Limited", "L&T Construction") to NSE symbols."""
 
 from __future__ import annotations
 

@@ -59,17 +59,18 @@ def test_bands_follow_one_rule_each(seeded):
     assert d["lead"] and d["set_aside"]["count"] >= d["routine"]["count"]
 
 
-def test_quiet_day_keeps_big_open_events_in_view(seeded):
+def test_last_day_leads_with_the_decision_and_keeps_open_events_in_view(seeded):
     from app.intel.digest import build_digest
 
     d = build_digest("24h")
-    assert not [c for c in d["cards"] if c["band"] == "act"]  # only Kaynes, a 0.5% position
+    act = [c for c in d["cards"] if c["band"] == "act"]
+    assert [c["symbol"] for c in act] == ["BAJFINANCE"]  # the QIP closed, a 6% position
     carried = {c["symbol"] for c in d["carry"]}
-    assert "CGPOWER" in carried  # the closure order from 5 Nov, with the court's stay
-    cg = next(c for c in d["carry"] if c["symbol"] == "CGPOWER")
-    assert cg["update"] and "High Court stayed" in cg["update"]
+    assert {"TITAN", "BHEL"} <= carried  # bigger events from the days before stay open
+    bhel = next(c for c in d["carry"] if c["symbol"] == "BHEL")
+    assert bhel["update"] and "Power Grid" in bhel["update"]  # with its latest update
     lead = d["lead"]
-    assert "none needs a decision" in lead and "Kaynes is a small holding" in lead
+    assert "1 item matters and one needs a decision" in lead and "Bajaj Finance is 6%" in lead
     assert "Two earlier events at larger holdings are still open" in lead
     assert lead.startswith("Your portfolio ended 13 Nov, the last close, down")
 
@@ -84,9 +85,9 @@ def test_note_for_a_past_window_leaves_out_the_last_close(seeded):
 def test_contact_questions_come_from_the_card(seeded):
     from app.intel.digest import build_digest
 
-    c = next(c for c in build_digest("24h")["cards"] if c["kind"] == "results")
+    c = next(c for c in build_digest("24h")["cards"] if c["helpers"])
     ask = c["helpers"][0]["ask"]
-    assert len(ask) == 2 and "66%" in ask[0]
+    assert len(ask) == 2 and "Bajaj Finance" in ask[0]
 
 
 def test_unknown_ticker_never_spends_a_live_read(seeded):

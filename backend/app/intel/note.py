@@ -55,6 +55,11 @@ SPOKEN = {
     "Cholamandalam Investment and Finance": "Cholamandalam",
     "CG Power and Industrial Solutions": "CG Power",
     "Sun Pharmaceutical": "Sun Pharma",
+    "Larsen & Toubro": "L&T",
+    "Tata Motors Passenger Vehicles": "Tata Motors",
+    "One 97 Communications": "Paytm",
+    "Bharat Heavy Electricals": "BHEL",
+    "Jio Financial Services": "Jio Financial",
 }
 
 

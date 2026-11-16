@@ -23,12 +23,12 @@ type Msg =
 
 const KEY = "finn.pull";
 const STARTERS = [
-  "Kaynes: promised vs delivered over the last four quarters",
+  "L&T: promised vs delivered over the last four quarters",
   "Aarti Industries: narrative vs numbers",
   "Persistent: bull vs bear",
-  "Why is Kaynes' cash flow negative?",
+  "How is L&T's order book holding up?",
   "Manappuram's balance sheet",
-  "Who in my network can help me understand Pidilite's CFO change?",
+  "Who in my network can help me understand Dabur's CEO change?",
 ];
 
 const uid = () => Math.random().toString(36).slice(2, 10);

@@ -15,16 +15,16 @@ def _client():
     return TestClient(app)
 
 
-def _karthik(c):
+def _vivek(c):
     return next(
-        p["id"] for p in c.get("/people", headers=DEMO).json() if p["name"].startswith("Karthik")
+        p["id"] for p in c.get("/people", headers=DEMO).json() if p["name"].startswith("Vivek")
     )
 
 
 def test_prep_shows_two_days_ahead_with_changes_and_questions(seeded):
     with _client() as c:
         today = date.fromisoformat(c.get("/people/meetings", headers=DEMO).json()["today"])
-        k = _karthik(c)
+        k = _vivek(c)
         soon = c.post(
             "/people/meetings",
             json={"person": k, "day": (today + timedelta(days=1)).isoformat(), "note": "coffee"},
@@ -46,11 +46,13 @@ def test_prep_shows_two_days_ahead_with_changes_and_questions(seeded):
         prep = c.get("/people/meetings/prep", headers=DEMO).json()["prep"]
         assert len(prep) == 1 and prep[0]["id"] == soon["id"]  # the far one waits
         card = prep[0]
-        assert {"symbol": "KAYNES", "relation": "former"} in card["companies"]
+        assert {"symbol": "LT", "relation": "former"} in card["companies"]
         assert card["changed"] and all(
             x["symbol"] in {s["symbol"] for s in card["companies"]} for x in card["changed"]
         )
-        assert 1 <= len(card["questions"]) <= 2 and "Kaynes" in card["questions"][0]
+        assert 1 <= len(card["questions"]) <= 2 and (
+            "L&T" in card["questions"][0] or "Larsen" in card["questions"][0]
+        )
 
         # private, and gone with the contact
         assert c.get("/people/meetings/prep", headers=OTHER).json()["prep"] == []
@@ -61,7 +63,7 @@ def test_prep_shows_two_days_ahead_with_changes_and_questions(seeded):
 
 def test_meeting_refusals(seeded):
     with _client() as c:
-        k = _karthik(c)
+        k = _vivek(c)
         assert (
             c.post(
                 "/people/meetings", json={"person": k, "day": "2000-01-01"}, headers=DEMO

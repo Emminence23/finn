@@ -7,7 +7,7 @@ CSV = """Notes:
 "When exporting your connection data, you may notice that some of the email addresses are missing."
 
 First Name,Last Name,URL,Email Address,Company,Position,Connected On
-Riya,Menon,https://www.linkedin.com/in/riya-x,riya@example.com,Kaynes Technology India Limited,Head of Sales,14 Mar 2024
+Riya,Menon,https://www.linkedin.com/in/riya-x,riya@example.com,Larsen & Toubro Limited,Head of Sales,14 Mar 2024
 Sam,Iyer,https://www.linkedin.com/in/sam-x,,HDFC Bank,Credit Manager,02 Jan 2023
 No,Company,https://www.linkedin.com/in/nc,,,,05 May 2022
 """
@@ -36,7 +36,7 @@ def test_import_keeps_professional_facts_only_and_drives_who_can_help(seeded):
         assert riya["relationship"]["type"] == "LinkedIn connection"
         assert riya["relationship"]["last_contact"] == "2024-03-14"
         assert "example.com" not in str(riya) and "linkedin.com" not in str(riya)
-        helpers = c.get("/people/help?symbol=KAYNES", headers=me).json()["helpers"]
+        helpers = c.get("/people/help?symbol=LT", headers=me).json()["helpers"]
         assert helpers[0]["contact"]["name"] == "Riya Menon" and helpers[0]["insider"]
 
         # none of it leaks into the demo, and the demo's people don't leak in
@@ -62,8 +62,8 @@ def test_raw_database_never_holds_emails_or_profile_urls(seeded):
 def test_own_career_creates_paths_to_filing_people(seeded):
     with _client() as c:
         me = _mine(c)
-        # the CFO-designate at Pidilite came from Hindustan Unilever
-        assert c.get("/people/fp_amit_agarwal_pidilite/paths", headers=me).json()["direct"] == []
+        # Meesho's new independent director spent two decades at Hindustan Unilever
+        assert c.get("/people/fp_sudhir_sitapati_meesho/paths", headers=me).json()["direct"] == []
         c.put(
             "/people/mine/career",
             json={
@@ -74,7 +74,7 @@ def test_own_career_creates_paths_to_filing_people(seeded):
             },
             headers=me,
         )
-        direct = c.get("/people/fp_amit_agarwal_pidilite/paths", headers=me).json()["direct"]
+        direct = c.get("/people/fp_sudhir_sitapati_meesho/paths", headers=me).json()["direct"]
         assert direct and "Hindustan Unilever" in direct[0]["detail"]
         assert direct[0]["basis"] == "inferred"
 
@@ -82,16 +82,16 @@ def test_own_career_creates_paths_to_filing_people(seeded):
             "/people/mine/contacts",
             json={
                 "name": "Tara Das",
-                "company": "Pfizer Limited",
+                "company": "Godrej Consumer Products Limited",
                 "title": "Finance Director",
-                "start_year": 2012,
-                "end_year": 2019,
+                "start_year": 2019,
+                "end_year": 2024,
                 "closeness": "close",
                 "how": "ex-colleague",
             },
             headers=me,
         ).json()
-        via = c.get("/people/fp_amit_agarwal_pidilite/paths", headers=me).json()["via"]
+        via = c.get("/people/fp_sudhir_sitapati_meesho/paths", headers=me).json()["via"]
         assert via[0]["contact"]["id"] == added["id"]
 
 

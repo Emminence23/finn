@@ -74,7 +74,7 @@ export function ReachButtons({ contact, subject, body }: { contact: Contact; sub
   );
 }
 
-/** "Ask Karthik · ran EMS programmes at Kaynes", the two questions worth asking, and a
+/** "Ask Vivek · ran projects at L&T", the two questions worth asking, and a
  *  way to actually ask them. One person, one reason, one tap to reach them. */
 export function HelperLine({ helper, verb = "Ask", topic }: { helper: Helper; verb?: string; topic?: string }) {
   const c = helper.contact;

@@ -1,0 +1,998 @@
+{
+ "name": "Nestle India Ltd",
+ "about": "Nestle India Limited is a subsidiary of Nestle which is a Swiss MNC. The company operates in the Food segment.",
+ "top_ratios": {
+  "Market Cap": "₹ 2,49,845 Cr.",
+  "Current Price": "₹ 1,297",
+  "High / Low": "₹ 1,553 / 1,147",
+  "Stock P/E": "62.8",
+  "Book Value": "₹ 30.0",
+  "Dividend Yield": "0.93 %",
+  "ROCE": "85.3 %",
+  "ROE": "74.2 %",
+  "Face Value": "₹ 1.00"
+ },
+ "is_financial": false,
+ "tables": {
+  "quarters": {
+   "Sales": {
+    "Sep 2023\n            \n            (S)": 5037.0,
+    "2023-12": 4600.0,
+    "2024-06": 4814.0,
+    "2024-09": 5104.0,
+    "2024-12": 4780.0,
+    "2025-03": 5504.0,
+    "2025-06": 5096.0,
+    "2025-09": 5644.0,
+    "2025-12": 5667.0,
+    "2026-03": 6748.0,
+    "2026-06": 6378.0,
+    "2026-09": 6788.0
+   },
+   "YoY Sales growth": {
+    "Sep 2023\n            \n            (S)": 9.0,
+    "2023-12": null,
+    "2024-06": null,
+    "2024-09": null,
+    "2024-12": 4.0,
+    "2025-03": null,
+    "2025-06": 6.0,
+    "2025-09": 11.0,
+    "2025-12": 19.0,
+    "2026-03": 23.0,
+    "2026-06": 25.0,
+    "2026-09": 20.0
+   },
+   "Expenses": {
+    "Sep 2023\n            \n            (S)": 3812.0,
+    "2023-12": 3505.0,
+    "2024-06": 3700.0,
+    "2024-09": 3940.0,
+    "2024-12": 3685.0,
+    "2025-03": 4128.0,
+    "2025-06": 4009.0,
+    "2025-09": 4421.0,
+    "2025-12": 4486.0,
+    "2026-03": 4979.0,
+    "2026-06": 4856.0,
+    "2026-09": 5190.0
+   },
+   "Operating Profit": {
+    "Sep 2023\n            \n            (S)": 1225.0,
+    "2023-12": 1095.0,
+    "2024-06": 1114.0,
+    "2024-09": 1164.0,
+    "2024-12": 1095.0,
+    "2025-03": 1376.0,
+    "2025-06": 1087.0,
+    "2025-09": 1223.0,
+    "2025-12": 1181.0,
+    "2026-03": 1768.0,
+    "2026-06": 1522.0,
+    "2026-09": 1598.0
+   },
+   "OPM %": {
+    "Sep 2023\n            \n            (S)": 24.0,
+    "2023-12": 24.0,
+    "2024-06": 23.0,
+    "2024-09": 23.0,
+    "2024-12": 23.0,
+    "2025-03": 25.0,
+    "2025-06": 21.0,
+    "2025-09": 22.0,
+    "2025-12": 21.0,
+    "2026-03": 26.0,
+    "2026-06": 24.0,
+    "2026-09": 24.0
+   },
+   "Other Income": {
+    "Sep 2023\n            \n            (S)": 140.0,
+    "2023-12": -77.0,
+    "2024-06": 39.0,
+    "2024-09": 190.0,
+    "2024-12": 4.0,
+    "2025-03": 9.0,
+    "2025-06": 4.0,
+    "2025-09": 6.0,
+    "2025-12": 170.0,
+    "2026-03": -18.0,
+    "2026-06": 16.0,
+    "2026-09": 17.0
+   },
+   "Interest": {
+    "Sep 2023\n            \n            (S)": 31.0,
+    "2023-12": 23.0,
+    "2024-06": 32.0,
+    "2024-09": 32.0,
+    "2024-12": 35.0,
+    "2025-03": 38.0,
+    "2025-06": 47.0,
+    "2025-09": 46.0,
+    "2025-12": 28.0,
+    "2026-03": 37.0,
+    "2026-06": 42.0,
+    "2026-09": 40.0
+   },
+   "Depreciation": {
+    "Sep 2023\n            \n            (S)": 111.0,
+    "2023-12": 109.0,
+    "2024-06": 113.0,
+    "2024-09": 122.0,
+    "2024-12": 150.0,
+    "2025-03": 155.0,
+    "2025-06": 157.0,
+    "2025-09": 163.0,
+    "2025-12": 174.0,
+    "2026-03": 205.0,
+    "2026-06": 188.0,
+    "2026-09": 192.0
+   },
+   "Profit before tax": {
+    "Sep 2023\n            \n            (S)": 1222.0,
+    "2023-12": 886.0,
+    "2024-06": 1009.0,
+    "2024-09": 1200.0,
+    "2024-12": 914.0,
+    "2025-03": 1192.0,
+    "2025-06": 888.0,
+    "2025-09": 1018.0,
+    "2025-12": 1148.0,
+    "2026-03": 1509.0,
+    "2026-06": 1308.0,
+    "2026-09": 1382.0
+   },
+   "Tax %": {
+    "Sep 2023\n            \n            (S)": 26.0,
+    "2023-12": 26.0,
+    "2024-06": 26.0,
+    "2024-09": 25.0,
+    "2024-12": 25.0,
+    "2025-03": 27.0,
+    "2025-06": 27.0,
+    "2025-09": 27.0,
+    "2025-12": 13.0,
+    "2026-03": 26.0,
+    "2026-06": 27.0,
+    "2026-09": 27.0
+   },
+   "Net Profit": {
+    "Sep 2023\n            \n            (S)": 908.0,
+    "2023-12": 656.0,
+    "2024-06": 747.0,
+    "2024-09": 899.0,
+    "2024-12": 688.0,
+    "2025-03": 873.0,
+    "2025-06": 647.0,
+    "2025-09": 743.0,
+    "2025-12": 998.0,
+    "2026-03": 1111.0,
+    "2026-06": 959.0,
+    "2026-09": 1010.0
+   },
+   "EPS in Rs": {
+    "Sep 2023\n            \n            (S)": 4.71,
+    "2023-12": 3.4,
+    "2024-06": 3.87,
+    "2024-09": 4.66,
+    "2024-12": 3.57,
+    "2025-03": 4.53,
+    "2025-06": 3.35,
+    "2025-09": 3.85,
+    "2025-12": 5.18,
+    "2026-03": 5.76,
+    "2026-06": 4.97,
+    "2026-09": 5.24
+   }
+  },
+  "annual_pl": {
+   "Sales": {
+    "Dec 2015\n            \n            (S)": 8175.0,
+    "Dec 2016\n            \n            (S)": 9141.0,
+    "Dec 2017\n            \n            (S)": 10010.0,
+    "Dec 2018\n            \n            (S)": 11292.0,
+    "Dec 2019\n            \n            (S)": 12369.0,
+    "Dec 2020\n            \n            (S)": 13350.0,
+    "Dec 2021\n            \n            (S)": 14741.0,
+    "Dec 2022\n            \n            (S)": 16897.0,
+    "2023-12": 19126.0,
+    "Mar 202415m": 24394.0,
+    "2025-03": 20202.0,
+    "2026-03": 23155.0,
+    "TTM": 25581.0
+   },
+   "Sales growth": {
+    "Dec 2015\n            \n            (S)": -17.0,
+    "Dec 2016\n            \n            (S)": 12.0,
+    "Dec 2017\n            \n            (S)": 10.0,
+    "Dec 2018\n            \n            (S)": 13.0,
+    "Dec 2019\n            \n            (S)": 10.0,
+    "Dec 2020\n            \n            (S)": 8.0,
+    "Dec 2021\n            \n            (S)": 10.0,
+    "Dec 2022\n            \n            (S)": 15.0,
+    "2023-12": null,
+    "Mar 202415m": null,
+    "2025-03": -17.0,
+    "2026-03": 15.0,
+    "TTM": 22.0
+   },
+   "Expenses": {
+    "Dec 2015\n            \n            (S)": 6620.0,
+    "Dec 2016\n            \n            (S)": 7292.0,
+    "Dec 2017\n            \n            (S)": 7913.0,
+    "Dec 2018\n            \n            (S)": 8675.0,
+    "Dec 2019\n            \n            (S)": 9443.0,
+    "Dec 2020\n            \n            (S)": 10149.0,
+    "Dec 2021\n            \n            (S)": 11178.0,
+    "Dec 2022\n            \n            (S)": 13191.0,
+    "2023-12": 14655.0,
+    "Mar 202415m": 18551.0,
+    "2025-03": 15454.0,
+    "2026-03": 17893.0,
+    "TTM": 19512.0
+   },
+   "Operating Profit": {
+    "Dec 2015\n            \n            (S)": 1555.0,
+    "Dec 2016\n            \n            (S)": 1850.0,
+    "Dec 2017\n            \n            (S)": 2097.0,
+    "Dec 2018\n            \n            (S)": 2618.0,
+    "Dec 2019\n            \n            (S)": 2926.0,
+    "Dec 2020\n            \n            (S)": 3202.0,
+    "Dec 2021\n            \n            (S)": 3562.0,
+    "Dec 2022\n            \n            (S)": 3706.0,
+    "2023-12": 4471.0,
+    "Mar 202415m": 5843.0,
+    "2025-03": 4747.0,
+    "2026-03": 5261.0,
+    "TTM": 6070.0
+   },
+   "OPM %": {
+    "Dec 2015\n            \n            (S)": 19.0,
+    "Dec 2016\n            \n            (S)": 20.0,
+    "Dec 2017\n            \n            (S)": 21.0,
+    "Dec 2018\n            \n            (S)": 23.0,
+    "Dec 2019\n            \n            (S)": 24.0,
+    "Dec 2020\n            \n            (S)": 24.0,
+    "Dec 2021\n            \n            (S)": 24.0,
+    "Dec 2022\n            \n            (S)": 22.0,
+    "2023-12": 23.0,
+    "Mar 202415m": 24.0,
+    "2025-03": 24.0,
+    "2026-03": 23.0,
+    "TTM": 24.0
+   },
+   "Other Income": {
+    "Dec 2015\n            \n            (S)": -391.0,
+    "Dec 2016\n            \n            (S)": 140.0,
+    "Dec 2017\n            \n            (S)": 177.0,
+    "Dec 2018\n            \n            (S)": 259.0,
+    "Dec 2019\n            \n            (S)": 247.0,
+    "Dec 2020\n            \n            (S)": 146.0,
+    "Dec 2021\n            \n            (S)": -112.0,
+    "Dec 2022\n            \n            (S)": 107.0,
+    "2023-12": 116.0,
+    "Mar 202415m": 159.0,
+    "2025-03": 245.0,
+    "2026-03": 160.0,
+    "TTM": 185.0
+   },
+   "Interest": {
+    "Dec 2015\n            \n            (S)": 3.0,
+    "Dec 2016\n            \n            (S)": 91.0,
+    "Dec 2017\n            \n            (S)": 92.0,
+    "Dec 2018\n            \n            (S)": 112.0,
+    "Dec 2019\n            \n            (S)": 129.0,
+    "Dec 2020\n            \n            (S)": 164.0,
+    "Dec 2021\n            \n            (S)": 202.0,
+    "Dec 2022\n            \n            (S)": 155.0,
+    "2023-12": 119.0,
+    "Mar 202415m": 145.0,
+    "2025-03": 136.0,
+    "2026-03": 158.0,
+    "TTM": 147.0
+   },
+   "Depreciation": {
+    "Dec 2015\n            \n            (S)": 347.0,
+    "Dec 2016\n            \n            (S)": 354.0,
+    "Dec 2017\n            \n            (S)": 342.0,
+    "Dec 2018\n            \n            (S)": 336.0,
+    "Dec 2019\n            \n            (S)": 370.0,
+    "Dec 2020\n            \n            (S)": 370.0,
+    "Dec 2021\n            \n            (S)": 391.0,
+    "Dec 2022\n            \n            (S)": 403.0,
+    "2023-12": 429.0,
+    "Mar 202415m": 568.0,
+    "2025-03": 540.0,
+    "2026-03": 699.0,
+    "TTM": 759.0
+   },
+   "Profit before tax": {
+    "Dec 2015\n            \n            (S)": 814.0,
+    "Dec 2016\n            \n            (S)": 1545.0,
+    "Dec 2017\n            \n            (S)": 1839.0,
+    "Dec 2018\n            \n            (S)": 2429.0,
+    "Dec 2019\n            \n            (S)": 2673.0,
+    "Dec 2020\n            \n            (S)": 2813.0,
+    "Dec 2021\n            \n            (S)": 2857.0,
+    "Dec 2022\n            \n            (S)": 3256.0,
+    "2023-12": 4038.0,
+    "Mar 202415m": 5289.0,
+    "2025-03": 4316.0,
+    "2026-03": 4564.0,
+    "TTM": 5348.0
+   },
+   "Tax %": {
+    "Dec 2015\n            \n            (S)": 31.0,
+    "Dec 2016\n            \n            (S)": 35.0,
+    "Dec 2017\n            \n            (S)": 33.0,
+    "Dec 2018\n            \n            (S)": 34.0,
+    "Dec 2019\n            \n            (S)": 26.0,
+    "Dec 2020\n            \n            (S)": 26.0,
+    "Dec 2021\n            \n            (S)": 26.0,
+    "Dec 2022\n            \n            (S)": 27.0,
+    "2023-12": 26.0,
+    "Mar 202415m": 26.0,
+    "2025-03": 26.0,
+    "2026-03": 23.0,
+    "TTM": null
+   },
+   "Net Profit": {
+    "Dec 2015\n            \n            (S)": 563.0,
+    "Dec 2016\n            \n            (S)": 1001.0,
+    "Dec 2017\n            \n            (S)": 1225.0,
+    "Dec 2018\n            \n            (S)": 1607.0,
+    "Dec 2019\n            \n            (S)": 1968.0,
+    "Dec 2020\n            \n            (S)": 2082.0,
+    "Dec 2021\n            \n            (S)": 2118.0,
+    "Dec 2022\n            \n            (S)": 2391.0,
+    "2023-12": 2999.0,
+    "Mar 202415m": 3933.0,
+    "2025-03": 3208.0,
+    "2026-03": 3499.0,
+    "TTM": 4078.0
+   },
+   "EPS in Rs": {
+    "Dec 2015\n            \n            (S)": 2.92,
+    "Dec 2016\n            \n            (S)": 5.19,
+    "Dec 2017\n            \n            (S)": 6.35,
+    "Dec 2018\n            \n            (S)": 8.33,
+    "Dec 2019\n            \n            (S)": 10.21,
+    "Dec 2020\n            \n            (S)": 10.8,
+    "Dec 2021\n            \n            (S)": 10.99,
+    "Dec 2022\n            \n            (S)": 12.4,
+    "2023-12": 15.55,
+    "Mar 202415m": 20.4,
+    "2025-03": 16.63,
+    "2026-03": 18.15,
+    "TTM": 21.15
+   },
+   "Dividend Payout %": {
+    "Dec 2015\n            \n            (S)": 83.0,
+    "Dec 2016\n            \n            (S)": 61.0,
+    "Dec 2017\n            \n            (S)": 68.0,
+    "Dec 2018\n            \n            (S)": 69.0,
+    "Dec 2019\n            \n            (S)": 168.0,
+    "Dec 2020\n            \n            (S)": 93.0,
+    "Dec 2021\n            \n            (S)": 91.0,
+    "Dec 2022\n            \n            (S)": 89.0,
+    "2023-12": 56.0,
+    "Mar 202415m": 79.0,
+    "2025-03": 81.0,
+    "2026-03": 66.0,
+    "TTM": null
+   }
+  },
+  "balance_sheet": {
+   "Equity Capital": {
+    "Dec 2015\n            \n            (S)": 96.0,
+    "Dec 2016\n            \n            (S)": 96.0,
+    "Dec 2017\n            \n            (S)": 96.0,
+    "Dec 2018\n            \n            (S)": 96.0,
+    "Dec 2019\n            \n            (S)": 96.0,
+    "Dec 2020\n            \n            (S)": 96.0,
+    "Dec 2021\n            \n            (S)": 96.0,
+    "Dec 2022\n            \n            (S)": 96.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 96.0,
+    "2025-03": 96.0,
+    "2026-03": 193.0,
+    "2026-09": 193.0
+   },
+   "Reserves": {
+    "Dec 2015\n            \n            (S)": 2721.0,
+    "Dec 2016\n            \n            (S)": 3186.0,
+    "Dec 2017\n            \n            (S)": 3324.0,
+    "Dec 2018\n            \n            (S)": 3577.0,
+    "Dec 2019\n            \n            (S)": 1822.0,
+    "Dec 2020\n            \n            (S)": 1923.0,
+    "Dec 2021\n            \n            (S)": 1850.0,
+    "Dec 2022\n            \n            (S)": 2363.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 3244.0,
+    "2025-03": 3914.0,
+    "2026-03": 4964.0,
+    "2026-09": 5584.0
+   },
+   "Borrowings": {
+    "Dec 2015\n            \n            (S)": 18.0,
+    "Dec 2016\n            \n            (S)": 33.0,
+    "Dec 2017\n            \n            (S)": 35.0,
+    "Dec 2018\n            \n            (S)": 35.0,
+    "Dec 2019\n            \n            (S)": 189.0,
+    "Dec 2020\n            \n            (S)": 147.0,
+    "Dec 2021\n            \n            (S)": 266.0,
+    "Dec 2022\n            \n            (S)": 271.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 345.0,
+    "2025-03": 1167.0,
+    "2026-03": 444.0,
+    "2026-09": 464.0
+   },
+   "Other Liabilities": {
+    "Dec 2015\n            \n            (S)": 3251.0,
+    "Dec 2016\n            \n            (S)": 3495.0,
+    "Dec 2017\n            \n            (S)": 3907.0,
+    "Dec 2018\n            \n            (S)": 4379.0,
+    "Dec 2019\n            \n            (S)": 5065.0,
+    "Dec 2020\n            \n            (S)": 5733.0,
+    "Dec 2021\n            \n            (S)": 6021.0,
+    "Dec 2022\n            \n            (S)": 6249.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 6838.0,
+    "2025-03": 7016.0,
+    "2026-03": 7581.0,
+    "2026-09": 7935.0
+   },
+   "Total Liabilities": {
+    "Dec 2015\n            \n            (S)": 6086.0,
+    "Dec 2016\n            \n            (S)": 6810.0,
+    "Dec 2017\n            \n            (S)": 7363.0,
+    "Dec 2018\n            \n            (S)": 8088.0,
+    "Dec 2019\n            \n            (S)": 7173.0,
+    "Dec 2020\n            \n            (S)": 7900.0,
+    "Dec 2021\n            \n            (S)": 8234.0,
+    "Dec 2022\n            \n            (S)": 8979.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 10523.0,
+    "2025-03": 12193.0,
+    "2026-03": 13182.0,
+    "2026-09": 14176.0
+   },
+   "Fixed Assets": {
+    "Dec 2015\n            \n            (S)": 2898.0,
+    "Dec 2016\n            \n            (S)": 2730.0,
+    "Dec 2017\n            \n            (S)": 2616.0,
+    "Dec 2018\n            \n            (S)": 2401.0,
+    "Dec 2019\n            \n            (S)": 2341.0,
+    "Dec 2020\n            \n            (S)": 2179.0,
+    "Dec 2021\n            \n            (S)": 2995.0,
+    "Dec 2022\n            \n            (S)": 3044.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 3460.0,
+    "2025-03": 5474.0,
+    "2026-03": 6290.0,
+    "2026-09": 6326.0
+   },
+   "CWIP": {
+    "Dec 2015\n            \n            (S)": 231.0,
+    "Dec 2016\n            \n            (S)": 188.0,
+    "Dec 2017\n            \n            (S)": 94.0,
+    "Dec 2018\n            \n            (S)": 105.0,
+    "Dec 2019\n            \n            (S)": 143.0,
+    "Dec 2020\n            \n            (S)": 639.0,
+    "Dec 2021\n            \n            (S)": 246.0,
+    "Dec 2022\n            \n            (S)": 358.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 1742.0,
+    "2025-03": 1173.0,
+    "2026-03": 507.0,
+    "2026-09": 553.0
+   },
+   "Investments": {
+    "Dec 2015\n            \n            (S)": 1325.0,
+    "Dec 2016\n            \n            (S)": 1756.0,
+    "Dec 2017\n            \n            (S)": 1979.0,
+    "Dec 2018\n            \n            (S)": 2658.0,
+    "Dec 2019\n            \n            (S)": 1751.0,
+    "Dec 2020\n            \n            (S)": 1464.0,
+    "Dec 2021\n            \n            (S)": 774.0,
+    "Dec 2022\n            \n            (S)": 778.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 464.0,
+    "2025-03": 575.0,
+    "2026-03": 531.0,
+    "2026-09": 569.0
+   },
+   "Other Assets": {
+    "Dec 2015\n            \n            (S)": 1633.0,
+    "Dec 2016\n            \n            (S)": 2136.0,
+    "Dec 2017\n            \n            (S)": 2673.0,
+    "Dec 2018\n            \n            (S)": 2924.0,
+    "Dec 2019\n            \n            (S)": 2937.0,
+    "Dec 2020\n            \n            (S)": 3618.0,
+    "Dec 2021\n            \n            (S)": 4219.0,
+    "Dec 2022\n            \n            (S)": 4799.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 4857.0,
+    "2025-03": 4972.0,
+    "2026-03": 5854.0,
+    "2026-09": 6728.0
+   },
+   "Total Assets": {
+    "Dec 2015\n            \n            (S)": 6086.0,
+    "Dec 2016\n            \n            (S)": 6810.0,
+    "Dec 2017\n            \n            (S)": 7363.0,
+    "Dec 2018\n            \n            (S)": 8088.0,
+    "Dec 2019\n            \n            (S)": 7173.0,
+    "Dec 2020\n            \n            (S)": 7900.0,
+    "Dec 2021\n            \n            (S)": 8234.0,
+    "Dec 2022\n            \n            (S)": 8979.0,
+    "Dec 2023\n            \n            (S)": null,
+    "2024-03": 10523.0,
+    "2025-03": 12193.0,
+    "2026-03": 13182.0,
+    "2026-09": 14176.0
+   }
+  },
+  "cash_flow": {
+   "Cash from Operating Activity": {
+    "Dec 2015\n            \n            (S)": 1098.0,
+    "Dec 2016\n            \n            (S)": 1466.0,
+    "Dec 2017\n            \n            (S)": 1818.0,
+    "Dec 2018\n            \n            (S)": 2052.0,
+    "Dec 2019\n            \n            (S)": 2295.0,
+    "Dec 2020\n            \n            (S)": 2454.0,
+    "Dec 2021\n            \n            (S)": 2236.0,
+    "Dec 2022\n            \n            (S)": 2737.0,
+    "2023-12": null,
+    "2024-03": 4175.0,
+    "2025-03": 2936.0,
+    "2026-03": 5048.0
+   },
+   "Cash from Investing Activity": {
+    "Dec 2015\n            \n            (S)": -70.0,
+    "Dec 2016\n            \n            (S)": -126.0,
+    "Dec 2017\n            \n            (S)": -131.0,
+    "Dec 2018\n            \n            (S)": -52.0,
+    "Dec 2019\n            \n            (S)": 83.0,
+    "Dec 2020\n            \n            (S)": -321.0,
+    "Dec 2021\n            \n            (S)": -1920.0,
+    "Dec 2022\n            \n            (S)": -392.0,
+    "2023-12": null,
+    "2024-03": -1237.0,
+    "2025-03": -1811.0,
+    "2026-03": -624.0
+   },
+   "Cash from Financing Activity": {
+    "Dec 2015\n            \n            (S)": -498.0,
+    "Dec 2016\n            \n            (S)": -666.0,
+    "Dec 2017\n            \n            (S)": -997.0,
+    "Dec 2018\n            \n            (S)": -1317.0,
+    "Dec 2019\n            \n            (S)": -3602.0,
+    "Dec 2020\n            \n            (S)": -1956.0,
+    "Dec 2021\n            \n            (S)": -2020.0,
+    "Dec 2022\n            \n            (S)": -2123.0,
+    "2023-12": null,
+    "2024-03": -3135.0,
+    "2025-03": -1848.0,
+    "2026-03": -3179.0
+   },
+   "Net Cash Flow": {
+    "Dec 2015\n            \n            (S)": 529.0,
+    "Dec 2016\n            \n            (S)": 674.0,
+    "Dec 2017\n            \n            (S)": 691.0,
+    "Dec 2018\n            \n            (S)": 683.0,
+    "Dec 2019\n            \n            (S)": -1223.0,
+    "Dec 2020\n            \n            (S)": 177.0,
+    "Dec 2021\n            \n            (S)": -1704.0,
+    "Dec 2022\n            \n            (S)": 223.0,
+    "2023-12": null,
+    "2024-03": -198.0,
+    "2025-03": -723.0,
+    "2026-03": 1244.0
+   },
+   "Free Cash Flow": {
+    "Dec 2015\n            \n            (S)": 949.0,
+    "Dec 2016\n            \n            (S)": 1353.0,
+    "Dec 2017\n            \n            (S)": 1622.0,
+    "Dec 2018\n            \n            (S)": 1890.0,
+    "Dec 2019\n            \n            (S)": 2143.0,
+    "Dec 2020\n            \n            (S)": 1980.0,
+    "Dec 2021\n            \n            (S)": 1505.0,
+    "Dec 2022\n            \n            (S)": 2197.0,
+    "2023-12": null,
+    "2024-03": 2296.0,
+    "2025-03": 932.0,
+    "2026-03": 4221.0
+   },
+   "CFO/EBITDA": {
+    "Dec 2015\n            \n            (S)": 93.0,
+    "Dec 2016\n            \n            (S)": 106.0,
+    "Dec 2017\n            \n            (S)": 116.0,
+    "Dec 2018\n            \n            (S)": 112.0,
+    "Dec 2019\n            \n            (S)": 101.0,
+    "Dec 2020\n            \n            (S)": 99.0,
+    "Dec 2021\n            \n            (S)": 83.0,
+    "Dec 2022\n            \n            (S)": 97.0,
+    "2023-12": null,
+    "2024-03": 94.0,
+    "2025-03": 83.0,
+    "2026-03": 116.0
+   }
+  },
+  "ratios": {
+   "Debtor Days": {
+    "Dec 2015\n            \n            (S)": 4.0,
+    "Dec 2016\n            \n            (S)": 4.0,
+    "Dec 2017\n            \n            (S)": 3.0,
+    "Dec 2018\n            \n            (S)": 4.0,
+    "Dec 2019\n            \n            (S)": 4.0,
+    "Dec 2020\n            \n            (S)": 5.0,
+    "Dec 2021\n            \n            (S)": 4.0,
+    "Dec 2022\n            \n            (S)": 4.0,
+    "2023-12": null,
+    "2024-03": 4.0,
+    "2025-03": 7.0,
+    "2026-03": 5.0
+   },
+   "Inventory Days": {
+    "Dec 2015\n            \n            (S)": 103.0,
+    "Dec 2016\n            \n            (S)": 107.0,
+    "Dec 2017\n            \n            (S)": 91.0,
+    "Dec 2018\n            \n            (S)": 92.0,
+    "Dec 2019\n            \n            (S)": 107.0,
+    "Dec 2020\n            \n            (S)": 107.0,
+    "Dec 2021\n            \n            (S)": 111.0,
+    "Dec 2022\n            \n            (S)": 110.0,
+    "2023-12": null,
+    "2024-03": 83.0,
+    "2025-03": 139.0,
+    "2026-03": 105.0
+   },
+   "Days Payable": {
+    "Dec 2015\n            \n            (S)": 94.0,
+    "Dec 2016\n            \n            (S)": 91.0,
+    "Dec 2017\n            \n            (S)": 99.0,
+    "Dec 2018\n            \n            (S)": 118.0,
+    "Dec 2019\n            \n            (S)": 124.0,
+    "Dec 2020\n            \n            (S)": 115.0,
+    "Dec 2021\n            \n            (S)": 122.0,
+    "Dec 2022\n            \n            (S)": 121.0,
+    "2023-12": null,
+    "2024-03": 112.0,
+    "2025-03": 128.0,
+    "2026-03": 129.0
+   },
+   "Cash Conversion Cycle": {
+    "Dec 2015\n            \n            (S)": 12.0,
+    "Dec 2016\n            \n            (S)": 20.0,
+    "Dec 2017\n            \n            (S)": -5.0,
+    "Dec 2018\n            \n            (S)": -22.0,
+    "Dec 2019\n            \n            (S)": -14.0,
+    "Dec 2020\n            \n            (S)": -3.0,
+    "Dec 2021\n            \n            (S)": -7.0,
+    "Dec 2022\n            \n            (S)": -7.0,
+    "2023-12": null,
+    "2024-03": -24.0,
+    "2025-03": 18.0,
+    "2026-03": -19.0
+   },
+   "Working Capital Days": {
+    "Dec 2015\n            \n            (S)": -21.0,
+    "Dec 2016\n            \n            (S)": -10.0,
+    "Dec 2017\n            \n            (S)": -15.0,
+    "Dec 2018\n            \n            (S)": -21.0,
+    "Dec 2019\n            \n            (S)": -20.0,
+    "Dec 2020\n            \n            (S)": -22.0,
+    "Dec 2021\n            \n            (S)": -20.0,
+    "Dec 2022\n            \n            (S)": -16.0,
+    "2023-12": null,
+    "2024-03": -19.0,
+    "2025-03": -19.0,
+    "2026-03": -24.0
+   },
+   "ROCE %": {
+    "Dec 2015\n            \n            (S)": 46.0,
+    "Dec 2016\n            \n            (S)": 54.0,
+    "Dec 2017\n            \n            (S)": 57.0,
+    "Dec 2018\n            \n            (S)": 71.0,
+    "Dec 2019\n            \n            (S)": 96.0,
+    "Dec 2020\n            \n            (S)": 139.0,
+    "Dec 2021\n            \n            (S)": 150.0,
+    "Dec 2022\n            \n            (S)": 138.0,
+    "2023-12": null,
+    "2024-03": null,
+    "2025-03": 96.0,
+    "2026-03": 85.0
+   }
+  }
+ },
+ "quarterly_headline": [
+  {
+   "period": "Sep 2023\n            \n            (S)",
+   "revenue": 5037.0,
+   "ebitda": 1225.0,
+   "pbt": 1222.0,
+   "pat": 908.0
+  },
+  {
+   "period": "2023-12",
+   "revenue": 4600.0,
+   "ebitda": 1095.0,
+   "pbt": 886.0,
+   "pat": 656.0
+  },
+  {
+   "period": "2024-06",
+   "revenue": 4814.0,
+   "ebitda": 1114.0,
+   "pbt": 1009.0,
+   "pat": 747.0
+  },
+  {
+   "period": "2024-09",
+   "revenue": 5104.0,
+   "ebitda": 1164.0,
+   "pbt": 1200.0,
+   "pat": 899.0
+  },
+  {
+   "period": "2024-12",
+   "revenue": 4780.0,
+   "ebitda": 1095.0,
+   "pbt": 914.0,
+   "pat": 688.0
+  },
+  {
+   "period": "2025-03",
+   "revenue": 5504.0,
+   "ebitda": 1376.0,
+   "pbt": 1192.0,
+   "pat": 873.0
+  },
+  {
+   "period": "2025-06",
+   "revenue": 5096.0,
+   "ebitda": 1087.0,
+   "pbt": 888.0,
+   "pat": 647.0
+  },
+  {
+   "period": "2025-09",
+   "revenue": 5644.0,
+   "ebitda": 1223.0,
+   "pbt": 1018.0,
+   "pat": 743.0
+  },
+  {
+   "period": "2025-12",
+   "revenue": 5667.0,
+   "ebitda": 1181.0,
+   "pbt": 1148.0,
+   "pat": 998.0
+  },
+  {
+   "period": "2026-03",
+   "revenue": 6748.0,
+   "ebitda": 1768.0,
+   "pbt": 1509.0,
+   "pat": 1111.0
+  },
+  {
+   "period": "2026-06",
+   "revenue": 6378.0,
+   "ebitda": 1522.0,
+   "pbt": 1308.0,
+   "pat": 959.0
+  },
+  {
+   "period": "2026-09",
+   "revenue": 6788.0,
+   "ebitda": 1598.0,
+   "pbt": 1382.0,
+   "pat": 1010.0
+  }
+ ],
+ "documents": [
+  {
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report 2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/65cd4ca1-41a5-4526-b920-66b4133a4e5a.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2025",
+   "label": "Annual Report 2025",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/e5d14b70-7e0c-4ecc-8a8e-74ccd0214e39.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2024",
+   "label": "Annual Report 2024",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/9e88129a-3672-4a4b-b840-a88568c49369.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2022",
+   "label": "Annual Report 2022",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/e4b5f094-a03f-4989-9447-52a43d69ecb8.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2021",
+   "label": "Annual Report 2021",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/72944500790.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2020",
+   "label": "Annual Report 2020",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/68403500790.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2019",
+   "label": "Annual Report 2019",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901219.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2018",
+   "label": "Annual Report 2018",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901218.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2017",
+   "label": "Annual Report 2017",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901217.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2016",
+   "label": "Annual Report 2016",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901216.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2015",
+   "label": "Annual Report 2015",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901215.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2014",
+   "label": "Annual Report 2014",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901214.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2013",
+   "label": "Annual Report 2013",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901213.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2012",
+   "label": "Annual Report 2012",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901212.pdf"
+  },
+  {
+   "kind": "annual_report",
+   "period": "FY2011",
+   "label": "Annual Report 2011",
+   "url": "https://www.bseindia.com/bseplus/AnnualReport/500790/5007901211.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-08",
+   "label": "Aug 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=97e83f21-9f3c-47c2-ba36-2a29fe44a380.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-08",
+   "label": "Aug 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ac0cae38-27ed-4886-af33-f88442d4988c.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2026-08",
+   "label": "Aug 2026",
+   "url": "https://www.youtube.com/watch?v=45pPKZ3p9Lg"
+  },
+  {
+   "kind": "transcript",
+   "period": "2025-02",
+   "label": "Feb 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cce29c06-5e1f-4c2a-9585-327e6d47710c.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2025-02",
+   "label": "Feb 2025",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=08e73837-f86e-4a9d-8464-27d8b6750cbe.pdf"
+  },
+  {
+   "kind": "recording",
+   "period": "2025-02",
+   "label": "Feb 2025",
+   "url": "https://www.youtube.com/embed/CJJIM-QSqo4?si=CSLpqgszA0znwIFz"
+  },
+  {
+   "kind": "ppt",
+   "period": "2024-04",
+   "label": "Apr 2024",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c7a9fd0e-2d40-4a71-b421-2882033e2aea.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=51f589ba-8cc4-4dc1-8483-5790d410f3c1.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-10",
+   "label": "Oct 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e48bae9f-fa72-4f7d-900f-687c082effb4.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2023-02",
+   "label": "Feb 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=57b18a55-2938-4a2d-be61-e5c4f0cbc195.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2023-02",
+   "label": "Feb 2023",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=bfb3adce-5439-4e83-9837-40c9b163d4f9.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2022-08",
+   "label": "Aug 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c76ed253-7075-4364-97ae-7040bd89009a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-08",
+   "label": "Aug 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e4beaa19-b51e-4730-af28-3add53d61528.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2022-02",
+   "label": "Feb 2022",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2a7e2d99-1b7b-4105-ade8-c861660ea776.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-08",
+   "label": "Aug 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6daa0869-6102-480c-a5ed-6989f1a5ac5a.pdf"
+  },
+  {
+   "kind": "ppt",
+   "period": "2019-03",
+   "label": "Mar 2019",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=39f0ab5a-4bca-49c8-b94d-1f8d23894565.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2018-07",
+   "label": "Jul 2018",
+   "url": "https://www.nestle.in/sites/g/files/pydnoa451/files/investors/documents/analyst/nestle-india-transcript-analysts-meet-aug-21-2018.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2017-08",
+   "label": "Aug 2017",
+   "url": "https://www.nestle.in/sites/g/files/pydnoa451/files/investors/documents/analyst/nestle-india-transcript-aug-24-2017.pdf"
+  }
+ ],
+ "symbol": "NESTLEIND",
+ "basis": "consolidated",
+ "source_url": "https://www.screener.in/company/NESTLEIND/consolidated/"
+}

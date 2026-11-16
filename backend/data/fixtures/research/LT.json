@@ -1,0 +1,2233 @@
+{
+ "symbol": "LT",
+ "company": "Larsen & Toubro Limited",
+ "generated_at": "2026-11-16T19:27:15",
+ "latest_quarter": "2026-09",
+ "documents": [
+  {
+   "id": "T1",
+   "kind": "transcript",
+   "period": "2026-07",
+   "label": "Q1 FY27 call (Jul 2026)",
+   "url": "https://investors.larsentoubro.com/upload/Analysttrans/FY2027AnalysttransL&T-Earnings-Jul28-2026.pdf",
+   "quarter": "2026-06",
+   "pages": 26
+  },
+  {
+   "id": "T2",
+   "kind": "transcript",
+   "period": "2026-05",
+   "label": "Q4 FY26 call (May 2026)",
+   "url": "https://investors.larsentoubro.com/upload/Analysttrans/FY2026AnalysttransL&T%20Q4%20FY26%20Earnings%20Call%20Transcript.pdf",
+   "quarter": "2026-03",
+   "pages": 28
+  },
+  {
+   "id": "T3",
+   "kind": "transcript",
+   "period": "2026-01",
+   "label": "Q3 FY26 call (Jan 2026)",
+   "url": "https://investors.larsentoubro.com/upload/Analysttrans/FY2026AnalysttransL&T%20Transcript%20Q3FY26.pdf",
+   "quarter": "2025-12",
+   "pages": 19
+  },
+  {
+   "id": "T4",
+   "kind": "transcript",
+   "period": "2025-10",
+   "label": "Q2 FY26 call (Oct 2025)",
+   "url": "https://investors.larsentoubro.com/upload/Analysttrans/FY2026AnalysttransL&T%20Q2FY26%20Earnings%20Call%20Transcript%20.pdf",
+   "quarter": "2025-09",
+   "pages": 25
+  },
+  {
+   "id": "AR",
+   "kind": "annual_report",
+   "period": "FY2026",
+   "label": "Annual Report FY2026",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/825f9859-e7f2-4e90-8583-01a38850f795.pdf",
+   "quarter": null,
+   "pages": 756
+  }
+ ],
+ "financials": {
+  "is_lender": false,
+  "basis": "consolidated",
+  "unit": "Rs crore",
+  "source": "https://www.screener.in/company/LT/consolidated/",
+  "snapshot": {
+   "fy": "2026-03",
+   "revenue": 285874.0,
+   "revenue_ttm": 300904.0,
+   "operating_profit": 36345.0,
+   "margin_pct": 13.0,
+   "margin_label": "EBITDA margin (OPM)",
+   "pat": 18954.0,
+   "pat_ttm": 20895.0,
+   "roe_pct": 15.9,
+   "roce_pct": 14.6,
+   "debt_to_equity": 1.15,
+   "market_cap_cr": 570290.0,
+   "pe": 30.2,
+   "price": 4140.0
+  },
+  "trajectory": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "revenue": 91929.0,
+     "operating_profit": 15684.0,
+     "margin_pct": 17.0,
+     "pat": 4966.0
+    },
+    {
+     "period": "2016-03",
+     "revenue": 101122.0,
+     "operating_profit": 15486.0,
+     "margin_pct": 15.0,
+     "pat": 4592.0
+    },
+    {
+     "period": "2017-03",
+     "revenue": 109312.0,
+     "operating_profit": 16620.0,
+     "margin_pct": 15.0,
+     "pat": 6486.0
+    },
+    {
+     "period": "2018-03",
+     "revenue": 119683.0,
+     "operating_profit": 20111.0,
+     "margin_pct": 17.0,
+     "pat": 8004.0
+    },
+    {
+     "period": "2019-03",
+     "revenue": 135220.0,
+     "operating_profit": 22866.0,
+     "margin_pct": 17.0,
+     "pat": 10217.0
+    },
+    {
+     "period": "2020-03",
+     "revenue": 145452.0,
+     "operating_profit": 24553.0,
+     "margin_pct": 17.0,
+     "pat": 10894.0
+    },
+    {
+     "period": "2021-03",
+     "revenue": 135979.0,
+     "operating_profit": 23460.0,
+     "margin_pct": 17.0,
+     "pat": 12921.0
+    },
+    {
+     "period": "2022-03",
+     "revenue": 156521.0,
+     "operating_profit": 24314.0,
+     "margin_pct": 16.0,
+     "pat": 10419.0
+    },
+    {
+     "period": "2023-03",
+     "revenue": 183341.0,
+     "operating_profit": 27166.0,
+     "margin_pct": 15.0,
+     "pat": 12531.0
+    },
+    {
+     "period": "2024-03",
+     "revenue": 221113.0,
+     "operating_profit": 28758.0,
+     "margin_pct": 13.0,
+     "pat": 15547.0
+    },
+    {
+     "period": "2025-03",
+     "revenue": 255734.0,
+     "operating_profit": 34551.0,
+     "margin_pct": 14.0,
+     "pat": 17673.0
+    },
+    {
+     "period": "2026-03",
+     "revenue": 285874.0,
+     "operating_profit": 36345.0,
+     "margin_pct": 13.0,
+     "pat": 18954.0
+    }
+   ],
+   "quarterly": [
+    {
+     "period": "2024-12",
+     "revenue": 64668.0,
+     "operating_profit": 7898.0,
+     "margin_pct": 12.0,
+     "pat": 3974.0,
+     "revenue_yoy": 17.3,
+     "pat_yoy": 10.6
+    },
+    {
+     "period": "2025-03",
+     "revenue": 74392.0,
+     "operating_profit": 9876.0,
+     "margin_pct": 13.0,
+     "pat": 6156.0,
+     "revenue_yoy": 10.9,
+     "pat_yoy": 22.8
+    },
+    {
+     "period": "2025-06",
+     "revenue": 63679.0,
+     "operating_profit": 8024.0,
+     "margin_pct": 13.0,
+     "pat": 4318.0,
+     "revenue_yoy": 15.5,
+     "pat_yoy": 25.3
+    },
+    {
+     "period": "2025-09",
+     "revenue": 67984.0,
+     "operating_profit": 8513.0,
+     "margin_pct": 13.0,
+     "pat": 4678.0,
+     "revenue_yoy": 10.4,
+     "pat_yoy": 14.1
+    },
+    {
+     "period": "2025-12",
+     "revenue": 71450.0,
+     "operating_profit": 9190.0,
+     "margin_pct": 13.0,
+     "pat": 3825.0,
+     "revenue_yoy": 10.5,
+     "pat_yoy": -3.7
+    },
+    {
+     "period": "2026-03",
+     "revenue": 82762.0,
+     "operating_profit": 10419.0,
+     "margin_pct": 13.0,
+     "pat": 6133.0,
+     "revenue_yoy": 11.3,
+     "pat_yoy": -0.4
+    },
+    {
+     "period": "2026-06",
+     "revenue": 67942.0,
+     "operating_profit": 8149.0,
+     "margin_pct": 12.0,
+     "pat": 4988.0,
+     "revenue_yoy": 6.7,
+     "pat_yoy": 15.5
+    },
+    {
+     "period": "2026-09",
+     "revenue": 78750.0,
+     "operating_profit": 8814.0,
+     "margin_pct": 11.0,
+     "pat": 5949.0,
+     "revenue_yoy": 15.8,
+     "pat_yoy": 27.2
+    }
+   ],
+   "cagr": {
+    "revenue_3y": 16.0,
+    "revenue_5y": 16.0,
+    "pat_3y": 14.8,
+    "pat_5y": 8.0
+   }
+  },
+  "cash_quality": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "cfo": -1365.0,
+     "fcf": -7460.0,
+     "pat": 4966.0,
+     "cfo_to_pat": -0.27
+    },
+    {
+     "period": "2016-03",
+     "cfo": -3240.0,
+     "fcf": -7363.0,
+     "pat": 4592.0,
+     "cfo_to_pat": -0.71
+    },
+    {
+     "period": "2017-03",
+     "cfo": 6655.0,
+     "fcf": 3834.0,
+     "pat": 6486.0,
+     "cfo_to_pat": 1.03
+    },
+    {
+     "period": "2018-03",
+     "cfo": -10031.0,
+     "fcf": -12046.0,
+     "pat": 8004.0,
+     "cfo_to_pat": -1.25
+    },
+    {
+     "period": "2019-03",
+     "cfo": -4756.0,
+     "fcf": -8255.0,
+     "pat": 10217.0,
+     "cfo_to_pat": -0.47
+    },
+    {
+     "period": "2020-03",
+     "cfo": 6694.0,
+     "fcf": 3394.0,
+     "pat": 10894.0,
+     "cfo_to_pat": 0.61
+    },
+    {
+     "period": "2021-03",
+     "cfo": 23074.0,
+     "fcf": 22151.0,
+     "pat": 12921.0,
+     "cfo_to_pat": 1.79
+    },
+    {
+     "period": "2022-03",
+     "cfo": 19164.0,
+     "fcf": 16124.0,
+     "pat": 10419.0,
+     "cfo_to_pat": 1.84
+    },
+    {
+     "period": "2023-03",
+     "cfo": 22777.0,
+     "fcf": 18984.0,
+     "pat": 12531.0,
+     "cfo_to_pat": 1.82
+    },
+    {
+     "period": "2024-03",
+     "cfo": 18266.0,
+     "fcf": 14056.0,
+     "pat": 15547.0,
+     "cfo_to_pat": 1.17
+    },
+    {
+     "period": "2025-03",
+     "cfo": 9151.0,
+     "fcf": 5611.0,
+     "pat": 17673.0,
+     "cfo_to_pat": 0.52
+    },
+    {
+     "period": "2026-03",
+     "cfo": 16741.0,
+     "fcf": 12272.0,
+     "pat": 18954.0,
+     "cfo_to_pat": 0.88
+    }
+   ],
+   "coverage": {
+    "cfo": "3/3",
+    "pat": "3/3",
+    "fcf": "3/3"
+   },
+   "cfo_3y": 44158.0,
+   "pat_3y": 52174.0,
+   "cfo_to_pat_3y": 0.85,
+   "fcf_3y": 31939.0
+  },
+  "balance_sheet": {
+   "annual": [
+    {
+     "period": "2015-03",
+     "borrowings": 93630.0,
+     "net_worth": 40909.0,
+     "debt_to_equity": 2.29,
+     "cwip": 14993.0,
+     "debtor_days": 119.0,
+     "inventory_days": 76.0,
+     "payable_days": 288.0,
+     "working_capital_days": 12.0
+    },
+    {
+     "period": "2016-03",
+     "borrowings": 88135.0,
+     "net_worth": 44180.0,
+     "debt_to_equity": 1.99,
+     "cwip": 10974.0,
+     "debtor_days": 94.0,
+     "inventory_days": 51.0,
+     "payable_days": 283.0,
+     "working_capital_days": 44.0
+    },
+    {
+     "period": "2017-03",
+     "borrowings": 93954.0,
+     "net_worth": 50217.0,
+     "debt_to_equity": 1.87,
+     "cwip": 13298.0,
+     "debtor_days": 96.0,
+     "inventory_days": 41.0,
+     "payable_days": 301.0,
+     "working_capital_days": 42.0
+    },
+    {
+     "period": "2018-03",
+     "borrowings": 107524.0,
+     "net_worth": 54903.0,
+     "debt_to_equity": 1.96,
+     "cwip": 13443.0,
+     "debtor_days": 101.0,
+     "inventory_days": 45.0,
+     "payable_days": 349.0,
+     "working_capital_days": 45.0
+    },
+    {
+     "period": "2019-03",
+     "borrowings": 125555.0,
+     "net_worth": 62375.0,
+     "debt_to_equity": 2.01,
+     "cwip": 13919.0,
+     "debtor_days": 99.0,
+     "inventory_days": 51.0,
+     "payable_days": 340.0,
+     "working_capital_days": 20.0
+    },
+    {
+     "period": "2020-03",
+     "borrowings": 143174.0,
+     "net_worth": 66723.0,
+     "debt_to_equity": 2.15,
+     "cwip": 3311.0,
+     "debtor_days": 102.0,
+     "inventory_days": 44.0,
+     "payable_days": 336.0,
+     "working_capital_days": 25.0
+    },
+    {
+     "period": "2021-03",
+     "borrowings": 134629.0,
+     "net_worth": 75869.0,
+     "debt_to_equity": 1.77,
+     "cwip": 500.0,
+     "debtor_days": 113.0,
+     "inventory_days": 51.0,
+     "payable_days": 401.0,
+     "working_capital_days": 28.0
+    },
+    {
+     "period": "2022-03",
+     "borrowings": 125508.0,
+     "net_worth": 82408.0,
+     "debt_to_equity": 1.52,
+     "cwip": 1250.0,
+     "debtor_days": 108.0,
+     "inventory_days": 44.0,
+     "payable_days": 378.0,
+     "working_capital_days": 0.0
+    },
+    {
+     "period": "2023-03",
+     "borrowings": 120650.0,
+     "net_worth": 89326.0,
+     "debt_to_equity": 1.35,
+     "cwip": 3066.0,
+     "debtor_days": 89.0,
+     "inventory_days": 41.0,
+     "payable_days": 302.0,
+     "working_capital_days": 2.0
+    },
+    {
+     "period": "2024-03",
+     "borrowings": 116322.0,
+     "net_worth": 86359.0,
+     "debt_to_equity": 1.35,
+     "cwip": 3045.0,
+     "debtor_days": 81.0,
+     "inventory_days": 32.0,
+     "payable_days": 255.0,
+     "working_capital_days": -16.0
+    },
+    {
+     "period": "2025-03",
+     "borrowings": 132409.0,
+     "net_worth": 97656.0,
+     "debt_to_equity": 1.36,
+     "cwip": 2589.0,
+     "debtor_days": 77.0,
+     "inventory_days": 30.0,
+     "payable_days": 208.0,
+     "working_capital_days": -33.0
+    },
+    {
+     "period": "2026-03",
+     "borrowings": 125497.0,
+     "net_worth": 109290.0,
+     "debt_to_equity": 1.15,
+     "cwip": 3311.0,
+     "debtor_days": 77.0,
+     "inventory_days": 36.0,
+     "payable_days": 265.0,
+     "working_capital_days": -27.0
+    }
+   ]
+  },
+  "flags": [
+   {
+    "id": "fin:leverage",
+    "tone": "negative",
+    "text": "Debt/equity 1.15×"
+   },
+   {
+    "id": "fin:margin_trend",
+    "tone": "negative",
+    "text": "EBITDA margin (OPM) contracted 2 pts YoY to 11% in 2026-09"
+   }
+  ]
+ },
+ "promises": {
+  "items": [
+   {
+    "promise_ids": [
+     "T4.1",
+     "T3.1"
+    ],
+    "verdict": "missed",
+    "quote": "Accordingly, we maintain our full year revenue growth guidance at 15%.",
+    "said_in": "Q2 FY26 call (Oct 2025)",
+    "doc_id": "T4",
+    "page": 10,
+    "target": "FY26 group revenue growth 15%",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "FY26 revenue growth 11.8% (Rs 2,85,874 Cr vs Rs 2,55,734 Cr, reported as 12%) vs 15% guided",
+    "evidence": [
+     "T2.5",
+     "FY:2025-03",
+     "FY:2026-03"
+    ],
+    "note": "Management reiterated the 15% full-year revenue growth target as late as Q3 FY26, but full-year FY26 growth came in short at 11.8%.",
+    "guard": null,
+    "repeated_in": [
+     "Q3 FY26 call (Jan 2026)"
+    ],
+    "base_verdict": "missed",
+    "ai": {
+     "verdict": "missed",
+     "actual": "FY26 revenue growth 11.8% (Rs 2,85,874 Cr vs Rs 2,55,734 Cr, reported as 12%) vs 15% guided",
+     "evidence": [
+      "T2.5",
+      "FY:2025-03",
+      "FY:2026-03"
+     ],
+     "note": "Management reiterated the 15% full-year revenue growth target as late as Q3 FY26, but full-year FY26 growth came in short at 11.8%.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T4.8"
+    ],
+    "verdict": "partly",
+    "quote": "The contours of the final agreement are being finalized, and we expect this transaction to get consummated by the end of the current fiscal FY '26.",
+    "said_in": "Q2 FY26 call (Oct 2025)",
+    "doc_id": "T4",
+    "page": 4,
+    "target": "Consummate Government takeover of Hyderabad Metro SPV by end of FY26",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "SPA signed with Telangana Govt, but FY26 closure deadline missed and revised to 30 Sep 2026",
+    "evidence": [
+     "T3.8",
+     "T2.9",
+     "T1.7"
+    ],
+    "note": "Management made tangible progress by executing the Share Purchase Agreement, yet failed to consummate the deal by end-FY26 and pushed the expected completion date out twice without confirmed closure.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "partly",
+    "ai": {
+     "verdict": "partly",
+     "actual": "SPA signed with Telangana Govt, but FY26 closure deadline missed and revised to 30 Sep 2026",
+     "evidence": [
+      "T3.8",
+      "T2.9",
+      "T1.7"
+     ],
+     "note": "Management made tangible progress by executing the Share Purchase Agreement, yet failed to consummate the deal by end-FY26 and pushed the expected completion date out twice without confirmed closure.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "milestone",
+    "revised": {
+     "from": "Consummate Government takeover of Hyderabad Metro SPV by end of FY26",
+     "to": "Hyderabad Metro divestment completion revised to 30 September 2026",
+     "in": "Q1 FY27 call (Jul 2026)",
+     "update_id": "T1.7"
+    }
+   },
+   {
+    "promise_ids": [
+     "T4.2",
+     "T3.2"
+    ],
+    "verdict": "unclear",
+    "quote": "With the execution momentum expected to pick up in H2, we are reasonably confident to achieve our full year EBITDA margin target of 8.5%.",
+    "said_in": "Q2 FY26 call (Oct 2025)",
+    "doc_id": "T4",
+    "page": 10,
+    "target": "FY26 Projects & Manufacturing EBITDA margin 8.5%",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "FY26 P&M segment EBITDA margin not reported in actuals or updates (group operating margin was 13.0%)",
+    "evidence": [
+     "T2.10",
+     "FY:2026-03"
+    ],
+    "note": "The FY26 deadline has passed, but neither updates nor actuals disclose the final full-year P&M segment EBITDA margin to verify the 8.5% target.",
+    "guard": null,
+    "repeated_in": [
+     "Q3 FY26 call (Jan 2026)"
+    ],
+    "base_verdict": "unclear",
+    "ai": {
+     "verdict": "unclear",
+     "actual": "FY26 P&M segment EBITDA margin not reported in actuals or updates (group operating margin was 13.0%)",
+     "evidence": [
+      "T2.10",
+      "FY:2026-03"
+     ],
+     "note": "The FY26 deadline has passed, but neither updates nor actuals disclose the final full-year P&M segment EBITDA margin to verify the 8.5% target.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T4.3"
+    ],
+    "verdict": "unclear",
+    "quote": "We are confident of exceeding our full year FY '26 guidance of 10% growth in group order inflows for the current year.",
+    "said_in": "Q2 FY26 call (Oct 2025)",
+    "doc_id": "T4",
+    "page": 9,
+    "target": "Exceed full year FY26 group order inflow growth target of 10%",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "Final FY26 group order inflow growth not reported in actuals or updates",
+    "evidence": [
+     "T3.5"
+    ],
+    "note": "Management expressed confidence in Q3 FY26 that order inflows would exceed 10%, but no final FY26 order inflow figure is provided after year-end.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "unclear",
+    "ai": {
+     "verdict": "unclear",
+     "actual": "Final FY26 group order inflow growth not reported in actuals or updates",
+     "evidence": [
+      "T3.5"
+     ],
+     "note": "Management expressed confidence in Q3 FY26 that order inflows would exceed 10%, but no final FY26 order inflow figure is provided after year-end.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T4.4"
+    ],
+    "verdict": "unclear",
+    "quote": "On Working Capital, our guidance for working capital for FY '26 remains unchanged at around 12% by March 2026.",
+    "said_in": "Q2 FY26 call (Oct 2025)",
+    "doc_id": "T4",
+    "page": 10,
+    "target": "Group NWC to sales ratio at around 12% by March 2026",
+    "horizon": "by Mar 2026",
+    "deadline": "2026-03",
+    "actual": "Final March 2026 NWC-to-sales ratio not reported in actuals or updates",
+    "evidence": [
+     "T3.6",
+     "FY:2026-03"
+    ],
+    "note": "NWC-to-sales stood at 8.2% in December 2025 with a revised expectation of around 10%, but the final FY26 ratio is omitted and consolidated working capital days (-27) use a different basis.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "unclear",
+    "ai": {
+     "verdict": "unclear",
+     "actual": "Final March 2026 NWC-to-sales ratio not reported in actuals or updates",
+     "evidence": [
+      "T3.6",
+      "FY:2026-03"
+     ],
+     "note": "NWC-to-sales stood at 8.2% in December 2025 with a revised expectation of around 10%, but the final FY26 ratio is omitted and consolidated working capital days (-27) use a different basis.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": {
+     "from": "Group NWC to sales ratio at around 12% by March 2026",
+     "to": "Revise FY26 Net Working Capital to Revenue target from 12% to around 10%",
+     "in": "Q3 FY26 call (Jan 2026)",
+     "update_id": "T3.6"
+    }
+   },
+   {
+    "promise_ids": [
+     "T3.7"
+    ],
+    "verdict": "unclear",
+    "quote": "Okay. So as of now, we have almost 32 megawatts of capacity of Data Center, out of which 14 megawatts is up and running, another 18 megawatts will get commissioned by the end of this fiscal year.",
+    "said_in": "Q3 FY26 call (Jan 2026)",
+    "doc_id": "T3",
+    "page": 16,
+    "target": "Commission 18 MW additional data center capacity by end of FY26",
+    "horizon": "FY26",
+    "deadline": "2026-03",
+    "actual": "FY26 commissioned data center capacity not reported in actuals or updates",
+    "evidence": [],
+    "note": "The FY26 deadline has passed with no subsequent update or reported metric confirming whether the additional 18 MW capacity was commissioned.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "unclear",
+    "ai": {
+     "verdict": "unclear",
+     "actual": "FY26 commissioned data center capacity not reported in actuals or updates",
+     "evidence": [],
+     "note": "The FY26 deadline has passed with no subsequent update or reported metric confirming whether the additional 18 MW capacity was commissioned.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T1.13"
+    ],
+    "verdict": "unclear",
+    "quote": "So, for the Lakshya plan CapEx for the current year, I did mention about different businesses having different models which we will pursue. Hopefully in Q2, I think we will be able to finalize and let you know.",
+    "said_in": "Q1 FY27 call (Jul 2026)",
+    "doc_id": "T1",
+    "page": 17,
+    "target": "Finalize FY27 Lakshya plan capex in Q2 FY27",
+    "horizon": "Q2 FY27",
+    "deadline": "2026-09",
+    "actual": "Q2 FY27 Lakshya capex finalization not reported in updates or actuals",
+    "evidence": [],
+    "note": "The Q2 FY27 deadline has passed, but no post-Q1 FY27 call update confirms whether the FY27 capex plan was finalized.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "unclear",
+    "ai": {
+     "verdict": "unclear",
+     "actual": "Q2 FY27 Lakshya capex finalization not reported in updates or actuals",
+     "evidence": [],
+     "note": "The Q2 FY27 deadline has passed, but no post-Q1 FY27 call update confirms whether the FY27 capex plan was finalized.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "milestone",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T1.9"
+    ],
+    "verdict": "unclear",
+    "quote": "While the awarding activity in the Middle East witnessed some temporary slowdown, tendering and bidding momentum continues to remain robust, and we expect project awards to pick up from Q2.",
+    "said_in": "Q1 FY27 call (Jul 2026)",
+    "doc_id": "T1",
+    "page": 10,
+    "target": "Project awards expected to pick up from Q2 FY27",
+    "horizon": "Q2 FY27",
+    "deadline": "2026-09",
+    "actual": "Q2 FY27 project award activity not reported in updates or actuals",
+    "evidence": [],
+    "note": "The Q2 FY27 horizon has passed without any Q2 order inflow update in the inputs to confirm whether project awards picked up.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "unclear",
+    "ai": {
+     "verdict": "unclear",
+     "actual": "Q2 FY27 project award activity not reported in updates or actuals",
+     "evidence": [],
+     "note": "The Q2 FY27 horizon has passed without any Q2 order inflow update in the inputs to confirm whether project awards picked up.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "milestone",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T2.2",
+     "T1.1"
+    ],
+    "verdict": "too_early",
+    "quote": "On Revenue, we expect growth to be in the range of 10% to 12% for FY27.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "FY27 revenue growth of 10-12%",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [
+     "T1.4",
+     "Q:2026-06",
+     "Q:2026-09"
+    ],
+    "note": "FY27 is only halfway complete through Q2 FY27 (H1 FY27 revenue up 11.4% YoY after a 6.7% Q1 and 15.8% Q2), so full-year delivery cannot yet be settled.",
+    "guard": null,
+    "repeated_in": [
+     "Q1 FY27 call (Jul 2026)"
+    ],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [
+      "T1.4",
+      "Q:2026-06",
+      "Q:2026-09"
+     ],
+     "note": "FY27 is only halfway complete through Q2 FY27 (H1 FY27 revenue up 11.4% YoY after a 6.7% Q1 and 15.8% Q2), so full-year delivery cannot yet be settled.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T2.1",
+     "T1.2"
+    ],
+    "verdict": "too_early",
+    "quote": "On this reclassified basis, the FY26 margins for Projects, Products and Manufacturing was 7.8%, and we expect the same to be stable as well in FY27 as well.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "FY27 PPM portfolio EBITDA margin around 7.8%",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [
+     "T1.3"
+    ],
+    "note": "The FY27 deadline has not passed and management stated in Q1 FY27 that PP&M margins remain on track.",
+    "guard": null,
+    "repeated_in": [
+     "Q1 FY27 call (Jul 2026)"
+    ],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [
+      "T1.3"
+     ],
+     "note": "The FY27 deadline has not passed and management stated in Q1 FY27 that PP&M margins remain on track.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T2.4",
+     "T1.6"
+    ],
+    "verdict": "too_early",
+    "quote": "Accordingly, we are guiding the working capital to be around 10% in FY27, which remains well within our targeted range.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "FY27 NWC to sales around 10%",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The FY27 year-end deadline for working capital around 10% of sales has not yet been reached.",
+    "guard": null,
+    "repeated_in": [
+     "Q1 FY27 call (Jul 2026)"
+    ],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The FY27 year-end deadline for working capital around 10% of sales has not yet been reached.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T3.3"
+    ],
+    "verdict": "too_early",
+    "quote": "I also wish to assure you that these projects are at the final stages of completion and hopefully, the margin uptick would be seen sometime maybe after 2 or 3 quarters into the next year.",
+    "said_in": "Q3 FY26 call (Jan 2026)",
+    "doc_id": "T3",
+    "page": 12,
+    "target": "Hydrocarbon margin uptick after 2-3 quarters into FY27",
+    "horizon": "next 2-3 quarters into FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [
+     "T3.4"
+    ],
+    "note": "The expected Hydrocarbon margin uptick 2-3 quarters into FY27 has a March 2027 deadline and is not yet settled by segment data.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [
+      "T3.4"
+     ],
+     "note": "The expected Hydrocarbon margin uptick 2-3 quarters into FY27 has a March 2027 deadline and is not yet settled by segment data.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "milestone",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T2.3"
+    ],
+    "verdict": "too_early",
+    "quote": "The Lakshya L31 targets 13% to 15% revenue CAGR growth for over five years with EBIT margins of 16% to 17%, reflecting a structurally stronger and higher-quality growth profile.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 12,
+    "target": "L31 revenue CAGR 13-15%",
+    "horizon": "next 5 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The five-year Lakshya L31 revenue CAGR target of 13-15% is a long-term goal that cannot yet be evaluated.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The five-year Lakshya L31 revenue CAGR target of 13-15% is a long-term goal that cannot yet be evaluated.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T2.7"
+    ],
+    "verdict": "too_early",
+    "quote": "Concluding with the Lakshya guidance, over the next five years, we are targeting order inflow growth at a CAGR return of 10% to 12%, revenue growth of 12% to 15%, and a Return on Equity in the range of 16% to 17%.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 13,
+    "target": "L31 ROE 16-17%",
+    "horizon": "next 5 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The five-year Lakshya L31 ROE target of 16-17% has not reached its horizon.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The five-year Lakshya L31 ROE target of 16-17% has not reached its horizon.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T1.5"
+    ],
+    "verdict": "too_early",
+    "quote": "Given the strength of our opportunity pipeline and the underlying market dynamics, we remain confident of achieving our order inflow growth guidance of 10% to 12% band for the current year.",
+    "said_in": "Q1 FY27 call (Jul 2026)",
+    "doc_id": "T1",
+    "page": 10,
+    "target": "FY27 order inflow growth of 10-12%",
+    "horizon": "FY27",
+    "deadline": "2027-03",
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The FY27 deadline for 10-12% order inflow growth has not yet been reached.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The FY27 deadline for 10-12% order inflow growth has not yet been reached.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T2.6"
+    ],
+    "verdict": "too_early",
+    "quote": "The strategy emphasizes disciplined portfolio expansion and strong risk management with targets of 20% plus loan book growth, while maintaining credit costs below 2%.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 12,
+    "target": "L&T Finance loan growth 20%+",
+    "horizon": "next 5 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The five-year L&T Finance 20%+ loan growth target is still in its initial year.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The five-year L&T Finance 20%+ loan growth target is still in its initial year.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T2.8"
+    ],
+    "verdict": "too_early",
+    "quote": "Within the new business over the plan period, we envisage a capital outlay of approximately Rs 50 billion towards Industrial Electronics, Rs 30 billion into the Semiconductor business largely for the creation of proprietary IPs, Rs 150 billion in Green Hydrogen... and around Rs 100 billion towards the Data Center business.",
+    "said_in": "Q4 FY26 call (May 2026)",
+    "doc_id": "T2",
+    "page": 12,
+    "target": "L31 new business capex Rs 330 billion",
+    "horizon": "next 5 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The Rs 330 billion L31 new-business capex outlay spans five years and has not reached its deadline.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The Rs 330 billion L31 new-business capex outlay spans five years and has not reached its deadline.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T1.10"
+    ],
+    "verdict": "too_early",
+    "quote": "But today, we have almost close to 8 gigawatt of offshore wind and adding up to almost close to Rs. 57,000-60,000 crores of order book. And this will get executed over a four to five years period.",
+    "said_in": "Q1 FY27 call (Jul 2026)",
+    "doc_id": "T1",
+    "page": 15,
+    "target": "8 GW offshore wind order book executed over 4-5 years",
+    "horizon": "next 4-5 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Execution of the 8 GW offshore wind order book spans 4-5 years from Q1 FY27.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "Execution of the 8 GW offshore wind order book spans 4-5 years from Q1 FY27.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T1.11"
+    ],
+    "verdict": "too_early",
+    "quote": "I mean, TenneT job, 8 gigawatt, out of it, 6 gigawatt will be done in Kattupalli. That is a massive amount of work running over at least three to four years.",
+    "said_in": "Q1 FY27 call (Jul 2026)",
+    "doc_id": "T1",
+    "page": 24,
+    "target": "6 GW of TenneT offshore wind work executed at Kattupalli over 3-4 years",
+    "horizon": "next 3-4 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Execution of 6 GW of TenneT offshore wind work at Kattupalli spans 3-4 years from Q1 FY27.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "Execution of 6 GW of TenneT offshore wind work at Kattupalli spans 3-4 years from Q1 FY27.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T1.12"
+    ],
+    "verdict": "too_early",
+    "quote": "Yes, the large megaprojects in Offshore, they will be ready for dispatch from our Oman yard sometime in first quarter of next calendar year.",
+    "said_in": "Q1 FY27 call (Jul 2026)",
+    "doc_id": "T1",
+    "page": 16,
+    "target": "Large offshore megaprojects ready for dispatch from Oman yard in Q1 CY27",
+    "horizon": "Q1 CY27",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "Dispatch of offshore megaprojects from the Oman yard is targeted for Q1 CY27, which has not yet arrived.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "Dispatch of offshore megaprojects from the Oman yard is targeted for Q1 CY27, which has not yet arrived.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "milestone",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T3.10"
+    ],
+    "verdict": "too_early",
+    "quote": "And going forward, we believe that overall, I think the country will still add about 15 to 20 GW in the next 2 years or so. We still see 4 - 5 GW opportunities for us, as a minimum in the coming years.",
+    "said_in": "Q3 FY26 call (Jan 2026)",
+    "doc_id": "T3",
+    "page": 16,
+    "target": "Minimum 4-5 GW thermal power order opportunities over next 2 years",
+    "horizon": "next 2 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The two-year window for 4-5 GW of thermal power order opportunities has not elapsed.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The two-year window for 4-5 GW of thermal power order opportunities has not elapsed.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   },
+   {
+    "promise_ids": [
+     "T4.6"
+    ],
+    "verdict": "too_early",
+    "quote": "We are going ahead with expansion of our capacity, and we are gearing up for taking up additional maybe 10, 15 gigawatts in the next 2, 3 years.",
+    "said_in": "Q2 FY26 call (Oct 2025)",
+    "doc_id": "T4",
+    "page": 20,
+    "target": "Take up additional 10 to 15 GW thermal power capacity in next 2-3 years",
+    "horizon": "next 2-3 years",
+    "deadline": null,
+    "actual": "Not yet reported",
+    "evidence": [],
+    "note": "The 2-3 year horizon to add 10-15 GW of thermal power capacity has not elapsed.",
+    "guard": null,
+    "repeated_in": [],
+    "base_verdict": "too_early",
+    "ai": {
+     "verdict": "too_early",
+     "actual": "Not yet reported",
+     "evidence": [],
+     "note": "The 2-3 year horizon to add 10-15 GW of thermal power capacity has not elapsed.",
+     "guard": null
+    },
+    "judged_by": "ai",
+    "statement_type": "number",
+    "revised": null
+   }
+  ],
+  "credibility": "Management's observable track record is mixed and points to mild over-optimism on near-term execution, having missed its reaffirmed FY26 15% revenue growth target at 11.8% [T4.1, T3.1] and repeatedly slipped the closing timeline for the Hyderabad Metro divestment despite signing the SPA [T4.8]. Accountability is also hindered by incomplete follow-through in reported metrics, leaving several past-deadline operational and segment targets—such as FY26 P&M margins [T4.2, T3.2], order inflows [T4.3], NWC-to-sales [T4.4], and data center capacity [T3.7]—unverified, while most FY27 and five-year Lakshya L31 commitments remain too early to judge [T2.2, T1.1, T2.3].",
+  "counts": {
+   "delivered": 0,
+   "partly": 1,
+   "missed": 1,
+   "revised": 0,
+   "unclear": 6,
+   "too_early": 14,
+   "not_measurable": 0
+  },
+  "score": 25
+ },
+ "guidance": [
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "Considering the rapidly evolving situation, we believe it is prudent to wait for greater clarity before reassessing the full-year outlook. For now, we remain committed to our FY '27 growth guidance of 10% to 12% revenue growth guidance.",
+   "page": 11,
+   "speaker": "P. Ramakrishnan",
+   "target": "FY27 revenue growth of 10-12%",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T1.1",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "In line with our Revenue growth guidance, we continue to target the margin of around 7.8% for FY '27 with respect to the PPM portfolio.",
+   "page": 11,
+   "speaker": "P. Ramakrishnan",
+   "target": "FY27 PPM portfolio EBITDA margin around 7.8%",
+   "target_value": 7.8,
+   "unit": "%",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T1.2",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "ebitda_margin",
+   "quote": "I don't expect that there will be any erosion in the margin. We are pretty much on the trend what we had indicated earlier.",
+   "page": 23,
+   "speaker": "Subramanian Sarma",
+   "target": "No margin erosion; on track with earlier PPM margin trend",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T1.3",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "revenue_growth",
+   "quote": "As indicated during the Q4 FY '26 Earning Call, the revenue growth in Q1 was expected to be relatively subdued, primarily due to disruptions arising from the ongoing conflict. Reflecting these factors, the group revenues for Q1 FY '27 stood at Rs. 679 billion, registering a 7% Y-on-Y growth, with international revenues accounting for 51% of the total group revenues.",
+   "page": 6,
+   "speaker": "P. Ramakrishnan",
+   "target": "Q1 FY27 revenue growth subdued as guided at 7% YoY",
+   "target_value": 7.0,
+   "unit": "%",
+   "horizon": "Q1 FY27",
+   "materiality": 3,
+   "id": "T1.4",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "Given the strength of our opportunity pipeline and the underlying market dynamics, we remain confident of achieving our order inflow growth guidance of 10% to 12% band for the current year.",
+   "page": 10,
+   "speaker": "P. Ramakrishnan",
+   "target": "FY27 order inflow growth of 10-12%",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T1.5",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "Factoring in the expected utilization of customer advances and increased vendor payments as the execution accelerates in H2, we are maintaining our FY '27 working capital guidance of around 10%.",
+   "page": 11,
+   "speaker": "P. Ramakrishnan",
+   "target": "FY27 NWC to sales around 10%",
+   "target_value": 10.0,
+   "unit": "%",
+   "horizon": "FY27",
+   "materiality": 2,
+   "id": "T1.6",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "other",
+   "quote": "The company signed an agreement with Hyderabad Metro Rail Limited, a fully state-owned enterprise of the Government of Telangana, to divest its entire stake in L&T Metro Rail Hyderabad Limited. The estimated completion date for this transaction has been revised to 30th September 2026.",
+   "page": 3,
+   "speaker": "P. Ramakrishnan",
+   "target": "Hyderabad Metro divestment completion revised to 30 September 2026",
+   "target_value": null,
+   "unit": null,
+   "horizon": "by 30 September 2026",
+   "materiality": 2,
+   "id": "T1.7",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "other",
+   "quote": "The divestment of Nabha Power was completed on 25th June 2026, in line with our strategy to exit the concessions portfolio.",
+   "page": 3,
+   "speaker": "P. Ramakrishnan",
+   "target": "Nabha Power divestment completed on 25 June 2026",
+   "target_value": null,
+   "unit": null,
+   "horizon": null,
+   "materiality": 2,
+   "id": "T1.8",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "While the awarding activity in the Middle East witnessed some temporary slowdown, tendering and bidding momentum continues to remain robust, and we expect project awards to pick up from Q2.",
+   "page": 10,
+   "speaker": "P. Ramakrishnan",
+   "target": "Project awards expected to pick up from Q2 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q2 FY27",
+   "materiality": 2,
+   "id": "T1.9",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "But today, we have almost close to 8 gigawatt of offshore wind and adding up to almost close to Rs. 57,000-60,000 crores of order book. And this will get executed over a four to five years period.",
+   "page": 15,
+   "speaker": "Subramanian Sarma",
+   "target": "8 GW offshore wind order book executed over 4-5 years",
+   "target_value": 8.0,
+   "unit": "GW",
+   "horizon": "next 4-5 years",
+   "materiality": 2,
+   "id": "T1.10",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "I mean, TenneT job, 8 gigawatt, out of it, 6 gigawatt will be done in Kattupalli. That is a massive amount of work running over at least three to four years.",
+   "page": 24,
+   "speaker": "Subramanian Sarma",
+   "target": "6 GW of TenneT offshore wind work executed at Kattupalli over 3-4 years",
+   "target_value": 6.0,
+   "unit": "GW",
+   "horizon": "next 3-4 years",
+   "materiality": 2,
+   "id": "T1.11",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "Yes, the large megaprojects in Offshore, they will be ready for dispatch from our Oman yard sometime in first quarter of next calendar year.",
+   "page": 16,
+   "speaker": "Subramanian Sarma",
+   "target": "Large offshore megaprojects ready for dispatch from Oman yard in Q1 CY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q1 CY27",
+   "materiality": 2,
+   "id": "T1.12",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "So, for the Lakshya plan CapEx for the current year, I did mention about different businesses having different models which we will pursue. Hopefully in Q2, I think we will be able to finalize and let you know.",
+   "page": 17,
+   "speaker": "P. Ramakrishnan",
+   "target": "Finalize FY27 Lakshya plan capex in Q2 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q2 FY27",
+   "materiality": 2,
+   "id": "T1.13",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "Also, in some projects which are about to get completed, those legacy projects which are getting completed, mostly coming from India related projects, the revised aging analysis typically creates a little bump up in the ECL provisions in first quarter. But I do not think is going to happen in the balance three quarters of the year.",
+   "page": 13,
+   "speaker": "P. Ramakrishnan",
+   "target": "Q1 ECL provision bump not expected to recur in 9M FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "9M FY27",
+   "materiality": 1,
+   "id": "T1.14",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "With the execution momentum continuing and improving from now onwards, because collections have started coming in, some of these reversals of credit provisions will happen as we progress, bill and collect.",
+   "page": 14,
+   "speaker": "P. Ramakrishnan",
+   "target": "Credit provision reversals expected as water execution and collections progress",
+   "target_value": null,
+   "unit": null,
+   "horizon": null,
+   "materiality": 1,
+   "id": "T1.15",
+   "doc_id": "T1",
+   "doc_label": "Q1 FY27 call (Jul 2026)",
+   "quarter": "2026-06",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "On this reclassified basis, the FY26 margins for Projects, Products and Manufacturing was 7.8%, and we expect the same to be stable as well in FY27 as well.",
+   "page": 13,
+   "speaker": null,
+   "target": "FY27 PP&M margin 7.8%",
+   "target_value": 7.8,
+   "unit": "percent",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T2.1",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "On Revenue, we expect growth to be in the range of 10% to 12% for FY27.",
+   "page": 13,
+   "speaker": null,
+   "target": "FY27 revenue growth 10-12%",
+   "target_value": 12.0,
+   "unit": "percent",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T2.2",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "The Lakshya L31 targets 13% to 15% revenue CAGR growth for over five years with EBIT margins of 16% to 17%, reflecting a structurally stronger and higher-quality growth profile.",
+   "page": 12,
+   "speaker": null,
+   "target": "L31 revenue CAGR 13-15%",
+   "target_value": 15.0,
+   "unit": "percent",
+   "horizon": "next 5 years",
+   "materiality": 3,
+   "id": "T2.3",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "Accordingly, we are guiding the working capital to be around 10% in FY27, which remains well within our targeted range.",
+   "page": 13,
+   "speaker": null,
+   "target": "FY27 NWC to sales 10%",
+   "target_value": 10.0,
+   "unit": "percent",
+   "horizon": "FY27",
+   "materiality": 3,
+   "id": "T2.4",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "revenue_growth",
+   "quote": "On the revenue front, growth for FY26 stood at 12% compared to our guidance of 15%.",
+   "page": 5,
+   "speaker": null,
+   "target": "FY26 revenue growth missed 15% target",
+   "target_value": 12.0,
+   "unit": "percent",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T2.5",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "The strategy emphasizes disciplined portfolio expansion and strong risk management with targets of 20% plus loan book growth, while maintaining credit costs below 2%.",
+   "page": 12,
+   "speaker": null,
+   "target": "L&T Finance loan growth 20%+",
+   "target_value": 20.0,
+   "unit": "percent",
+   "horizon": "next 5 years",
+   "materiality": 2,
+   "id": "T2.6",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "Concluding with the Lakshya guidance, over the next five years, we are targeting order inflow growth at a CAGR return of 10% to 12%, revenue growth of 12% to 15%, and a Return on Equity in the range of 16% to 17%.",
+   "page": 13,
+   "speaker": null,
+   "target": "L31 ROE 16-17%",
+   "target_value": 17.0,
+   "unit": "percent",
+   "horizon": "next 5 years",
+   "materiality": 3,
+   "id": "T2.7",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capex",
+   "quote": "Within the new business over the plan period, we envisage a capital outlay of approximately Rs 50 billion towards Industrial Electronics, Rs 30 billion into the Semiconductor business largely for the creation of proprietary IPs, Rs 150 billion in Green Hydrogen... and around Rs 100 billion towards the Data Center business.",
+   "page": 12,
+   "speaker": null,
+   "target": "L31 new business capex Rs 330 billion",
+   "target_value": 330.0,
+   "unit": "billion rupees",
+   "horizon": "next 5 years",
+   "materiality": 2,
+   "id": "T2.8",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 88
+  },
+  {
+   "kind": "update",
+   "metric": "other",
+   "quote": "The company executed Share Purchase Agreement (SPA) to divest its 100% stake in Nabha Power and its entire stake in Hyderabad Metro. Both these transactions are expected to achieve closure in Q1 FY27.",
+   "page": 4,
+   "speaker": null,
+   "target": "Divestment closure Q1 FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "Q1 FY27",
+   "materiality": 2,
+   "id": "T2.9",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 98
+  },
+  {
+   "kind": "update",
+   "metric": "ebitda_margin",
+   "quote": "On Margin, we had guided for an improvement of 20 basis points in FY26. Through the first nine months of the year, we were tracking ahead of this guidance with P&M margins improving by 30 basis points.",
+   "page": 5,
+   "speaker": null,
+   "target": "FY26 margin improvement guidance",
+   "target_value": 20.0,
+   "unit": "basis points",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T2.10",
+   "doc_id": "T2",
+   "doc_label": "Q4 FY26 call (May 2026)",
+   "quarter": "2026-03",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "We expect the customary ramp-up in project execution during Q4 and are reasonably confident of achieving our full year revenue growth guidance of 15%.",
+   "page": 8,
+   "speaker": "P. Ramakrishnan",
+   "target": "FY26 group revenue growth 15%",
+   "target_value": 15.0,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T3.1",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "Our Projects & Manufacturing EBITDA at 7.9% for 9 months of the current year is in line with the target that we have set ourselves at 8.5% for the full year FY '26.",
+   "page": 8,
+   "speaker": "P. Ramakrishnan",
+   "target": "FY26 Projects & Manufacturing EBITDA margin 8.5%",
+   "target_value": 8.5,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T3.2",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "I also wish to assure you that these projects are at the final stages of completion and hopefully, the margin uptick would be seen sometime maybe after 2 or 3 quarters into the next year.",
+   "page": 12,
+   "speaker": "P. Ramakrishnan",
+   "target": "Hydrocarbon margin uptick after 2-3 quarters into FY27",
+   "target_value": null,
+   "unit": null,
+   "horizon": "next 2-3 quarters into FY27",
+   "materiality": 3,
+   "id": "T3.3",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "ebitda_margin",
+   "quote": "As highlighted in previous earnings calls, these projects are in their terminate execution phase and are expected to conclude over the next few quarters, during which margins will remain soft.",
+   "page": 7,
+   "speaker": "P. Ramakrishnan",
+   "target": "Hydrocarbon margins to remain soft over next few quarters until legacy projects conclude",
+   "target_value": null,
+   "unit": null,
+   "horizon": "next few quarters",
+   "materiality": 3,
+   "id": "T3.4",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "order_book",
+   "quote": "Basis the 9-month performance and the healthy prospects pipeline for the near term, we will be exceeding the 10% order inflow guidance for FY '26.",
+   "page": 8,
+   "speaker": "P. Ramakrishnan",
+   "target": "Exceed 10% order inflow growth guidance for FY26",
+   "target_value": 10.0,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 2,
+   "id": "T3.5",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "working_capital",
+   "quote": "We had earlier guided the Net Working Capital to Revenue of 12% by March '26. However, with stronger collection intensity and improved contractual terms, our Net Working Capital to Revenue has improved sharply to 8.2% as of December '25, and we expect to close the year with a revised target of around 10%.",
+   "page": 9,
+   "speaker": "P. Ramakrishnan",
+   "target": "Revise FY26 Net Working Capital to Revenue target from 12% to around 10%",
+   "target_value": 10.0,
+   "unit": "%",
+   "horizon": "by Mar 2026",
+   "materiality": 2,
+   "id": "T3.6",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "Okay. So as of now, we have almost 32 megawatts of capacity of Data Center, out of which 14 megawatts is up and running, another 18 megawatts will get commissioned by the end of this fiscal year.",
+   "page": 16,
+   "speaker": "P. Ramakrishnan",
+   "target": "Commission 18 MW additional data center capacity by end of FY26",
+   "target_value": 18.0,
+   "unit": "MW",
+   "horizon": "FY26",
+   "materiality": 2,
+   "id": "T3.7",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "debt",
+   "quote": "As mentioned in the previous earnings call, L&T has reached an in-principle understanding with the Government of Telangana for the acquisition of its entire stake in L&T Hyderabad Metro. Under the proposed terms, the Government of Telangana will pay Rs 2,000 crores towards L&T's equity investment and assume the Metro's entire debt of around Rs 13,000 crores.",
+   "page": 8,
+   "speaker": "P. Ramakrishnan",
+   "target": "Telangana Govt to pay Rs 2,000 cr equity and assume Rs 13,000 cr debt for Hyderabad Metro",
+   "target_value": 13000.0,
+   "unit": "Rs crore",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T3.8",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "order_book",
+   "quote": "There will be some minor tweaks, but this will come back. And I think we are very positive that all of these tenders will be out by this calendar year, and they'll get awarded this year.",
+   "page": 9,
+   "speaker": "Subramanian Sarma",
+   "target": "Canceled Kuwait projects expected to be re-tendered and awarded in CY26",
+   "target_value": null,
+   "unit": null,
+   "horizon": "CY26",
+   "materiality": 2,
+   "id": "T3.9",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "And going forward, we believe that overall, I think the country will still add about 15 to 20 GW in the next 2 years or so. We still see 4 - 5 GW opportunities for us, as a minimum in the coming years.",
+   "page": 16,
+   "speaker": "Subramanian Sarma",
+   "target": "Minimum 4-5 GW thermal power order opportunities over next 2 years",
+   "target_value": 4.0,
+   "unit": "GW",
+   "horizon": "next 2 years",
+   "materiality": 2,
+   "id": "T3.10",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "other",
+   "quote": "The trailing 12-month ROE, excluding the impact of this onetime Labour Codes provision stood at 17.6%, broadly in line with the target of 18% that we have set ourselves to during this last year, that is FY '26 for the Lakshya plan.",
+   "page": 6,
+   "speaker": "P. Ramakrishnan",
+   "target": "TTM ROE ex-Labour Codes at 17.6%, in line with 18% FY26 Lakshya target",
+   "target_value": 18.0,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 1,
+   "id": "T3.11",
+   "doc_id": "T3",
+   "doc_label": "Q3 FY26 call (Jan 2026)",
+   "quarter": "2025-12",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "revenue_growth",
+   "quote": "Accordingly, we maintain our full year revenue growth guidance at 15%.",
+   "page": 10,
+   "speaker": "P. Ramakrishnan",
+   "target": "Full year FY26 revenue growth target of 15%",
+   "target_value": 15.0,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T4.1",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "ebitda_margin",
+   "quote": "With the execution momentum expected to pick up in H2, we are reasonably confident to achieve our full year EBITDA margin target of 8.5%.",
+   "page": 10,
+   "speaker": "P. Ramakrishnan",
+   "target": "Full year FY26 P&M EBITDA margin target of 8.5%",
+   "target_value": 8.5,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T4.2",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "order_book",
+   "quote": "We are confident of exceeding our full year FY '26 guidance of 10% growth in group order inflows for the current year.",
+   "page": 9,
+   "speaker": "P. Ramakrishnan",
+   "target": "Exceed full year FY26 group order inflow growth target of 10%",
+   "target_value": 10.0,
+   "unit": "%",
+   "horizon": "FY26",
+   "materiality": 3,
+   "id": "T4.3",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "working_capital",
+   "quote": "On Working Capital, our guidance for working capital for FY '26 remains unchanged at around 12% by March 2026.",
+   "page": 10,
+   "speaker": "P. Ramakrishnan",
+   "target": "Group NWC to sales ratio at around 12% by March 2026",
+   "target_value": 12.0,
+   "unit": "%",
+   "horizon": "by Mar 2026",
+   "materiality": 3,
+   "id": "T4.4",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "aum_growth",
+   "quote": "The Financial Services business achieved 98% retailization of its loan book in September '25, well ahead of its Lakshya 2026 targets.",
+   "page": 9,
+   "speaker": "P. Ramakrishnan",
+   "target": "Achieved 98% retailization of loan book ahead of Lakshya 2026 targets",
+   "target_value": 98.0,
+   "unit": "%",
+   "horizon": "Lakshya 2026",
+   "materiality": 2,
+   "id": "T4.5",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "capacity",
+   "quote": "We are going ahead with expansion of our capacity, and we are gearing up for taking up additional maybe 10, 15 gigawatts in the next 2, 3 years.",
+   "page": 20,
+   "speaker": "Subramanian Sarma",
+   "target": "Take up additional 10 to 15 GW thermal power capacity in next 2-3 years",
+   "target_value": 15.0,
+   "unit": "GW",
+   "horizon": "next 2-3 years",
+   "materiality": 2,
+   "id": "T4.6",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "update",
+   "metric": "capacity",
+   "quote": "6 months back, even before these awards came, we had given a commitment to the Ministry that we will enhance our capacity to almost 5.5- 6.0 gigawatts.",
+   "page": 22,
+   "speaker": "Subramanian Sarma",
+   "target": "Enhance thermal equipment manufacturing capacity to 5.5-6.0 GW",
+   "target_value": 6.0,
+   "unit": "GW",
+   "horizon": null,
+   "materiality": 2,
+   "id": "T4.7",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  },
+  {
+   "kind": "guidance",
+   "metric": "other",
+   "quote": "The contours of the final agreement are being finalized, and we expect this transaction to get consummated by the end of the current fiscal FY '26.",
+   "page": 4,
+   "speaker": "P. Ramakrishnan",
+   "target": "Consummate Government takeover of Hyderabad Metro SPV by end of FY26",
+   "target_value": null,
+   "unit": null,
+   "horizon": "FY26",
+   "materiality": 2,
+   "id": "T4.8",
+   "doc_id": "T4",
+   "doc_label": "Q2 FY26 call (Oct 2025)",
+   "quarter": "2025-09",
+   "quote_match": 100
+  }
+ ],
+ "business": {
+  "what_they_do": {
+   "text": "Larsen & Toubro Limited operates through a diverse portfolio spanning infrastructure and utilities construction, conventional and green energy projects, and hi-tech manufacturing. The company also provides integrated technology, platforms, and services, alongside retail financial services and real estate development.",
+   "cites": [
+    {
+     "doc": "AR",
+     "page": 35
+    },
+    {
+     "doc": "T1",
+     "page": 4
+    }
+   ]
+  },
+  "segments": [
+   {
+    "name": "Infrastructure and Utilities",
+    "share": "46%",
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 44
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "name": "Energy - Conventional",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "name": "Energy - Green",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "name": "Manufacturing and Products",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "name": "Technology, Platforms and Services",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "name": "Financial Services",
+    "share": null,
+    "cites": [
+     {
+      "doc": "AR",
+      "page": 35
+     }
+    ]
+   },
+   {
+    "name": "Realty",
+    "share": null,
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   }
+  ],
+  "customers_and_markets": [
+   {
+    "text": "The company's order book has a geographic split of 48% domestic and 52% international, with the Middle East accounting for 71% of its international portfolio.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   },
+   {
+    "text": "Private sector demand is a key driver, with the share of private sector orders increasing to 40% of the domestic order book as of June 2026.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   },
+   {
+    "text": "The company serves government and public sector enterprises, though their combined share of the domestic order book declined to 30% as of June 2026.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     }
+    ]
+   }
+  ],
+  "recent_developments": [
+   {
+    "text": "Effective April 1, 2026, the company realigned its reporting segments under the Lakshya 2031 Strategic Plan, including the creation of an 'Energy - Green' segment and the separate classification of the 'Realty' business.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "text": "The company secured an ultra-mega order under the TenneT North Sea HVDC offshore wind program, accumulating approximately 8 GWs of offshore wind transmission capacity over three quarters.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   },
+   {
+    "text": "L&T signed an agreement to divest its entire stake in L&T Metro Rail Hyderabad Limited to the Government of Telangana, with expected completion by September 30, 2026.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   },
+   {
+    "text": "The company received a 'Baa1' long-term issuer rating from Moody's Ratings, which is two notches above the sovereign.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   }
+  ]
+ },
+ "bull_bear": {
+  "bull": [
+   {
+    "text": "Group order inflows for Q1 FY27 grew 14% YoY to Rs 1,080 billion, driven by a 27% YoY increase in international orders and strong momentum in offshore wind awards.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "text": "The total order book expanded 27% YoY to Rs 7.79 trillion as of June 2026, supported by a healthy Rs 15 trillion prospects pipeline for the remaining nine months of FY27.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 5
+     },
+     {
+      "doc": "T1",
+      "page": 4
+     }
+    ]
+   },
+   {
+    "text": "Working capital discipline yielded significant results, with the Net Working Capital to Sales ratio improving to 4.9% in June 2026 from 10.1% in June 2025.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 6
+     }
+    ]
+   }
+  ],
+  "bear": [
+   {
+    "text": "Management missed its full-year FY26 group revenue growth target of 15%, achieving 11.8% growth (Rs 2,85,874 Cr) due to domestic execution delays and Middle East conflict disruptions.",
+    "cites": [
+     {
+      "doc": "T2",
+      "page": 5
+     }
+    ]
+   },
+   {
+    "text": "Group EBITDA margin contracted 2 percentage points YoY to 11% in September 2026, while Q1 FY27 EBITDA margin excluding other income fell 90 basis points YoY to 9.0% due to lower execution and Rs 2.5 billion in ECL provisions.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 6
+     },
+     {
+      "doc": "fin:margin_trend",
+      "page": null
+     },
+     {
+      "doc": "T1",
+      "page": 20
+     }
+    ]
+   },
+   {
+    "text": "Financial leverage remains elevated, with a reported Debt/Equity ratio of 1.15x.",
+    "cites": [
+     {
+      "doc": "fin:leverage",
+      "page": null
+     }
+    ]
+   }
+  ],
+  "watch": [
+   {
+    "text": "Completion of the divestment of L&T Metro Rail Hyderabad Limited to the Government of Telangana by the revised target date of September 30, 2026.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 3
+     }
+    ]
+   },
+   {
+    "text": "Re-acceleration of project awarding activity in the Middle East starting in Q2 FY27 to support full-year order inflow growth guidance of 10-12%.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 10
+     }
+    ]
+   },
+   {
+    "text": "Finalization and disclosure of the Lakshya FY27 plan capex outlays expected during Q2 FY27.",
+    "cites": [
+     {
+      "doc": "T1",
+      "page": 17
+     }
+    ]
+   }
+  ]
+ },
+ "about": "Larsen & Toubro Ltd is a multinational conglomerate which is primarily engaged in providing engineering, procurement and construction (EPC) solutions in key sectors such as Infrastructure, Hydrocarbon, Power, Process Industries and Defence, Information Technology and Financial Services in domestic and international markets. [1]",
+ "incomplete": [],
+ "models": {
+  "extract_guidance": "gemini/gemini-3.1-flash-lite",
+  "promise_vs_delivery": "gemini/gemini-4-hydrogen",
+  "business_snapshot": "gemini/gemini-3.1-flash-lite",
+  "bull_bear": "gemini/gemini-3.5-flash"
+ },
+ "build_seconds": 80.9,
+ "key": "79f707b68cbc0ab9"
+}

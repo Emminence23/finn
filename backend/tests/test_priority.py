@@ -87,7 +87,7 @@ def test_every_card_opens_a_next_action(seeded):
                 assert a["href"] == f"/c/{c['symbol']}#promises"
     assert {"results", "filing"} <= seen
     # the management-change demo case leads to the incoming person
-    cards = build_digest(start="2026-10-01", end="2026-10-15")["cards"]
-    cfo = next(c for c in cards if c["symbol"] == "PIDILITIND" and c["kind"] == "management_change")
-    assert cfo["next_action"]["href"] == "/people/fp_amit_agarwal_pidilite"
-    assert cfo["next_action"]["label"] == "See how you reach Amit"
+    cards = build_digest(start="2026-11-01", end="2026-11-15")["cards"]
+    ceo = next(c for c in cards if c["symbol"] == "DABUR" and c["kind"] == "management_change")
+    assert ceo["next_action"]["href"] == "/people/fp_herjit_bhalla_dabur"
+    assert ceo["next_action"]["label"] == "See how you reach Herjit"

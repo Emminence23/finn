@@ -24,7 +24,7 @@ from datetime import UTC, date, datetime
 from app.db import session
 from app.ingest.universe import fixtures_dir
 
-RULE_VERSION = "attention-v1"
+RULE_VERSION = "attention-v2"
 
 # ------------------------------------------------------------------ the score's parts
 COMPONENTS = {
@@ -95,12 +95,27 @@ OTHER_KMP = re.compile(
 )
 ORDER = re.compile(r"\b(orders?(?! book)|contract|award(ed)?|letter of (award|intent))\b", re.I)
 REAPPOINT = re.compile(r"\bre-?appoint\w*|\bcontinuation\b", re.I)
+INDEPENDENT = re.compile(r"\bindependent director\b", re.I)
+INTERNAL = re.compile(
+    r"wholly[- ]owned subsidiary|step-?down subsidiary|strike off|struck off|dissol\w+|liquidat\w+"
+    r"|branch\b.{0,40}\bclos\w+|preference share conversion|conversion of preference",
+    re.I,
+)
+BUSINESS_TRANSFER = re.compile(r"slump sale|business transfer|demerg\w+", re.I)
 NEW_SUBSIDIARY = re.compile(r"incorporat\w+.{0,60}subsidiary|subsidiary.{0,40}incorporat\w+", re.I)
 DEPARTURE = re.compile(
     r"\b(cessation|resign\w*|step(s|ped)? down|demise|passed away|retire\w*)\b", re.I
 )
 RESULTS_COPY = re.compile(
     r"\b(newspaper|extracts?|auditors?'? reports?|half[- ]yearly report|limited review|outcome of board meeting.{0,20}copy)\b",
+    re.I,
+)
+RESULTS_RELEASE = re.compile(
+    r"\b(q[1-4] ?fy ?\d\d|quarterly results|financial results|shareholder letter)\b", re.I
+)
+REGULATOR_DECISION = re.compile(
+    r"\b(rbi|reserve bank|sebi|npci|irdai|trai|cci)\b.{0,60}\b(authori[sz]\w*|approv\w*|licen[cs]\w*|defer\w*|direct\w*|mandat\w*)"
+    r"|\b(authori[sz]\w*|approv\w*|licen[cs]\w*)\b.{0,40}\b(rbi|reserve bank|sebi|npci|irdai|trai|cci)\b",
     re.I,
 )
 ACQUIRE = re.compile(r"\b(acqui\w+|merger|amalgamat\w+|stake)\b", re.I)
@@ -115,6 +130,7 @@ STRATEGIC = [
         "It changes what the company owns or who controls it",
     ),
     (TOP_ROLE, 15, "It concerns top leadership"),
+    (REGULATOR_DECISION, 12, "A regulator decided something about the business"),
     (
         re.compile(
             r"\b(clos(ure|e) order|penalt\w+|show[- ]cause|stay|tribunal|high court|supreme court|sebi order|rbi (order|action)|ban|suspend\w*|search|raid)\b",
@@ -220,6 +236,13 @@ def _sentence(text: str, at: int) -> str:
     return text[start : end + 1 if end >= 0 else len(text)].strip()
 
 
+_SHARES_AT = re.compile(
+    r"\b([\d,]{5,})\s+(?:equity\s+)?shares\b.{0,40}?\bat\s+(?:a\s+price\s+of\s+)?"
+    r"(?:rs\.?|inr|₹)\s*([\d,]+(?:\.\d+)?)\s*(?:/-)?\s*(?:per\s+(?:equity\s+)?share|each)",
+    re.I,
+)
+
+
 def extract_facts(subject: str, summary: str | None, enrichment: dict) -> list[dict]:
     """Facts stated in the filing's text, each with the sentence it came from and where that
     sentence is from: the exchange's own subject line, or FINN's one-line summary of the PDF
@@ -241,6 +264,19 @@ def extract_facts(subject: str, summary: str | None, enrichment: dict) -> list[d
                     "unit": "₹ crore",
                     "source_quote": _sentence(text, m.start()),
                     "source": source,
+                }
+            )
+        for m in _SHARES_AT.finditer(text):
+            # an issue stated as shares at a price: the amount is their product, nothing more
+            n, price = (float(g.replace(",", "")) for g in m.groups())
+            facts.append(
+                {
+                    "field": "amount",
+                    "value": round(n * price / 1e7, 2),
+                    "unit": "₹ crore",
+                    "source_quote": _sentence(text, m.start()),
+                    "source": source,
+                    "computed": f"{m.group(1)} shares × ₹{m.group(2)}",
                 }
             )
         for m in _PCT.finditer(text):
@@ -383,6 +419,8 @@ def attention(
     why: list[str] = []
     unknown: list[str] = []
     cat = category or "unclassified"
+    if cat in ("press_release", "unclassified") and RESULTS_RELEASE.search(text):
+        cat = "results"  # the results told as a press release or shareholder letter
     secondary: list[str] = []
     if cat in ("press_release", "unclassified") and ORDER.search(text):
         secondary.append("order")
@@ -395,6 +433,8 @@ def attention(
         base = 20
     if "order" in secondary:
         base = max(base, CATEGORY_BASE["order"])
+    if cat in ("press_release", "unclassified") and REGULATOR_DECISION.search(text):
+        base = max(base, CATEGORY_BASE["litigation"])  # a regulator's decision, not a press note
     reappointed = (
         cat == "management_change" and REAPPOINT.search(text) and not DEPARTURE.search(text)
     )
@@ -403,6 +443,26 @@ def attention(
         base = 6  # a newspaper extract or auditor's report repeats results already filed
     if reappointed:
         base = 6  # a routine re-appointment is a continuation, not a change
+    independent_only = (
+        cat == "management_change"
+        and INDEPENDENT.search(text)
+        and not TOP_ROLE.search(text)
+        and not reappointed
+    )
+    if independent_only:
+        base = 8  # an independent director joins or leaves the board; nobody runs the company differently
+    internal = (
+        cat in ("M&A", "unclassified", "press_release")
+        and INTERNAL.search(text)
+        and not BUSINESS_TRANSFER.search(text)
+        and not REGULATOR_DECISION.search(text)
+        and not (  # buying a company outright, as against topping up one already owned
+            re.search(r"\bacqui\w+", text, re.I)
+            and not re.search(r"\b(remaining|balance|further|additional|increased)\b", text, re.I)
+        )
+    )
+    if internal:
+        base = 6  # moving things inside the group (a subsidiary closed, merged in or re-papered)
     if cat == "M&A" and NEW_SUBSIDIARY.search(text) and not ACQUIRE.search(text):
         base = 10  # setting up a subsidiary is housekeeping unless something is bought
     parts["category_base"] = base
@@ -452,7 +512,9 @@ def attention(
 
     # 3. strategic weight: the strongest rule that fires
     hits = (
-        [] if reappointed else [(pts, reason) for rx, pts, reason in STRATEGIC if rx.search(text)]
+        []
+        if reappointed or independent_only or internal
+        else [(pts, reason) for rx, pts, reason in STRATEGIC if rx.search(text)]
     )
     if hits:
         pts, reason = max(hits)

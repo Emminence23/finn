@@ -1,137 +1,151 @@
 {
  "portfolio": [
   {
-   "symbol": "ICICIBANK",
-   "weight": 0.12,
-   "theme": "private banking",
-   "qty": 437,
-   "avg_cost": 1374.31
-  },
-  {
-   "symbol": "BAJFINANCE",
-   "weight": 0.12,
-   "theme": "consumer lending",
-   "qty": 600,
-   "avg_cost": 999.26
-  },
-  {
-   "symbol": "TITAN",
-   "weight": 0.12,
-   "theme": "consumer discretionary",
-   "qty": 157,
-   "avg_cost": 3826.64
-  },
-  {
-   "symbol": "SUNPHARMA",
-   "weight": 0.12,
-   "theme": "pharma",
-   "qty": 348,
-   "avg_cost": 1721.67
-  },
-  {
-   "symbol": "CGPOWER",
-   "weight": 0.11,
-   "theme": "capital goods",
-   "qty": 740,
-   "avg_cost": 743.56
-  },
-  {
-   "symbol": "CHOLAFIN",
-   "weight": 0.1,
-   "theme": "rural lending",
-   "qty": 293,
-   "avg_cost": 1708.65
-  },
-  {
-   "symbol": "PIDILITIND",
-   "weight": 0.08,
-   "theme": "home improvement",
-   "qty": 272,
-   "avg_cost": 1470.81
-  },
-  {
-   "symbol": "POLYCAB",
-   "weight": 0.07,
-   "theme": "capital goods",
-   "qty": 46,
-   "avg_cost": 7684.54
-  },
-  {
    "symbol": "RELIANCE",
-   "weight": 0.03,
+   "weight": 0.08,
    "theme": "conglomerate",
-   "qty": 100,
-   "avg_cost": 1503.95
+   "qty": 265,
+   "avg_cost": 1511.31
   },
   {
    "symbol": "HDFCBANK",
-   "weight": 0.03,
+   "weight": 0.08,
    "theme": "private banking",
-   "qty": 155,
-   "avg_cost": 970.6
+   "qty": 408,
+   "avg_cost": 980.34
   },
   {
-   "symbol": "ASIANPAINT",
-   "weight": 0.02,
-   "theme": "home improvement",
-   "qty": 35,
-   "avg_cost": 2843.46
+   "symbol": "ICICIBANK",
+   "weight": 0.07,
+   "theme": "private banking",
+   "qty": 256,
+   "avg_cost": 1367.47
   },
   {
    "symbol": "TCS",
-   "weight": 0.015,
+   "weight": 0.07,
    "theme": "IT services",
-   "qty": 25,
-   "avg_cost": 2977.21
+   "qty": 118,
+   "avg_cost": 2973.85
   },
   {
-   "symbol": "DEEPAKNTR",
-   "weight": 0.015,
-   "theme": "specialty chemicals",
-   "qty": 44,
-   "avg_cost": 1714.27
+   "symbol": "LT",
+   "weight": 0.06,
+   "theme": "capital goods",
+   "qty": 75,
+   "avg_cost": 3988.74
   },
   {
-   "symbol": "INFY",
-   "weight": 0.01,
-   "theme": "IT services",
-   "qty": 34,
-   "avg_cost": 1475.35
+   "symbol": "ITC",
+   "weight": 0.06,
+   "theme": "consumer staples",
+   "qty": 773,
+   "avg_cost": 388.17
   },
   {
-   "symbol": "TRENT",
-   "weight": 0.01,
-   "theme": "retail",
-   "qty": 12,
-   "avg_cost": 4320.02
+   "symbol": "BAJFINANCE",
+   "weight": 0.06,
+   "theme": "consumer lending",
+   "qty": 294,
+   "avg_cost": 1020.53
   },
   {
-   "symbol": "SRF",
-   "weight": 0.01,
-   "theme": "specialty chemicals",
-   "qty": 17,
-   "avg_cost": 2901.12
+   "symbol": "TITAN",
+   "weight": 0.06,
+   "theme": "consumer discretionary",
+   "qty": 78,
+   "avg_cost": 3855.95
   },
   {
-   "symbol": "DIXON",
-   "weight": 0.01,
-   "theme": "electronics manufacturing",
-   "qty": 3,
-   "avg_cost": 15311.22
+   "symbol": "TATASTEEL",
+   "weight": 0.05,
+   "theme": "metals",
+   "qty": 1473,
+   "avg_cost": 169.67
   },
   {
-   "symbol": "KAYNES",
-   "weight": 0.01,
-   "theme": "electronics manufacturing",
-   "qty": 8,
-   "avg_cost": 6376.5
+   "symbol": "ETERNAL",
+   "weight": 0.05,
+   "theme": "internet consumer",
+   "qty": 808,
+   "avg_cost": 309.55
+  },
+  {
+   "symbol": "ASIANPAINT",
+   "weight": 0.04,
+   "theme": "home improvement",
+   "qty": 70,
+   "avg_cost": 2851.86
+  },
+  {
+   "symbol": "NESTLEIND",
+   "weight": 0.04,
+   "theme": "consumer staples",
+   "qty": 159,
+   "avg_cost": 1257.43
+  },
+  {
+   "symbol": "POLYCAB",
+   "weight": 0.04,
+   "theme": "capital goods",
+   "qty": 26,
+   "avg_cost": 7646.72
+  },
+  {
+   "symbol": "JIOFIN",
+   "weight": 0.04,
+   "theme": "fintech",
+   "qty": 643,
+   "avg_cost": 311.27
+  },
+  {
+   "symbol": "TMPV",
+   "weight": 0.04,
+   "theme": "automobiles",
+   "qty": 541,
+   "avg_cost": 369.63
+  },
+  {
+   "symbol": "BHEL",
+   "weight": 0.04,
+   "theme": "capital goods",
+   "qty": 703,
+   "avg_cost": 284.58
+  },
+  {
+   "symbol": "DABUR",
+   "weight": 0.03,
+   "theme": "consumer staples",
+   "qty": 293,
+   "avg_cost": 512.77
+  },
+  {
+   "symbol": "PAYTM",
+   "weight": 0.03,
+   "theme": "fintech",
+   "qty": 113,
+   "avg_cost": 1332.9
+  },
+  {
+   "symbol": "MEESHO",
+   "weight": 0.03,
+   "theme": "internet consumer",
+   "qty": 882,
+   "avg_cost": 170.09
+  },
+  {
+   "symbol": "IDEA",
+   "weight": 0.03,
+   "theme": "telecom",
+   "qty": 13724,
+   "avg_cost": 10.93
   }
  ],
  "research_set": [
+  "LT",
   "AARTIIND",
   "PERSISTENT",
-  "MANAPPURAM",
-  "KAYNES"
+  "MANAPPURAM"
  ],
- "bought_on": "2025-11-13"
+ "bought_on": "2025-11-17"
 }

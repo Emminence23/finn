@@ -48,10 +48,22 @@ def _companies() -> dict[str, dict]:
     return out
 
 
-def _people_block(ann: dict, enrichment: dict, golden: dict, people) -> list[dict]:
-    """Incoming/outgoing people with bio and network paths (FR-CARD-03/04)."""
+def _norm(name: str) -> str:
+    return " ".join(name.lower().replace(".", " ").split())
+
+
+def _people_block(
+    ann: dict, enrichment: dict, golden: dict, people, also: list[str] = ()
+) -> list[dict]:
+    """Incoming/outgoing people with bio and network paths (FR-CARD-03/04). Hand-checked
+    people come first (from this filing or any filing grouped under the card, since a
+    company often re-files the same outcome), then the AI-read ones not already named."""
     out = []
-    for gp in golden.get(ann["id"], []):
+    picked = {}
+    for aid in [ann["id"], *also]:
+        for gp in golden.get(aid, []):
+            picked.setdefault(gp["id"], gp)
+    for gp in picked.values():
         paths = graph.paths_to(gp["id"], people)
         out.append(
             {
@@ -66,13 +78,11 @@ def _people_block(ann: dict, enrichment: dict, golden: dict, people) -> list[dic
                 "paths": paths,
             }
         )
-    if out:
-        return out
-    seen: set[tuple[str, str]] = set()
+    seen: set[tuple[str, str]] = {(_norm(g["name"]), g["direction"]) for g in picked.values()}
     for i, p in enumerate(enrichment.get("people", [])):
         if not p.get("is_senior") and p["direction"] != "incoming":
             continue
-        k = (" ".join(p["name"].lower().replace(".", " ").split()), p["direction"])
+        k = (_norm(p["name"]), p["direction"])
         if k in seen:  # one PDF often lists a person twice (letter + annexure)
             continue
         seen.add(k)
@@ -237,7 +247,9 @@ def build_digest(
             card["results"] = refresh_changes(enr.get("results")) or screener_results_card(symbol)
         elif cat == "management_change":
             card["kind"] = "management_change"
-            card["people"] = _people_block(primary, enr, golden, people)
+            card["people"] = _people_block(
+                primary, enr, golden, people, [x["id"] for x in items if x is not primary]
+            )
         elif cat in MATERIAL_EVENTS:
             card["kind"] = "material_event"
         helpers = graph.who_can_help(symbol, people, limit=3)
@@ -301,7 +313,10 @@ def _attach_results_decks(cards: list[dict], routine: list[dict]) -> None:
         c = results.get(r["symbol"])
         if (
             c
-            and r.get("exch_category") == "Investor Presentation"
+            and (
+                r.get("exch_category") == "Investor Presentation"
+                or "investor presentation" in (r.get("title") or "").lower()
+            )
             and abs((datetime.fromisoformat(r["ts"]) - datetime.fromisoformat(c["ts"])).days)
             <= DECK_DAYS
         ):
