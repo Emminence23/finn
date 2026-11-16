@@ -27,4 +27,4 @@ Then put the production URL into `ALLOWED_ORIGINS` on Render (step 1.2). Render 
 ## Behaviour on free hosting
 - **Cold starts.** Render's free instance sleeps after 15 minutes idle and takes up to a minute to wake. The app pings `/health` on load and shows "Waking the server…" if it is slow.
 - **Ephemeral disk.** Research built live is cached on the instance and lost on restart; the precomputed set ships in the image.
-- **LLM budget.** Every API route needs the passcode. Live builds are capped at `FINN_MAX_LIVE_BUILDS_PER_DAY` (default 20) and Ask FINN questions at `FINN_MAX_QUESTIONS_PER_DAY` (default 60). Builds and run one at a time, since the instance has 512 MB and each build parses PDFs. Spend per task is at `/admin/costs`.
+- **LLM budget.** Every API route needs the passcode. Live builds are capped at `FINN_MAX_LIVE_BUILDS_PER_DAY` (default 20) and Ask FINN questions at `FINN_MAX_QUESTIONS_PER_DAY` (default 60). Builds run one at a time, since the instance has 512 MB and each build parses PDFs. Spend per task is at `/admin/costs`.

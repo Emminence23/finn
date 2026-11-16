@@ -110,8 +110,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | FR-PULL-09 | **Bull vs bear:** 3 points each, each cited | C | — |
 | FR-PULL-10 | Progress streaming for live (uncached) research | S | UI shows step-by-step progress via SSE |
 | FR-PULL-11 | Results cached per (ticker, document set, prompt version) | M | A repeat request for the same company returns in <1s |
-| FR-PULL-12 | Ask FINN: a free-text question about a company, answered only from its documents and numbers. Ask routes a typed question to the right company | S | Every point cites a page, number or promise that was in the prompt; uncited points are removed in code; unanswerable questions say so |
-| FR-PULL-12 | Natural-language question over one company's documents ("did they deliver on margin guidance?") | C | Answer is cited |
+| FR-PULL-12 | Ask FINN (was a "could"; promoted after review): a free-text question about a company, answered only from its documents and numbers. Ask routes a typed question to the right company | S | Every point cites a page, number or promise that was in the prompt; uncited points are removed in code; unanswerable questions say so |
 
 ### 3.5 Network (`FR-NET`)
 
