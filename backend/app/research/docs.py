@@ -111,13 +111,23 @@ def load_pages(symbol: str, ref: DocRef) -> list[str]:
     return page_texts(pdf) if pdf else []
 
 
+def _page_text(page) -> str:
+    """One page's text; a single malformed page (pypdf's token guard on a huge content
+    stream, a broken font) costs that page, not the whole annual report."""
+    try:
+        return _clean(page.extract_text() or "")
+    except Exception as e:
+        log.warning("page skipped: %s", e)
+        return ""
+
+
 def page_texts(pdf: Path) -> list[str]:
     """Per-page text, cached as JSON next to the PDF (annual reports take seconds to parse)."""
     cache = pdf.with_suffix(".pages.json")
     if cache.exists() and cache.stat().st_mtime >= pdf.stat().st_mtime:
         return json.loads(cache.read_text())
     try:
-        pages = [_clean(p.extract_text() or "") for p in PdfReader(str(pdf)).pages]
+        pages = [_page_text(p) for p in PdfReader(str(pdf)).pages]
     except Exception as e:
         log.warning("pdf parse failed %s: %s", pdf, e)
         return []

@@ -440,3 +440,17 @@ def test_code_verdict_overrides_the_model_and_says_so():
     assert (
         back["verdict"] == "missed" and back["judged_by"] == "ai" and back["actual"] == "model text"
     )
+
+
+def test_one_bad_page_costs_that_page_not_the_document():
+    from app.research.docs import _page_text
+
+    class Bad:
+        def extract_text(self):
+            raise ValueError("Reached maximum number of tokens per stream.")
+
+    class Good:
+        def extract_text(self):
+            return "Revenue grew 12%"
+
+    assert [_page_text(Bad()), _page_text(Good())] == ["", "Revenue grew 12%"]

@@ -33,6 +33,23 @@ const STARTERS = [
 
 const uid = () => Math.random().toString(36).slice(2, 10);
 
+/** After a dropped stream: the server keeps reading and caches the result, so check back
+ *  every few seconds for up to four minutes instead of giving up. */
+async function waitForBuild(sym: string, say: (m: string) => void): Promise<boolean> {
+  const until = Date.now() + 4 * 60_000;
+  while (Date.now() < until) {
+    say("Still reading. The connection dropped, so FINN is checking back…");
+    await new Promise((r) => setTimeout(r, 5000));
+    try {
+      await api(`/research/${sym}`);
+      return true;
+    } catch {
+      /* not built yet */
+    }
+  }
+  return false;
+}
+
 function load(): { msgs: Msg[]; symbol: string | null } {
   try {
     const raw = localStorage.getItem(KEY);
@@ -133,19 +150,25 @@ export default function Ask() {
     async (sym: string, asked: string) => {
       setBuilding({ symbol: sym, message: "Starting…" });
       let ok = false;
+      let failed = false;
       try {
         await stream(`/research/${sym}/stream`, (event, data) => {
           const d = data as Record<string, unknown>;
           if (event === "progress") setBuilding({ symbol: sym, message: String(d.message) });
           else if (event === "result") ok = true;
-          else if (event === "error") setMsgs((m) => [...m, { id: uid(), role: "finn", asked, error: String(d.message) }]);
+          else if (event === "error") {
+            failed = true;
+            setMsgs((m) => [...m, { id: uid(), role: "finn", asked, error: String(d.message) }]);
+          }
         });
       } catch {
-        setMsgs((m) => [...m, { id: uid(), role: "finn", asked, error: "The live read stopped. Try again in a moment." }]);
-      } finally {
-        setBuilding(null);
+        /* the connection dropped (a phone locking, a proxy); the read carries on server-side */
       }
+      if (!ok && !failed) ok = await waitForBuild(sym, (message) => setBuilding({ symbol: sym, message }));
+      setBuilding(null);
       if (ok) send(asked, { symbol: sym, label: `Read ${sym}, then: ${asked}` });
+      else if (!failed)
+        setMsgs((m) => [...m, { id: uid(), role: "finn", asked, error: `Still reading ${sym}. Ask again in a minute and FINN will pick it up where it is.` }]);
     },
     [send],
   );
