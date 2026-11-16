@@ -78,13 +78,16 @@ export default function Today() {
   }, [data]);
 
   const slow = useSlow(isLoading || !data);
+  // the clock is the phone's, so these are set after hydration (a prerender can't know them)
+  const [hello, setHello] = useState({ greeting: "Today", date: "" });
+  useEffect(() => setHello({ greeting: greeting(), date: todayLabel() }), []);
 
   return (
     <main>
       <div className="flex items-center gap-1.5 px-4 pt-[calc(10px+env(safe-area-inset-top))]">
         <p className="min-w-0 flex-1 truncate text-[12px] text-ink-2">
-          {todayLabel()}
-          {data && <> · filings to {day(data.freshness?.filings_as_of ?? data.window.end)}</>}
+          {hello.date}
+          {data && <>{hello.date ? " · " : ""}filings to {day(data.freshness?.filings_as_of ?? data.window.end)}</>}
         </p>
         <button onClick={() => window.dispatchEvent(new Event("finn:tour"))} aria-label="Tour" title="Tour" className={ICON_BTN}>
           <Compass size={17} />
@@ -98,7 +101,7 @@ export default function Today() {
         </button>
       </div>
       <header className="px-4 pt-3" data-tour="lead">
-        <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.02em]">{greeting()}</h1>
+        <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.02em]">{hello.greeting}</h1>
         {data && !isLoading ? (
           <p className="mt-2 text-[18px] leading-[1.45] tracking-[-0.01em] text-ink">{data.lead}</p>
         ) : (
