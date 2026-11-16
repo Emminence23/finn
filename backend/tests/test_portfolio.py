@@ -63,7 +63,9 @@ def test_holdings_are_per_account_and_today_follows(seeded):
             == 200
         )
         h = c.delete("/portfolio/holdings/KAYNES", headers=DEMO).json()["holdings"]
-        assert "KAYNES" not in h and h["PERSISTENT"] == pytest.approx(0.03 / (1 - 0.04 * 0.97), rel=1e-6)
+        assert "KAYNES" not in h and h["PERSISTENT"] == pytest.approx(
+            0.03 / (1 - 0.04 * 0.97), rel=1e-6
+        )
         assert sum(h.values()) == pytest.approx(1)
         assert "KAYNES" in c.get("/portfolio/holdings", headers=OTHER).json()["holdings"]
         assert (
@@ -121,6 +123,9 @@ def test_review_runs_only_when_asked_and_once(seeded, monkeypatch):
 
     monkeypatch.setattr("app.llm.get_llm", lambda: FakeLLM())
     with _client() as c:
+        # the demo portfolio's review ships as a fixture; a changed portfolio has none yet
+        assert c.get("/portfolio/suggested", headers=DEMO).json()["review"]["status"] == "done"
+        c.delete("/portfolio/holdings/TRENT", headers=DEMO)
         assert c.get("/portfolio/suggested", headers=DEMO).json()["review"]["status"] == "not_run"
         assert not calls
         r = c.post("/portfolio/suggested/review", headers=DEMO).json()
