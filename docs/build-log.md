@@ -213,3 +213,9 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - competitor links are stored as company names, so the first peer list for Kaynes was empty. Names are now resolved to tickers, with the same sector as a fallback;
   - the app's short-name rule turned "Dixon Technologies (India) Limited" into "Dixon ()". Fixed in both the frontend and the backend copies.
 - **Checked at 390px**, light and dark: Kaynes vs Dixon (Dixon better on 8 of 10; Kaynes on margin and gearing) and HDFC Bank vs ICICI Bank (lender rows only).
+
+## Phase 4p: meeting prep from a date (FR-NET-13)
+- **Calendar-aware prep without calendar access.** The investor notes a meeting on a person's page. From two days before, Today leads with a prep card: what changed at the companies that person knows, and what to ask. A real calendar integration would only change where the date comes from.
+- **Assembled in code** from the 30-day digest and the meeting questions, so nothing about who you're meeting goes to an LLM. Meetings are owner-scoped and deleted with the contact or a reset.
+- **First version was too narrow:** for ex-Kaynes Karthik all three "what changed" lines were Kaynes filings, one of them boilerplate ("Approved un-audited ... results"). Now there are at most two per company, ordered with the companies they worked at first, and results say what the numbers did ("Profit down 66% year on year even as revenue grew 4%").
+- **Tooling note:** `pkill -f "uvicorn app.main"` matched the shell running it and killed the command. Restarts go through the restart script.

@@ -8,6 +8,7 @@ import { useSWRConfig } from "swr";
 import { type PersonProfile, api, useApi } from "@/lib/api";
 import { day } from "@/lib/fmt";
 import { InsiderNote, PathView, firstName } from "@/components/network";
+import { PlanMeeting } from "@/components/meetings";
 import { Avatar, ErrorNote, Panel, Pill, SectionTitle, Skeleton } from "@/components/ui";
 
 export default function PersonPage() {
@@ -121,6 +122,7 @@ function Profile({ p }: { p: PersonProfile }) {
         </>
       )}
 
+      <PlanMeeting personId={p.id} first={first} />
       <MeetingQuestions id={p.id} first={first} />
 
       <SectionTitle>Career</SectionTitle>

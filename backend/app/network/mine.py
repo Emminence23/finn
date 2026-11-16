@@ -38,7 +38,7 @@ def _purge_expired(db) -> None:
 
 
 def _wipe(db, owner: str) -> None:
-    for table in ("relationships", "identity_answers", "notes", "alert_rules"):
+    for table in ("relationships", "identity_answers", "notes", "meetings", "alert_rules"):
         db.execute(f"DELETE FROM {table} WHERE owner_id=?", (owner,))
     db.execute("DELETE FROM people WHERE owner_id=?", (owner,))
 

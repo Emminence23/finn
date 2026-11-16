@@ -624,6 +624,7 @@ def delete_contact(person_id: str, owner: str | None = None) -> bool:
             "DELETE FROM identity_answers WHERE owner_id=? AND contact_id=?", (owner, person_id)
         )
         db.execute("DELETE FROM notes WHERE owner_id=? AND contact_id=?", (owner, person_id))
+        db.execute("DELETE FROM meetings WHERE owner_id=? AND person_id=?", (owner, person_id))
         db.execute("DELETE FROM people WHERE id=? AND owner_id=?", (person_id, owner))
     return True
 
@@ -642,5 +643,6 @@ def reset_network(owner: str | None = None) -> int:
         db.execute("DELETE FROM relationships WHERE owner_id=?", (owner,))
         db.execute("DELETE FROM identity_answers WHERE owner_id=?", (owner,))
         db.execute("DELETE FROM notes WHERE owner_id=?", (owner,))
+        db.execute("DELETE FROM meetings WHERE owner_id=?", (owner,))
         db.execute("DELETE FROM people WHERE owner_id=?", (owner,))
         return seed_owner_network(db, owner)

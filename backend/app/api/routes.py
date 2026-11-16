@@ -153,6 +153,42 @@ def people_nudges(window: str = "30d") -> dict:
     }
 
 
+@router.get("/people/meetings")
+def meetings_list() -> dict:
+    from app.network import meetings
+
+    return {"today": meetings.today().isoformat(), "meetings": meetings.list_meetings()}
+
+
+@router.get("/people/meetings/prep")
+def meetings_prep() -> dict:
+    """Prep cards for meetings in the next two days, for the top of Today."""
+    from app.network import meetings
+
+    return {"prep": meetings.prep()}
+
+
+@router.post("/people/meetings")
+def meetings_add(body: dict) -> dict:
+    from app.network import meetings
+
+    try:
+        return meetings.add_meeting(body.get("person", ""), body.get("day", ""), body.get("note"))
+    except KeyError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+
+
+@router.delete("/people/meetings/{meeting_id}")
+def meetings_delete(meeting_id: int) -> dict:
+    from app.network import meetings
+
+    if not meetings.delete_meeting(meeting_id):
+        raise HTTPException(404, "no such meeting")
+    return {"deleted": meeting_id}
+
+
 @router.get("/people/account")
 def people_account() -> dict:
     """The current demo account and the others, for the account switch (N-7)."""

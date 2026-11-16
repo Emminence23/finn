@@ -18,6 +18,7 @@ A mobile-first investor companion with three layers:
 4. **Ask FINN** on the same page: "Why did receivables go up?" The answer cites call pages, and uncited points are removed by code.
 5. **Ask → any other ticker** (e.g. TATAELXSI). FINN reads its annual report and last four calls live, with progress, in under a minute.
 6. **People.** The expertise map by theme, reconnect nudges, and profiles with "ask them about", "can introduce you to" and "Before you meet", which lists questions built from FINN's research, each showing its source. Open the Pidilite CFO: one of your contacts is also called Amit Agarwal, and FINN shows a "possible match" to confirm or dismiss instead of assuming it's him.
+   On any profile, **Meeting soon?** takes a date: from two days before, Today opens with a prep card (what changed at the companies they know, and what to ask).
 7. **People → Yours.** Try it on your own network: type where you worked and studied, upload the `Connections.csv` LinkedIn lets you export, and every path, "who can help" and meeting question rebuilds around you. It's private to your browser, keeps no e-mails or profile links, and is deleted after 7 days. Switch to "Second investor" and every list changes, because each account sees only its own contacts. "Remove from my network" on a profile takes every link through that person with it, and "Restore the demo network" undoes it.
 
 Anything an AI wrote carries an "AI · read from … · model" label. Numbers computed in code don't.
@@ -75,7 +76,7 @@ docs/       Requirements, architecture, build log, deploy guide
 
 ## Where I'd take it next
 - **A better voice brief:** a natural voice instead of the phone's built-in one, delivered as a podcast-style feed the evening before.
-- **Calendar-aware prep:** the evening before a meeting on your calendar, a note with what changed at their company and the "Before you meet" questions.
+- **Calendar-aware prep:** read meetings from the investor's calendar (with consent) instead of asking them to note each one, and send the prep card the evening before.
 - **Intraday triggers** for price and volume, plus filings polled through market hours.
 - **Watchlist-wide scorecards:** rank every holding by how reliably its management delivers.
 - **Richer network import:** past positions and schools from LinkedIn's full export (the connections file has only current roles), and contacts from a phone's address book with explicit consent.

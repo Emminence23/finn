@@ -105,6 +105,14 @@ CREATE TABLE IF NOT EXISTS relationships (
     strength REAL,
     last_contact TEXT
 );
+-- Meetings the investor plans (prep shows on Today from two days before). Owner-scoped.
+CREATE TABLE IF NOT EXISTS meetings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id TEXT NOT NULL,
+    person_id TEXT NOT NULL,
+    day TEXT NOT NULL,
+    note TEXT
+);
 -- "Bring your own network" sandboxes: one per browser, deleted after SANDBOX_DAYS
 CREATE TABLE IF NOT EXISTS sandboxes (
     owner_id TEXT PRIMARY KEY,

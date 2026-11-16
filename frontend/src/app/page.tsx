@@ -9,6 +9,7 @@ import { CATEGORY_LABEL, ago, day, pct } from "@/lib/fmt";
 import { FeedCard } from "@/components/cards";
 import { useReadState } from "@/lib/seen";
 import { ListenBrief } from "@/components/ListenBrief";
+import { MeetingPrep } from "@/components/meetings";
 import { AlertSettings } from "@/components/AlertSettings";
 import { firstName } from "@/components/network";
 import { Avatar, ErrorNote, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
@@ -99,6 +100,7 @@ export default function Today() {
         <FeedSkeleton />
       ) : (
         <>
+          <MeetingPrep />
           <Moves alerts={data.alerts} now={now} />
           <SectionTitle aside={`from ${data.counts.filings} filings`}>What matters</SectionTitle>
           {data.cards.length === 0 ? (
