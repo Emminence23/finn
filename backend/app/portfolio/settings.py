@@ -22,6 +22,8 @@ DEFAULTS: dict[str, float | int | None] = {
     "risk_days": 126,  # sessions of daily returns for risk (about six months)
     "ai_nudge_pct": 2.0,  # most the AI review may move one holding
     "ai_max_adjust": 5,  # most holdings the AI review may move
+    "lot_pct": 0.5,  # the − / + buttons in Edit move a holding by shares worth about this
+    "new_holding_pct": 3.0,  # a company added in Edit comes in at about this
 }
 # what each value may be: (low, high), inclusive; None limits may also be switched off
 RANGE = {
@@ -33,6 +35,8 @@ RANGE = {
     "risk_days": (20, 250),
     "ai_nudge_pct": (0.0, 20.0),
     "ai_max_adjust": (0, 20),
+    "lot_pct": (0.01, 25.0),
+    "new_holding_pct": (0.01, 50.0),
 }
 NULLABLE = {"min_pct", "max_pct", "theme_cap_pct", "max_step_pct"}
 

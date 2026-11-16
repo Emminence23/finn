@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 import { AlertTriangle, Calculator, ChevronDown, Minus, Pencil, Plus, SlidersHorizontal, Sparkles, X } from "lucide-react";
 import { NumberSlider } from "@/components/NumberSlider";
@@ -102,6 +102,8 @@ type Settings = {
   risk_days: number;
   ai_nudge_pct: number;
   ai_max_adjust: number;
+  lot_pct: number;
+  new_holding_pct: number;
 };
 const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 const one = (v: number | null | undefined, unit = "%") => (v == null ? "—" : `${v.toFixed(1)}${unit}`);
@@ -653,16 +655,32 @@ type HoldingsData = {
   candidates: { symbol: string; name: string; price: number }[];
 };
 
-/** A sensible lot for the − / + buttons: shares worth about 0.5% of the portfolio, rounded
- *  to 1, 2, 5, 10, 25, 50… so a tap is a meaningful but small change. */
-function lotSize(px: number, total: number): number {
-  const raw = Math.max(1, (0.005 * total) / px);
-  const steps = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1000];
+/** The lot for the − / + buttons: shares worth about `pct` of the portfolio (your setting),
+ *  rounded to 1, 2, 5, 10, 25, 50… so a tap is a round number of shares. */
+function lotSize(px: number, total: number, pct: number): number {
+  const raw = Math.max(1, ((pct / 100) * total) / px);
+  const steps = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
   return steps.reduce((best, s) => (Math.abs(Math.log(s / raw)) < Math.abs(Math.log(best / raw)) ? s : best), 1);
 }
 
 function EditSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => void; onSaved: () => void }) {
   const { data, mutate } = useApi<HoldingsData>(open ? "/portfolio/holdings" : null);
+  const { data: sd, mutate: mutateSettings } = useApi<{ settings: Settings }>(open ? "/portfolio/settings" : null);
+  const lotPct = sd?.settings.lot_pct ?? 0.5;
+  const newPct = sd?.settings.new_holding_pct ?? 3;
+  const saveSize = (k: "lot_pct" | "new_holding_pct", v: number) => {
+    if (!sd) return;
+    mutateSettings({ settings: { ...sd.settings, [k]: v } }, false);
+    pending.current = { ...pending.current, [k]: v }; // both sizes go in one save
+    clearTimeout(sizeTimer.current);
+    sizeTimer.current = setTimeout(() => {
+      const body = pending.current;
+      pending.current = {};
+      api("/portfolio/settings", { method: "PUT", body: JSON.stringify(body) }).catch(() => mutateSettings());
+    }, 400);
+  };
+  const sizeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const pending = useRef<Record<string, number>>({});
   const [draft, setDraft] = useState<Record<string, number> | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -678,7 +696,7 @@ function EditSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => v
   const changed = !!draft && JSON.stringify(draft) !== JSON.stringify(saved);
   const bought = qty && saved ? Object.entries(qty).reduce((a, [s, q]) => a + Math.max(0, q - (saved[s] ?? 0)) * px[s], 0) : 0;
   const sold = qty && saved ? Object.entries(saved).reduce((a, [s, q]) => a + Math.max(0, q - (qty[s] ?? 0)) * px[s], 0) : 0;
-  const lots = data ? Object.fromEntries(Object.keys(px).map((s) => [s, lotSize(px[s], data.value)])) : {};
+  const lots = data ? Object.fromEntries(Object.keys(px).map((s) => [s, lotSize(px[s], data.value, lotPct)])) : {};
   const set = (s: string, q: number) => qty && setDraft({ ...qty, [s]: Math.max(0, Math.round(q)) });
   const close = () => {
     setDraft(null);
@@ -764,7 +782,16 @@ function EditSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => v
               );
             })}
           </ul>
-          <p className="mt-1 text-[11px] text-ink-3">− and + move each holding by a lot worth about 0.5% of the portfolio.</p>
+          <div className="mt-3 space-y-2.5 rounded-xl border border-line p-3">
+            <div>
+              <p className="mb-1 text-[12px] text-ink-2">− and + move a holding by shares worth about</p>
+              <NumberSlider label="Lot size, percent of portfolio" value={lotPct} min={0.1} max={5} hardMax={25} step={0.1} unit="%" onChange={(v) => saveSize("lot_pct", v)} />
+            </div>
+            <div>
+              <p className="mb-1 text-[12px] text-ink-2">A company you add comes in at about</p>
+              <NumberSlider label="New holding size, percent of portfolio" value={newPct} min={0.5} max={10} hardMax={50} step={0.1} unit="%" onChange={(v) => saveSize("new_holding_pct", v)} />
+            </div>
+          </div>
           <div className="tnum mt-2 flex items-baseline justify-between rounded-xl bg-surface-2 px-3 py-2 text-[12px]">
             <span className="text-ink-2">
               {changed ? (
@@ -788,9 +815,9 @@ function EditSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => v
                 {addable.map((c) => (
                   <button
                     key={c.symbol}
-                    onClick={() => set(c.symbol, Math.max(1, Math.round((0.03 * data.value) / c.price)))}
+                    onClick={() => set(c.symbol, Math.max(1, Math.round((((newPct / 100) / (1 - newPct / 100)) * total) / c.price)))}
                     className="flex items-center gap-1 rounded-full border border-line px-2.5 py-1 text-[12px] text-ink-2"
-                    title={`${c.name}: adds about 3% of the portfolio`}
+                    title={`${c.name}: adds about ${newPct}% of the portfolio`}
                   >
                     <Plus size={12} /> {c.symbol}
                   </button>

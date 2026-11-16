@@ -17,7 +17,6 @@ from app.network.owner import current_owner
 
 DEMO_OWNER = "__demo__"
 MIN_WEIGHT = 0.005
-NEW_WEIGHT = 0.03  # "add" buys a position worth about 3% of the portfolio
 
 
 def latest_prices(symbols: list[str] | None = None) -> dict[str, float]:
@@ -158,8 +157,13 @@ def set_holdings(weights: dict[str, float]) -> dict[str, float]:
     return set_positions({s: max(1, round(v / total_w * value / px[s])) for s, v in w.items()})
 
 
-def add_holding(symbol: str, weight: float = NEW_WEIGHT) -> dict[str, float]:
-    """Buy a new position worth `weight` of the portfolio's current value."""
+def add_holding(symbol: str, weight: float | None = None) -> dict[str, float]:
+    """Buy a new position that is `weight` of the portfolio after buying it (by default the
+    account's new-holding size setting)."""
+    if weight is None:
+        from app.portfolio.settings import get_settings
+
+        weight = float(get_settings()["new_holding_pct"]) / 100
     symbol = symbol.upper()
     raw = _raw()
     if symbol in raw:
@@ -170,7 +174,7 @@ def add_holding(symbol: str, weight: float = NEW_WEIGHT) -> dict[str, float]:
     if symbol not in px:
         raise KeyError(f"no data for {symbol}")
     value = get_positions()["value"]
-    q = max(1, round(weight * value / px[symbol]))
+    q = max(1, round(weight / (1 - weight) * value / px[symbol]))  # `weight` of the new total
     return set_positions({**{s: v[0] for s, v in raw.items()}, symbol: q})
 
 

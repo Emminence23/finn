@@ -213,3 +213,12 @@ def test_ai_limits_follow_settings(seeded):
     assert "between -0.5 and +0.5" in review.system_prompt(0.5, 1)
     settings.set_settings({"ai_max_adjust": 0})
     assert review.get_review(run=True)["status"] == "off"  # never calls the model
+
+
+def test_new_holding_and_lot_sizes_are_settings(seeded):
+    with _client() as c:
+        assert c.get("/portfolio/settings", headers=DEMO).json()["settings"]["lot_pct"] == 0.5
+        c.put("/portfolio/settings", json={"new_holding_pct": 6.5, "lot_pct": 1.25}, headers=DEMO)
+        h = c.post("/portfolio/holdings", json={"symbol": "PERSISTENT"}, headers=DEMO).json()
+        assert h["holdings"]["PERSISTENT"] == pytest.approx(0.065, abs=0.002)
+        assert c.put("/portfolio/settings", json={"lot_pct": 0}, headers=DEMO).status_code == 400
