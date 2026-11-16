@@ -15,7 +15,7 @@ A mobile-first investor companion with three layers:
 3. **Ask → Kaynes.** The promise scorecard: FY26 revenue ₹3,626 Cr against ₹4,000 Cr+ guided, working capital 133 days against ≤85, each with the verbatim quote, call and page beside the reported number.
 4. **Ask FINN** on the same page: "Why did receivables go up?" The answer cites call pages, and uncited points are removed by code.
 5. **Ask → any other ticker** (e.g. TATAELXSI). FINN reads its annual report and last four calls live, with progress, in under a minute.
-6. **People.** The expertise map by theme, reconnect nudges, and profiles with "ask them about" and "can introduce you to".
+6. **People.** The expertise map by theme, reconnect nudges, and profiles with "ask them about" and "can introduce you to". Switch to "Second investor" and every list changes, because each account sees only its own contacts. "Remove from my network" on a profile takes every link through that person with it, and "Restore the demo network" undoes it.
 
 Anything an AI wrote carries an "AI · read from … · model" label. Numbers computed in code don't.
 

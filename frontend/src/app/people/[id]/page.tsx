@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { type PersonProfile, useApi } from "@/lib/api";
+import { useState } from "react";
+import { useSWRConfig } from "swr";
+import { type PersonProfile, api, useApi } from "@/lib/api";
 import { day } from "@/lib/fmt";
 import { PathView, firstName } from "@/components/network";
 import { Avatar, ErrorNote, Panel, Pill, SectionTitle, Skeleton } from "@/components/ui";
@@ -168,11 +170,41 @@ function Profile({ p }: { p: PersonProfile }) {
           ))}
         </div>
       )}
-      <p className="px-6 pb-8 pt-6 text-center text-[11px] leading-snug text-ink-3">
+      {p.is_contact && <RemoveContact id={p.id} name={first} />}
+      <p className="px-6 pb-8 pt-3 text-center text-[11px] leading-snug text-ink-3">
         {p.is_contact
           ? "Private to you. Built from what you told FINN."
           : "Built only from the brief profile in the company's filing. Deleted 90 days after the event."}
       </p>
+    </div>
+  );
+}
+
+/** N-7: the investor can remove anyone. Their paths, overlaps, "who can help" and nudges go
+ *  with them, because all of those are computed from the stored contact on every read. */
+function RemoveContact({ id, name }: { id: string; name: string }) {
+  const router = useRouter();
+  const { mutate } = useSWRConfig();
+  const [busy, setBusy] = useState(false);
+  return (
+    <div className="px-4 pt-6 text-center">
+      <button
+        disabled={busy}
+        onClick={async () => {
+          if (!window.confirm(`Remove ${name} from your network? Every link through them goes too.`)) return;
+          setBusy(true);
+          try {
+            await api(`/people/${id}`, { method: "DELETE" });
+            await mutate(() => true, undefined, { revalidate: true });
+            router.push("/people");
+          } catch {
+            setBusy(false);
+          }
+        }}
+        className="rounded-full border border-line px-4 py-2 text-[13px] text-bad disabled:opacity-50"
+      >
+        {busy ? "Removing…" : "Remove from my network"}
+      </button>
     </div>
   );
 }

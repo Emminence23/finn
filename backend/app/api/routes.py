@@ -121,6 +121,35 @@ def people_nudges(window: str = "30d") -> dict:
     }
 
 
+@router.get("/people/account")
+def people_account() -> dict:
+    """The current demo account and the others, for the account switch (N-7)."""
+    from app.network.owner import ACCOUNTS, current_owner
+
+    people = graph.load_people()
+    me = graph.investor(people)
+    return {
+        "account": current_owner(),
+        "investor": me.name,
+        "contacts": sum(p.is_contact for p in people.values()),
+        "accounts": list(ACCOUNTS),
+    }
+
+
+@router.post("/people/reset")
+def people_reset() -> dict:
+    """Restore this account's demo network (undo deletions)."""
+    return {"contacts": graph.reset_network()}
+
+
+@router.delete("/people/{person_id}")
+def person_delete(person_id: str) -> dict:
+    """N-7: remove a contact and every link derived from it, for this account only."""
+    if not graph.delete_contact(person_id):
+        raise HTTPException(404, "no such contact in your network")
+    return {"deleted": person_id}
+
+
 @router.get("/people/{person_id}")
 def person(person_id: str) -> dict:
     p = graph.person_profile(person_id)
@@ -143,7 +172,7 @@ def list_people(contacts_only: bool = True) -> list[dict]:
     out = [
         graph._contact_summary(p) | {"themes": p.themes}
         for p in people.values()
-        if p.id != graph.ME and (p.is_contact or not contacts_only)
+        if p is not graph.investor(people) and (p.is_contact or not contacts_only)
     ]
     return sorted(out, key=lambda x: -(x.get("strength") or 0))
 

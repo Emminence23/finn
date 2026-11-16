@@ -17,3 +17,18 @@ def isolated_env(tmp_path, monkeypatch):
     init_db()
     yield
     config.get_settings.cache_clear()
+
+
+@pytest.fixture
+def seeded(tmp_path, monkeypatch):
+    """A database seeded from the real committed fixtures (read-only symlink)."""
+    from pathlib import Path
+
+    data = tmp_path / "seeded"
+    data.mkdir()
+    (data / "fixtures").symlink_to(Path(__file__).parents[1] / "data" / "fixtures")
+    monkeypatch.setenv("FINN_DATA_DIR", str(data))
+    config.get_settings.cache_clear()
+    from app.ingest import seed
+
+    seed.main()

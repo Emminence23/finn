@@ -1,0 +1,51 @@
+{
+ "_note": "SYNTHETIC second investor for the isolation demo (N-7). A different person with a smaller, separate network: none of these contacts appear in network.json, and none of network.json's contacts are visible to this account.",
+ "investor": {
+  "id": "me@demo2",
+  "name": "Second investor",
+  "headline": "Analyst, financials and consumer",
+  "roles": [
+   {"company": "HDFC Bank Limited", "symbol": "HDFCBANK", "title": "Credit Analyst", "start_year": 2011, "end_year": 2015},
+   {"company": "Long-short fund", "title": "Analyst, Financials", "start_year": 2015, "end_year": null}
+  ],
+  "education": [{"school": "IIM Bangalore", "program": "PGP", "start_year": 2009, "end_year": 2011}]
+ },
+ "contacts": [
+  {
+   "id": "d2_ananya_rao",
+   "name": "Ananya Rao",
+   "headline": "Product lead, retail lending",
+   "roles": [
+    {"company": "HDFC Bank Limited", "symbol": "HDFCBANK", "title": "Senior Manager, Retail Assets", "start_year": 2012, "end_year": 2019},
+    {"company": "Fintech lender", "title": "Product Lead, Retail Lending", "start_year": 2019, "end_year": null}
+   ],
+   "education": [{"school": "IIM Bangalore", "program": "PGP", "start_year": 2009, "end_year": 2011}],
+   "themes": ["retail lending", "private banking"],
+   "relationship": {"type": "former colleague", "strength": 0.75, "last_contact": "2026-10-02", "context": "Sat two rows apart at HDFC Bank credit; frank on unsecured loan growth"}
+  },
+  {
+   "id": "d2_vikram_shetty",
+   "name": "Vikram Shetty",
+   "headline": "Category head, consumer retail",
+   "roles": [
+    {"company": "Trent Limited", "symbol": "TRENT", "title": "Category Manager, Westside", "start_year": 2014, "end_year": 2020},
+    {"company": "Apparel retailer", "title": "Category Head", "start_year": 2020, "end_year": null}
+   ],
+   "education": [{"school": "NIFT Mumbai", "program": "M.FTech", "start_year": 2011, "end_year": 2013}],
+   "themes": ["apparel retail", "consumer"],
+   "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-03-14", "context": "Met at a retail conference; knows store economics well"}
+  },
+  {
+   "id": "d2_farah_khan",
+   "name": "Farah Khan",
+   "headline": "Gold loan operations",
+   "roles": [
+    {"company": "Manappuram Finance Limited", "symbol": "MANAPPURAM", "title": "Regional Manager, Gold Loans", "start_year": 2016, "end_year": 2023},
+    {"company": "Small finance bank", "title": "Head, Secured Retail", "start_year": 2023, "end_year": null}
+   ],
+   "education": [{"school": "Christ University", "program": "MBA", "start_year": 2013, "end_year": 2015}],
+   "themes": ["gold loans", "rural lending"],
+   "relationship": {"type": "friend", "strength": 0.65, "last_contact": "2026-07-21", "context": "College friend's sister; the best read I have on gold loan branches"}
+  }
+ ]
+}

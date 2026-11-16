@@ -124,3 +124,14 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - FINN's read (outcome and note, the credibility paragraph, business, bull/bear and Ask FINN answers) sits on an accent rule, labelled "FINN's read" where it shares space with a quote.
   - A three-item legend under the company header says so once.
 - **Outcome lines now link to the figures they rest on.** The verdict's evidence ids (`FY:2026-03`, `Q:2026-06`) render as "FY26 reported" chips that jump to the numbers section. A fixture test checks that every judged row cites only ids that exist.
+
+## Phase 4f: deleting a contact, and a second account (plan v2, item 3)
+- **Why:** the privacy rule "network data is the investor's own" was only claimed. There was one network and no way to remove anyone from it.
+- **Owner on every row.**
+  - The `owner_id` column already existed but everything read `demo`.
+  - A request now names its account in `X-Finn-User`, checked against a fixed list and held in a context variable that every network query reads.
+  - People named in public filings are stored once under `public`, because they are public facts. Contacts and relationships never are.
+- **Bug avoided:** a sync FastAPI dependency runs in its own worker thread, so a context variable it sets is lost before the route runs. The dependency is async so the value lands in the request's context, which FastAPI then copies into the route's thread. The isolation tests would have failed without this.
+- **Deletion is simple because nothing derived is stored.** Paths, overlaps, who-can-help, nudges and "knows" links are all computed on read. Deleting the person (roles and schools cascade) and every relationship row naming them removes them everywhere. The test checks each surface rather than trusting that argument.
+- **Second demo account:** a different investor with three contacts (HDFC Bank, Trent, Manappuram). People has a two-way switch, plus "Restore the demo network" to undo removals.
+- **Not done:** real sign-in and row-level security. The header is a demo switch and the docs say so.

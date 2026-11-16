@@ -9,12 +9,12 @@ import pandas as pd
 
 from app.db import session
 from app.ingest.prices import with_signals
+from app.network.owner import current_owner
 
-OWNER = "demo"
 
-
-def get_rules(owner: str = OWNER) -> dict:
+def get_rules(owner: str | None = None) -> dict:
     """Flattened view used by the UI: {volume_multiple, price_abs_pct, categories, enabled}."""
+    owner = owner or current_owner()
     with session() as db:
         rows = db.execute(
             "SELECT kind, params_json, enabled FROM alert_rules WHERE owner_id=?", (owner,)
@@ -37,7 +37,8 @@ def get_rules(owner: str = OWNER) -> dict:
     return out
 
 
-def set_rules(rules: dict, owner: str = OWNER) -> dict:
+def set_rules(rules: dict, owner: str | None = None) -> dict:
+    owner = owner or current_owner()
     params = {
         "volume": {"multiple": float(rules["volume_multiple"])},
         "price": {"abs_pct": float(rules["price_abs_pct"])},

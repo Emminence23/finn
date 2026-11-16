@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import router
 from app.config import get_settings
 from app.db import init_db, session
+from app.network.owner import DEFAULT, set_owner
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
@@ -28,6 +29,16 @@ def require_passcode(x_finn_passcode: str | None = Header(default=None)) -> None
         raise HTTPException(status_code=401, detail="missing or wrong passcode")
 
 
+async def select_account(x_finn_user: str | None = Header(default=None)) -> None:
+    """N-7: which demo account's network this request sees. Async on purpose: the owner is
+    set in the request's own context, which FastAPI then copies into the worker thread that
+    runs a sync route."""
+    try:
+        set_owner(x_finn_user or DEFAULT)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+
 app = FastAPI(title="FINN API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
@@ -37,7 +48,7 @@ app.add_middleware(
 )
 
 
-app.include_router(router, dependencies=[Depends(require_passcode)])
+app.include_router(router, dependencies=[Depends(require_passcode), Depends(select_account)])
 
 
 @app.get("/health")

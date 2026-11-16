@@ -2,12 +2,60 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import { Search } from "lucide-react";
-import { type Contact, type Nudge, useApi } from "@/lib/api";
+import { useSWRConfig } from "swr";
+import { type Account, type Contact, type Nudge, api, getAccount, setAccount, useApi } from "@/lib/api";
 import { firstName } from "@/components/network";
-import { Avatar, Header, Panel, SectionTitle, Skeleton } from "@/components/ui";
+import { Avatar, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
+
+const ACCOUNTS = [
+  { value: "demo", label: "Your network" },
+  { value: "demo2", label: "Second investor" },
+];
+
+/** N-7, shown not claimed: switch to a second demo investor and every list, path and
+ *  "who can help" changes, because each account only ever sees its own contacts. */
+function AccountSwitch() {
+  const { mutate } = useSWRConfig();
+  const [acct, setAcct] = useState("demo");
+  useEffect(() => setAcct(getAccount()), []); // after hydration: storage is client-only
+  const { data } = useApi<Account>("/people/account");
+  const choose = (v: string) => {
+    setAccount(v);
+    setAcct(v);
+    mutate(() => true, undefined, { revalidate: true }); // drop every cached view
+  };
+  return (
+    <div className="px-4">
+      <Segmented label="Demo account" value={acct} options={ACCOUNTS} onChange={choose} />
+      <p className="mt-1.5 text-[11px] leading-snug text-ink-3">
+        {data && data.account === acct ? `${data.contacts} contacts. ` : ""}
+        Each account sees only its own contacts. People named in public filings are shared.
+      </p>
+    </div>
+  );
+}
+
+function ResetNetwork() {
+  const { mutate } = useSWRConfig();
+  const [busy, setBusy] = useState(false);
+  return (
+    <button
+      disabled={busy}
+      onClick={async () => {
+        setBusy(true);
+        await api("/people/reset", { method: "POST" }).catch(() => null);
+        await mutate(() => true, undefined, { revalidate: true });
+        setBusy(false);
+      }}
+      className="mx-auto mt-1 block text-[12px] font-medium text-accent disabled:opacity-50"
+    >
+      {busy ? "Restoring…" : "Restore the demo network"}
+    </button>
+  );
+}
 
 type Expertise = { theme: string; contacts: { contact: Contact; themes: string[]; score: number }[] };
 
@@ -45,6 +93,7 @@ function People() {
   return (
     <main>
       <Header title="People" sub={people ? `${contacts.length} people you know, and what they know` : "Your network"} />
+      <AccountSwitch />
 
       <SectionTitle>Who knows what</SectionTitle>
       <div className="no-scrollbar flex flex-wrap gap-1.5 px-3">
@@ -114,9 +163,12 @@ function People() {
           shown.map((c) => <ContactRow key={c.id} c={c} />)
         )}
       </Panel>
-      <p className="px-6 pb-8 pt-4 text-center text-[11px] leading-snug text-ink-3">
+      <p className="px-6 pb-2 pt-4 text-center text-[11px] leading-snug text-ink-3">
         Your network stays private to you. It is never sent to an AI model.
       </p>
+      <div className="pb-8">
+        <ResetNetwork />
+      </div>
     </main>
   );
 }

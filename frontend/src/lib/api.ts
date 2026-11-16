@@ -3,6 +3,24 @@ import useSWR, { type SWRConfiguration } from "swr";
 
 export const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 const PASSCODE_KEY = "finn.passcode";
+const ACCOUNT_KEY = "finn.account";
+
+/** N-7: which demo account's network the API returns. A demo switch, not sign-in. */
+export function getAccount(): string {
+  try {
+    return localStorage.getItem(ACCOUNT_KEY) ?? "demo";
+  } catch {
+    return "demo";
+  }
+}
+
+export function setAccount(value: string) {
+  try {
+    localStorage.setItem(ACCOUNT_KEY, value);
+  } catch {
+    /* lasts for this page only */
+  }
+}
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -32,6 +50,7 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
     headers: {
       "Content-Type": "application/json",
       "X-Finn-Passcode": getPasscode(),
+      "X-Finn-User": getAccount(),
       ...init.headers,
     },
   });
@@ -130,6 +149,8 @@ export type Nudge = {
   event: { id: string; symbol: string; ts: string; category: string; title: string };
   reason: string;
 };
+
+export type Account = { account: string; investor: string; contacts: number; accounts: string[] };
 
 export type PersonProfile = {
   id: string;

@@ -13,21 +13,7 @@ from pathlib import Path
 
 import pytest
 
-from app import config
-
 REPO_FIXTURES = Path(__file__).parents[1] / "data" / "fixtures"
-
-
-@pytest.fixture
-def seeded(tmp_path, monkeypatch):
-    data = tmp_path / "seeded"
-    data.mkdir()
-    (data / "fixtures").symlink_to(REPO_FIXTURES)
-    monkeypatch.setenv("FINN_DATA_DIR", str(data))
-    config.get_settings.cache_clear()
-    from app.ingest import seed
-
-    seed.main()
 
 
 def _where(digest: dict) -> dict[str, str]:

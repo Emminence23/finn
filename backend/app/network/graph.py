@@ -16,9 +16,9 @@ from app.clock import now
 from app.db import session
 from app.ingest.universe import load_universe
 from app.network.companies import company_aliases, company_links, normalise_company, resolve_symbol
+from app.network.owner import ACCOUNTS, PUBLIC, current_owner, investor_id
 
-OWNER = "demo"
-ME = "me"
+ME = "me"  # the default account's investor; other accounts use investor_id(owner)
 CURRENT_YEAR = date.today().year
 
 
@@ -80,7 +80,9 @@ class Overlap:
 
 
 # ------------------------------------------------------------------ loading
-def load_people(owner: str = OWNER) -> dict[str, Person]:
+def load_people(owner: str | None = None) -> dict[str, Person]:
+    """The owner's contacts and investor, plus people from public filings (N-7)."""
+    owner = owner or current_owner()
     with session() as db:
         people = {
             r["id"]: Person(
@@ -91,7 +93,7 @@ def load_people(owner: str = OWNER) -> dict[str, Person]:
                 json.loads(r["themes_json"] or "[]"),
                 r["bio"],
             )
-            for r in db.execute("SELECT * FROM people WHERE owner_id=?", (owner,))
+            for r in db.execute("SELECT * FROM people WHERE owner_id IN (?, ?)", (owner, PUBLIC))
         }
         for r in db.execute("SELECT * FROM roles"):
             if r["person_id"] in people:
@@ -117,15 +119,20 @@ def load_people(owner: str = OWNER) -> dict[str, Person]:
                 p.knows.append(
                     {"person": r["other_id"], "context": r["type"], "strength": r["strength"]}
                 )
-    _attach_contexts(people)
+    _attach_contexts(people, owner)
     return people
 
 
-def _attach_contexts(people: dict[str, Person]) -> None:
+def investor(people: dict[str, Person]) -> Person:
+    """The one investor loaded with this owner's network."""
+    return next(p for p in people.values() if p.id == ME or p.id.startswith("me@"))
+
+
+def _attach_contexts(people: dict[str, Person], owner: str) -> None:
     """Relationship 'context' notes live in the network fixture (not a DB column)."""
     from app.ingest.universe import fixtures_dir
 
-    path = fixtures_dir() / "network.json"
+    path = fixtures_dir() / ACCOUNTS[owner]
     if not path.exists():
         return
     for c in json.loads(path.read_text())["contacts"]:
@@ -229,7 +236,7 @@ def person_from_extraction(p: dict, symbol: str, key: str) -> Person:
 
 def paths_to_person(target: Person, people: dict[str, Person], limit: int = 5) -> dict:
     target_id = target.id
-    me = people[ME]
+    me = investor(people)
     direct = [o.__dict__ for o in overlaps(me, target)]
     if target.relationship:
         direct.insert(
@@ -458,7 +465,7 @@ def person_profile(person_id: str) -> dict | None:
         "roles": [r.__dict__ | {"span": r.span()} for r in p.roles],
         "education": [e.__dict__ for e in p.education],
         "relationship": p.relationship,
-        "overlaps_with_you": [o.__dict__ for o in overlaps(people[ME], p)],
+        "overlaps_with_you": [o.__dict__ for o in overlaps(investor(people), p)],
     }
     if not p.is_contact:
         out["paths"] = paths_to(person_id, people)
@@ -507,3 +514,35 @@ def _contact_summary(c: Person) -> dict:
         "last_contact": rel.get("last_contact"),
         "context": rel.get("context"),
     }
+
+
+# ------------------------------------------------------------------ owner's controls (N-7)
+def delete_contact(person_id: str, owner: str | None = None) -> bool:
+    """Remove a contact and everything derived from it, for this owner only. Paths, overlaps,
+    who-can-help and nudges are computed on read, so deleting the person, their roles and
+    schools (cascade) and every relationship row that names them removes them everywhere.
+    Public filing people and the investor cannot be deleted here."""
+    owner = owner or current_owner()
+    with session() as db:
+        row = db.execute(
+            "SELECT is_contact FROM people WHERE id=? AND owner_id=?", (person_id, owner)
+        ).fetchone()
+        if row is None or not row["is_contact"] or person_id == investor_id(owner):
+            return False
+        db.execute(
+            "DELETE FROM relationships WHERE owner_id=? AND (person_id=? OR other_id=?)",
+            (owner, person_id, person_id),
+        )
+        db.execute("DELETE FROM people WHERE id=? AND owner_id=?", (person_id, owner))
+    return True
+
+
+def reset_network(owner: str | None = None) -> int:
+    """Restore an account's demo network from its fixture (undo deletions on the demo)."""
+    from app.ingest.seed import seed_owner_network
+
+    owner = owner or current_owner()
+    with session() as db:
+        db.execute("DELETE FROM relationships WHERE owner_id=?", (owner,))
+        db.execute("DELETE FROM people WHERE owner_id=?", (owner,))
+        return seed_owner_network(db, owner)

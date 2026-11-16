@@ -132,6 +132,7 @@ Financial terms follow the companion reference (`ASSIGNMENT.md` §9–10). Proje
 | FR-NET-08 | **Person page:** career timeline, overlaps with the investor, paths | S | — |
 | FR-NET-09 | Diligence questions worth asking before meeting a person | C | — |
 | FR-NET-10 | Interactive network map visualisation | C | — |
+| FR-NET-11 | **Owner's control and isolation** (added in v2, N-7): every network row carries its owner; a request sees only its own contacts and relationships, plus people named in public filings (stored once, shared). The investor can remove a contact; their paths, overlaps, who-can-help entries, nudges and "knows" links go with them, because all of those are computed on read. A second demo account (`X-Finn-User: demo2`, switch on People) shows the split. This is a demo switch, not sign-in; production takes the owner from auth and enforces it with row-level security | M | `test_network_privacy.py` on the seeded fixtures: the second account sees none of the first's contacts, gets 404 on their profiles and paths, and is never offered them as helpers in its digest; deleting a contact removes it from paths, helpers, nudges and other profiles and leaves the other account untouched; reset restores the demo |
 
 ### 3.6 Application shell (`FR-APP`)
 
@@ -262,6 +263,7 @@ seed JSON─┤ network.py       → people, roles, education, relations    │
 | GET | `/companies?q=` | Autocomplete | FR-APP-02 |
 | GET | `/research/{symbol}` · GET `/research/{symbol}/stream` (SSE) | Pull | FR-PULL |
 | GET | `/people/help?symbol=` · `/people/{id}` · `/people/{id}/paths` · `/people/expertise?theme=` · `/people/nudges` | Network | FR-NET |
+| GET · POST · DELETE | `/people/account` · `/people/reset` · `/people/{id}` (header `X-Finn-User`) | Account switch, restore demo network, remove a contact | FR-NET-11 |
 | GET | `/admin/costs` | LLM usage summary | NFR-12 |
 
 ---

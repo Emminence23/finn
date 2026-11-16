@@ -16,6 +16,7 @@ import pandas as pd
 from app.db import init_db, session
 from app.ingest.universe import fixtures_dir, load_universe
 from app.network.companies import company_aliases, company_links, resolve_symbol
+from app.network.owner import ACCOUNTS, PUBLIC
 
 log = logging.getLogger("seed")
 
@@ -144,13 +145,20 @@ def seed_fundamentals(db) -> None:
 
 
 def _insert_person(
-    db, p: dict, *, is_contact: bool, bio: str | None = None, expires_at: str | None = None
+    db,
+    p: dict,
+    *,
+    owner: str,
+    is_contact: bool,
+    bio: str | None = None,
+    expires_at: str | None = None,
 ) -> None:
     db.execute(
-        "INSERT INTO people (id, name, headline, is_contact, themes_json, bio, expires_at) "
-        "VALUES (?,?,?,?,?,?,?)",
+        "INSERT INTO people (id, owner_id, name, headline, is_contact, themes_json, bio, "
+        "expires_at) VALUES (?,?,?,?,?,?,?,?)",
         (
             p["id"],
+            owner,
             p["name"],
             p.get("headline") or p.get("role"),
             int(is_contact),
@@ -178,22 +186,29 @@ def _insert_person(
         )
 
 
-def seed_network(db) -> None:
-    net = _load_json("network.json")
-    _insert_person(db, net["investor"], is_contact=False)
+def seed_owner_network(db, owner: str) -> int:
+    """One account's investor, contacts and relationships, all tagged with its owner (N-7)."""
+    net = _load_json(ACCOUNTS[owner])
+    _insert_person(db, net["investor"], owner=owner, is_contact=False)
     for c in net["contacts"]:
-        _insert_person(db, c, is_contact=True)
+        _insert_person(db, c, owner=owner, is_contact=True)
         rel = c["relationship"]
         db.execute(
-            "INSERT INTO relationships (person_id, other_id, type, strength, last_contact) "
-            "VALUES (?,?,?,?,?)",
-            (c["id"], None, rel["type"], rel["strength"], rel["last_contact"]),
+            "INSERT INTO relationships (owner_id, person_id, other_id, type, strength, "
+            "last_contact) VALUES (?,?,?,?,?,?)",
+            (owner, c["id"], None, rel["type"], rel["strength"], rel["last_contact"]),
         )
         for k in c.get("knows", []):
             db.execute(
-                "INSERT INTO relationships (person_id, other_id, type, strength) VALUES (?,?,?,?)",
-                (c["id"], k["person"], k["context"], k["strength"]),
+                "INSERT INTO relationships (owner_id, person_id, other_id, type, strength) "
+                "VALUES (?,?,?,?,?)",
+                (owner, c["id"], k["person"], k["context"], k["strength"]),
             )
+    return len(net["contacts"])
+
+
+def seed_network(db) -> None:
+    n = {owner: seed_owner_network(db, owner) for owner in ACCOUNTS}
     fps = _load_json("filing_people.json")["people"]
     for p in fps:
         # Retention policy (§6.4): filing-person bios expire 90 days after the event.
@@ -209,6 +224,7 @@ def seed_network(db) -> None:
         _insert_person(
             db,
             {**p, "roles": [current, *p["roles"]]},
+            owner=PUBLIC,  # public filing facts, visible to every account
             is_contact=False,
             bio=p["bio"],
             expires_at=expires,
@@ -217,7 +233,7 @@ def seed_network(db) -> None:
         for kind, others in links.items():
             for other in others:
                 db.execute("INSERT OR IGNORE INTO company_links VALUES (?,?,?)", (sym, other, kind))
-    log.info("network: %d contacts, %d filing people", len(net["contacts"]), len(fps))
+    log.info("network: contacts per account %s, %d public filing people", n, len(fps))
 
 
 def seed_alert_rules(db) -> None:
