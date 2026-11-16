@@ -11,20 +11,32 @@ from app.db import session
 from app.ingest.prices import with_signals
 from app.network.owner import current_owner
 
+# Every threshold is the investor's (FR-ALERT-04). These are only starting values.
+DEFAULTS = {
+    "volume_multiple": 2.0,  # alert when volume is at least this multiple of its average...
+    "volume_low_multiple": 0.5,  # ...or at most this multiple (an unusually quiet day)
+    "volume_mode": "high",  # high | low | either
+    "volume_window": 20,  # sessions in the average, excluding the day itself
+    "price_abs_pct": 5.0,
+    "price_direction": "either",  # up | down | either
+    "combine": "any",  # any: each condition alerts on its own (OR); all: only together (AND)
+    "min_materiality": 50,  # filings: materiality score 0-100
+    "categories": [],
+    "enabled": {"volume": True, "price": True, "category": True},
+}
+VOLUME_MODES = ("high", "low", "either")
+DIRECTIONS = ("up", "down", "either")
+COMBINES = ("any", "all")
+
 
 def get_rules(owner: str | None = None) -> dict:
-    """Flattened view used by the UI: {volume_multiple, price_abs_pct, categories, enabled}."""
+    """Flattened view used by the UI (see DEFAULTS for the keys)."""
     owner = owner or current_owner()
     with session() as db:
         rows = db.execute(
             "SELECT kind, params_json, enabled FROM alert_rules WHERE owner_id=?", (owner,)
         ).fetchall()
-    out = {
-        "volume_multiple": 2.0,
-        "price_abs_pct": 5.0,
-        "categories": [],
-        "enabled": {"volume": True, "price": True, "category": True},
-    }
+    out = json.loads(json.dumps(DEFAULTS))
     if not rows:  # an account that never changed its rules gets the defaults
         from app.ingest.seed import DEFAULT_ALERT_RULES
 
@@ -33,24 +45,52 @@ def get_rules(owner: str | None = None) -> dict:
         ]
     for r in rows:
         p = json.loads(r["params_json"])
-        out["enabled"][r["kind"]] = bool(r["enabled"])
+        if r["kind"] in out["enabled"]:
+            out["enabled"][r["kind"]] = bool(r["enabled"])
         if r["kind"] == "volume":
-            out["volume_multiple"] = p["multiple"]
+            out["volume_multiple"] = p.get("multiple", out["volume_multiple"])
+            out["volume_low_multiple"] = p.get("low_multiple", out["volume_low_multiple"])
+            out["volume_mode"] = p.get("mode", out["volume_mode"])
+            out["volume_window"] = p.get("window", out["volume_window"])
         elif r["kind"] == "price":
-            out["price_abs_pct"] = p["abs_pct"]
+            out["price_abs_pct"] = p.get("abs_pct", out["price_abs_pct"])
+            out["price_direction"] = p.get("direction", out["price_direction"])
         elif r["kind"] == "category":
-            out["categories"] = p["categories"]
+            out["categories"] = p.get("categories", [])
+            out["min_materiality"] = p.get("min_materiality", out["min_materiality"])
+        elif r["kind"] == "combine":
+            out["combine"] = p.get("combine", out["combine"])
     return out
 
 
 def set_rules(rules: dict, owner: str | None = None) -> dict:
+    """Save rules; missing keys keep their current value."""
     owner = owner or current_owner()
+    r = get_rules(owner) | {k: v for k, v in rules.items() if v is not None}
+    if r["volume_mode"] not in VOLUME_MODES:
+        raise ValueError(f"volume_mode must be one of {', '.join(VOLUME_MODES)}")
+    if r["price_direction"] not in DIRECTIONS:
+        raise ValueError(f"price_direction must be one of {', '.join(DIRECTIONS)}")
+    if r["combine"] not in COMBINES:
+        raise ValueError(f"combine must be one of {', '.join(COMBINES)}")
     params = {
-        "volume": {"multiple": float(rules["volume_multiple"])},
-        "price": {"abs_pct": float(rules["price_abs_pct"])},
-        "category": {"categories": list(rules["categories"])},
+        "volume": {
+            "multiple": round(float(r["volume_multiple"]), 2),
+            "low_multiple": round(float(r["volume_low_multiple"]), 2),
+            "mode": r["volume_mode"],
+            "window": int(r["volume_window"]),
+        },
+        "price": {
+            "abs_pct": round(float(r["price_abs_pct"]), 2),
+            "direction": r["price_direction"],
+        },
+        "category": {
+            "categories": list(r["categories"]),
+            "min_materiality": int(r["min_materiality"]),
+        },
+        "combine": {"combine": r["combine"]},
     }
-    enabled = rules.get("enabled", {})
+    enabled = {**get_rules(owner)["enabled"], **(rules.get("enabled") or {})}
     with session() as db:
         db.execute("DELETE FROM alert_rules WHERE owner_id=?", (owner,))
         db.executemany(
@@ -97,12 +137,33 @@ def is_adjustment_day(
     return recent and any(abs(ratio / r - 1) <= tolerance for r in ADJUSTMENT_RATIOS)
 
 
-def _signals(symbols: list[str] | None = None) -> pd.DataFrame:
+def _signals(symbols: list[str] | None = None, window: int = 20) -> pd.DataFrame:
     with session() as db:
         df = pd.read_sql_query("SELECT * FROM prices", db)
     if symbols:
         df = df[df["symbol"].isin(symbols)]
-    return with_signals(df) if not df.empty else df
+    return with_signals(df, vol_window=window) if not df.empty else df
+
+
+def _num(v: float) -> str:
+    """Up to two decimals, no trailing zeros: 3.1, 0.45, 2."""
+    return f"{v:.2f}".rstrip("0").rstrip(".")
+
+
+def _volume_hit(m: float, rules: dict) -> str | None:
+    """'high' or 'low' when the day's volume multiple meets the rule, else None."""
+    mode = rules["volume_mode"]
+    if mode in ("high", "either") and m >= rules["volume_multiple"]:
+        return "high"
+    if mode in ("low", "either") and m <= rules["volume_low_multiple"]:
+        return "low"
+    return None
+
+
+def _price_hit(chg: float, rules: dict) -> bool:
+    t = rules["price_abs_pct"]
+    d = rules["price_direction"]
+    return (d in ("up", "either") and chg >= t) or (d in ("down", "either") and chg <= -t)
 
 
 def evaluate(start: datetime, end: datetime, rules: dict | None = None) -> list[dict]:
@@ -114,8 +175,10 @@ def evaluate(start: datetime, end: datetime, rules: dict | None = None) -> list[
     portfolio = list(get_holdings())
     alerts: list[dict] = []
 
-    sig = _signals(portfolio)
-    if not sig.empty:
+    sig = _signals(portfolio, int(rules.get("volume_window", 20)))
+    on_vol, on_price = rules["enabled"].get("volume"), rules["enabled"].get("price")
+    both = rules.get("combine") == "all" and on_vol and on_price
+    if not sig.empty and (on_vol or on_price):
         days = sig[
             (sig["date"] >= start.date().isoformat()) & (sig["date"] <= end.date().isoformat())
         ]
@@ -130,29 +193,29 @@ def evaluate(start: datetime, end: datetime, rules: dict | None = None) -> list[
                 actions.get(row.symbol, []),
             ):
                 continue  # price and volume both move mechanically on an ex-date
-            if (
-                rules["enabled"].get("volume")
-                and pd.notna(row.vol_multiple)
-                and row.vol_multiple >= rules["volume_multiple"]
-            ):
+            vol = _volume_hit(row.vol_multiple, rules) if pd.notna(row.vol_multiple) else None
+            price = pd.notna(row.pct_change) and _price_hit(row.pct_change, rules)
+            if both and not (vol and price):
+                continue  # AND: only a day that meets both conditions
+            if on_vol and vol:
+                quiet = vol == "low"
                 alerts.append(
                     {
                         "id": f"volume:{row.symbol}:{row.date}",
                         "kind": "volume",
                         "symbol": row.symbol,
                         "ts": f"{row.date}T15:30:00",
-                        "reason": f"Volume {row.vol_multiple:.1f}× its 20-day average",
+                        "reason": f"Volume {_num(row.vol_multiple)}× its "
+                        f"{int(rules.get('volume_window', 20))}-day average"
+                        + (", unusually quiet" if quiet else ""),
                         "value": round(float(row.vol_multiple), 2),
+                        "low": quiet,
                         "price_change_pct": round(float(row.pct_change), 2)
                         if pd.notna(row.pct_change)
                         else None,
                     }
                 )
-            if (
-                rules["enabled"].get("price")
-                and pd.notna(row.pct_change)
-                and abs(row.pct_change) >= rules["price_abs_pct"]
-            ):
+            if on_price and price:
                 alerts.append(
                     {
                         "id": f"price:{row.symbol}:{row.date}",
@@ -173,9 +236,15 @@ def evaluate(start: datetime, end: datetime, rules: dict | None = None) -> list[
                 f"""SELECT a.id, a.symbol, a.ts, a.category, a.summary, a.materiality
                     FROM announcements a
                     WHERE a.symbol IN ({p}) AND a.ts BETWEEN ? AND ?
-                      AND a.category IN ({q}) AND a.materiality >= 50
+                      AND a.category IN ({q}) AND a.materiality >= ?
                     ORDER BY a.materiality DESC""",
-                (*portfolio, start.isoformat(), end.isoformat(), *rules["categories"]),
+                (
+                    *portfolio,
+                    start.isoformat(),
+                    end.isoformat(),
+                    *rules["categories"],
+                    int(rules.get("min_materiality", 50)),
+                ),
             ).fetchall()
         for r in rows:
             alerts.append(

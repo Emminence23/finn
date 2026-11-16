@@ -1,10 +1,10 @@
 {
- "e97a0e7a2539f10dd6cc": {
+ "ae564ec3e019c77e4804": {
   "adjustments": [
    {
     "symbol": "CGPOWER",
-    "delta_pp": -1.5,
-    "reason": "The Maharashtra Pollution Control Board ordered the closure of manufacturing operations at the company's Waluj unit.",
+    "delta_pp": -2.0,
+    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at CG Power's Waluj unit.",
     "cites": [
      "A:106846618"
     ]
@@ -12,7 +12,7 @@
    {
     "symbol": "SUNPHARMA",
     "delta_pp": 1.0,
-    "reason": "Sun Pharma obtained US FDA approval for ILUMYA to treat adults with active psoriatic arthritis.",
+    "reason": "Sun Pharma received US FDA approval for ILUMYA for the treatment of adults with active psoriatic arthritis.",
     "cites": [
      "A:106835654"
     ]
@@ -20,13 +20,41 @@
    {
     "symbol": "KAYNES",
     "delta_pp": -1.0,
-    "reason": "Kaynes faces significant execution and accounting quality concerns, evidenced by a zero management delivery score and negative operating cash flow relative to profits.",
+    "reason": "Kaynes Technology carries a management delivery score of zero out of 100 on commitments from the last four calls.",
     "cites": [
-     "P:KAYNES",
-     "F:KAYNES"
+     "P:KAYNES"
     ]
    }
   ],
-  "summary": "Recent filings and governance records require trimming CG Power due to a regulatory factory closure order and reducing Kaynes over severe cash flow conversion and delivery flags. Conversely, Sun Pharma receives a minor boost following a key US FDA drug approval."
+  "summary": "Recent filings and records highlight a regulatory unit closure order at CG Power and poor management delivery metrics at Kaynes, alongside a key US FDA approval for Sun Pharma. We reduce weights for CG Power and Kaynes while slightly raising Sun Pharma's allocation."
+ },
+ "1133564f35ffe780f796": {
+  "adjustments": [
+   {
+    "symbol": "CGPOWER",
+    "delta_pp": -2.0,
+    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at CG Power's Waluj unit.",
+    "cites": [
+     "A:106846618"
+    ]
+   },
+   {
+    "symbol": "SUNPHARMA",
+    "delta_pp": 1.0,
+    "reason": "Sun Pharma received US FDA approval for ILUMYA for the treatment of adults with active psoriatic arthritis.",
+    "cites": [
+     "A:106835654"
+    ]
+   },
+   {
+    "symbol": "KAYNES",
+    "delta_pp": -1.0,
+    "reason": "Kaynes Technology carries a management delivery score of zero out of 100 on commitments from the last four calls.",
+    "cites": [
+     "P:KAYNES"
+    ]
+   }
+  ],
+  "summary": "Recent filings and records highlight a regulatory unit closure order at CG Power and poor management delivery metrics at Kaynes, alongside a key US FDA approval for Sun Pharma. We reduce weights for CG Power and Kaynes while slightly raising Sun Pharma's allocation."
  }
 }

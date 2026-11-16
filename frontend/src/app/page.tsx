@@ -248,7 +248,11 @@ function Moves({ alerts, now }: { alerts: Alert[]; now: string }) {
               <span className={clsx("tnum mt-0.5 flex items-center gap-1 text-[13px] font-medium", chg >= 0 ? "text-good" : "text-bad")}>
                 <Icon size={13} /> {pct(chg)}
               </span>
-              {m.vol && <span className="tnum text-[11px] text-ink-2">Volume {m.vol.value.toFixed(1)}× avg</span>}
+              {m.vol && (
+                <span className="tnum text-[11px] text-ink-2">
+                  Volume {+m.vol.value.toFixed(2)}× avg{m.vol.low ? ", quiet" : ""}
+                </span>
+              )}
             </Link>
           );
         })}

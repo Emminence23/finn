@@ -53,7 +53,7 @@ def test_suggestion_respects_every_rule_and_is_repeatable(seeded):
     assert max(themes.values()) <= a.THEME_CAP * 100 + 1e-6
     assert s1["after"]["volatility"] < s1["before"]["volatility"]
     titan = next(r for r in rows if r["symbol"] == "TITAN")  # 14% after a strong year
-    assert titan["change"] == pytest.approx(-3) and "3-point move" in titan["reason"]
+    assert titan["change"] == pytest.approx(-3) and "3-point step" in titan["reason"]
 
 
 def test_equal_risk_contribution_is_inverse_vol_without_correlation():
@@ -157,3 +157,59 @@ def test_review_runs_only_when_asked_and_once(seeded, monkeypatch):
         assert r["status"] == "done" and calls == ["portfolio_review"]
         again = c.get("/portfolio/suggested", headers=DEMO).json()["review"]
         assert again["status"] == "done" and calls == ["portfolio_review"]  # stored, no call
+
+
+def test_limits_are_the_investors_and_can_be_switched_off(seeded):
+    """Nothing is hard-wired: change the maximum, drop the step, remove the theme cap."""
+    from app.network.owner import set_owner
+    from app.portfolio import analytics as a
+
+    with _client() as c:
+        r = c.put("/portfolio/settings", json={"max_pct": 15, "max_step_pct": None}, headers=DEMO)
+        assert r.status_code == 200 and r.json()["settings"]["max_step_pct"] is None
+        assert c.put("/portfolio/settings", json={"max_pct": 0.5}, headers=DEMO).status_code == 400
+        assert (
+            c.put(
+                "/portfolio/settings", json={"min_pct": 20, "max_pct": 10}, headers=DEMO
+            ).status_code
+            == 400
+        )
+        assert c.put("/portfolio/settings", json={"tilt": None}, headers=DEMO).status_code == 400
+        assert c.put("/portfolio/settings", json={"bogus": 1}, headers=DEMO).status_code == 400
+        assert c.get("/portfolio/settings", headers=OTHER).json()["settings"]["max_pct"] == 9.0
+    set_owner("demo")
+    s = a.suggest()
+    assert s["rules"]["max"] == 15 and s["rules"]["max_step"] == 100
+    assert all(r["suggested"] <= 15 + 1e-6 for r in s["holdings"])
+    assert any(abs(r["change"]) > 3 for r in s["holdings"])  # no step limit: straight to target
+    with _client() as c:
+        c.put("/portfolio/settings", json={"theme_cap_pct": None, "min_pct": 10}, headers=DEMO)
+    s = a.suggest()
+    assert s["rules"]["min"] == pytest.approx(100 / 18) and s["rules"]["notes"]  # relaxed, said so
+    o = a.overview()
+    assert not any("Lenders" in f for f in o["flags"])  # no theme cap, no concentration warning
+    with _client() as c:
+        c.post("/portfolio/settings/reset", headers=DEMO)
+    assert a.suggest()["rules"]["max"] == 9
+
+
+def test_ai_limits_follow_settings(seeded):
+    from app.network.owner import set_owner
+    from app.portfolio import analytics, review, settings
+
+    set_owner("demo")
+    settings.set_settings({"ai_nudge_pct": 0.5, "ai_max_adjust": 1})
+    sug = analytics.suggest()
+    res = review.Review(
+        summary="s",
+        adjustments=[
+            review.Adjustment(symbol="TCS", delta_pp=1.5, reason="order", cites=["A:1"]),
+            review.Adjustment(symbol="INFY", delta_pp=0.3, reason="order", cites=["A:1"]),
+        ],
+    )
+    out = review.apply(sug, res, [{"id": "A:1", "symbol": "TCS", "what": "x"}], [])
+    assert [k["symbol"] for k in out["adjustments"]] == ["TCS"]
+    assert out["adjustments"][0]["delta"] == 0.5
+    assert "between -0.5 and +0.5" in review.system_prompt(0.5, 1)
+    settings.set_settings({"ai_max_adjust": 0})
+    assert review.get_review(run=True)["status"] == "off"  # never calls the model

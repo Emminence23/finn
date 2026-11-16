@@ -6,6 +6,7 @@ import asyncio
 import json
 import threading
 from datetime import UTC, datetime
+from typing import Literal
 
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -49,6 +50,38 @@ def portfolio_review() -> dict:
         return review.get_review(run=True)
     except LLMError as e:
         raise HTTPException(503, f"AI review unavailable: {e}") from e
+
+
+@router.get("/portfolio/settings")
+def portfolio_settings_get() -> dict:
+    from app.portfolio import settings
+
+    return {
+        "settings": settings.get_settings(),
+        "defaults": settings.DEFAULTS,
+        "ranges": settings.RANGE,
+        "nullable": sorted(settings.NULLABLE),
+    }
+
+
+@router.put("/portfolio/settings")
+def portfolio_settings_put(body: dict) -> dict:
+    """Change any of the portfolio rules; null switches a limit off."""
+    from app.portfolio import settings
+
+    try:
+        return {"settings": settings.set_settings(body)}
+    except KeyError as e:
+        raise HTTPException(400, str(e).strip("'")) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+
+
+@router.post("/portfolio/settings/reset")
+def portfolio_settings_reset() -> dict:
+    from app.portfolio import settings
+
+    return {"settings": settings.reset_settings()}
 
 
 @router.get("/portfolio/holdings")
@@ -174,10 +207,19 @@ def list_alerts(window: str = "7d") -> dict:
 
 
 class AlertRules(BaseModel):
-    volume_multiple: float = Field(ge=1.0, le=20.0)
-    price_abs_pct: float = Field(ge=0.5, le=50.0)
-    categories: list[str]
-    enabled: dict[str, bool] = {"volume": True, "price": True, "category": True}
+    """Every field optional: what isn't sent keeps its current value. Bounds are only
+    what makes arithmetic sense (a multiple above zero, a percentage under 100)."""
+
+    volume_multiple: float | None = Field(None, gt=0, le=100)
+    volume_low_multiple: float | None = Field(None, gt=0, le=100)
+    volume_mode: Literal["high", "low", "either"] | None = None
+    volume_window: int | None = Field(None, ge=2, le=250)
+    price_abs_pct: float | None = Field(None, ge=0, le=100)
+    price_direction: Literal["up", "down", "either"] | None = None
+    combine: Literal["any", "all"] | None = None
+    min_materiality: int | None = Field(None, ge=0, le=100)
+    categories: list[str] | None = None
+    enabled: dict[str, bool] | None = None
 
 
 @router.get("/alert-rules")
@@ -187,10 +229,13 @@ def get_alert_rules() -> dict:
 
 @router.put("/alert-rules")
 def put_alert_rules(rules: AlertRules) -> dict:
-    unknown = set(rules.categories) - set(CATEGORIES)
+    unknown = set(rules.categories or []) - set(CATEGORIES)
     if unknown:
         raise HTTPException(400, f"unknown categories: {sorted(unknown)}")
-    return alerts_mod.set_rules(rules.model_dump())
+    try:
+        return alerts_mod.set_rules(rules.model_dump(exclude_none=True))
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
 
 
 @router.post("/alerts/run")

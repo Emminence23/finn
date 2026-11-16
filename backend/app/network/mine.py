@@ -44,6 +44,7 @@ def _wipe(db, owner: str) -> None:
         "notes",
         "meetings",
         "holdings",
+        "portfolio_settings",
         "alert_rules",
     ):
         db.execute(f"DELETE FROM {table} WHERE owner_id=?", (owner,))

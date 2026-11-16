@@ -120,6 +120,11 @@ CREATE TABLE IF NOT EXISTS holdings (
     avg_cost REAL NOT NULL,
     PRIMARY KEY (owner_id, symbol)
 );
+-- The investor's portfolio rules (portfolio/settings.py); no row = the defaults
+CREATE TABLE IF NOT EXISTS portfolio_settings (
+    owner_id TEXT PRIMARY KEY,
+    params_json TEXT NOT NULL
+);
 -- Benchmark index closes (Nifty 50), for the portfolio's one-year chart
 CREATE TABLE IF NOT EXISTS benchmark (
     name TEXT NOT NULL,

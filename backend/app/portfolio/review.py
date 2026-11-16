@@ -3,12 +3,12 @@
 The optimiser in analytics.py sees prices and reported financials. It can't read a filing,
 so it can't know that a CFO resigned last week or that a large order was cancelled. This
 step gives the model exactly that context (material filings from the last 30 days, the
-promise record, cash-flow warnings), each with an id, and asks for at most MAX_ADJUST
-adjustments of at most ±MAX_NUDGE points, each citing those ids.
+promise record, cash-flow warnings), each with an id, and asks for at most max_adjust
+adjustments of at most ±nudge points (both the investor's settings), each citing those ids.
 
 Code then:
   - drops adjustments to companies not held, or citing nothing it was given;
-  - clips each to ±MAX_NUDGE points and keeps the MAX_ADJUST largest;
+  - clips each to ±nudge points and keeps the max_adjust largest;
   - re-applies the name bounds and theme caps and renormalises;
   - returns both the code weights and the reviewed weights, so the change is visible.
 
@@ -32,25 +32,32 @@ PROMPT_VERSION = "portfolio-review-v1"
 MAX_NUDGE = 2.0  # percentage points
 MAX_ADJUST = 5
 
-SYSTEM = """You are reviewing a suggested re-weighting of an Indian equity portfolio for a
+SYSTEM_TEMPLATE = """You are reviewing a suggested re-weighting of an Indian equity portfolio for a
 fund manager. The weights were set by code from price risk and reported financials. Code
 cannot read filings. Your only job is to adjust the weights where the EVENTS or RECORDS you
 are given contain something the numbers would miss: a governance problem, a management
 exit, a large order won or lost, guidance cut, a regulatory action.
 
 Rules:
-- At most 5 adjustments, each between -2 and +2 percentage points. Zero adjustments is a
-  valid and common answer. Do not adjust for anything already reflected in the numbers
-  (growth, margins, valuation, volatility).
+- At most {max_adjust} adjustments, each between -{nudge} and +{nudge} percentage points.
+  Zero adjustments is a valid and common answer. Do not adjust for anything already
+  reflected in the numbers (growth, margins, valuation, volatility).
 - Every adjustment must cite at least one id from EVENTS or RECORDS. No outside knowledge.
 - "reason": one plain sentence a fund manager would accept, naming the event.
 - "summary": two sentences at most on what, if anything, the filings change about the
   suggestion. Say plainly if they change nothing."""
 
 
+def system_prompt(nudge: float = MAX_NUDGE, max_adjust: int = MAX_ADJUST) -> str:
+    return SYSTEM_TEMPLATE.format(nudge=f"{nudge:g}", max_adjust=max_adjust)
+
+
+SYSTEM = system_prompt()
+
+
 class Adjustment(BaseModel):
     symbol: str
-    delta_pp: float = Field(description="percentage points, between -2 and +2")
+    delta_pp: float = Field(description="percentage points, within the limit in the rules")
     reason: str
     cites: list[str]
 
@@ -122,8 +129,8 @@ def _prompt(sug: dict, events: list[dict], records: list[dict]) -> str:
     )
 
 
-def _key(prompt: str) -> str:
-    return hashlib.sha256(f"{PROMPT_VERSION}\n{SYSTEM}\n{prompt}".encode()).hexdigest()[:20]
+def _key(prompt: str, system: str = SYSTEM) -> str:
+    return hashlib.sha256(f"{PROMPT_VERSION}\n{system}\n{prompt}".encode()).hexdigest()[:20]
 
 
 def _fixture() -> dict:
@@ -139,10 +146,16 @@ def _stored(key: str) -> dict | None:
     return _fixture().get(key)
 
 
+def _ai_limits(sug: dict) -> tuple[float, int]:
+    st = sug.get("rules", {}).get("settings") or {}
+    return float(st.get("ai_nudge_pct", MAX_NUDGE)), int(st.get("ai_max_adjust", MAX_ADJUST))
+
+
 def apply(sug: dict, review: Review, events: list[dict], records: list[dict]) -> dict:
     """Enforce the limits and produce the reviewed weights. Pure code."""
     ids = {e["id"] for e in events} | {r["id"] for r in records}
     rows = {h["symbol"]: h for h in sug["holdings"]}
+    nudge, max_adjust = _ai_limits(sug)
     kept, dropped = [], []
     for a in review.adjustments:
         sym = a.symbol.upper().strip()
@@ -153,27 +166,31 @@ def apply(sug: dict, review: Review, events: list[dict], records: list[dict]) ->
         if not cites:
             dropped.append({"symbol": sym, "why": "cited nothing it was given"})
             continue
-        delta = max(-MAX_NUDGE, min(MAX_NUDGE, a.delta_pp))
+        delta = max(-nudge, min(nudge, a.delta_pp))
         if abs(delta) < 0.1:
             continue
         kept.append(
             {"symbol": sym, "delta": delta, "asked": a.delta_pp, "reason": a.reason, "cites": cites}
         )
     kept.sort(key=lambda k: -abs(k["delta"]))
-    for k in kept[MAX_ADJUST:]:
-        dropped.append({"symbol": k["symbol"], "why": f"more than {MAX_ADJUST} adjustments"})
-    kept = kept[:MAX_ADJUST]
+    for k in kept[max_adjust:]:
+        dropped.append({"symbol": k["symbol"], "why": f"more than {max_adjust} adjustments"})
+    kept = kept[:max_adjust]
 
     want = {s: h["suggested"] / 100 for s, h in rows.items()}
     for k in kept:
         want[k["symbol"]] += k["delta"] / 100
     theme = {s: h["theme"] for s, h in rows.items()}
-    # the nudge may take a holding up to MAX_NUDGE past code's step limit, never past 2-9%
-    # (a holding already above 9% can only come down)
-    n = MAX_NUDGE / 100
-    lo = {s: max(min(analytics.MIN_W, h["lo"] / 100), h["lo"] / 100 - n) for s, h in rows.items()}
-    hi = {s: min(max(analytics.MAX_W, h["hi"] / 100), h["hi"] / 100 + n) for s, h in rows.items()}
-    final = analytics._project({s: max(v, 1e-6) for s, v in want.items()}, theme, lo, hi)
+    # the nudge may take a holding up to `nudge` past code's step limit, never past the
+    # investor's min..max (a holding already above the maximum can only come down)
+    n = nudge / 100
+    rules = sug.get("rules", {})
+    mn = rules.get("min", analytics.MIN_W * 100) / 100
+    mx = rules.get("max", analytics.MAX_W * 100) / 100
+    cap = rules.get("theme_cap", analytics.THEME_CAP * 100) / 100
+    lo = {s: max(min(mn, h["lo"] / 100), h["lo"] / 100 - n) for s, h in rows.items()}
+    hi = {s: min(max(mx, h["hi"] / 100), h["hi"] / 100 + n) for s, h in rows.items()}
+    final = analytics._project({s: max(v, 1e-6) for s, v in want.items()}, theme, lo, hi, cap)
     for k in kept:
         k["applied"] = (final[k["symbol"]] - want[k["symbol"]] + k["delta"] / 100) * 100
     return {
@@ -191,14 +208,16 @@ def get_review(run: bool = False) -> dict:
     sug = analytics.suggest()
     events, records = _context(sug)
     prompt = _prompt(sug, events, records)
-    key = _key(prompt)
+    system = system_prompt(*_ai_limits(sug))
+    key = _key(prompt, system)
     out = _stored(key)
-    if out is None and not run:
-        return {"status": "not_run", "key": key, "events": len(events)}
+    off = _ai_limits(sug)[1] == 0 or _ai_limits(sug)[0] == 0
+    if out is None and (not run or off):
+        return {"status": "off" if off else "not_run", "key": key, "events": len(events)}
     if out is None:
         res = get_llm().run(
             "portfolio_review",
-            system=SYSTEM,
+            system=system,
             prompt=prompt,
             schema=Review,
             prompt_version=PROMPT_VERSION,

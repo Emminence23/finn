@@ -11,9 +11,10 @@ What the suggestion is, in plain terms:
    of 18 stocks is too little to trust every pairwise correlation.
 2. Tilt towards quality. A composite of returns on capital, growth, cash conversion,
    gearing, valuation and management's delivery record (each z-scored across the holdings
-   and capped at ±2) scales each risk-balanced weight by exp(TILT × score).
-3. Keep it investable. Each holding between MIN_W and MAX_W, each theme at most THEME_CAP,
-   and no holding moves more than MAX_STEP from today's weight in one go.
+   and capped at ±2) scales each risk-balanced weight by exp(tilt × score).
+3. Keep within the investor's rules (settings.py, per account): each holding between a
+   minimum and maximum, each theme under a cap, and no holding moving more than one step
+   from today's weight in one go. Any of these can be switched off.
 
 It does not forecast returns. The point is a portfolio whose risk isn't concentrated by
 accident and whose weights lean towards the businesses the numbers favour.
@@ -29,14 +30,18 @@ import pandas as pd
 
 from app.db import session
 from app.portfolio.holdings import get_holdings, get_positions
+from app.portfolio.settings import DEFAULTS as _DEF
+from app.portfolio.settings import limits as _limits
 
 TRADING_DAYS = 252
-WINDOW = 126  # sessions of daily returns for risk and the 6-month return (about six months)
-SHRINK = 0.5  # weight on the constant-correlation target
-TILT = 0.30  # strength of the quality tilt
-MIN_W, MAX_W = 0.02, 0.09
-THEME_CAP = 0.20
-MAX_STEP = 0.03  # largest change to one holding in one go
+SHRINK = 0.5  # weight on the constant-correlation target (a statistical choice, not a rule)
+# The investor's rules (holding and theme limits, step size, tilt, risk window) live in
+# settings.py, per account. These names are the defaults, kept for reference.
+WINDOW = int(_DEF["risk_days"])
+TILT = float(_DEF["tilt"])
+MIN_W, MAX_W = float(_DEF["min_pct"]) / 100, float(_DEF["max_pct"]) / 100
+THEME_CAP = float(_DEF["theme_cap_pct"]) / 100
+MAX_STEP = float(_DEF["max_step_pct"]) / 100
 
 # factor: (metric, higher is better, weight in the composite)
 FACTORS = {
@@ -63,9 +68,9 @@ def _prices(symbols: list[str]) -> pd.DataFrame:
     return df.pivot(index="date", columns="symbol", values="close").sort_index().ffill()
 
 
-def _recent(px: pd.DataFrame) -> pd.DataFrame:
-    """The risk window: the last WINDOW sessions of returns (WINDOW + 1 closes)."""
-    return px.iloc[-(WINDOW + 1) :]
+def _recent(px: pd.DataFrame, days: int = WINDOW) -> pd.DataFrame:
+    """The risk window: the last `days` sessions of returns (days + 1 closes)."""
+    return px.iloc[-(days + 1) :]
 
 
 def _benchmark(dates: list[str]) -> pd.Series | None:
@@ -210,7 +215,9 @@ def _erc(cov: np.ndarray, iters: int = 500) -> np.ndarray:
     return w / w.sum()
 
 
-def _project(w: dict[str, float], theme: dict[str, str], lo: dict, hi: dict) -> dict:
+def _project(
+    w: dict[str, float], theme: dict[str, str], lo: dict, hi: dict, cap: float = THEME_CAP
+) -> dict:
     """Weights summing to 1 within per-name bounds and theme caps (iterative water-filling)."""
     w = dict(w)
     for _ in range(200):
@@ -222,8 +229,8 @@ def _project(w: dict[str, float], theme: dict[str, str], lo: dict, hi: dict) -> 
         for s, v in w.items():
             by[theme[s]] = by.get(theme[s], 0) + v
         for t, tw in by.items():
-            if tw > THEME_CAP + 1e-9:
-                f = THEME_CAP / tw
+            if tw > cap + 1e-9:
+                f = cap / tw
                 for s in w:
                     if theme[s] == t:
                         w[s] *= f
@@ -241,7 +248,7 @@ def _project(w: dict[str, float], theme: dict[str, str], lo: dict, hi: dict) -> 
             room = [
                 s
                 for s in w
-                if (slack > 0 and w[s] < hi[s] - 1e-9 and by.get(theme[s], 0) < THEME_CAP - 1e-9)
+                if (slack > 0 and w[s] < hi[s] - 1e-9 and by.get(theme[s], 0) < cap - 1e-9)
                 or (slack < 0 and w[s] > lo[s] + 1e-9)
             ]
             if not room:
@@ -305,7 +312,9 @@ def overview() -> dict:
     symbols = list(held)
     meta = _meta(symbols)
     px_all = _prices(symbols)
-    px = _recent(px_all)
+    themes_n = len({(m.get("sector") or "other") for m in meta.values()})
+    L = _limits(len(symbols), themes_n)
+    px = _recent(px_all, L["risk_days"])
     have = [s for s in symbols if s in px.columns]
     w = np.array([held[s] for s in have])
     w = w / w.sum()
@@ -370,13 +379,14 @@ def overview() -> dict:
     )[:3]
 
     flags = []
-    if st["largest_theme"]["weight"] > THEME_CAP * 100:
+    cap = L["settings"]["theme_cap_pct"]  # your theme cap is also the warning line
+    if cap is not None and st["largest_theme"]["weight"] > cap:
         flags.append(
             f"{st['largest_theme']['theme'].capitalize()} is "
             f"{st['largest_theme']['weight']:.0f}% of the portfolio."
         )
     lenders = sum(x["weight"] for x in rows if x["is_lender"])
-    if lenders > 20:
+    if cap is not None and lenders > cap:
         flags.append(f"Lenders together are {lenders:.0f}% of the portfolio.")
     for x in sorted(rows, key=lambda x: -(x["risk_share"] - x["weight"])):
         if x["risk_share"] > 1.5 * x["weight"] and x["risk_share"] > 6:
@@ -419,18 +429,20 @@ def _is_custom() -> bool:
     return is_custom()
 
 
-def bounds(held: dict[str, float], symbols: list[str]) -> tuple[dict, dict]:
-    """Per-holding limits: within MIN_W..MAX_W and at most MAX_STEP from today's weight.
-    A holding already outside MIN_W..MAX_W moves one full step towards it."""
+def bounds(held: dict[str, float], symbols: list[str], L: dict | None = None) -> tuple[dict, dict]:
+    """Per-holding limits: within the investor's min..max and at most one step from today's
+    weight. A holding already outside min..max moves one full step towards it."""
+    L = L or {"min": MIN_W, "max": MAX_W, "step": MAX_STEP}
+    mn, mx, step = L["min"], L["max"], L["step"]
     lo, hi = {}, {}
     for s in symbols:
         c = held[s]
-        if c - MAX_STEP > MAX_W:
-            lo[s] = hi[s] = c - MAX_STEP
-        elif c + MAX_STEP < MIN_W:
-            lo[s] = hi[s] = c + MAX_STEP
+        if c - step > mx:
+            lo[s] = hi[s] = c - step
+        elif c + step < mn:
+            lo[s] = hi[s] = c + step
         else:
-            lo[s], hi[s] = max(MIN_W, c - MAX_STEP), min(MAX_W, c + MAX_STEP)
+            lo[s], hi[s] = max(mn, c - step), min(mx, c + step)
     return lo, hi
 
 
@@ -438,7 +450,8 @@ def suggest() -> dict:
     """Code's suggested weights for the same holdings, with the reason for each change."""
     held = get_holdings()
     meta = _meta(list(held))
-    px = _recent(_prices(list(held)))
+    L = _limits(len(held), len({(m.get("sector") or "other") for m in meta.values()}))
+    px = _recent(_prices(list(held)), L["risk_days"])
     symbols = [s for s in held if s in px.columns]
     cur = np.array([held[s] for s in symbols])
     cur = cur / cur.sum()
@@ -447,10 +460,10 @@ def suggest() -> dict:
     score, raw = _factor_scores(symbols)
 
     base = _erc(cov)
-    tilted = base * np.exp(TILT * np.array([score[s] for s in symbols]))
-    lo, hi = bounds(held, symbols)
+    tilted = base * np.exp(L["tilt"] * np.array([score[s] for s in symbols]))
+    lo, hi = bounds(held, symbols, L)
     tilted_n = tilted / tilted.sum()
-    target = _project(dict(zip(symbols, tilted, strict=True)), theme, lo, hi)
+    target = _project(dict(zip(symbols, tilted, strict=True)), theme, lo, hi, L["theme_cap"])
     new = np.array([target[s] for s in symbols])
 
     before, after = (_stats(x, cov, symbols, theme, raw) for x in (cur, new))
@@ -479,6 +492,7 @@ def suggest() -> dict:
                     lo[s],
                     hi[s],
                     len(symbols),
+                    L,
                 ),
             }
         )
@@ -489,14 +503,16 @@ def suggest() -> dict:
         "after": {k: v for k, v in after.items() if k != "risk_share"},
         "turnover": float(np.abs(new - cur).sum() / 2) * 100,
         "rules": {
-            "min": MIN_W * 100,
-            "max": MAX_W * 100,
-            "theme_cap": THEME_CAP * 100,
-            "max_step": MAX_STEP * 100,
-            "tilt": TILT,
+            "min": L["min"] * 100,
+            "max": L["max"] * 100,
+            "theme_cap": L["theme_cap"] * 100,
+            "max_step": L["step"] * 100,
+            "tilt": L["tilt"],
             "shrink": SHRINK,
-            "days": int(len(px)),
+            "days": int(len(px)) - 1,
             "factors": FACTORS,
+            "settings": L["settings"],
+            "notes": L["notes"],
         },
     }
 
@@ -511,7 +527,7 @@ _FACTOR_WORDS = {
 }
 
 
-def _reason(cur, base, tilted, new, risk_share, raw, lo, hi, n) -> str:
+def _reason(cur, base, tilted, new, risk_share, raw, lo, hi, n, L=None) -> str:
     """What moved this weight, stage by stage: risk balance, quality tilt, then the limits."""
     d = (new - cur) * 100
     if abs(d) < 0.25:
@@ -535,10 +551,14 @@ def _reason(cur, base, tilted, new, risk_share, raw, lo, hi, n) -> str:
                 parts.append(f"held back by {words}" if d > 0 else f"cut less thanks to {words}")
     tol = 1e-4
     if abs(limit_d) >= 0.3:
-        if abs(new - MAX_W) < tol or abs(new - MIN_W) < tol:
-            parts.append(f"held at the {new * 100:.0f}% {'maximum' if new > 0.05 else 'minimum'}")
+        mx, mn = (L["max"], L["min"]) if L else (MAX_W, MIN_W)
+        step = L["step"] if L else MAX_STEP
+        if abs(new - mx) < tol:
+            parts.append(f"held at your {mx * 100:.3g}% maximum")
+        elif abs(new - mn) < tol and mn > 0:
+            parts.append(f"held at your {mn * 100:.3g}% minimum")
         elif abs(new - hi) < tol or abs(new - lo) < tol:
-            parts.append(f"limited to a {MAX_STEP * 100:.0f}-point move this time")
+            parts.append(f"limited to your {step * 100:.3g}-point step this time")
         elif limit_d > 0:
             parts.append("picks up weight that capped holdings couldn't take")
         elif d < 0:

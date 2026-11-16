@@ -257,3 +257,9 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Bug found:** a holding already above the 9% cap (Titan at 14% after its run) had its step band inverted, so the suggestion jumped it 5 points. Such holdings now move one full 3-point step towards the band. The AI review's limits now come from the same per-holding bands, stretched by its ±2 points, and the UI says when the limits left a nudge no room ("asked +1.0 pts, no room within the limits").
 - **Theme reason wording:** a holding that rose but less than the tilt wanted read "trimmed to keep its theme within the cap"; now "held back".
 - The suggestion changed, so the stored review no longer matched; one more free Gemini call regenerated it.
+
+## Phase 4w: nothing hard-wired (portfolio rules and alert rules)
+- **Asked for:** "Don't hard-wire limits." The 9% maximum, 20% theme cap, 3-point step, ±2-point AI nudge, 1.5× volume floor, OR-only alerts and the materiality-50 bar were all constants.
+- **Portfolio:** `portfolio/settings.py` holds per-account rules with defaults; analytics reads them through `limits()`, which relaxes any rule that can't hold (and returns a note the page shows). Limits can be switched off (null). The AI review's nudge and count are settings too, written into its prompt; with the defaults the prompt is unchanged in meaning.
+- **Alerts:** heavy, quiet or either volume, a chosen averaging window, up/down/either price, OR vs AND, and the filings' materiality bar. The API takes partial updates and only refuses what's arithmetically meaningless (a zero multiple, a percentage over 100).
+- **Review key:** the stored demo review depends on its inputs, and Today's price-move levels depend on the account's alert rules, so a locally tuned account had a different key from a fresh seed. The fixture now holds the review under both keys; the output is the same model answer, with the same cited filings.

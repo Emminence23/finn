@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import clsx from "clsx";
-import { AlertTriangle, Calculator, ChevronDown, Minus, Pencil, Plus, Sparkles, X } from "lucide-react";
+import { AlertTriangle, Calculator, ChevronDown, Minus, Pencil, Plus, SlidersHorizontal, Sparkles, X } from "lucide-react";
+import { NumberSlider } from "@/components/NumberSlider";
 import { useSWRConfig } from "swr";
 import { api, useApi } from "@/lib/api";
 import { day, inr, pct, price } from "@/lib/fmt";
@@ -65,6 +66,7 @@ type SugRow = { symbol: string; name: string; theme: string; current: number; su
 type Source = { id: string; symbol: string; what: string; date?: string };
 type Review =
   | { status: "not_run"; events: number }
+  | { status: "off"; events: number }
   | {
       status: "done";
       events: number;
@@ -78,10 +80,29 @@ type Suggestion = {
   before: Stats;
   after: Stats;
   turnover: number;
-  rules: { min: number; max: number; theme_cap: number; max_step: number; days: number };
+  rules: {
+    min: number;
+    max: number;
+    theme_cap: number;
+    max_step: number;
+    days: number;
+    tilt: number;
+    notes: string[];
+    settings: Settings;
+  };
   review: Review;
 };
 
+type Settings = {
+  min_pct: number | null;
+  max_pct: number | null;
+  theme_cap_pct: number | null;
+  max_step_pct: number | null;
+  tilt: number;
+  risk_days: number;
+  ai_nudge_pct: number;
+  ai_max_adjust: number;
+};
 const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 const one = (v: number | null | undefined, unit = "%") => (v == null ? "—" : `${v.toFixed(1)}${unit}`);
 
@@ -319,6 +340,8 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
   const [running, setRunning] = useState(false);
   const [runErr, setRunErr] = useState<string | null>(null);
   const [applied, setApplied] = useState(false);
+  const [rulesOpen, setRulesOpen] = useState(false);
+  const { mutate: refreshAll } = useSWRConfig();
   if (error && !data) return <div className="mt-4"><ErrorNote error={error} retry={() => mutate()} /></div>;
   if (!data) return <div className="px-4 pt-4"><Skeleton className="h-96" /></div>;
 
@@ -356,11 +379,27 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
         <ol className="mt-1.5 list-decimal space-y-1 pl-4 text-ink-2">
           <li><b className="text-ink">Balance risk.</b> Every holding gets the same share of the portfolio&apos;s swings, from {data.rules.days} days of prices.</li>
           <li><b className="text-ink">Lean towards quality.</b> Returns on capital, growth, cash conversion, debt, valuation and management&apos;s delivery record tilt each weight.</li>
-          <li><b className="text-ink">Stay investable.</b> {data.rules.min}–{data.rules.max}% per holding, {data.rules.theme_cap}% per theme, at most {data.rules.max_step} points of change at a time.</li>
-          <li><b className="text-ink">AI review.</b> The AI reads the last 30 days of filings and may move a holding by up to 2 points, citing the filing. Code enforces the limits.</li>
+          <li><b className="text-ink">Your limits.</b> {limitsText(data.rules.settings)}</li>
+          <li><b className="text-ink">AI review.</b> {data.rules.settings.ai_max_adjust === 0 || data.rules.settings.ai_nudge_pct === 0 ? "Off." : <>The AI reads the last 30 days of filings and may move up to {data.rules.settings.ai_max_adjust} holdings by up to {data.rules.settings.ai_nudge_pct} points each, citing the filing. Code enforces the limits.</>}</li>
         </ol>
-        <p className="mt-1.5 text-[12px] text-ink-3">It does not forecast returns. Same holdings, different proportions.</p>
+        {data.rules.notes.length > 0 && (
+          <p className="mt-1.5 rounded-lg bg-warn-soft px-2.5 py-1.5 text-[12px] text-warn">{data.rules.notes.join(" ")}</p>
+        )}
+        <div className="mt-2 flex items-center justify-between gap-2">
+          <p className="text-[12px] text-ink-3">It does not forecast returns. Same holdings, different proportions.</p>
+          <button onClick={() => setRulesOpen(true)} className="flex shrink-0 items-center gap-1 rounded-full border border-line px-3 py-1.5 text-[13px] font-medium text-ink-2">
+            <SlidersHorizontal size={13} /> Your rules
+          </button>
+        </div>
       </div>
+      <RulesSheet
+        open={rulesOpen}
+        onClose={() => setRulesOpen(false)}
+        onSaved={() => {
+          setApplied(false);
+          refreshAll(() => true);
+        }}
+      />
 
       <div className="mt-3 grid grid-cols-2 gap-2 px-3">
         <Tile label="Volatility, a year" value={`${one(b.volatility)} → ${one(a.volatility)}`} />
@@ -371,7 +410,9 @@ function Suggested({ onApplied }: { onApplied: () => void }) {
 
       <SectionTitle aside={rv.status === "done" ? `${rv.events} filings read` : undefined}>AI review</SectionTitle>
       <Panel className="p-4">
-        {rv.status === "not_run" ? (
+        {rv.status === "off" ? (
+          <p className="text-[13px] leading-snug text-ink-2">Switched off in your rules. The code&apos;s suggestion stands on its own.</p>
+        ) : rv.status === "not_run" ? (
           <>
             <p className="text-[13px] leading-snug text-ink-2">
               Not run for this portfolio yet. It reads {rv.events} recent filings for things the numbers can&apos;t see: management exits, regulatory action, orders.
@@ -491,6 +532,114 @@ function Nudge({ x }: { x: { asked: number; delta: number; applied: number } }) 
       <span className="tnum font-medium">{signed(x.applied)}</span>
       {limited && <span className="text-ink-3"> (asked {signed(x.asked)}; the limits allowed {signed(x.applied)})</span>}
     </span>
+  );
+}
+
+function limitsText(st: Settings): string {
+  const parts = [];
+  if (st.min_pct != null && st.max_pct != null) parts.push(`${st.min_pct}–${st.max_pct}% per holding`);
+  else if (st.max_pct != null) parts.push(`at most ${st.max_pct}% per holding`);
+  else if (st.min_pct != null) parts.push(`at least ${st.min_pct}% per holding`);
+  else parts.push("no limit per holding");
+  parts.push(st.theme_cap_pct != null ? `${st.theme_cap_pct}% per theme` : "no theme cap");
+  parts.push(st.max_step_pct != null ? `at most ${st.max_step_pct} points of change at a time` : "straight to target");
+  return `${parts.join(", ")}. Change any of them under Your rules.`;
+}
+
+type Spec = { key: keyof Settings; label: string; hint: string; min: number; max: number; hardMax?: number; unit: string; decimals?: number; off?: string };
+const SPECS: Spec[] = [
+  { key: "max_pct", label: "Largest holding", hint: "No single stock above this", min: 1, max: 30, hardMax: 100, unit: "%", off: "No maximum" },
+  { key: "min_pct", label: "Smallest holding", hint: "Keep every stock at least this big", min: 0, max: 10, hardMax: 50, unit: "%", off: "No minimum" },
+  { key: "theme_cap_pct", label: "Largest theme", hint: "Also the line for concentration warnings", min: 5, max: 60, hardMax: 100, unit: "%", off: "No cap" },
+  { key: "max_step_pct", label: "Most change at a time", hint: "Per holding, per suggestion, to keep trading small", min: 0.5, max: 10, hardMax: 100, unit: " pts", off: "Straight to target" },
+  { key: "tilt", label: "Quality tilt", hint: "0 balances risk only; higher leans harder towards quality", min: 0, max: 1, hardMax: 2, unit: "" },
+  { key: "risk_days", label: "Risk measured over", hint: "Trading sessions of daily prices", min: 20, max: 250, unit: " days", decimals: 0 },
+  { key: "ai_nudge_pct", label: "AI may move a holding by", hint: "0 turns the AI review off", min: 0, max: 5, hardMax: 20, unit: " pts" },
+  { key: "ai_max_adjust", label: "AI may adjust up to", hint: "Holdings per review; 0 turns it off", min: 0, max: 10, hardMax: 20, unit: " stocks", decimals: 0 },
+];
+
+/** The investor's own rules for the suggestion. Nothing is fixed in code. */
+function RulesSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => void; onSaved: () => void }) {
+  const { data, mutate } = useApi<{ settings: Settings; defaults: Settings }>(open ? "/portfolio/settings" : null);
+  const [draft, setDraft] = useState<Settings | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  const st = draft ?? data?.settings ?? null;
+  const close = () => {
+    setDraft(null);
+    setErr(null);
+    onClose();
+  };
+  const save = async (body: object, path = "/portfolio/settings", method = "PUT") => {
+    setErr(null);
+    try {
+      await api(path, { method, body: JSON.stringify(body) });
+      await mutate();
+      onSaved();
+      close();
+    } catch (e) {
+      let msg = e instanceof Error ? e.message : "Couldn't save.";
+      try {
+        msg = JSON.parse(msg).detail ?? msg;
+      } catch {
+        /* plain text */
+      }
+      setErr(String(msg));
+    }
+  };
+  return (
+    <Sheet open={open} onClose={close} title="Your rules">
+      {!st || !data ? (
+        <Skeleton className="h-64" />
+      ) : (
+        <div className="space-y-4 pb-2">
+          <p className="text-[12px] leading-snug text-ink-3">
+            The suggestion follows these. Defaults are a common discipline for 15–20 stocks; set your own, or switch a limit off.
+          </p>
+          {SPECS.map((sp) => {
+            const v = st[sp.key];
+            const off = v == null;
+            return (
+              <div key={sp.key}>
+                <div className="flex items-baseline justify-between gap-2">
+                  <p className="text-[14px] font-medium">{sp.label}</p>
+                  {sp.off && (
+                    <button
+                      onClick={() => setDraft({ ...st, [sp.key]: off ? data.defaults[sp.key] : null })}
+                      aria-pressed={off}
+                      className={clsx("rounded-full border px-2.5 py-0.5 text-[12px]", off ? "border-ink bg-ink text-bg" : "border-line text-ink-2")}
+                    >
+                      {sp.off}
+                    </button>
+                  )}
+                </div>
+                <p className="mb-1.5 text-[12px] text-ink-3">{sp.hint}</p>
+                <NumberSlider
+                  label={sp.label}
+                  value={off ? (data.defaults[sp.key] as number) : (v as number)}
+                  disabled={off}
+                  min={sp.min}
+                  max={sp.max}
+                  hardMax={sp.hardMax}
+                  step={sp.decimals === 0 ? 1 : 0.1}
+                  decimals={sp.decimals ?? 2}
+                  unit={sp.unit}
+                  onChange={(x) => setDraft({ ...st, [sp.key]: x })}
+                />
+              </div>
+            );
+          })}
+          {err && <p className="text-[12px] text-bad">{err}</p>}
+          <div className="flex gap-2">
+            <button onClick={() => save({}, "/portfolio/settings/reset", "POST")} className="rounded-full border border-line px-4 py-2 text-[13px] text-ink-2">
+              Defaults
+            </button>
+            <button onClick={() => save(st)} disabled={!draft} className="flex-1 rounded-full bg-ink py-2 text-[14px] font-medium text-bg disabled:opacity-40">
+              Save
+            </button>
+          </div>
+        </div>
+      )}
+    </Sheet>
   );
 }
 

@@ -222,6 +222,62 @@ def test_alerts_volume_and_price_thresholds():
     assert alerts.evaluate(datetime(2026, 10, 25), datetime(2026, 10, 25, 23)) == []
 
 
+def _day_setup(last_close: float, last_vol: int):
+    from app.db import session
+
+    with session() as db:
+        db.execute("INSERT INTO companies (symbol, name, in_portfolio) VALUES ('ABC','Abc',1)")
+        for i in range(25):
+            close, vol = (100, 1000) if i < 24 else (last_close, last_vol)
+            db.execute(
+                "INSERT INTO prices VALUES ('ABC', ?, 0,0,0, ?, ?)",
+                (f"2026-10-{i + 1:02d}", close, vol),
+            )
+
+
+def _kinds(**rules):
+    from app.intel import alerts
+
+    alerts.set_rules({"categories": [], **rules})  # partial update: unsent keys stay
+    return {a["kind"] for a in alerts.evaluate(datetime(2026, 10, 25), datetime(2026, 10, 25, 23))}
+
+
+def test_alert_rules_low_volume_direction_and_and_or():
+    """A quiet day (0.4x volume) that falls 3%: every rule is the investor's to set."""
+    _day_setup(97, 400)
+    base = {"volume_multiple": 1.0, "volume_low_multiple": 0.45, "price_abs_pct": 2.5}
+    base |= {"price_direction": "either", "combine": "any"}  # each call states every rule
+    assert _kinds(**base, volume_mode="high") == {"price"}  # 0.4x is not high volume
+    assert _kinds(**base, volume_mode="low") == {"volume", "price"}
+    assert _kinds(**(base | {"volume_mode": "either", "price_direction": "up"})) == {"volume"}
+    # AND: both conditions on the same day, or nothing
+    assert _kinds(**(base | {"volume_mode": "low", "combine": "all"})) == {"volume", "price"}
+    assert _kinds(**(base | {"volume_mode": "high", "combine": "all"})) == set()
+    assert (
+        _kinds(**(base | {"volume_mode": "low", "price_direction": "up", "combine": "all"}))
+        == set()
+    )
+    from app.intel import alerts
+
+    r = alerts.get_rules()
+    assert r["volume_low_multiple"] == 0.45 and r["combine"] == "all"
+    alerts.set_rules(base | {"volume_mode": "low"})
+    low = alerts.evaluate(datetime(2026, 10, 25), datetime(2026, 10, 25, 23))
+    assert any(a.get("low") and "unusually quiet" in a["reason"] for a in low)
+
+
+def test_alert_rules_api_takes_partial_updates_and_two_decimals():
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+
+    with TestClient(app) as c:
+        r = c.put("/alert-rules", json={"volume_multiple": 1.25, "combine": "all"}).json()
+        assert r["volume_multiple"] == 1.25 and r["combine"] == "all" and r["price_abs_pct"] == 5.0
+        assert c.put("/alert-rules", json={"volume_mode": "sideways"}).status_code == 422
+        assert c.put("/alert-rules", json={"volume_multiple": 0}).status_code == 422
+
+
 def _split_setup(with_filing: bool):
     from app.db import session
 

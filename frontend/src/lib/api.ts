@@ -242,6 +242,7 @@ export type Alert = {
   reason: string;
   value: number;
   price_change_pct?: number | null;
+  low?: boolean;
   announcement_id?: string;
   title?: string;
 };
@@ -335,7 +336,13 @@ export type Digest = {
 
 export type AlertRules = {
   volume_multiple: number;
+  volume_low_multiple: number;
+  volume_mode: "high" | "low" | "either";
+  volume_window: number;
   price_abs_pct: number;
+  price_direction: "up" | "down" | "either";
+  combine: "any" | "all";
+  min_materiality: number;
   categories: string[];
   enabled: { volume: boolean; price: boolean; category: boolean };
   all_categories?: string[];
