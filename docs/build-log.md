@@ -177,3 +177,9 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - industry peer: "Was that specific to Aarti, or industry-wide?"
 - **First version was repetitive:** three near-identical "they guided X and missed" lines. Now there are at most two misses, worded differently, plus one flag.
 - **Coverage:** 11 of the 44 people visible to the main demo account get questions. That is everyone linked to a company with a research view; the rest get none rather than generic filler.
+
+## Phase 4k: writeup brought up to date (plan v2, phase 6)
+- README tour now covers priority levels, next actions, the three voices, off-the-record notes, meeting questions, the same-name check and the second account.
+- Added **Measured, not assumed**: calibration, rule coverage, extraction accuracy, the model comparison and cost. Every figure is copied from this log or the architecture doc, not re-estimated.
+- Added **Open questions for ENAM**: pooled vs private networks, current insiders, and whether screener.in counts as primary data. Each says what FINN does today.
+- "Left out" no longer lists meeting questions or multi-user isolation, which are built. It says plainly that the account switch is not sign-in.
