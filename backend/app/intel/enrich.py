@@ -79,10 +79,19 @@ def run(limit_triage: int | None = None) -> dict:
         ]
     log.info("%d announcements", len(anns))
 
+    # Filings enriched on an earlier run keep their result: a daily run pays only for new
+    # ones, even on a machine whose model-answer cache starts empty (the scheduled job).
+    path = fixtures_dir() / ENRICHMENT_FILE
+    prev = json.loads(path.read_text()) if path.exists() else {}
+    done = {k: v for k, v in prev.get("announcements", {}).items() if not v.get("pending")}
+
     # 1. rules
     out: dict[str, dict] = {}
     todo = []
     for a in anns:
+        if a["id"] in done:
+            out[a["id"]] = done[a["id"]]
+            continue
         rule = classify_rules(a["exch_category"], a["subject"])
         out[a["id"]] = {
             "category": rule.category,
@@ -92,9 +101,15 @@ def run(limit_triage: int | None = None) -> dict:
         }
         if not rule.confident or rule.category in NEEDS_TRIAGE:
             todo.append(a | {"rule_category": rule.category})
-    log.info("rules: %d confident-routine, %d need triage", len(anns) - len(todo), len(todo))
+    log.info(
+        "%d already enriched; rules settle %d new; %d need triage",
+        sum(a["id"] in done for a in anns),
+        sum(a["id"] not in done for a in anns) - len(todo),
+        len(todo),
+    )
 
     # 2. batched LLM triage
+    need = list(todo)
     todo = todo[:limit_triage] if limit_triage else todo
     for i, a in enumerate(todo):
         a["excerpt"] = filing_excerpt(a["pdf_url"], limit=1800)
@@ -109,6 +124,9 @@ def run(limit_triage: int | None = None) -> dict:
             summary=t.one_liner,
             category_source="rules" if t.category == rule_cat else "llm",
         )
+    for a in need:  # no answer (quota, error, over the limit): keep the rule result, retry next run
+        if a["id"] not in triaged:
+            out[a["id"]]["pending"] = True
     log.info("triaged %d/%d", len(triaged), len(todo))
 
     # 3. results cards: newest primary results filing per company
@@ -120,6 +138,9 @@ def run(limit_triage: int | None = None) -> dict:
         if not is_primary_results_filing(a):
             continue
         seen.add(a["symbol"])
+        if a["id"] in prev.get("results", {}):
+            results[a["id"]] = prev["results"][a["id"]]
+            continue
         # screener's table first: once it has the filed quarter, the card needs no model
         # call. Only a quarter screener hasn't added yet (usually the first day) is read
         # from the PDF.
@@ -148,6 +169,10 @@ def run(limit_triage: int | None = None) -> dict:
     people: dict[str, list] = {}
     for a in anns:
         if out[a["id"]]["category"] != "management_change" or a["id"] in golden:
+            continue
+        if a["id"] in done:  # read on an earlier run (with or without people found)
+            if a["id"] in prev.get("people", {}):
+                people[a["id"]] = prev["people"][a["id"]]
             continue
         try:
             res = extract_people(a["pdf_url"])

@@ -39,10 +39,21 @@ def snap_prices() -> None:
 
 
 def snap_announcements(days: int = 60) -> None:
+    """New filings merged into the stored ones within the window. A run where NSE answered
+    nothing (blocked, down) leaves the file as it was rather than emptying the demo."""
+    from datetime import date, timedelta
+
     rows = fetch_universe_announcements(all_symbols(), days=days)
     path = fixtures_dir() / "announcements.json"
-    path.write_text(json.dumps(rows, indent=1, ensure_ascii=False))
-    log.info("announcements: %d rows -> %s", len(rows), path)
+    if not rows:
+        log.error("announcements: NSE returned nothing; keeping %s unchanged", path.name)
+        return
+    cutoff = (date.today() - timedelta(days=days)).isoformat()
+    old = json.loads(path.read_text()) if path.exists() else []
+    merged = {a["id"]: a for a in old if a["ts"][:10] >= cutoff} | {a["id"]: a for a in rows}
+    out = sorted(merged.values(), key=lambda a: a["ts"], reverse=True)
+    path.write_text(json.dumps(out, indent=1, ensure_ascii=False))
+    log.info("announcements: %d fetched, %d kept -> %s", len(rows), len(out), path)
 
 
 def snap_fundamentals() -> None:
