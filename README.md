@@ -68,7 +68,7 @@ The same table lives in the app at **How accurate is FINN?** (Today's footer), w
 | What | Result | How |
 |---|---|---|
 | Material filings kept out of Routine | 25 of 25 | 100 portfolio filings, picked at random and labelled before the levels were tuned (`backend/data/fixtures/eval/materiality_labels.json`) |
-| Share of items marked Important | 13.3% on 7 days, 18.8% on 30 days (target ≤ 20%) | Same digest, cards plus folded filings, one card per event |
+| Share of items marked Important | 13.3% on 7 days, 17.1% on 30 days (target ≤ 20%) | Same digest, cards plus folded filings, one card per event |
 | Filings decided by rules, with no LLM call | 454 of 517 | Ingested portfolio filings |
 | People extracted from management-change filings | 7/7 people and roles, 17/18 prior employers, 8/10 schools | Hand-checked golden set |
 | Promises found in Kaynes' calls, small vs mid model | 5 vs 10, including all 3 misses | Same calls, two tiers; the reason the scorecard uses the larger model |
