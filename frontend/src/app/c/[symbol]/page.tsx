@@ -239,6 +239,14 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
           From {transcripts.length} earnings calls and the annual report
           {v.filed_results ? `, plus the ${fq(v.filed_results.period)} results filed ${day(v.filed_results.filed)}` : ""}. No news, no broker notes.
         </p>
+        {v.freshness?.status === "stale" && (
+          <p className="mt-2 rounded-lg bg-warn-soft px-3 py-2 text-[12px] leading-snug text-warn">
+            Out of date: {v.freshness.reason}{" "}
+            <button onClick={rebuild} className="font-medium underline underline-offset-2">
+              Rebuild
+            </button>
+          </p>
+        )}
         <VoiceLegend />
       </header>
 

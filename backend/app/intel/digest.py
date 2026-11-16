@@ -193,6 +193,7 @@ def build_digest(
         # unrelated filings FINN couldn't place are never merged into one card
         key = f"{cat}:{a['id']}" if cat == "unclassified" else cat
         groups.setdefault((a["symbol"], key), []).append(a)
+    groups = split_events(groups)
 
     cards = []
     for (symbol, key), items in groups.items():
@@ -346,6 +347,52 @@ def level(card: dict) -> tuple[str, str]:
         return "important", f"{label}; {stock}"
     bar = 70 if kind in ("management_change", "material_event") else 85
     return "notable", f"{label}, rated {m}/100 for materiality (Important from {bar})"
+
+
+SAME_EVENT_SIMILARITY = 60  # token-sort ratio of two filings' summaries (0-100)
+SAME_EVENT_DAYS = 30
+# filings of one periodic event: the results, the call (transcript, recording, slides)
+ONE_EVENT_PER_PERIOD = {"results", "earnings_call"}
+
+
+def split_events(groups: dict) -> dict:
+    """One card per underlying event, not per category. Results and earnings-call filings
+    of a period stay together; other filings join the event whose summaries are closest
+    to theirs (same deal, same person, same case), if close enough and within a month.
+    Two separate deals are two cards even though both are M&A. Threshold set from real
+    cases: same event 64-99 (a closure order and the court's stay of it: 64), different
+    events 38-52 (two executives' appointments on the same day: 52)."""
+    from rapidfuzz import fuzz
+
+    def text(a: dict) -> str:
+        return (a["summary"] or a["subject"] or "").lower()
+
+    out: dict = {}
+    for (symbol, key), items in groups.items():
+        if key in ONE_EVENT_PER_PERIOD or ":" in key:
+            out[(symbol, key)] = items
+            continue
+        events: list[list[dict]] = []
+        for a in sorted(items, key=lambda x: x["ts"]):
+            best, score = None, 0.0
+            for ev in events:
+                s = max(
+                    (
+                        fuzz.token_sort_ratio(text(a), text(b))
+                        for b in ev
+                        if abs((parse_dt(a["ts"]) - parse_dt(b["ts"])).days) <= SAME_EVENT_DAYS
+                    ),
+                    default=0.0,
+                )
+                if s > score:
+                    best, score = ev, s
+            if best is not None and score >= SAME_EVENT_SIMILARITY:
+                best.append(a)
+            else:
+                events.append([a])
+        for i, ev in enumerate(events):
+            out[(symbol, key if i == 0 else f"{key}:{ev[0]['id']}")] = ev
+    return out
 
 
 REACTION_DAYS = 4  # calendar days after a filing that count as the market's reaction

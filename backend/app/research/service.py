@@ -61,23 +61,52 @@ def load_fundamentals(symbol: str) -> dict:
 
 
 def cache_key(f: dict) -> str:
+    """What a research view was built from: prompt versions, the documents read, the latest
+    quarter, and every value in the financial tables (so a restated number is a change)."""
     docs = [d.url for d in select_docs(f["documents"])]
     quarters = sorted(f["tables"].get("quarters", {}).get("Net Profit", {}))
-    raw = json.dumps([VERSIONS, docs, quarters[-1:]])
+    tables = hashlib.sha256(json.dumps(f["tables"], sort_keys=True).encode()).hexdigest()
+    raw = json.dumps([VERSIONS, docs, quarters[-1:], tables])
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
 def get_cached(symbol: str) -> dict | None:
+    """The research view to show. Prefer one built from today's inputs (a cached build with
+    the current key, else the committed fixture if it matches); otherwise the newest view
+    there is, marked stale, so research never disappears while it's out of date."""
+    want = _current_key(symbol)
     with session() as db:
-        r = db.execute(
-            "SELECT payload_json FROM research_cache WHERE symbol=? ORDER BY created_at DESC "
-            "LIMIT 1",
+        rows = db.execute(
+            "SELECT key, payload_json FROM research_cache WHERE symbol=? ORDER BY created_at DESC",
             (symbol,),
-        ).fetchone()
-    if r:
-        return with_filed_results(json.loads(r["payload_json"]))
+        ).fetchall()
     path = research_fixture(symbol)
-    return with_filed_results(json.loads(path.read_text())) if path.exists() else None
+    fixture = json.loads(path.read_text()) if path.exists() else None
+    candidates = [json.loads(r["payload_json"]) for r in rows] + ([fixture] if fixture else [])
+    if not candidates:
+        return None
+    view = next((v for v in candidates if want and v.get("key") == want), candidates[0])
+    view["freshness"] = _freshness(view, want)
+    return with_filed_results(view)
+
+
+def _current_key(symbol: str) -> str | None:
+    """The key a build would get now, from the committed fundamentals only: a read never
+    triggers a live fetch (None when FINN has no committed fundamentals for the company)."""
+    path = fixtures_dir() / "fundamentals" / f"{symbol}.json"
+    return cache_key(json.loads(path.read_text())) if path.exists() else None
+
+
+def _freshness(view: dict, want: str | None) -> dict:
+    if want is None:
+        return {"status": "as_built"}
+    if view.get("key") == want:
+        return {"status": "fresh"}
+    return {
+        "status": "stale",
+        "reason": "The documents, financial tables or FINN's prompts changed after this view "
+        "was built.",
+    }
 
 
 def latest_filed_results(symbol: str) -> tuple[str, dict] | None:
@@ -151,14 +180,11 @@ def ready_symbols() -> set[str]:
 
 def summaries() -> list[dict]:
     """One line per ready view: enough for a list, without shipping whole views."""
-    views: dict[str, dict] = {}
-    for path in sorted((fixtures_dir() / "research").glob("*.json")):
-        views[path.stem] = json.loads(path.read_text())
+    symbols = {path.stem for path in (fixtures_dir() / "research").glob("*.json")}
     with session() as db:
-        for r in db.execute(
-            "SELECT symbol, payload_json FROM research_cache ORDER BY created_at"
-        ):  # later rows win: the newest build per symbol
-            views[r["symbol"]] = json.loads(r["payload_json"])
+        symbols |= {r["symbol"] for r in db.execute("SELECT DISTINCT symbol FROM research_cache")}
+    # the same choice as the research page: the view built from today's inputs if there is one
+    views = {s: v for s in sorted(symbols) if (v := get_cached(s))}
     out = []
     for v in views.values():
         p = v.get("promises") or {}

@@ -2,7 +2,7 @@
 
 A mobile-first investor companion with three layers:
 - **Push:** what changed across your portfolio today, and why you should care.
-- **Pull:** research on any NSE company built only from primary sources, led by "did management deliver what they promised?"
+- **Pull:** research on any NSE company from its own disclosures (annual report, earnings-call transcripts, exchange filings), led by "did management deliver what they promised?" The multi-year financial tables are screener.in's standardised copy of the reported accounts, labelled as such; the latest quarter comes from the exchange filing itself.
 - **Network:** who in your own network can help you understand it, and how you know them.
 
 **Demo:** https://finn-iota-murex.vercel.app (passcode in the covering email). The free API host sleeps when idle, so the first load can take up to a minute.
@@ -10,7 +10,7 @@ A mobile-first investor companion with three layers:
 > Spec: [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) · Architecture: [`docs/architecture.md`](docs/architecture.md) · Build history: [`docs/build-log.md`](docs/build-log.md) · Deploy: [`docs/DEPLOY.md`](docs/DEPLOY.md)
 
 ## 60-second tour
-1. **Today.** The brief for the last 24 hours, 3, 7 or 30 days, or any dates you pick (try 1–15 October for the Pidilite CFO change). Results cards lead with what the numbers say ("Profit down 36% YoY even as revenue grew 12%"), show QoQ and YoY, and are cross-checked against screener.in. A management change shows the incoming person's background and your path to them. Each card is marked Important or Notable with a one-line reason, names the person to call and why, and ends in one next step (the incoming person, the promise scorecard, the contact to call). Routine filings are folded away; filings FINN can't place stay visible, marked "Unclassified".
+1. **Today.** The brief for the last 24 hours, 3, 7, 14, 21 or 30 days, or any dates you pick (try 1–15 October for the Pidilite CFO change). Results cards lead with what the numbers say ("Profit down 36% YoY even as revenue grew 12%"), show QoQ and YoY, and are cross-checked against screener.in. A management change shows the incoming person's background and your path to them. Each card is marked Important or Notable with a one-line reason, names the person to call and why, and ends in one next step (the incoming person, the promise scorecard, the contact to call). Routine filings are folded away; filings FINN can't place stay visible, marked "Unclassified".
    Tap **Listen to the brief** for the same items read aloud, about a minute, in the phone's own voice. On a return visit, new cards are marked and the ones you acted on are dimmed.
 2. **Alert settings** (top right). Change the volume or price threshold and the feed re-ranks.
 3. **Ask → Kaynes.** The promise scorecard: FY26 revenue ₹3,626 Cr against ₹4,000 Cr+ guided, working capital 133 days against ≤85, each with the verbatim quote, call and page beside the reported number. Reported figures, management's words and FINN's own reading look different everywhere on the page. Below "Who you know", an off-the-record panel keeps what contacts told you apart from the evidence: it is never sent to the AI or cited.
@@ -19,7 +19,7 @@ A mobile-first investor companion with three layers:
 5. **Ask → any other ticker** (e.g. TATAELXSI). FINN reads its annual report and last four calls live, with progress, in under a minute.
 6. **People.** The expertise map by theme, reconnect nudges, and profiles with "ask them about", "can introduce you to" and "Before you meet", which lists questions built from FINN's research, each showing its source. Open the Pidilite CFO: one of your contacts is also called Amit Agarwal, and FINN shows a "possible match" to confirm or dismiss instead of assuming it's him.
    On any profile, **Meeting soon?** takes a date: from two days before, Today opens with a prep card (what changed at the companies they know, and what to ask).
-7. **Portfolio** (new tab). *As it stands*: invested, 6-month return and P/E up front; a one-year chart against the Nifty 50 (+7.4% against −2.8% for the demo); warnings ("Lenders together are 38%"); everything else in one table, with themes, holdings and correlated pairs folded away. *Suggested*: the same 18 holdings re-weighted by code (balance risk, lean towards quality, stay within limits), each change explained, then an **AI review** that read 40 recent filings and proposed three nudges, citing each one (CG Power's plant closure order, Kaynes' delivery record, Sun Pharma's FDA approval; code found no room for the last). **Edit** changes shares with − / + and recomputes the weights as you go; Today follows.
+7. **Portfolio** (new tab). *As it stands*: invested, 6-month return and P/E up front; a one-year chart against the Nifty 50 (+7.4% against −2.8% for the demo); warnings ("Lenders together are 38%"); everything else in one table, with themes, holdings and correlated pairs folded away. *Suggested*: the same 18 holdings re-weighted by code (balance risk, lean towards quality, stay within limits), each change explained, then an **AI review** that read 40 recent filings and proposed four nudges, citing each one (CG Power's plant closure order, Kaynes' delivery record, HDFC Bank's Deputy MD leaving during its CEO change, Sun Pharma's FDA approval; code found no room for the last). *As it stands* also names holdings outside your own limits. **Edit** changes shares with − / + and recomputes the weights as you go, and **Reset to demo** can be undone; Today follows.
    Every card and company page has **Share** (plain text with the filing link, for WhatsApp or mail). Add FINN to the home screen: once opened, the last brief still loads offline.
    A six-step tour runs on the first visit; the Tour button at the top of Today replays it, next to Accuracy and the light/dark toggle.
 8. **People → Yours.** Try it on your own network: type where you worked and studied, upload the `Connections.csv` LinkedIn lets you export, and every path, "who can help" and meeting question rebuilds around you. It's private to your browser, keeps no e-mails or profile links, and is deleted after 7 days. Switch to "Second investor" and every list changes, because each account sees only its own contacts. "Remove from my network" on a profile takes every link through that person with it, and "Restore the demo network" undoes it.
@@ -68,7 +68,7 @@ The same table lives in the app at **How accurate is FINN?** (Today's footer), w
 | What | Result | How |
 |---|---|---|
 | Material filings kept out of Routine | 25 of 25 | 100 portfolio filings, picked at random and labelled before the levels were tuned (`backend/data/fixtures/eval/materiality_labels.json`) |
-| Share of items marked Important | 10.7% on 7 days, 18.6% on 30 days (target ≤ 20%) | Same digest, cards plus folded filings |
+| Share of items marked Important | 13.3% on 7 days, 18.8% on 30 days (target ≤ 20%) | Same digest, cards plus folded filings, one card per event |
 | Filings decided by rules, with no LLM call | 454 of 517 | Ingested portfolio filings |
 | People extracted from management-change filings | 7/7 people and roles, 17/18 prior employers, 8/10 schools | Hand-checked golden set |
 | Promises found in Kaynes' calls, small vs mid model | 5 vs 10, including all 3 misses | Same calls, two tiers; the reason the scorecard uses the larger model |
@@ -77,7 +77,7 @@ The same table lives in the app at **How accurate is FINN?** (Today's footer), w
 ## Open questions for ENAM
 - **Is a network private to one investor, or pooled across the team?** FINN keeps each investor's network separate and stores public filing people once. Pooling would be a sharing setting on top of that, not a rebuild, but who sees whose contacts is a policy call.
 - **How should FINN treat a contact who works at the company now?** Today it marks them ("keep it to public information") and keeps meeting questions to public figures. A compliance team may want them hidden on restricted names, or every contact logged.
-- **Are screener.in's standardised tables acceptable as primary data?** FINN reads the exchange filings and uses screener only to cross-check and fill history. If it isn't acceptable, history would come from the filings themselves, at more parsing cost.
+- **Are screener.in's standardised tables acceptable for history?** Every claim the AI makes cites the company's own documents, and the latest quarter is read from the exchange filing, but the multi-year tables behind growth, margins, cash conversion and gearing are screener.in's standardisation of the reported accounts. If that isn't acceptable, the history would be read from the annual reports and quarterly filings themselves: more parsing, and each number would carry its page.
 
 ## Where I'd take it next
 - **A better voice brief:** a natural voice instead of the phone's built-in one, delivered as a podcast-style feed the evening before.

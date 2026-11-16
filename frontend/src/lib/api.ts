@@ -462,6 +462,8 @@ export type Research = {
   latest_quarter: string;
   /** a results filing newer than the build, added as the latest quarter */
   filed_results?: { period: string; filed: string } | null;
+  /** fresh: built from today's inputs; stale: inputs changed since (still shown) */
+  freshness?: { status: "fresh" | "stale" | "as_built"; reason?: string };
   documents: DocRef[];
   financials: Financials;
   promises: {

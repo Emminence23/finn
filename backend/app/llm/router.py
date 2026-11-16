@@ -10,6 +10,7 @@ import hashlib
 import json
 import logging
 import os
+import re
 import threading
 import time
 from contextlib import contextmanager
@@ -156,6 +157,7 @@ class LLMRouter:
                     self._served(r)
                     return _parse(cached, schema)
         quota_err: QuotaExhausted | None = None
+        last_err: LLMError | None = None
         for r in routes:
             if time.time() - self._exhausted.get((r.provider, r.model), 0) < 3600:
                 continue  # out of quota recently; re-probe after an hour
@@ -168,6 +170,17 @@ class LLMRouter:
                 self._log_call(r, cache_hit=False, error=str(e)[:500])
                 log.warning("llm %s: %s quota exhausted, trying next fallback", task, r.model)
                 quota_err = e
+            except LLMError as e:
+                # a bad key or missing permission won't be fixed by another model: stop.
+                # Anything else (server errors and timeouts after the provider's own
+                # retries, or two invalid outputs) moves on to the next model, if any;
+                # the model that answered is recorded, so the switch shows in the label.
+                if _is_auth_error(e):
+                    raise
+                log.warning("llm %s: %s failed (%s), trying next fallback", task, r.model, e)
+                last_err = e
+        if last_err is not None and quota_err is None:
+            raise last_err
         tried = ", ".join(r.model for r in routes)
         raise LLMError(
             f"task {task}: every configured model is out of quota ({tried})"
@@ -194,6 +207,8 @@ class LLMRouter:
             except QuotaExhausted:
                 raise
             except (LLMError, ValidationError, json.JSONDecodeError) as e:
+                if isinstance(e, LLMError) and _is_auth_error(e):
+                    raise  # retrying a bad key only burns time
                 last_err = e
                 self._log_call(r, cache_hit=False, error=str(e)[:500])
                 log.warning("llm %s attempt %d failed: %s", task, attempt + 1, e)
@@ -257,6 +272,15 @@ class LLMRouter:
                     error,
                 ),
             )
+
+
+_AUTH = re.compile(
+    r"\b(401|403)\b|api key not valid|permission_denied|unauthenticated|is not set", re.I
+)
+
+
+def _is_auth_error(e: Exception) -> bool:
+    return bool(_AUTH.search(str(e)))
 
 
 def _cache_key(r: Route, version: str, system: str, prompt: str, schema, docs: list[Doc]) -> str:

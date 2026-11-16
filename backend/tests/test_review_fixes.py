@@ -101,3 +101,95 @@ def test_reset_can_be_undone_with_the_same_buy_prices(seeded):
             == 400
         )
         c.post("/portfolio/holdings/reset", headers=h)
+
+
+def test_symbols_are_checked_before_use(seeded):
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+
+    with TestClient(app) as c:
+        assert c.get("/research/..%2F..%2Fetc").status_code in (400, 404)
+        assert c.get("/compare", params={"a": "KAYNES", "b": "../x"}).status_code == 400
+        assert c.get("/research/KAYNES").status_code == 200
+        assert c.get("/companies/M&M/prices").status_code != 400  # & is a real NSE symbol
+
+
+def test_cagr_needs_the_year_exactly_n_back():
+    from app.research.financials import cagr
+
+    full = {"2021-03": 100, "2022-03": 110, "2023-03": 121, "2024-03": 133.1}
+    assert cagr(full, 3) == pytest.approx(10.0)
+    gap = {"2020-03": 100, "2022-03": 110, "2023-03": 121, "2024-03": 133.1}  # 2021 missing
+    assert cagr(gap, 3) is None  # four points, but 2021 isn't there: no "3-year" growth
+    assert cagr({"2021-03": 100, "2024-03": 133.1}, 3) == pytest.approx(10.0)
+
+
+def _fin(cfo, pat, equity=(10, 90), debt=50):
+    from app.research.financials import build_financials
+
+    ys = ["2022-03", "2023-03", "2024-03"]
+    return build_financials(
+        {
+            "tables": {
+                "annual_pl": {
+                    "Sales": dict.fromkeys(ys, 1000),
+                    "Net Profit": dict(zip(ys, pat, strict=True)),
+                },
+                "cash_flow": {"Cash from Operating Activity": dict(zip(ys, cfo, strict=True))},
+                "balance_sheet": {
+                    "Equity Capital": dict.fromkeys(ys, equity[0]),
+                    "Reserves": dict.fromkeys(ys, equity[1]),
+                    "Borrowings": dict.fromkeys(ys, debt),
+                },
+            }
+        }
+    )
+
+
+def test_cash_conversion_needs_three_full_years_and_a_profit():
+    ok = _fin([90, 100, 110], [100, 100, 100])["cash_quality"]
+    assert ok["cfo_to_pat_3y"] == pytest.approx(1.0) and ok["coverage"]["cfo"] == "3/3"
+    gap = _fin([90, None, 110], [100, 100, 100])["cash_quality"]
+    assert gap["cfo_to_pat_3y"] is None and gap["coverage"]["cfo"] == "2/3"  # not zero
+    loss = _fin([90, 100, 110], [-50, -60, 20])["cash_quality"]
+    assert loss["cfo_to_pat_3y"] is None and loss["pat_3y"] == -90  # shown, not divided
+
+
+def test_negative_net_worth_is_flagged_not_called_lightly_geared():
+    f = _fin([90, 100, 110], [100, 100, 100], equity=(10, -60))
+    ids = {x["id"] for x in f["flags"]}
+    assert f["balance_sheet"]["annual"][-1]["debt_to_equity"] is None
+    assert "fin:negative_equity" in ids and "fin:leverage" not in ids
+
+
+def test_unrelated_filings_of_one_category_are_separate_events():
+    from app.intel.digest import split_events
+
+    def a(i, day, text):
+        return {"id": i, "ts": f"2026-11-{day:02d}T10:00:00", "summary": text, "subject": ""}
+
+    groups = {
+        ("KAYNES", "M&A"): [
+            a("1", 12, "Executed a binding term sheet with Vishay Intertechnology"),
+            a("2", 15, "Board approved a joint venture with Toyokawa Techno for TFT modules"),
+        ],
+        ("CGPOWER", "litigation"): [
+            a("3", 5, "Pollution board directed closure of manufacturing operations at Waluj unit"),
+            a("4", 7, "High Court stayed pollution board closure direction for manufacturing unit"),
+        ],
+        ("TITAN", "results"): [a("5", 5, "Approved results"), a("6", 6, "Newspaper publication")],
+    }
+    out = split_events(groups)
+    assert len([k for k in out if k[0] == "KAYNES"]) == 2  # two deals, two cards
+    assert len([k for k in out if k[0] == "CGPOWER"]) == 1  # the order and its stay
+    assert len(out[("TITAN", "results")]) == 2  # one results event per period
+
+
+def test_research_view_says_when_its_inputs_changed(seeded, monkeypatch):
+    from app.research import service
+
+    assert service.get_cached("KAYNES")["freshness"]["status"] == "fresh"
+    monkeypatch.setattr(service, "VERSIONS", ("research-v2",))  # e.g. a prompt changed
+    v = service.get_cached("KAYNES")
+    assert v is not None and v["freshness"]["status"] == "stale"  # still served, marked

@@ -524,15 +524,19 @@ class BuildBudget:
     def __init__(self) -> None:
         self.day = ""
         self.used = 0
-        self.gate = threading.Lock()
+        self.gate = threading.Lock()  # one build at a time
+        self._count = threading.Lock()  # the counter itself: two requests can't both take
+        # the last unit. In-process, so it resets on restart and isn't shared across
+        # workers; fine for one free instance, a database counter in production.
 
     def take(self, limit: int, today: str) -> bool:
-        if today != self.day:
-            self.day, self.used = today, 0
-        if self.used >= limit:
-            return False
-        self.used += 1
-        return True
+        with self._count:
+            if today != self.day:
+                self.day, self.used = today, 0
+            if self.used >= limit:
+                return False
+            self.used += 1
+            return True
 
 
 BUDGET = BuildBudget()

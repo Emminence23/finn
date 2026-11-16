@@ -96,12 +96,16 @@ def load_people(owner: str | None = None) -> dict[str, Person]:
             )
             for r in db.execute("SELECT * FROM people WHERE owner_id IN (?, ?)", (owner, PUBLIC))
         }
-        for r in db.execute("SELECT * FROM roles"):
+        # only this account's and public people's rows ever leave the database
+        mine = (
+            "SELECT {t}.* FROM {t} JOIN people p ON p.id = {t}.person_id WHERE p.owner_id IN (?, ?)"
+        )
+        for r in db.execute(mine.format(t="roles"), (owner, PUBLIC)):
             if r["person_id"] in people:
                 people[r["person_id"]].roles.append(
                     Role(r["company"], r["symbol"], r["title"], r["start_year"], r["end_year"])
                 )
-        for r in db.execute("SELECT * FROM education"):
+        for r in db.execute(mine.format(t="education"), (owner, PUBLIC)):
             if r["person_id"] in people:
                 people[r["person_id"]].education.append(
                     School(r["school"], r["program"], r["start_year"], r["end_year"])

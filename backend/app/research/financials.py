@@ -23,11 +23,16 @@ def _fy(series: dict) -> list[tuple[str, float | None]]:
 
 
 def cagr(series: dict, years: int) -> float | None:
-    pts = [(k, v) for k, v in _fy(series) if v is not None]
-    if len(pts) < years + 1:
+    """Compound growth between the latest fiscal year and the one exactly `years` earlier.
+    A gap in the history never turns into a shorter or longer span: if the year `years`
+    back isn't there, there's no CAGR."""
+    pts = {k[:4]: v for k, v in _fy(series) if v is not None}
+    if not pts:
         return None
-    start, end = pts[-years - 1][1], pts[-1][1]
-    if start is None or end is None or start <= 0 or end <= 0:
+    end_y = max(pts)
+    start_y = str(int(end_y) - years)
+    start, end = pts.get(start_y), pts[end_y]
+    if start is None or start <= 0 or end <= 0:
         return None
     return round(((end / start) ** (1 / years) - 1) * 100, 1)
 
@@ -71,8 +76,10 @@ def build_financials(f: dict) -> dict:
     margin_q = _row(q, "OPM %", "Financing Margin %")
     pat_q = _row(q, "Net Profit")
 
+    # net worth = equity capital + reserves; a missing part leaves it unknown, not zero
+    reserves = _row(bs, "Reserves")
     equity = {
-        k: (v or 0) + (_row(bs, "Reserves").get(k) or 0)
+        k: (v + reserves[k]) if v is not None and reserves.get(k) is not None else None
         for k, v in _row(bs, "Equity Capital").items()
     }
     debt = _row(bs, "Borrowings", "Borrowing")
@@ -97,7 +104,7 @@ def build_financials(f: dict) -> dict:
         "pat_ttm": pat_y.get("TTM"),
         "roe_pct": _num(top.get("ROE")),
         "roce_pct": None if lender else _num(top.get("ROCE")),
-        "debt_to_equity": None if lender else _ratio(debt.get(fy_last), equity.get(fy_last)),
+        "debt_to_equity": None if lender else _gearing(debt.get(fy_last), equity.get(fy_last)),
         "market_cap_cr": _num(top.get("Market Cap")),
         "pe": _num(top.get("Stock P/E")),
         "price": _num(top.get("Current Price")),
@@ -132,16 +139,27 @@ def build_financials(f: dict) -> dict:
                 "cfo": cfo.get(y),
                 "fcf": fcf.get(y),
                 "pat": pat_y.get(y),
-                "cfo_to_pat": _ratio(cfo.get(y), pat_y.get(y)),
+                "cfo_to_pat": _ratio(cfo.get(y), pat_y.get(y)) if (pat_y.get(y) or 0) > 0 else None,
             }
             for y in years
             if y in cfo
         ],
     }
-    last3 = [y for y in years if y in cfo][-3:]
-    cfo3, pat3 = sum(cfo.get(y) or 0 for y in last3), sum(pat_y.get(y) or 0 for y in last3)
-    cash["cfo_to_pat_3y"] = _ratio(cfo3, pat3) if last3 else None
-    cash["fcf_3y"] = round(sum(fcf.get(y) or 0 for y in last3), 1) if fcf else None
+    # three-year totals only over three consecutive years that all have the number; a
+    # missing year is never counted as zero, and CFO/PAT means nothing on a total loss
+    last3 = _consecutive(years[-3:])
+    have = {
+        name: [y for y in last3 if s.get(y) is not None]
+        for name, s in (("cfo", cfo), ("pat", pat_y), ("fcf", fcf))
+    }
+    cash["coverage"] = {k: f"{len(v)}/3" for k, v in have.items()}
+    full = {k: len(v) == 3 for k, v in have.items()}
+    cfo3 = sum(cfo[y] for y in last3) if full["cfo"] else None
+    pat3 = sum(pat_y[y] for y in last3) if full["pat"] else None
+    cash["cfo_3y"] = round(cfo3, 1) if cfo3 is not None else None
+    cash["pat_3y"] = round(pat3, 1) if pat3 is not None else None
+    cash["cfo_to_pat_3y"] = _ratio(cfo3, pat3) if cfo3 is not None and pat3 and pat3 > 0 else None
+    cash["fcf_3y"] = round(sum(fcf[y] for y in last3), 1) if full["fcf"] else None
 
     balance = {
         "annual": [
@@ -149,7 +167,7 @@ def build_financials(f: dict) -> dict:
                 "period": y,
                 "borrowings": debt.get(y),
                 "net_worth": equity.get(y),
-                "debt_to_equity": _ratio(debt.get(y), equity.get(y)),
+                "debt_to_equity": _gearing(debt.get(y), equity.get(y)),
                 "cwip": _row(bs, "CWIP").get(y),
                 **(
                     {}
@@ -184,6 +202,21 @@ def build_financials(f: dict) -> dict:
     }
     out["flags"] = flags(out, pl)
     return out
+
+
+def _consecutive(years: list[str]) -> list[str]:
+    """The given fiscal years if they run one after another, else []."""
+    ys = [int(y[:4]) for y in years]
+    return years if len(ys) == 3 and ys == list(range(ys[0], ys[0] + 3)) else []
+
+
+def _gearing(debt, equity):
+    """Debt / net worth. None when net worth is zero, negative or unknown: a negative
+    ratio would read as 'lightly geared' when it means the equity has been wiped out
+    (flagged separately as negative net worth)."""
+    if debt is None or equity is None or equity <= 0:
+        return None
+    return round(debt / equity, 2)
 
 
 def _yoy(series: dict, period: str) -> float | None:
@@ -240,6 +273,13 @@ def flags(fin: dict, pl: dict) -> list[dict]:
                 "receivables",
                 "negative",
                 f"Debtor days jumped from {da:.0f} to {db:.0f} in {b['period'][:4]}",
+            )
+        if b.get("net_worth") is not None and b["net_worth"] <= 0:
+            add(
+                "negative_equity",
+                "negative",
+                f"Net worth is negative (Rs {b['net_worth']:,.0f} Cr in {b['period'][:4]}): "
+                f"losses have wiped out the equity",
             )
         if b.get("debt_to_equity") is not None and b["debt_to_equity"] > 1:
             add("leverage", "negative", f"Debt/equity {b['debt_to_equity']:.2f}×")

@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import logging
+import re
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import router
@@ -48,7 +49,22 @@ app.add_middleware(
 )
 
 
-app.include_router(router, dependencies=[Depends(require_passcode), Depends(select_account)])
+# an NSE symbol: letters, digits, & and - (M&M, BAJAJ-AUTO). Checked before any route uses
+# one in a file path (fixtures, page cache) or an outside URL (screener, NSE).
+_SYMBOL = re.compile(r"^[A-Za-z0-9&-]{1,20}$")
+
+
+async def valid_symbols(request: Request) -> None:
+    for name in ("symbol", "a", "b"):
+        v = request.path_params.get(name) or request.query_params.get(name)
+        if v is not None and not _SYMBOL.match(v):
+            raise HTTPException(400, f"'{v[:30]}' isn't an NSE symbol")
+
+
+app.include_router(
+    router,
+    dependencies=[Depends(require_passcode), Depends(select_account), Depends(valid_symbols)],
+)
 
 
 @app.get("/health")

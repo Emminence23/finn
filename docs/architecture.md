@@ -4,7 +4,7 @@ FINN is a FastAPI backend with SQLite and a Next.js mobile web app. Data pipelin
 
 ```mermaid
 flowchart LR
-  subgraph Sources["Primary sources"]
+  subgraph Sources["Sources (screener.in is secondary: standardised tables)"]
     NSE["NSE announcements<br/>+ filing PDFs"]
     EOD["NSE EOD prices"]
     SCR["screener.in<br/>financial tables, doc links"]

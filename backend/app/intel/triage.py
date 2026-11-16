@@ -51,34 +51,62 @@ SYSTEM += "\n" + UNTRUSTED_INPUT
 
 
 def triage(items: list[dict], batch_size: int = 10) -> dict[str, TriageItem]:
-    """items: [{id, symbol, exch_category, subject, rule_category, excerpt}] → {id: TriageItem}"""
-    llm = get_llm()
+    """items: [{id, symbol, exch_category, subject, rule_category, excerpt}] → {id: TriageItem}
+
+    Every filing sent must come back exactly once. Unknown ids are dropped, a duplicate
+    keeps its first answer, and filings the model left out are sent once more on their
+    own. Any still missing keep their rule-based category and are logged by id, so a
+    short answer never passes silently as a complete one."""
     out: dict[str, TriageItem] = {}
     for i in range(0, len(items), batch_size):
         batch = items[i : i + batch_size]
-        blocks = [
-            f'<filing id="{x["id"]}" company="{x["symbol"]}" exchange_category="'
-            f'{x["exch_category"]}" rule_guess="{x["rule_category"]}">\n'
-            f"subject: {x['subject']}\n{x.get('excerpt') or '(attachment unavailable)'}\n"
-            f"</filing>"
-            for x in batch
-        ]
-        try:
-            res = llm.run(
-                "triage_filings",
-                system=SYSTEM,
-                prompt="Triage these filings. Return one item per filing id.\n\n"
-                + "\n\n".join(blocks),
-                schema=TriageBatch,
-                prompt_version=PROMPT_VERSION,
-                max_tokens=4000,
+        got = _triage_batch(batch, i // batch_size)
+        missing = [x for x in batch if x["id"] not in got]
+        if missing:
+            got |= _triage_batch(missing, i // batch_size, retry=True)
+        out |= got
+        left = [x["id"] for x in batch if x["id"] not in got]
+        if left:
+            log.warning(
+                "triage batch %d: no answer for %s (rule category kept)", i // batch_size, left
             )
-        except Exception as e:
-            log.error("triage batch %d failed: %s", i // batch_size, e)
-            continue
-        wanted = {x["id"] for x in batch}
-        for item in res.items:
-            if item.id in wanted:
-                out[item.id] = item
-        log.info("triage batch %d: %d/%d", i // batch_size, len(res.items), len(batch))
     return out
+
+
+def _triage_batch(batch: list[dict], n: int, retry: bool = False) -> dict[str, TriageItem]:
+    llm = get_llm()
+    blocks = [
+        f'<filing id="{x["id"]}" company="{x["symbol"]}" exchange_category="'
+        f'{x["exch_category"]}" rule_guess="{x["rule_category"]}">\n'
+        f"subject: {x['subject']}\n{x.get('excerpt') or '(attachment unavailable)'}\n"
+        f"</filing>"
+        for x in batch
+    ]
+    try:
+        res = llm.run(
+            "triage_filings",
+            system=SYSTEM,
+            prompt=f"Triage these {len(batch)} filings. Return exactly one item per filing id."
+            "\n\n" + "\n\n".join(blocks),
+            schema=TriageBatch,
+            prompt_version=PROMPT_VERSION,
+            max_tokens=4000,
+        )
+    except Exception as e:
+        log.error("triage batch %d%s failed: %s", n, " (retry)" if retry else "", e)
+        return {}
+    wanted = {x["id"] for x in batch}
+    got: dict[str, TriageItem] = {}
+    for item in res.items:
+        if item.id in wanted and item.id not in got:
+            got[item.id] = item
+    extra = len(res.items) - len(got)
+    log.info(
+        "triage batch %d%s: %d/%d answered%s",
+        n,
+        " (retry)" if retry else "",
+        len(got),
+        len(batch),
+        f", {extra} unknown or duplicate dropped" if extra else "",
+    )
+    return got

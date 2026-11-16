@@ -1,10 +1,10 @@
 {
- "a4397ac99a0e581f3f48": {
+ "8d77de0f275b25d8b283": {
   "adjustments": [
    {
     "symbol": "CGPOWER",
     "delta_pp": -1.5,
-    "reason": "The Maharashtra Pollution Control Board directed closure of manufacturing operations at CG Power's Waluj unit, creating a regulatory and operational disruption not reflected in past financials.",
+    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at the Waluj unit, adding regulatory and operational disruption risk beyond the suggested cut.",
     "cites": [
      "A:106846618"
     ]
@@ -12,29 +12,38 @@
    {
     "symbol": "KAYNES",
     "delta_pp": -1.5,
-    "reason": "Kaynes carries a 0/100 management delivery score on promises over the last four calls and 3-year operating cash flow of -0.71x reported profit, arguing against sharply increasing its allocation.",
+    "reason": "Management has a 0/100 promise-delivery score over the last four calls alongside negative 3-year operating cash flow at -0.71x reported profit, warranting a much smaller addition.",
     "cites": [
      "P:KAYNES",
      "F:KAYNES"
     ]
    },
    {
+    "symbol": "HDFCBANK",
+    "delta_pp": -1.0,
+    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 right as Anup Bagchi assumed charge as MD and CEO, adding leadership transition risk to the planned increase.",
+    "cites": [
+     "A:106821168",
+     "A:106829496"
+    ]
+   },
+   {
     "symbol": "SUNPHARMA",
     "delta_pp": 1.0,
-    "reason": "Sun Pharma received US FDA approval for ILUMYA in active psoriatic arthritis, a positive regulatory milestone that supports future growth beyond backward-looking numbers.",
+    "reason": "US FDA approval of ILUMYA for active psoriatic arthritis provides a regulatory and commercial catalyst not yet captured in historical growth numbers.",
     "cites": [
      "A:106835654"
     ]
    }
   ],
-  "summary": "Filings and track records flag a regulatory plant closure at CG Power and severe promise-delivery and cash-conversion red flags at Kaynes, warranting reductions from the suggested weights. Sun Pharma's US FDA approval for ILUMYA supports easing its cut slightly, while the remaining filings do not alter the quantitative suggestion."
+  "summary": "Filings and records warrant trimming the suggested weights for CGPOWER after a pollution-board plant closure order, KAYNES due to 0/100 promise delivery and negative cash conversion, and HDFCBANK amid a Deputy MD exit during its CEO transition. Conversely, SUNPHARMA merits a smaller reduction following US FDA approval for ILUMYA in active psoriatic arthritis."
  },
- "ab619af25b0750fc9691": {
+ "787f5f6ea640887d0f42": {
   "adjustments": [
    {
     "symbol": "CGPOWER",
     "delta_pp": -1.5,
-    "reason": "The Maharashtra Pollution Control Board directed closure of manufacturing operations at CG Power's Waluj unit, creating a regulatory and operational disruption not reflected in past financials.",
+    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at the Waluj unit, adding regulatory and operational disruption risk beyond the suggested cut.",
     "cites": [
      "A:106846618"
     ]
@@ -42,21 +51,30 @@
    {
     "symbol": "KAYNES",
     "delta_pp": -1.5,
-    "reason": "Kaynes carries a 0/100 management delivery score on promises over the last four calls and 3-year operating cash flow of -0.71x reported profit, arguing against sharply increasing its allocation.",
+    "reason": "Management has a 0/100 promise-delivery score over the last four calls alongside negative 3-year operating cash flow at -0.71x reported profit, warranting a much smaller addition.",
     "cites": [
      "P:KAYNES",
      "F:KAYNES"
     ]
    },
    {
+    "symbol": "HDFCBANK",
+    "delta_pp": -1.0,
+    "reason": "Deputy MD Kaizad Bharucha requested cessation effective December 31, 2026 right as Anup Bagchi assumed charge as MD and CEO, adding leadership transition risk to the planned increase.",
+    "cites": [
+     "A:106821168",
+     "A:106829496"
+    ]
+   },
+   {
     "symbol": "SUNPHARMA",
     "delta_pp": 1.0,
-    "reason": "Sun Pharma received US FDA approval for ILUMYA in active psoriatic arthritis, a positive regulatory milestone that supports future growth beyond backward-looking numbers.",
+    "reason": "US FDA approval of ILUMYA for active psoriatic arthritis provides a regulatory and commercial catalyst not yet captured in historical growth numbers.",
     "cites": [
      "A:106835654"
     ]
    }
   ],
-  "summary": "Filings and track records flag a regulatory plant closure at CG Power and severe promise-delivery and cash-conversion red flags at Kaynes, warranting reductions from the suggested weights. Sun Pharma's US FDA approval for ILUMYA supports easing its cut slightly, while the remaining filings do not alter the quantitative suggestion."
+  "summary": "Filings and records warrant trimming the suggested weights for CGPOWER after a pollution-board plant closure order, KAYNES due to 0/100 promise delivery and negative cash conversion, and HDFCBANK amid a Deputy MD exit during its CEO transition. Conversely, SUNPHARMA merits a smaller reduction following US FDA approval for ILUMYA in active psoriatic arthritis."
  }
 }

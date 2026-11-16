@@ -156,6 +156,12 @@ CREATE TABLE IF NOT EXISTS notes (
     created_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS notes_owner_symbol ON notes(owner_id, symbol);
+-- network reads are always per owner (graph.load_people)
+CREATE INDEX IF NOT EXISTS ix_people_owner ON people (owner_id);
+CREATE INDEX IF NOT EXISTS ix_roles_person ON roles (person_id);
+CREATE INDEX IF NOT EXISTS ix_education_person ON education (person_id);
+CREATE INDEX IF NOT EXISTS ix_rel_owner_person ON relationships (owner_id, person_id);
+CREATE INDEX IF NOT EXISTS ix_meetings_owner_day ON meetings (owner_id, day);
 -- FR-NET-05: the investor's answer to "is this filing person your contact?" (persists)
 CREATE TABLE IF NOT EXISTS identity_answers (
     owner_id TEXT NOT NULL,
