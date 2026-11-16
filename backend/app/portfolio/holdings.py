@@ -192,6 +192,30 @@ def reset_holdings() -> dict[str, float]:
     return get_holdings()
 
 
+def restore_positions(positions: dict[str, list[float]]) -> dict[str, float]:
+    """Put back exact positions (shares and average cost), e.g. to undo a reset. Unlike
+    set_positions nothing is bought at today's price, so the gain since bought survives."""
+    rows = {}
+    for s, v in positions.items():
+        q, c = (float(v[0]), float(v[1])) if isinstance(v, list | tuple) and len(v) == 2 else (0, 0)
+        if round(q) <= 0 or c <= 0:
+            raise ValueError(f"{s}: shares and average cost must be positive")
+        rows[s.upper()] = (round(q), c)
+    if not rows:
+        raise ValueError("a portfolio needs at least one holding")
+    owner = current_owner()
+    with session() as db:
+        unknown = sorted(set(rows) - _known(db))
+        if unknown:
+            raise KeyError(f"no data for {', '.join(unknown)}")
+        db.execute("DELETE FROM holdings WHERE owner_id=?", (owner,))
+        db.executemany(
+            "INSERT INTO holdings (owner_id, symbol, qty, avg_cost) VALUES (?,?,?,?)",
+            [(owner, s, q, c) for s, (q, c) in rows.items()],
+        )
+    return get_holdings()
+
+
 def candidates() -> list[dict]:
     """Companies that can be added: known to FINN, priced, and not held."""
     held = _raw()

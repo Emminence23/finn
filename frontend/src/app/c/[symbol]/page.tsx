@@ -377,7 +377,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
           <StatTile
             label="Gross NPA"
             value={f.balance_sheet.asset_quality?.at(-1)?.gross_npa_pct != null ? `${f.balance_sheet.asset_quality!.at(-1)!.gross_npa_pct}%` : "—"}
-            sub={`ROE ${s.roe_pct ?? "—"}%`}
+            sub={`ROE ${pct(s.roe_pct, false)}`}
             points={(f.balance_sheet.asset_quality ?? []).map((x) => ({ label: fq(x.period), value: x.gross_npa_pct }))}
             format={(v) => `${v}%`}
           />
@@ -395,7 +395,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
             <StatTile
               label="Debt / equity"
               value={times(s.debt_to_equity)}
-              sub={`ROCE ${s.roce_pct ?? "—"}% · ROE ${s.roe_pct ?? "—"}%`}
+              sub={`ROCE ${pct(s.roce_pct, false)} · ROE ${pct(s.roe_pct, false)}`}
               points={f.balance_sheet.annual.map((x) => ({ label: fq(x.period, true), value: x.debt_to_equity }))}
               format={times}
             />

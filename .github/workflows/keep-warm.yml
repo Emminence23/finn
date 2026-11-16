@@ -1,0 +1,16 @@
+# Keeps the free Render API awake during Indian market hours, so the first load isn't a
+# 30-second cold start. Render's free instance sleeps after 15 minutes without traffic;
+# this pings /health (no passcode, no data) every 13 minutes, weekdays 09:30-18:30 IST.
+# Cost: about 45 runs a day, roughly 1,000 of the 2,000 free Actions minutes a month for a
+# private repo. Outside these hours the API sleeps and wakes on the first visit as before.
+name: Keep API warm
+on:
+  schedule:
+    - cron: "0,13,26,39,52 4-12 * * 1-5" # UTC; 04:00-12:59 UTC = 09:30-18:29 IST
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: curl -sS --max-time 90 --retry 2 --retry-delay 10 -o /dev/null -w "%{http_code}\n" https://finn-api-9hft.onrender.com/health

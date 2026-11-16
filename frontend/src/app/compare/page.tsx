@@ -168,7 +168,7 @@ function Body({ d }: { d: Comparison }) {
         </p>
       ))}
       <p className="px-6 pt-4 text-center text-[11px] leading-snug text-ink-3">
-        Every number is computed in code from screener.in&apos;s standardised tables of the reported financials. No AI.
+        Every number is computed in code from screener.in&apos;s standardised tables of the reported financials, except where a note above says otherwise.
       </p>
     </>
   );

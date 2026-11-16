@@ -69,3 +69,35 @@ def test_suggestion_reasons_name_the_limit_that_binds(seeded):
     themes = {h["symbol"]: h["theme"] for h in sug["holdings"]}
     assert themes["CGPOWER"] == themes["POLYCAB"] == "capital goods"
     assert themes["KAYNES"] == themes["DIXON"] == "electronics manufacturing"
+
+
+def test_reset_can_be_undone_with_the_same_buy_prices(seeded):
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+
+    h = {"X-Finn-User": "demo2"}
+    with TestClient(app) as c:
+        pos = c.get("/portfolio/holdings", headers=h).json()["positions"]
+        qty = {p["symbol"]: p["qty"] for p in pos}
+        qty[pos[0]["symbol"]] += 10  # an edit: buys at today's price, blending the cost
+        c.put("/portfolio/holdings", json={"qty": qty}, headers=h)
+        before = {
+            p["symbol"]: (p["qty"], p["avg_cost"])
+            for p in c.get("/portfolio/holdings", headers=h).json()["positions"]
+        }
+        undo = c.post("/portfolio/holdings/reset", headers=h).json()["undo"]
+        assert undo and c.post("/portfolio/holdings/reset", headers=h).json()["undo"] is None
+        c.post("/portfolio/holdings/restore", json={"positions": undo}, headers=h)
+        after = {
+            p["symbol"]: (p["qty"], p["avg_cost"])
+            for p in c.get("/portfolio/holdings", headers=h).json()["positions"]
+        }
+        assert after == before
+        assert (
+            c.post(
+                "/portfolio/holdings/restore", json={"positions": {"TCS": [0, 1]}}, headers=h
+            ).status_code
+            == 400
+        )
+        c.post("/portfolio/holdings/reset", headers=h)

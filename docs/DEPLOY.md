@@ -33,6 +33,6 @@ npx vercel --prod
 Then put the production URL into `ALLOWED_ORIGINS` on Render (step 1.2). Render restarts the service when an env var changes.
 
 ## Behaviour on free hosting
-- **Cold starts.** Render's free instance sleeps after 15 minutes idle and takes up to a minute to wake. The app pings `/health` on load and shows "Waking the server…" if it is slow.
+- **Cold starts.** Render's free instance sleeps after 15 minutes idle and takes up to a minute to wake. The app pings `/health` on load and shows "Waking the server…" if it is slow. `.github/workflows/keep-warm.yml` pings `/health` every 13 minutes on weekdays, 09:30–18:30 IST, so it stays awake during market hours (about 1,000 of the 2,000 free Actions minutes a month on a private repo). Outside those hours it sleeps as before.
 - **Ephemeral disk.** Research built live is cached on the instance and lost on restart; the precomputed set ships in the image.
 - **LLM budget.** Every API route needs the passcode. Live builds are capped at `FINN_MAX_LIVE_BUILDS_PER_DAY` (default 20) and Ask FINN questions at `FINN_MAX_QUESTIONS_PER_DAY` (default 60). Builds run one at a time, since the instance has 512 MB and each build parses PDFs. Spend per task is at `/admin/costs`.

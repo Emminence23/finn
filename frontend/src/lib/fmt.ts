@@ -3,9 +3,10 @@
 export function crore(v: number | null | undefined): string {
   if (v == null) return "—";
   const a = Math.abs(v);
-  if (a >= 100000) return `₹${(v / 100000).toFixed(a >= 1000000 ? 1 : 2)}L Cr`;
-  if (a >= 1000) return `₹${Math.round(v).toLocaleString("en-IN")} Cr`;
-  return `₹${v.toLocaleString("en-IN", { maximumFractionDigits: a < 10 ? 1 : 0 })} Cr`;
+  const sign = v < 0 ? "−" : ""; // a true minus, before the rupee sign: −₹3,167 Cr
+  if (a >= 100000) return `${sign}₹${(a / 100000).toFixed(a >= 1000000 ? 1 : 2)}L Cr`;
+  if (a >= 1000) return `${sign}₹${Math.round(a).toLocaleString("en-IN")} Cr`;
+  return `${sign}₹${a.toLocaleString("en-IN", { maximumFractionDigits: a < 10 ? 1 : 0 })} Cr`;
 }
 
 export function pct(v: number | null | undefined, signed = true, digits = 1): string {
@@ -14,8 +15,10 @@ export function pct(v: number | null | undefined, signed = true, digits = 1): st
   return signed && v > 0 ? `+${s}%` : `${s}%`;
 }
 
+/** Multiples: two decimals below 10 (0.19×, 1.08×), one above (66.4×). */
 export function times(v: number | null | undefined): string {
-  return v == null ? "—" : `${v.toFixed(2)}×`;
+  if (v == null) return "—";
+  return `${v < 0 ? "−" : ""}${Math.abs(v).toFixed(Math.abs(v) >= 10 ? 1 : 2)}×`;
 }
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

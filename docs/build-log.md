@@ -282,4 +282,10 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - *Ask FINN* gave a receivables answer that contradicted itself. Code now marks any figure it can't find on the cited page, and the prompt asks for the date and basis when figures differ.
 - **Improvements:** Today weighs position size (a 0.5% holding no longer ranks like a 12% one) and each card says its share of the portfolio; As it stands names holdings outside your own min and max; materiality, delivery and contact scores explain themselves where they appear; Ask FINN's wait shows stages; Compare lights the Ask tab; contact gaps use the same months on Today and People.
 - **The stored AI review was regenerated** (one free Gemini call; the main model was at quota, so its free fallback answered): the same three nudges, CG Power −1.3, Kaynes −0.4 and Sun Pharma asked +1.0 with no room.
-- **Not done yet:** the reviewer's other items (a calmer Today header, a warm-up ping, undo on "Reset to demo", Indian date order, number formats).
+- **Follow-up, the rest of the list:**
+  - *Today header:* "Filings to 15 Nov · …" instead of a bare date under "Today", and "Reading…" while a new window loads instead of the old window's summary. The window chips stay: 14d and 21d were asked for.
+  - *Undo on Reset to demo:* reset returns the positions it replaced and a restore endpoint puts back the exact shares and buy prices (re-saving the shares would have re-bought them at today's price and wiped the gain).
+  - *Day-first dates:* the range picker shows "1 Nov 2026" over the native picker, which otherwise follows the browser's locale.
+  - *Number formats:* −₹3,167 Cr (true minus, before the rupee sign), 66.4× and 0.19×, ROE and ROCE to one decimal, and the gap to the Nifty computed from the rounded figures shown.
+  - *Warm-up:* a scheduled GitHub Action keeps the API awake in market hours.
+  - *Caught in the browser check:* Compare's footer said "No AI", but a filed quarter is read from the filing by AI. Compare now says which figures came from a filing, and the footer points to that note.

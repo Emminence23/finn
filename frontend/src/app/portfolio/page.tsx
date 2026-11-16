@@ -114,6 +114,20 @@ export default function PortfolioPage() {
   const { data, error, mutate } = useApi<Overview>("/portfolio");
   const { mutate: refresh } = useSWRConfig();
   const reload = () => refresh(() => true); // Today, alerts and both tabs follow the holdings
+  // a reset can be undone for a while: the API returned the exact positions it replaced
+  const [undo, setUndo] = useState<Record<string, [number, number]> | null>(null);
+  const undoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const offerUndo = (u: Record<string, [number, number]> | null) => {
+    setUndo(u);
+    if (undoTimer.current) clearTimeout(undoTimer.current);
+    if (u) undoTimer.current = setTimeout(() => setUndo(null), 20000);
+  };
+  const doUndo = async () => {
+    if (!undo) return;
+    await api("/portfolio/holdings/restore", { method: "POST", body: JSON.stringify({ positions: undo }) });
+    offerUndo(null);
+    reload();
+  };
 
   return (
     <main className="pb-10">
@@ -151,7 +165,15 @@ export default function PortfolioPage() {
       ) : (
         <Suggested onApplied={reload} />
       )}
-      <EditSheet open={editing} onClose={() => setEditing(false)} onSaved={reload} />
+      <EditSheet open={editing} onClose={() => setEditing(false)} onSaved={reload} onReset={offerUndo} />
+      {undo && (
+        <div role="status" className="fixed inset-x-3 bottom-20 z-30 mx-auto flex max-w-md items-center gap-3 rounded-xl bg-ink px-4 py-3 text-[13px] text-bg shadow-lg">
+          <span className="flex-1">Holdings reset to the demo.</span>
+          <button onClick={doUndo} className="font-semibold underline underline-offset-2">
+            Undo
+          </button>
+        </div>
+      )}
     </main>
   );
 }
@@ -214,7 +236,9 @@ function Now({ d }: { d: Overview }) {
     ["ROE, weighted", one(s.roe)],
     ["Sales growth, 3 years", one(s.revenue_growth_3y)],
   ];
-  const beat = s.nifty_1y != null ? s.return_1y - s.nifty_1y : null;
+  // from the rounded figures on screen, so +7.5% and -2.8% read as 10.3 pts, never 10.4
+  const r1 = (v: number) => Math.round(v * 10) / 10;
+  const beat = s.nifty_1y != null ? r1(s.return_1y) - r1(s.nifty_1y) : null;
   return (
     <>
       <div className="mt-3 grid grid-cols-3 gap-2 px-3">
@@ -663,7 +687,17 @@ function lotSize(px: number, total: number, pct: number): number {
   return steps.reduce((best, s) => (Math.abs(Math.log(s / raw)) < Math.abs(Math.log(best / raw)) ? s : best), 1);
 }
 
-function EditSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => void; onSaved: () => void }) {
+function EditSheet({
+  open,
+  onClose,
+  onSaved,
+  onReset,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSaved: () => void;
+  onReset: (undo: Record<string, [number, number]> | null) => void;
+}) {
   const { data, mutate } = useApi<HoldingsData>(open ? "/portfolio/holdings" : null);
   const { data: sd, mutate: mutateSettings } = useApi<{ settings: Settings }>(open ? "/portfolio/settings" : null);
   const lotPct = sd?.settings.lot_pct ?? 0.5;
@@ -722,9 +756,10 @@ function EditSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => v
     }
   };
   const reset = async () => {
-    await api("/portfolio/holdings/reset", { method: "POST" });
+    const r = await api<{ undo: Record<string, [number, number]> | null }>("/portfolio/holdings/reset", { method: "POST" });
     await mutate();
     onSaved();
+    onReset(r.undo);
     close();
   };
   const addable = data && qty ? data.candidates.filter((c) => !(c.symbol in qty)) : [];

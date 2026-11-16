@@ -79,7 +79,7 @@ export default function Today() {
     <main>
       <Header
         title="Today"
-        sub={data ? <Summary d={data} /> : "Reading your portfolio's filings…"}
+        sub={data && !isLoading ? <Summary d={data} /> : "Reading your portfolio's filings…"}
         toolbar={
           <>
             <button onClick={() => window.dispatchEvent(new Event("finn:tour"))} className={PILL}>
@@ -139,14 +139,33 @@ function RangePicker({ range, onChange }: { range: Range; onChange: (r: Range) =
     const next = { ...range, [k]: v };
     onChange(next.from > next.to ? { from: next.to, to: next.from } : next);
   };
-  const cls = "tnum min-w-0 flex-1 rounded-lg border border-line bg-surface px-2 py-1.5 text-[13px] text-ink";
+  // our own day-first label ("1 Oct 2026") over the native picker, which follows the
+  // browser's locale (mm/dd/yyyy on a US-set phone); tapping still opens the native picker
+  const box = "tnum relative min-w-0 flex-1 rounded-lg border border-line bg-surface px-2 py-1.5 text-[13px] text-ink";
+  const long = (iso: string) => `${day(iso)} ${iso.slice(0, 4)}`;
+  const field = (k: keyof Range, label: string, extra: { min?: string; max?: string }) => (
+    <label className={box}>
+      <span className="sr-only">{label} </span>
+      {long(range[k])}
+      <input
+        type="date"
+        value={range[k]}
+        {...extra}
+        onChange={(e) => set(k, e.target.value)}
+        onClick={(e) => {
+          try {
+            e.currentTarget.showPicker?.();
+          } catch {}
+        }}
+        className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+      />
+    </label>
+  );
   return (
     <div className="mt-2 flex items-center gap-2">
-      <label className="sr-only" htmlFor="from">From</label>
-      <input id="from" type="date" value={range.from} max={range.to} onChange={(e) => set("from", e.target.value)} className={cls} />
+      {field("from", "From", { max: range.to })}
       <span className="text-[12px] text-ink-3">to</span>
-      <label className="sr-only" htmlFor="to">To</label>
-      <input id="to" type="date" value={range.to} min={range.from} onChange={(e) => set("to", e.target.value)} className={cls} />
+      {field("to", "To", { min: range.from })}
     </div>
   );
 }
@@ -207,7 +226,7 @@ function Summary({ d }: { d: Digest }) {
     n === 0 ? "Nothing needs you" : n === 1 ? "1 thing matters" : n <= TOP ? `${n} things matter` : `${TOP} things matter most`;
   return (
     <>
-      {day(d.window.end)} · {lead}
+      Filings to {day(d.window.end)} · {lead}
       {d.counts.routine > 0 && <> · {d.counts.routine} routine folded away</>}
     </>
   );

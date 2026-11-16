@@ -132,9 +132,19 @@ def holdings_remove(symbol: str) -> dict:
 
 @router.post("/portfolio/holdings/reset")
 def holdings_reset() -> dict:
+    """Back to the demo. Returns the positions it replaced, so the app can offer Undo."""
     from app.portfolio import holdings
 
-    return _holdings_call(holdings.reset_holdings)
+    before = {s: [q, c] for s, (q, c) in holdings._raw().items()} if holdings.is_custom() else None
+    return {**_holdings_call(holdings.reset_holdings), "undo": before}
+
+
+@router.post("/portfolio/holdings/restore")
+def holdings_restore(body: dict) -> dict:
+    """Undo a reset. Body: {"positions": {"TCS": [shares, average cost], ...}}."""
+    from app.portfolio import holdings
+
+    return _holdings_call(holdings.restore_positions, body.get("positions") or {})
 
 
 # ------------------------------------------------------------------ Accuracy

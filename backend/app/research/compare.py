@@ -88,6 +88,9 @@ _SENTENCE = {
 }
 
 
+_MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
 def _fq(period: str) -> str:
     """'2026-09' -> 'Q2 FY27' (Indian financial year, April to March)."""
     y, m = int(period[:4]), int(period[5:7])
@@ -103,7 +106,7 @@ def compare(a: str, b: str) -> dict:
     for sym in (a, b):
         f = load_fundamentals(sym)
         fin = build_financials(f)
-        add_filed_quarter(fin, sym)
+        filed = add_filed_quarter(fin, sym)
         view = get_cached(sym)
         p = (view or {}).get("promises") or {}
         name = company_name(sym) or (view or {}).get("company") or sym
@@ -117,6 +120,7 @@ def compare(a: str, b: str) -> dict:
                 "basis": fin.get("basis"),
                 "is_lender": fin["is_lender"],
                 "source": fin.get("source"),
+                "filed": filed,
                 "promises": {"score": p.get("score"), "counts": p.get("counts", {})}
                 if p.get("items")
                 else None,
@@ -124,6 +128,15 @@ def compare(a: str, b: str) -> dict:
         )
 
     notes = []
+    for c in cos:
+        if c["filed"]:
+            d = c["filed"]["filed"][:10]
+            notes.append(
+                f"{c['short']}{chr(39) if c['short'].endswith('s') else chr(39) + 's'} "
+                f"{_fq(c['filed']['period'])} figures come from its results "
+                f"filing of {int(d[8:])} {_MON[int(d[5:7]) - 1]}, read by AI; the rest is from "
+                f"screener.in's tables."
+            )
     mixed = cos[0]["is_lender"] != cos[1]["is_lender"]
     if mixed:
         lender = next(c["short"] for c in cos if c["is_lender"])
