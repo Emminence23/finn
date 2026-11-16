@@ -159,3 +159,12 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Now:** `next_action()` in the digest picks one target per card, in code and in order of usefulness for that card's kind: person, contact, scorecard, filing, research. The card footer shows it.
 - **Fix:** `#promises` links landed at the top of the page, because the browser jumps to the anchor before the view has loaded. The view now scrolls to the anchor itself once it renders.
 - **Checked at 390px:** "Check their promises →" on a results card, "Call Karthik →" on the Kaynes M&A card. Footer items no longer wrap.
+
+## Phase 4i: what contacts told you, kept apart (plan v2, Pull "Should")
+- **Why:** an investor's best information about a company often comes from a call with a contact. FINN had nowhere to put it. Mixing it into the research would break the rule that every claim traces to a primary source.
+- **Separation is structural, not a prompt rule:**
+  - notes live in the network module, owner-scoped like contacts;
+  - the research and Ask FINN code never import that module, so there is no code path from a note to a prompt;
+  - a spy-model test confirms it.
+- **Shown in their own place:** a dashed "off the record" panel under "Who you know", with "Karthik told you · date" attribution.
+- **Privacy:** deleting a contact deletes the notes attributed to them and keeps the investor's own notes. Restoring the demo network clears all notes.

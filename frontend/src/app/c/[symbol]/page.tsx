@@ -21,6 +21,7 @@ import {
 } from "@/components/research";
 import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
+import { ContactNotes } from "@/components/notes";
 
 const STEPS = [
   { step: "fundamentals", label: "Reported financials" },
@@ -309,6 +310,8 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
       <Panel className="px-4 py-1">
         <HelperList helpers={v.helpers} max={3} />
       </Panel>
+      <SectionTitle aside="private">What they told you</SectionTitle>
+      <ContactNotes symbol={v.symbol} helpers={v.helpers} />
 
       {/* ---------------------------------------------------------------- numbers */}
       <SectionTitle aside={`${f.basis} · ₹ crore`}>

@@ -105,6 +105,17 @@ CREATE TABLE IF NOT EXISTS relationships (
     strength REAL,
     last_contact TEXT
 );
+-- What a contact told the investor about a company. Private to the owner, shown apart
+-- from evidence, never sent to an LLM and never citable in Pull (PLAN v2, Pull "Should").
+CREATE TABLE IF NOT EXISTS notes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    contact_id TEXT,                   -- who said it; NULL = the investor's own note
+    text TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS notes_owner_symbol ON notes(owner_id, symbol);
 -- FR-NET-05: the investor's answer to "is this filing person your contact?" (persists)
 CREATE TABLE IF NOT EXISTS identity_answers (
     owner_id TEXT NOT NULL,

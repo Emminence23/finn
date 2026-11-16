@@ -142,6 +142,34 @@ def people_reset() -> dict:
     return {"contacts": graph.reset_network()}
 
 
+@router.get("/notes")
+def notes_list(symbol: str) -> dict:
+    from app.network import notes
+
+    return {"symbol": symbol.upper(), "notes": notes.list_notes(symbol)}
+
+
+@router.post("/notes")
+def notes_add(body: dict) -> dict:
+    from app.network import notes
+
+    try:
+        return notes.add_note(body.get("symbol", ""), body.get("text", ""), body.get("contact"))
+    except KeyError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+
+
+@router.delete("/notes/{note_id}")
+def notes_delete(note_id: int) -> dict:
+    from app.network import notes
+
+    if not notes.delete_note(note_id):
+        raise HTTPException(404, "no such note")
+    return {"deleted": note_id}
+
+
 @router.put("/people/{person_id}/identity")
 def person_identity(person_id: str, body: dict) -> dict:
     """FR-NET-05: the investor says whether a filing person is one of their contacts."""
