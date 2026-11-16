@@ -5,6 +5,7 @@ services:
     runtime: docker
     rootDir: backend
     plan: free
+    region: singapore
     healthCheckPath: /health
     envVars:
       - key: LLM_PROVIDER
