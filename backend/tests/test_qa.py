@@ -46,6 +46,33 @@ def test_resolve_company_tickers_names_and_false_friends():
     assert qa.resolve_company("what about margin expansion", rows, set()) is None
 
 
+def test_resolve_names_any_listed_company():
+    def row(sym, name, followed=0):
+        return {"symbol": sym, "name": name, "in_portfolio": followed, "in_research_set": 0}
+
+    rows = [
+        row("BHEL", "Bharat Heavy Electricals Limited", 1),
+        row("BEL", "Bharat Electronics Limited"),
+        row("BPCL", "Bharat Petroleum Corporation Limited"),
+        row("TRENT", "Trent Limited"),
+        row("MARGIN", "Margin Capital Ltd"),
+        row("TMPV", "Tata Motors Passenger Vehicles Limited", 1),
+        row("TMCV", "Tata Motors Limited"),
+    ]
+    r = qa.resolve_company
+    # a full name beats a followed company that only shares the first word
+    assert r("Tell me about Bharat Electronics", rows, set()) == "BEL"
+    assert r("how is bharat doing", rows, set()) == "BHEL"
+    # a capitalised name mid-sentence, unique among listed companies
+    assert r("What did Trent management promise?", rows, set()) == "TRENT"
+    # lowercase or sentence-initial single words don't name unfollowed companies
+    assert r("what did trent promise", rows, set()) is None
+    assert r("Margin trends this year?", rows, set()) is None
+    assert r("is the Margin improving", rows, set()) == "MARGIN"  # unique and capitalised
+    # ties go to the company the investor follows: both tickers typed, TMPV is held
+    assert r("TMCV or TMPV?", rows, set()) == "TMPV"
+
+
 def test_answer_keeps_only_points_cited_to_what_was_sent(monkeypatch):
     view = json.loads((FIX / "research/KAYNES.json").read_text())
     ref, pages = _docs()

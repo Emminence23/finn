@@ -359,7 +359,7 @@ function FinnMessage({
   if (r.kind === "pick")
     return (
       <div className={card}>
-        <p className="text-[14px] leading-snug">Which company? Name one, any NSE ticker works, or pick one FINN has read:</p>
+        <p className="text-[14px] leading-snug">Which company? Type its name or NSE ticker (any listed company works), or pick one FINN has read:</p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {r.ready.map((c) => (
             <button key={c.symbol} onClick={() => send(m.asked, { symbol: c.symbol, label: `${shortName(c.company)}: ${m.asked}` })} className="rounded-full border border-line bg-bg px-3 py-1 text-[13px] active:opacity-70">

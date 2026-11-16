@@ -283,35 +283,69 @@ def _aliases() -> dict[str, list[str]]:
     }
 
 
+def _core(name: str) -> list[str]:
+    """A company name as words, without the legal suffix: "Dixon Technologies (India) Ltd"
+    gives ["dixon", "technologies", "india"]."""
+    words = re.findall(r"[a-z0-9&]+", name.lower())
+    while words and words[-1] in ("limited", "ltd", "the"):
+        words.pop()
+    return words
+
+
+@functools.lru_cache(maxsize=4)
+def _name_index(names: tuple[str, ...]) -> Counter:
+    """How many listed companies share each name's first distinctive word, so "Dixon" can
+    name a company and "Tata" or "Bharat" can't."""
+    return Counter(next((w for w in _core(n) if w not in _GENERIC), "") for n in names)
+
+
 def resolve_company(question: str, rows: list[dict], ready: set[str]) -> str | None:
-    """Which company a free-text question is about. A ticker typed in capitals matches any
-    company ("is DIXON ..."); lowercase tickers and names match only followed companies, so
-    'margin' never resolves to a stock called MARGIN. Research-ready companies win ties."""
+    """Which company a free-text question is about, across every listed company:
+    - a ticker in capitals ("is DIXON ...") or a full name ("Bharat Electronics") names any
+      company, so "Bharat Electronics" is BEL, not the followed BHEL;
+    - a capitalised name word mid-sentence ("what did Trent promise") names a company when
+      no other listed company starts with that word;
+    - lowercase tickers, first names and everyday aliases match only followed companies,
+      so 'margin' never resolves to a stock called MARGIN.
+    Followed and research-ready companies win ties."""
     words = re.findall(r"[A-Za-z][A-Za-z0-9&\-]*", question)
     lower = {w.lower() for w in words}
-    best: tuple[int, str] | None = None
+    q = " ".join(re.findall(r"[a-z0-9&]+", question.lower()))
+    # capitalised words that don't start a sentence: names, not sentence case
+    tokens = re.findall(r"[A-Za-z0-9&]+|[.?!:]", question)
+    titled = {
+        t.lower()
+        for i, t in enumerate(tokens)
+        if i and tokens[i - 1] not in ".?!:" and t[0].isupper() and len(t) >= 4
+    }
+    firsts = _name_index(tuple(r["name"] for r in rows))
+    best: tuple | None = None
     for r in rows:
         sym = r["symbol"]
-        score = 0
-        followed = r["in_portfolio"] or r["in_research_set"] or sym in ready
-        if (
-            sym in words
-            or (followed and len(sym) >= 4 and sym.lower() in lower)
-            or followed
-            and any(
+        followed = bool(r["in_portfolio"] or r["in_research_set"] or sym in ready)
+        core = _core(r["name"])
+        first = next((w for w in core if w not in _GENERIC), "")
+        full = " ".join(core)
+        score, length = 0, 0
+        if sym in words:
+            score = 3
+        if len(core) >= 2 and re.search(rf"(?<![a-z0-9]){re.escape(full)}(?![a-z0-9])", q):
+            score, length = 3, len(full)
+        if followed and (
+            (len(sym) >= 4 and sym.lower() in lower)
+            or any(
                 re.search(rf"(?<![a-z0-9]){re.escape(a)}(?![a-z0-9&])", question.lower())
                 for a in _aliases().get(sym, [])
             )
         ):
-            score = 3
-        elif followed:
-            first = next(
-                (w for w in re.findall(r"[a-z]+", r["name"].lower()) if w not in _GENERIC), ""
-            )
-            if len(first) >= 4 and first in lower:
+            score = max(score, 3)
+        if not score and len(first) >= 4:
+            if followed and first in lower:
                 score = 2
+            elif first in titled and firsts[first] == 1:
+                score = 1
         if score:
-            score += sym in ready
-            if best is None or score > best[0]:
-                best = (score, sym)
+            key = (score, sym in ready, followed, length)
+            if best is None or key > best[0]:
+                best = (key, sym)
     return best[1] if best else None
