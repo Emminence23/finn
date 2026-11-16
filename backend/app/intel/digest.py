@@ -160,7 +160,10 @@ def build_digest(
         card["priority"] = _priority(card, co)
         cards.append(card)
 
-    cards.sort(key=lambda c: -c["priority"])
+    _attach_results_decks(cards, routine)
+    for c in cards:
+        c["level"], c["level_reason"] = level(c)
+    cards.sort(key=lambda c: (c["level"] != "important", -c["priority"]))
     return {
         "window": {
             "name": None if start else window,
@@ -181,6 +184,90 @@ def build_digest(
             "alerts": len(alerts),
         },
     }
+
+
+DECK_DAYS = 3
+
+
+def _attach_results_decks(cards: list[dict], routine: list[dict]) -> None:
+    """PU-3, one item per event: an untitled "Investor Presentation" filed within a few days
+    of the same company's results is the results deck. It joins the results card instead of
+    being folded as an investor meeting."""
+    results = {c["symbol"]: c for c in cards if c["kind"] == "results"}
+    keep = []
+    for r in routine:
+        c = results.get(r["symbol"])
+        if (
+            c
+            and r.get("exch_category") == "Investor Presentation"
+            and abs((datetime.fromisoformat(r["ts"]) - datetime.fromisoformat(c["ts"])).days)
+            <= DECK_DAYS
+        ):
+            c["related"].append(r | {"category": "results"})
+        else:
+            keep.append(r)
+    routine[:] = keep
+
+
+RESULTS_MOVE_PCT = 15.0  # a YoY move in PAT or revenue this big makes results Important
+
+
+def _results_move(card: dict) -> tuple[bool, str]:
+    """Do the numbers move? Uses YoY on PAT, then revenue, or a swing off a loss (PU-8)."""
+    rows = {r["metric"]: r for r in (card.get("results") or {}).get("rows", [])}
+    parts, big = [], False
+    for m, label in (("pat", "PAT"), ("revenue", "revenue")):
+        r = rows.get(m) or {}
+        if r.get("yoy") is not None:
+            parts.append(f"{label} {r['yoy']:+.0f}% YoY")
+            big = big or abs(r["yoy"]) >= RESULTS_MOVE_PCT
+        elif r.get("yoy_note"):
+            parts.append(f"{label} {r['yoy_note']} YoY")
+            big = True
+    return big, ", ".join(parts[:2])
+
+
+def level(card: dict) -> tuple[str, str]:
+    """PU-4: Important or Notable, with a one-line reason that names what decided it.
+    (Routine is the folded group.)
+
+    Important = results whose numbers move (PAT or revenue YoY >= 15%, or a swing off a
+    loss); a management change or material event with materiality >= 70; anything else
+    scored >= 85; or a filing the market moved on (price alert, materiality >= 50).
+    Thresholds were set after the hand labels in fixtures/eval were fixed; see build-log
+    Phase 4d."""
+    m = card["materiality"]
+    moved = [a for a in card["alerts"] if a["kind"] == "price"]
+    kind = card["kind"]
+    market = bool(moved and m >= 50)
+    stock = f"stock {moved[0]['value']:+.1f}% on the day" if moved else ""
+    if card.get("unsure"):
+        return ("important" if market else "notable"), (
+            "FINN couldn't place this filing, so it isn't folded away"
+            + (f"; {stock}" if market else "")
+        )
+    if kind == "results":
+        big, nums = _results_move(card)
+        # the card's headline already gives the numbers; the reason gives the rule
+        bar = f"{RESULTS_MOVE_PCT:.0f}%"
+        if big:
+            return "important", f"PAT or revenue moved {bar} or more YoY"
+        if market:
+            return "important", f"No {bar} move in PAT or revenue, but the {stock}"
+        if nums:
+            return "notable", f"Neither PAT nor revenue moved {bar} YoY"
+        return "notable", "Quarterly results"
+    label = {"management_change": "Management change", "material_event": None}.get(kind)
+    label = label or (
+        "M&A deal" if card["category"] == "M&A" else card["category"].replace("_", " ")
+    )
+    label = label[0].upper() + label[1:]
+    if kind in ("management_change", "material_event") and m >= 70 or m >= 85:
+        top = "Top-management change" if kind == "management_change" else label
+        return "important", f"{top}, rated {m}/100 for materiality"
+    if market:
+        return "important", f"{label}; {stock}"
+    return "notable", f"{label}, rated {m}/100 for materiality"
 
 
 def _priority(card: dict, co: dict) -> float:
@@ -204,6 +291,7 @@ def _item(a: dict) -> dict:
         "symbol": a["symbol"],
         "ts": a["ts"],
         "category": a["category"] or "unclassified",
+        "exch_category": a["exch_category"],
         "title": a["summary"] or a["subject"],
         "pdf_url": a["pdf_url"],
     }

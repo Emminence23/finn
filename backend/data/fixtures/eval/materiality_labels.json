@@ -1,0 +1,406 @@
+{
+ "about": "Hand labels for PU-4 calibration. 100 portfolio filings drawn with random.seed(2026) from the 420 in the fixtures, labelled from the exchange category, subject and one-line summary only, before the priority levels were written or tuned. Labelled by Claude (the coding model) under the definition below; a human pass would be the next step.",
+ "definition": "Material = a long-only fund manager who owns the stock would want to see it today: results and results decks or releases with numbers; business updates with numbers; M&A, stake sales, JVs, licensing deals; top-management or board changes (CXO, MD, deputy MD, chairman, promoter-group director); fund raises of size (QIP, large NCD programmes); regulatory approvals or actions; new orders or capacity of size. Not material: meeting schedules, transcripts and recordings, trading-window closures, ESOP allotments and grants, certificates, newspaper ads, postal ballots and AGM/EGM notices, dividend record dates, rating reaffirmations, routine re-appointments, routine debt issuance by a lender, product or client announcements without numbers.",
+ "labels": [
+  {
+   "id": "106782919",
+   "material": false
+  },
+  {
+   "id": "106783355",
+   "material": false
+  },
+  {
+   "id": "106783629",
+   "material": false
+  },
+  {
+   "id": "106785398",
+   "material": false
+  },
+  {
+   "id": "106789018",
+   "material": false
+  },
+  {
+   "id": "106789553",
+   "material": false
+  },
+  {
+   "id": "106790577",
+   "material": false
+  },
+  {
+   "id": "106790619",
+   "material": false
+  },
+  {
+   "id": "106792186",
+   "material": false
+  },
+  {
+   "id": "106794266",
+   "material": false
+  },
+  {
+   "id": "106795047",
+   "material": false
+  },
+  {
+   "id": "106796186",
+   "material": false
+  },
+  {
+   "id": "106796336",
+   "material": true
+  },
+  {
+   "id": "106798080",
+   "material": false
+  },
+  {
+   "id": "106798950",
+   "material": false
+  },
+  {
+   "id": "106800816",
+   "material": false
+  },
+  {
+   "id": "106806485",
+   "material": true
+  },
+  {
+   "id": "106808719",
+   "material": true
+  },
+  {
+   "id": "106808837",
+   "material": false
+  },
+  {
+   "id": "106810209",
+   "material": false
+  },
+  {
+   "id": "106811137",
+   "material": false
+  },
+  {
+   "id": "106811194",
+   "material": false
+  },
+  {
+   "id": "106812964",
+   "material": false
+  },
+  {
+   "id": "106813216",
+   "material": false
+  },
+  {
+   "id": "106814796",
+   "material": false
+  },
+  {
+   "id": "106815017",
+   "material": true
+  },
+  {
+   "id": "106815390",
+   "material": false
+  },
+  {
+   "id": "106817628",
+   "material": false
+  },
+  {
+   "id": "106818319",
+   "material": false
+  },
+  {
+   "id": "106818494",
+   "material": true
+  },
+  {
+   "id": "106819001",
+   "material": false
+  },
+  {
+   "id": "106819278",
+   "material": false
+  },
+  {
+   "id": "106820189",
+   "material": false
+  },
+  {
+   "id": "106821168",
+   "material": true
+  },
+  {
+   "id": "106821197",
+   "material": true
+  },
+  {
+   "id": "106822047",
+   "material": false
+  },
+  {
+   "id": "106822125",
+   "material": true
+  },
+  {
+   "id": "106822132",
+   "material": true
+  },
+  {
+   "id": "106822208",
+   "material": false
+  },
+  {
+   "id": "106823321",
+   "material": true
+  },
+  {
+   "id": "106823997",
+   "material": false
+  },
+  {
+   "id": "106824670",
+   "material": false
+  },
+  {
+   "id": "106824681",
+   "material": false
+  },
+  {
+   "id": "106824971",
+   "material": false
+  },
+  {
+   "id": "106826232",
+   "material": false
+  },
+  {
+   "id": "106826285",
+   "material": true
+  },
+  {
+   "id": "106826326",
+   "material": false
+  },
+  {
+   "id": "106826781",
+   "material": false
+  },
+  {
+   "id": "106826976",
+   "material": true
+  },
+  {
+   "id": "106826996",
+   "material": false
+  },
+  {
+   "id": "106827467",
+   "material": false
+  },
+  {
+   "id": "106827787",
+   "material": false
+  },
+  {
+   "id": "106829096",
+   "material": false
+  },
+  {
+   "id": "106829696",
+   "material": false
+  },
+  {
+   "id": "106830107",
+   "material": false
+  },
+  {
+   "id": "106831187",
+   "material": false
+  },
+  {
+   "id": "106831920",
+   "material": true
+  },
+  {
+   "id": "106831940",
+   "material": false
+  },
+  {
+   "id": "106832566",
+   "material": false
+  },
+  {
+   "id": "106832571",
+   "material": false
+  },
+  {
+   "id": "106832593",
+   "material": false
+  },
+  {
+   "id": "106832611",
+   "material": false
+  },
+  {
+   "id": "106832992",
+   "material": true
+  },
+  {
+   "id": "106834087",
+   "material": true
+  },
+  {
+   "id": "106834090",
+   "material": true
+  },
+  {
+   "id": "106834096",
+   "material": true
+  },
+  {
+   "id": "106834249",
+   "material": false
+  },
+  {
+   "id": "106834418",
+   "material": true
+  },
+  {
+   "id": "106834553",
+   "material": true
+  },
+  {
+   "id": "106835654",
+   "material": true
+  },
+  {
+   "id": "106836266",
+   "material": false
+  },
+  {
+   "id": "106836343",
+   "material": false
+  },
+  {
+   "id": "106837197",
+   "material": false
+  },
+  {
+   "id": "106837413",
+   "material": true
+  },
+  {
+   "id": "106837454",
+   "material": false
+  },
+  {
+   "id": "106841885",
+   "material": false
+  },
+  {
+   "id": "106842474",
+   "material": false
+  },
+  {
+   "id": "106845760",
+   "material": false
+  },
+  {
+   "id": "106846397",
+   "material": false
+  },
+  {
+   "id": "106847461",
+   "material": false
+  },
+  {
+   "id": "106847469",
+   "material": false
+  },
+  {
+   "id": "106847697",
+   "material": false
+  },
+  {
+   "id": "106848291",
+   "material": false
+  },
+  {
+   "id": "106850382",
+   "material": false
+  },
+  {
+   "id": "106851762",
+   "material": true
+  },
+  {
+   "id": "106851763",
+   "material": false
+  },
+  {
+   "id": "106851770",
+   "material": true
+  },
+  {
+   "id": "106852542",
+   "material": false
+  },
+  {
+   "id": "106853516",
+   "material": false
+  },
+  {
+   "id": "106853629",
+   "material": false
+  },
+  {
+   "id": "106854034",
+   "material": false
+  },
+  {
+   "id": "106855083",
+   "material": false
+  },
+  {
+   "id": "106855369",
+   "material": false
+  },
+  {
+   "id": "106855503",
+   "material": false
+  },
+  {
+   "id": "106857193",
+   "material": false
+  },
+  {
+   "id": "106857511",
+   "material": true
+  },
+  {
+   "id": "106857662",
+   "material": false
+  },
+  {
+   "id": "106858223",
+   "material": false
+  },
+  {
+   "id": "106858944",
+   "material": false
+  },
+  {
+   "id": "106861437",
+   "material": true
+  }
+ ]
+}

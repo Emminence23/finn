@@ -221,6 +221,9 @@ export type Card = {
   in_portfolio: boolean;
   /** FINN couldn't place this filing in a category, so it is shown rather than folded */
   unsure?: boolean;
+  /** PU-4: Important or Notable (Routine is the folded group), with the reason */
+  level?: "important" | "notable";
+  level_reason?: string;
   results?: ResultsCard | null;
   people?: CardPerson[];
   helpers: Helper[];

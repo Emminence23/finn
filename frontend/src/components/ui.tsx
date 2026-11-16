@@ -38,7 +38,7 @@ export function Pill({
   className,
 }: {
   children: React.ReactNode;
-  tone?: "neutral" | "good" | "warn" | "bad" | "accent";
+  tone?: "neutral" | "good" | "warn" | "bad" | "accent" | "strong";
   className?: string;
 }) {
   const tones = {
@@ -47,6 +47,7 @@ export function Pill({
     warn: "bg-warn-soft text-warn",
     bad: "bg-bad-soft text-bad",
     accent: "bg-accent-soft text-accent",
+    strong: "bg-ink font-semibold text-bg", // rank, not status: no status colour
   };
   return (
     <span

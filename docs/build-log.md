@@ -103,3 +103,15 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Declared vs inferred links, insider mark** (FR-NET-02/03). Overlaps were shown as "confirmed", which read as if FINN knew two people had worked together. They now say "inferred, years overlap" or "inferred, years unknown", and only links the investor recorded say "declared". A contact who works at the company now carries "Works there now: keep it to public information".
 - **Untrusted documents** (NFR-13). Every document-reading prompt now carries a rule that document text is data, not instructions. The test uses a fake model that obeys an injected instruction and checks that the citation validator removes its output. Changing the prompts means LLM cache misses on the next rebuild. Stored research views stay valid because their key is the prompt version.
 - **Freshness and custom dates** (NFR-14, FR-PUSH-01). Today shows how current filings and prices are, with a warning when a session is missing. Two windows were added: 3 days, and custom dates using the phone's own date picker. The custom range reaches the 9 October Pidilite CFO change, which the README had listed as left out.
+
+## Phase 4d: priority levels, calibrated (plan v2, item 1)
+- **Labels first.** Before any level rule existed, 100 portfolio filings were drawn with a fixed seed and labelled material or not from their category, subject and summary alone. The labeller was the coding model, working to a written definition; FINN's scores were not shown. A human pass is the obvious next step. 25 of the 100 are material.
+- **Baseline: 21 of 25 outside Routine (84%, target 95%).** The four misses were two event-grouping bugs, not judgement:
+  - three results decks filed as a bare "Investor Presentation" were classed as investor meetings;
+  - Asian Paints filed its results under "Dividend".
+  - Fixes: a deck within 3 days of the company's results joins the results card, and a "Dividend" filing whose subject is results is results. The one stored fixture row was corrected by the same rule, with no AI call. After the fixes: 25 of 25.
+- **First Important rule failed the rarity target:** 27% of filings and 42% of 30-day cards, because results season made almost every results card Important.
+  - **Tightened:** results are judged on their numbers (PAT or revenue up or down 15%+ YoY, or a swing off a loss) instead of the triage score. HDFC Bank and Infosys (PAT +6%) are now Notable.
+  - **Result:** Important is 10.7% of digest items on 7 days and 18.6% on 30 days. The 24-hour window (3 cards) is too small to hold to a share.
+  - "Items" means cards plus folded filings, one per item, which is how the digest presents them.
+- **Reasons name the rule, not the numbers.** The first reason line repeated the headline and the move chips. Results now say "PAT or revenue moved 15% or more YoY"; other cards give the category and materiality, or the stock move that decided it.

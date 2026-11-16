@@ -53,14 +53,18 @@ function CardShell({ card, now, children }: { card: Card; now: string; children:
         ) : (
           <Pill>{CATEGORY_LABEL[card.category] ?? card.category}</Pill>
         )}
+        {card.level === "important" && <Pill tone="strong">Important</Pill>}
         {!card.in_portfolio && <Pill tone="accent">Research</Pill>}
         <span className="tnum ml-auto shrink-0 text-[12px] text-ink-3">{ago(card.ts, now)}</span>
       </div>
       <p className="mt-1.5 text-[14px] leading-snug text-ink">
         {(card.results && resultsTakeaway(card.results)) ?? card.title}
       </p>
-      {card.unsure && (
-        <p className="mt-1 text-[12px] text-ink-3">FINN couldn&apos;t place this filing, so it isn&apos;t folded away.</p>
+      {card.level_reason && (
+        <p className="mt-1 text-[12px] leading-snug text-ink-3">
+          <span className="sr-only">{card.level === "important" ? "Important" : "Notable"} because: </span>
+          {card.level_reason}
+        </p>
       )}
       {moves.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">

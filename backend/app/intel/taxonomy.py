@@ -196,6 +196,8 @@ def classify_rules(exch_category: str, subject: str) -> RuleResult:  # noqa: C90
             if _has(s, r"esop", r"esos", r"employee", r"stock option")
             else r("fund_raise", False)
         )
+    if d == "dividend" and _has(s, *RESULT_WORDS):
+        return r("results")  # boards often file results under "Dividend" when declaring one
     if d in {"dividend"} or (d == "record date" and _has(s, "dividend")):
         return r("dividend")
     if d == "record date":
