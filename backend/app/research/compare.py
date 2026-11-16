@@ -15,7 +15,7 @@ import re
 from app.db import session
 from app.network.companies import company_links, resolve_symbol
 from app.research.financials import build_financials
-from app.research.service import company_name, get_cached, load_fundamentals
+from app.research.service import add_filed_quarter, company_name, get_cached, load_fundamentals
 
 # key, label, unit, higher_is_better, applies_to_lenders, gap that is worth a sentence
 METRICS = [
@@ -88,6 +88,13 @@ _SENTENCE = {
 }
 
 
+def _fq(period: str) -> str:
+    """'2026-09' -> 'Q2 FY27' (Indian financial year, April to March)."""
+    y, m = int(period[:4]), int(period[5:7])
+    fy = y + 1 if m >= 4 else y
+    return f"Q{((m - 4) % 12) // 3 + 1} FY{fy % 100:02d}"
+
+
 def compare(a: str, b: str) -> dict:
     a, b = a.upper(), b.upper()
     if a == b:
@@ -96,6 +103,7 @@ def compare(a: str, b: str) -> dict:
     for sym in (a, b):
         f = load_fundamentals(sym)
         fin = build_financials(f)
+        add_filed_quarter(fin, sym)
         view = get_cached(sym)
         p = (view or {}).get("promises") or {}
         name = company_name(sym) or (view or {}).get("company") or sym
@@ -130,6 +138,13 @@ def compare(a: str, b: str) -> dict:
     if fy[0] and fy[1] and fy[0][:4] != fy[1][:4]:
         notes.append(f"Latest full years differ ({fy[0][:7]} against {fy[1][:7]}).")
 
+    lq = [(fin["trajectory"]["quarterly"] or [{}])[-1].get("period") for fin in fins]
+    if lq[0] and lq[1] and lq[0] != lq[1]:
+        notes.append(
+            f"Latest quarters differ: {_fq(lq[0])} for {cos[0]['short']} against "
+            f"{_fq(lq[1])} for {cos[1]['short']}, so the quarterly row compares different "
+            f"periods."
+        )
     va, vb = _values(fins[0]), _values(fins[1])
     metrics, lines = [], []
     for key, label, unit, higher, for_lenders, gap in METRICS:

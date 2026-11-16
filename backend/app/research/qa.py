@@ -22,7 +22,7 @@ from app.research import promises as promises_mod
 from app.research.docs import DocRef, load_pages
 from app.research.narrative import GROUNDING, Claim, _clean_cites, _clean_text
 
-PROMPT_VERSION = "qa-v2"
+PROMPT_VERSION = "qa-v3"
 MAX_QUESTION = 300
 TOP_PAGES = 8
 
@@ -133,6 +133,9 @@ def answer(view: dict, question: str) -> dict:
                 f'computed flags and scorecard promises by their id (e.g. {{"doc": "FY:2026-03"}}, '
                 f'{{"doc": "fin:receivables"}}, {{"doc": "P2"}}). If the sources do not answer '
                 f"the question, set answerable to 'no' and say in one point what they do cover. "
+                f"When sources give different figures for the same item, give the date and "
+                f"basis (standalone or consolidated, year-end or quarter) of each, and only call "
+                f"a change a rise or fall if the later figure is larger or smaller. "
                 f"Never guess and never use outside knowledge."
             ),
             prompt=f"QUESTION\n{question}\n\n{numbers}\n\nDOCUMENT EXCERPTS\n{pages_block}",
@@ -141,11 +144,17 @@ def answer(view: dict, question: str) -> dict:
             max_tokens=8000,
         )
     allowed = {r.id: set(only) for r, _, only in sent}
+    page_text = {r.id: p for r, p, _ in sent}
     points = []
     for c in res.points:
         cites = _clean_cites(c.cites, allowed, ids)
         if cites or res.answerable == "no":
-            points.append({"text": _clean_text(c.text), "cites": cites})
+            text = _clean_text(c.text)
+            point = {"text": text, "cites": cites}
+            missing = unchecked_numbers(text, cites, page_text, numbers)
+            if missing:
+                point["unchecked"] = missing
+            points.append(point)
     answerable = res.answerable if points else "no"
     return {
         "question": question,
@@ -157,6 +166,41 @@ def answer(view: dict, question: str) -> dict:
         "model": served.get("answer_question"),
         "seconds": round(time.perf_counter() - t0, 1),
     }
+
+
+_NUM = re.compile(r"(?<![\w.])(\d{1,3}(?:,\d{2,3})+|\d+)(?:\.(\d+))?(?![\w])")
+
+
+def _figures(text: str) -> set[str]:
+    """Figures in a sentence, normalised ('1,365.2' -> '1365.2'). Years, quarter labels and
+    small counts are left out: they aren't what a reader needs checked."""
+    out = set()
+    for whole, frac in _NUM.findall(text):
+        n = whole.replace(",", "")
+        if not frac and (len(n) <= 2 or (len(n) == 4 and 1990 <= int(n) <= 2040)):
+            continue
+        out.add(n + (f".{frac}" if frac else ""))
+    return out
+
+
+def unchecked_numbers(text: str, cites: list[dict], pages: dict, numbers: str) -> list[str]:
+    """Figures in an answer point that appear in none of the sources it cites. Code can't
+    tell a misread from a sum the model did, so these are shown, not dropped."""
+    figs = _figures(text)
+    if not figs:
+        return []
+    found: set[str] = set()
+    for c in cites:
+        if c.get("page") is None:
+            found |= _figures(numbers)  # a reported-number or scorecard id: the numbers block
+        elif c["doc"] in pages and 0 < c["page"] <= len(pages[c["doc"]]):
+            found |= _figures(pages[c["doc"]][c["page"] - 1])
+
+    def seen(f: str) -> bool:
+        # 1,365 on the page may be 1365.0 or 1,365.4 in the answer, and the reverse
+        return f in found or f.split(".")[0] in {x.split(".")[0] for x in found}
+
+    return sorted(f for f in figs if not seen(f))
 
 
 def suggested_questions(view: dict) -> list[str]:

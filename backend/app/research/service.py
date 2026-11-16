@@ -75,9 +75,70 @@ def get_cached(symbol: str) -> dict | None:
             (symbol,),
         ).fetchone()
     if r:
-        return json.loads(r["payload_json"])
+        return with_filed_results(json.loads(r["payload_json"]))
     path = research_fixture(symbol)
-    return json.loads(path.read_text()) if path.exists() else None
+    return with_filed_results(json.loads(path.read_text())) if path.exists() else None
+
+
+def latest_filed_results(symbol: str) -> tuple[str, dict] | None:
+    """The newest quarterly result read from an exchange filing: (filed at, results)."""
+    with session() as db:
+        rows = db.execute(
+            "SELECT ts, enrichment_json FROM announcements WHERE symbol=? AND "
+            "category='results' AND enrichment_json IS NOT NULL ORDER BY ts DESC LIMIT 5",
+            (symbol,),
+        ).fetchall()
+    for r in rows:
+        res = json.loads(r["enrichment_json"] or "{}").get("results")
+        if res and res.get("period") and res.get("rows"):
+            return r["ts"], res
+    return None
+
+
+def add_filed_quarter(fin: dict, symbol: str) -> dict | None:
+    """A results filing newer than the financials' last quarter is added as that quarter
+    (same basis only, consolidated with consolidated), so Today, the research page and
+    Compare agree on the latest numbers. Returns {period, filed} when one was added."""
+    q = (fin.get("trajectory") or {}).get("quarterly")
+    found = latest_filed_results(symbol)
+    if not q or not found:
+        return None
+    filed, res = found
+    if res["period"] <= q[-1]["period"] or (res.get("basis") or fin.get("basis")) != fin.get(
+        "basis"
+    ):
+        return None
+    row = {r["metric"]: r for r in res["rows"]}
+
+    def val(m: str, k: str = "value"):
+        return row.get(m, {}).get(k)
+
+    def whole(v):
+        return round(v) if v is not None else None
+
+    margin = res.get("ebitda_margin")
+    q.append(
+        {
+            "period": res["period"],
+            "revenue": whole(val("revenue")),
+            "operating_profit": whole(val("ebitda")),
+            "margin_pct": round(margin, 1) if margin is not None else None,
+            "pat": whole(val("pat")),
+            "revenue_yoy": val("revenue", "yoy"),
+            "pat_yoy": val("pat", "yoy"),
+            "source": "results filing",
+            "filed": filed,
+        }
+    )
+    return {"period": res["period"], "filed": filed}
+
+
+def with_filed_results(view: dict) -> dict:
+    added = add_filed_quarter(view.get("financials") or {}, view.get("symbol", ""))
+    if added:
+        view["latest_quarter"] = added["period"]
+        view["filed_results"] = added
+    return view
 
 
 def ready_symbols() -> set[str]:

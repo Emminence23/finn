@@ -5,8 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Compass, SlidersHorizontal, Target, TrendingDown, TrendingUp } from "lucide-react";
 import clsx from "clsx";
 import { type Alert, type Digest, useApi } from "@/lib/api";
-import { CATEGORY_LABEL, ago, day, pct } from "@/lib/fmt";
-import { FeedCard } from "@/components/cards";
+import { CATEGORY_LABEL, day, pct } from "@/lib/fmt";
+import { FeedCard, sessionMoves } from "@/components/cards";
 import { useReadState } from "@/lib/seen";
 import { ListenBrief } from "@/components/ListenBrief";
 import { MeetingPrep } from "@/components/meetings";
@@ -111,7 +111,7 @@ export default function Today() {
       ) : (
         <>
           <MeetingPrep />
-          <Moves alerts={data.alerts} now={now} />
+          <Moves alerts={data.alerts} />
           <SectionTitle aside={`from ${data.counts.filings} filings`}>What matters</SectionTitle>
           {data.cards.length === 0 ? (
             <Panel className="p-4 text-[14px] text-ink-2">Nothing material in this window. Quiet is good.</Panel>
@@ -214,18 +214,17 @@ function Summary({ d }: { d: Digest }) {
 }
 
 /** Price/volume alerts only; category alerts already are the cards below. */
-function Moves({ alerts, now }: { alerts: Alert[]; now: string }) {
+function Moves({ alerts }: { alerts: Alert[] }) {
   const moves = useMemo(() => {
-    const bySymbol = new Map<string, { symbol: string; ts: string; vol?: Alert; price?: Alert }>();
-    for (const a of alerts) {
-      if (a.kind === "category") continue;
-      const m = bySymbol.get(a.symbol) ?? { symbol: a.symbol, ts: a.ts };
-      if (a.kind === "volume" && !m.vol) m.vol = a;
-      if (a.kind === "price" && !m.price) m.price = a;
-      if (a.ts > m.ts) m.ts = a.ts;
-      bySymbol.set(a.symbol, m);
-    }
-    return [...bySymbol.values()].sort((a, b) => (b.ts > a.ts ? 1 : -1));
+    // one tile per stock: its most recent session, with that session's price and volume
+    const bySymbol = new Map<string, Alert[]>();
+    for (const a of alerts) if (a.kind !== "category") bySymbol.set(a.symbol, [...(bySymbol.get(a.symbol) ?? []), a]);
+    return [...bySymbol.entries()]
+      .map(([symbol, list]) => {
+        const s = sessionMoves(list);
+        return { symbol, ts: s[0].ts, vol: s.find((a) => a.kind === "volume"), price: s.find((a) => a.kind === "price") };
+      })
+      .sort((a, b) => (b.ts > a.ts ? 1 : b.ts < a.ts ? -1 : 0));
   }, [alerts]);
   if (!moves.length) return null;
   return (
@@ -243,7 +242,7 @@ function Moves({ alerts, now }: { alerts: Alert[]; now: string }) {
             >
               <span className="flex items-center justify-between gap-2">
                 <span className="text-[13px] font-semibold">{m.symbol}</span>
-                <span className="tnum text-[11px] text-ink-3">{ago(m.ts, now)}</span>
+                <span className="tnum text-[11px] text-ink-3">{day(m.ts)}</span>
               </span>
               <span className={clsx("tnum mt-0.5 flex items-center gap-1 text-[13px] font-medium", chg >= 0 ? "text-good" : "text-bad")}>
                 <Icon size={13} /> {pct(chg)}
@@ -272,7 +271,7 @@ function Nudges({ d }: { d: Digest }) {
             <div className="min-w-0 text-[13px] leading-snug">
               <p>
                 <span className="font-semibold">{firstName(n.contact.name)}</span>
-                <span className="text-ink-2"> · {Math.round(n.days_since_contact / 30)} months since you spoke</span>
+                <span className="text-ink-2"> · {n.days_since_contact >= 60 ? `${Math.floor(n.days_since_contact / 30)} months` : `${n.days_since_contact} days`} since you spoke</span>
               </p>
               <p className="text-ink-2">{n.reason.replace(/^Last spoke [^.]+\.\s*/, "")}</p>
             </div>

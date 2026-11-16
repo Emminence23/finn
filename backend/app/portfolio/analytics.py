@@ -379,6 +379,23 @@ def overview() -> dict:
     )[:3]
 
     flags = []
+    # your own rules first: holdings outside the minimum and maximum you set
+    s_ = L["settings"]
+    for limit, side, word in ((s_["max_pct"], 1, "above your"), (s_["min_pct"], -1, "below your")):
+        if not limit:
+            continue
+        out = sorted(
+            (x for x in rows if side * (x["weight"] - limit) > 0.05),
+            key=lambda x: -side * x["weight"],
+        )
+        if out:
+            names = ", ".join(f"{x['symbol']} {x['weight']:.1f}%" for x in out[:3])
+            more = f" and {len(out) - 3} more" if len(out) > 3 else ""
+            kind = "maximum" if side > 0 else "minimum"
+            flags.append(
+                f"{len(out)} {'holding is' if len(out) == 1 else 'holdings are'} {word} "
+                f"{limit:g}% {kind}: {names}{more}."
+            )
     cap = L["settings"]["theme_cap_pct"]  # your theme cap is also the warning line
     if cap is not None and st["largest_theme"]["weight"] > cap:
         flags.append(
@@ -419,7 +436,7 @@ def overview() -> dict:
         "holdings": rows,
         "themes": sorted(themes.values(), key=lambda t: -t["weight"]),
         "correlated": [{"a": a, "b": b, "corr": float(c)} for c, a, b in pairs],
-        "flags": flags[:4],
+        "flags": flags[:6],
     }
 
 
@@ -467,6 +484,15 @@ def suggest() -> dict:
     new = np.array([target[s] for s in symbols])
 
     before, after = (_stats(x, cov, symbols, theme, raw) for x in (cur, new))
+    by_theme: dict[str, float] = {}
+    for i, s in enumerate(symbols):
+        by_theme[theme[s]] = by_theme.get(theme[s], 0.0) + float(new[i])
+    capped = {t for t, v in by_theme.items() if v >= L["theme_cap"] - 1e-4}
+    # a cut the step limit slowed keeps weight that the others then do without
+    slowed = any(
+        abs(new[i] - lo[s]) < 1e-4 and lo[s] > L["min"] + 1e-4 and new[i] < cur[i]
+        for i, s in enumerate(symbols)
+    )
     rows = []
     for i, s in enumerate(symbols):
         rows.append(
@@ -493,6 +519,8 @@ def suggest() -> dict:
                     hi[s],
                     len(symbols),
                     L,
+                    theme_capped=theme[s] in capped,
+                    step_slowed=slowed,
                 ),
             }
         )
@@ -527,7 +555,20 @@ _FACTOR_WORDS = {
 }
 
 
-def _reason(cur, base, tilted, new, risk_share, raw, lo, hi, n, L=None) -> str:
+def _reason(
+    cur,
+    base,
+    tilted,
+    new,
+    risk_share,
+    raw,
+    lo,
+    hi,
+    n,
+    L=None,
+    theme_capped=False,
+    step_slowed=False,
+) -> str:
     """What moved this weight, stage by stage: risk balance, quality tilt, then the limits."""
     d = (new - cur) * 100
     if abs(d) < 0.25:
@@ -561,10 +602,26 @@ def _reason(cur, base, tilted, new, risk_share, raw, lo, hi, n, L=None) -> str:
             parts.append(f"limited to your {step * 100:.3g}-point step this time")
         elif limit_d > 0:
             parts.append("picks up weight that capped holdings couldn't take")
-        elif d < 0:
-            parts.append("trimmed to keep its theme within the cap")
+        elif theme_capped:
+            parts.append(
+                "trimmed to keep its theme within the cap"
+                if d < 0
+                else "held back to keep its theme within the cap"
+            )
+        elif step_slowed:
+            # not this holding's own limit: the large cuts are spread over several rounds
+            parts.append(
+                f"cut a little further while your {step * 100:.3g}-point step slows the larger cuts"
+                if d < 0
+                else f"short of its target while your {step * 100:.3g}-point step slows the "
+                "larger cuts"
+            )
         else:
-            parts.append("held back to keep its theme within the cap")
+            parts.append(
+                "trimmed to fund holdings your limits kept higher"
+                if d < 0
+                else "short of its target to fund holdings your limits kept higher"
+            )
     if not parts:
         parts.append(
             "trimmed to fund the other changes"

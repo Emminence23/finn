@@ -7,7 +7,7 @@ investor sees one item per (company, event type).
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import date, datetime, time, timedelta
 
 from app.clock import freshness, window_bounds
 from app.db import session
@@ -182,6 +182,7 @@ def build_digest(
     for a in alerts:
         alerts_by_symbol.setdefault(a["symbol"], []).append(a)
 
+    n_held = sum(1 for c in companies.values() if c["in_portfolio"]) or 1
     groups: dict[tuple[str, str], list[dict]] = {}
     routine = []
     for a in anns:
@@ -196,7 +197,9 @@ def build_digest(
     cards = []
     for (symbol, key), items in groups.items():
         cat = key.split(":")[0]
-        items.sort(key=lambda x: (-(x["materiality"] or 0), x["ts"]))
+        # most material first; among equals, the newest
+        items.sort(key=lambda x: x["ts"], reverse=True)
+        items.sort(key=lambda x: -(x["materiality"] or 0))
         enr_by_id = {x["id"]: json.loads(x["enrichment_json"] or "{}") for x in items}
         primary = next((x for x in items if "results" in enr_by_id[x["id"]]), items[0])
         enr = enr_by_id[primary["id"]]
@@ -205,15 +208,18 @@ def build_digest(
             "id": primary["id"],
             "symbol": symbol,
             "company": co["name"],
-            "ts": max(x["ts"] for x in items),
+            # the headline filing's own time; latest_ts says when the group last changed
+            "ts": primary["ts"],
+            "latest_ts": max(x["ts"] for x in items),
             "category": cat,
             "kind": "filing",
             "materiality": max(x["materiality"] or 0 for x in items),
             "title": primary["summary"] or primary["subject"],
             "pdf_url": primary["pdf_url"],
             "related": [_item(x) for x in items if x is not primary],
-            "alerts": alerts_by_symbol.get(symbol, []),
+            "alerts": reaction(primary["ts"], alerts_by_symbol.get(symbol, [])),
             "in_portfolio": bool(co["in_portfolio"]),
+            "weight": round(100 * co["weight"], 1) if co["in_portfolio"] and co["weight"] else None,
             "unsure": is_unsure(cat, primary["exch_category"], primary["subject"]),
         }
         if cat == "results":
@@ -226,7 +232,7 @@ def build_digest(
             card["kind"] = "material_event"
         helpers = graph.who_can_help(symbol, people, limit=3)
         card["helpers"] = helpers if card["kind"] != "filing" else helpers[:1]
-        card["priority"] = _priority(card, co)
+        card["priority"] = _priority(card, co, n_held)
         cards.append(card)
 
     _attach_results_decks(cards, routine)
@@ -311,7 +317,7 @@ def level(card: dict) -> tuple[str, str]:
     moved = [a for a in card["alerts"] if a["kind"] == "price"]
     kind = card["kind"]
     market = bool(moved and m >= 50)
-    stock = f"stock {moved[0]['value']:+.1f}% on the day" if moved else ""
+    stock = f"stock {moved[0]['value']:+.1f}% on {_day(moved[0]['ts'])}" if moved else ""
     if card.get("unsure"):
         return ("important" if market else "notable"), (
             "FINN couldn't place this filing, so it isn't folded away"
@@ -338,22 +344,43 @@ def level(card: dict) -> tuple[str, str]:
         return "important", f"{top}, rated {m}/100 for materiality"
     if market:
         return "important", f"{label}; {stock}"
-    return "notable", f"{label}, rated {m}/100 for materiality"
+    bar = 70 if kind in ("management_change", "material_event") else 85
+    return "notable", f"{label}, rated {m}/100 for materiality (Important from {bar})"
 
 
-def _priority(card: dict, co: dict) -> float:
+REACTION_DAYS = 4  # calendar days after a filing that count as the market's reaction
+
+
+def reaction(filed: str, alerts: list[dict]) -> list[dict]:
+    """The price and volume alerts that can be a reaction to a filing: the session it was
+    filed in (if filed before the 15:30 close) and the next few. A move from another day in
+    the window is not shown against the filing."""
+    f = datetime.fromisoformat(filed)
+    first = f.date() if f.time() < time(15, 30) else f.date() + timedelta(days=1)
+    last = f.date() + timedelta(days=REACTION_DAYS)
+    return [a for a in alerts if first <= date.fromisoformat(a["ts"][:10]) <= last]
+
+
+def _priority(card: dict, co: dict, n_held: int = 18) -> float:
     """FR-PUSH-03: category weight × materiality, nudged by position size, alerts and
     whether the network can help."""
     # An unsure filing ranks as a mid-weight item on its triage score, not as paperwork
     weight = 0.5 if card.get("unsure") else CATEGORY_WEIGHT.get(card["category"], 0.1)
     base = weight * (card["materiality"] / 100)
-    size = 1.0 + 2.0 * (co["weight"] or 0) if co["in_portfolio"] else 0.7
+    # position size matters: a holding at an equal share counts 1×, a 0.5% position about
+    # half, a 12% one about 1.5×; a followed company outside the portfolio counts half
+    size = min(1.5, max(0.5, ((co["weight"] or 0) * n_held) ** 0.5)) if co["in_portfolio"] else 0.5
     boost = 0.05 * min(len(card["alerts"]), 2)
     if card.get("helpers") and card["helpers"][0]["score"] >= 0.5:
         boost += 0.05
     if card["kind"] in ("results", "management_change", "material_event"):
         boost += 0.05
     return round(base * size + boost, 4)
+
+
+def _day(ts: str) -> str:
+    d = date.fromisoformat(ts[:10])
+    return f"{d.day} {d:%b}"
 
 
 def _item(a: dict) -> dict:

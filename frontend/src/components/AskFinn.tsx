@@ -24,6 +24,21 @@ export function AskFinn({
   const [thread, setThread] = useState<QaAnswer[]>([]);
   const [error, setError] = useState<string | null>(null);
   const asked = useRef(false);
+  const [elapsed, setElapsed] = useState(0);
+  useEffect(() => {
+    if (!busy) return;
+    setElapsed(0);
+    const t0 = Date.now();
+    const id = setInterval(() => setElapsed(Math.floor((Date.now() - t0) / 1000)), 1000);
+    return () => clearInterval(id);
+  }, [busy]);
+  // the API answers in one go; these stages follow its usual timing so the wait is legible
+  const stage =
+    elapsed < 3
+      ? "Finding the relevant pages in the calls and annual report…"
+      : elapsed < 8
+        ? "Reading those pages and the reported numbers…"
+        : "Writing the answer and checking each citation… usually 20–40 s";
 
   const ask = async (question: string) => {
     const text = question.trim();
@@ -106,7 +121,8 @@ export function AskFinn({
           <p className="text-[13px] font-medium">{busy}</p>
           <p className="mt-1 flex items-center gap-1.5 text-[12px] text-ink-3">
             <Loader2 size={13} className="animate-spin motion-reduce:animate-none" />
-            Finding the relevant pages in the calls and annual report…
+            {stage}
+            <span className="tnum ml-auto">{elapsed}s</span>
           </p>
         </div>
       )}
@@ -127,6 +143,11 @@ export function AskFinn({
                 <span>
                   {cleanClaim(p.text)}
                   <CiteChips cites={p.cites} docs={docs} />
+                  {p.unchecked && p.unchecked.length > 0 && (
+                    <span className="mt-0.5 block text-[11px] text-warn">
+                      Not found on the cited {p.cites.length === 1 ? "page" : "pages"}: {p.unchecked.join(", ")}. Check before using.
+                    </span>
+                  )}
                 </span>
               </li>
             ))}

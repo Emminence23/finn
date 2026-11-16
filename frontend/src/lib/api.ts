@@ -305,8 +305,13 @@ export type Card = {
   title: string;
   pdf_url: string | null;
   related: FilingItem[];
+  /** price/volume alerts in the sessions after the filing (its market reaction) */
   alerts: Alert[];
   in_portfolio: boolean;
+  /** percent of this account's portfolio, null when not held */
+  weight?: number | null;
+  /** the newest filing in the group (ts is the headline filing's own time) */
+  latest_ts?: string;
   /** FINN couldn't place this filing in a category, so it is shown rather than folded */
   unsure?: boolean;
   /** PU-4: Important or Notable (Routine is the folded group), with the reason */
@@ -455,6 +460,8 @@ export type Research = {
   company: string;
   generated_at: string;
   latest_quarter: string;
+  /** a results filing newer than the build, added as the latest quarter */
+  filed_results?: { period: string; filed: string } | null;
   documents: DocRef[];
   financials: Financials;
   promises: {
@@ -482,7 +489,8 @@ export type Research = {
 export type QaAnswer = {
   question: string;
   answerable: "yes" | "partly" | "no";
-  points: Claim[];
+  /** unchecked: figures in the point that code didn't find in the sources it cites */
+  points: (Claim & { unchecked?: string[] })[];
   dropped: number;
   follow_ups: string[];
   searched: { doc: string; pages: number[] }[];

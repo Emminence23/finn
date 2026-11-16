@@ -72,7 +72,9 @@ export function HelperList({ helpers, max = 3 }: { helpers: Helper[]; max?: numb
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <p className="truncate text-[14px] font-semibold">{h.contact.name}</p>
-                <span className="tnum shrink-0 text-[11px] text-ink-3">{Math.round(h.score * 100)}</span>
+                <span className="tnum shrink-0 text-[11px] text-ink-3" aria-label="fit out of 100: how close you are times how much they know">
+                  fit {Math.round(h.score * 100)}
+                </span>
               </div>
               <p className="text-[13px] leading-snug text-ink-2">{h.why}</p>
               {h.insider && <InsiderNote />}
@@ -85,6 +87,9 @@ export function HelperList({ helpers, max = 3 }: { helpers: Helper[]; max?: numb
           </Link>
         </li>
       ))}
+      <li className="pt-2 text-[11px] leading-snug text-ink-3">
+        Fit, out of 100: how much they know about the company, scaled by how close you are.
+      </li>
     </ul>
   );
 }

@@ -17,7 +17,7 @@ export function AlertChip({ a }: { a: Alert }) {
   return (
     <Pill tone="warn">
       <Icon size={12} />
-      {a.kind === "volume" ? `Vol ${a.value.toFixed(1)}× avg` : `${pct(a.value)} day`}
+      {a.kind === "volume" ? `Vol ${+a.value.toFixed(2)}× avg` : pct(a.value)} on {day(a.ts)}
     </Pill>
   );
 }
@@ -59,7 +59,7 @@ export type CardRead = { isNew: boolean; opened: boolean; onOpen: () => void };
 
 function CardShell({ card, now, read, children }: { card: Card; now: string; read?: CardRead; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const moves = dedupeMoves(card.alerts);
+  const moves = sessionMoves(card.alerts);
   return (
     <article
       data-tour="card"
@@ -79,6 +79,11 @@ function CardShell({ card, now, read, children }: { card: Card; now: string; rea
         )}
         {card.level === "important" && <Pill tone="strong">Important</Pill>}
         {!card.in_portfolio && <Pill tone="accent">Research</Pill>}
+        {card.in_portfolio && card.weight != null && (
+          <span className="tnum shrink-0 text-[12px] text-ink-3" title="Share of your portfolio">
+            {card.weight < 1 ? card.weight.toFixed(1) : Math.round(card.weight)}% held
+          </span>
+        )}
         <span className="tnum ml-auto shrink-0 text-[12px] text-ink-3">
           {read?.isNew ? (
             <span className="mr-1.5 inline-flex items-center gap-1 font-semibold text-accent">
@@ -161,10 +166,14 @@ function shareCard(card: Card) {
   };
 }
 
-/** One chip per (kind) with the most recent move: the feed is not a price ticker. */
-function dedupeMoves(alerts: Alert[]): Alert[] {
+/** The moves of one session: the most recent day with a price or volume alert. Volume and
+ * price from different days are never shown side by side. */
+export function sessionMoves(alerts: Alert[]): Alert[] {
+  const moves = alerts.filter((a) => a.kind !== "category");
+  if (!moves.length) return [];
+  const last = moves.reduce((d, a) => (a.ts.slice(0, 10) > d ? a.ts.slice(0, 10) : d), "");
   const seen = new Map<string, Alert>();
-  for (const a of alerts) if (a.kind !== "category" && !seen.has(a.kind)) seen.set(a.kind, a);
+  for (const a of moves) if (a.ts.startsWith(last) && !seen.has(a.kind)) seen.set(a.kind, a);
   return [...seen.values()];
 }
 

@@ -31,7 +31,7 @@
   {
    "symbol": "CGPOWER",
    "weight": 0.11,
-   "theme": "semiconductors",
+   "theme": "capital goods",
    "qty": 740,
    "avg_cost": 743.56
   },
@@ -45,7 +45,7 @@
   {
    "symbol": "PIDILITIND",
    "weight": 0.08,
-   "theme": "specialty chemicals",
+   "theme": "home improvement",
    "qty": 272,
    "avg_cost": 1470.81
   },
@@ -73,7 +73,7 @@
   {
    "symbol": "ASIANPAINT",
    "weight": 0.02,
-   "theme": "consumer staples",
+   "theme": "home improvement",
    "qty": 35,
    "avg_cost": 2843.46
   },
@@ -122,7 +122,7 @@
   {
    "symbol": "KAYNES",
    "weight": 0.01,
-   "theme": "semiconductors",
+   "theme": "electronics manufacturing",
    "qty": 8,
    "avg_cost": 6376.5
   }

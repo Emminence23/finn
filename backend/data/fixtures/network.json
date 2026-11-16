@@ -116,7 +116,7 @@
         {"company": "D2C home brand", "title": "Marketing Director", "start_year": 2022, "end_year": null}
       ],
       "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2008, "end_year": 2010}],
-      "themes": ["consumer staples", "adhesives", "distribution"],
+      "themes": ["home improvement", "consumer staples", "adhesives", "distribution"],
       "relationship": {"type": "alumni", "strength": 0.7, "last_contact": "2026-10-03", "context": "IIM-A senior; mentor in the alumni program"}
     },
     {
@@ -281,7 +281,7 @@
         {"company": "Berger Paints", "title": "Supply Chain Lead", "start_year": 2020, "end_year": null}
       ],
       "education": [{"school": "NITIE Mumbai", "program": "PGDIE", "start_year": 2011, "end_year": 2013}],
-      "themes": ["paints", "consumer staples", "supply chain"],
+      "themes": ["home improvement", "paints", "consumer staples", "supply chain"],
       "relationship": {"type": "industry contact", "strength": 0.5, "last_contact": "2026-06-24", "context": "Paints competitive intensity checks"}
     },
     {
@@ -320,7 +320,7 @@
         {"company": "Strategy consulting firm", "title": "Partner, Consumer & Retail", "start_year": 2012, "end_year": null}
       ],
       "education": [{"school": "IIM Ahmedabad", "program": "PGP", "start_year": 2010, "end_year": 2012}],
-      "themes": ["consumer staples", "retail", "paints"],
+      "themes": ["home improvement", "consumer staples", "retail", "paints"],
       "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-08-29", "context": "IIM-A batchmate"}
     },
     {

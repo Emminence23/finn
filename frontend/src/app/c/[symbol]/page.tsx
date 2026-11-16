@@ -7,7 +7,7 @@ import { ArrowLeft, Check, ChevronDown, Loader2, TriangleAlert } from "lucide-re
 import clsx from "clsx";
 import { ApiError, api, type Research, stream, useApi } from "@/lib/api";
 import { ShareButton } from "@/components/ShareButton";
-import { crore, fq, pct, shortName, times } from "@/lib/fmt";
+import { crore, day, fq, pct, shortName, times } from "@/lib/fmt";
 import { HelperList } from "@/components/network";
 import {
   ClaimList,
@@ -236,7 +236,8 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
           {s.pe != null && <>P/E {s.pe}</>}
         </p>
         <p className="mt-1 text-[12px] text-ink-3">
-          From {transcripts.length} earnings calls and the annual report. No news, no broker notes.
+          From {transcripts.length} earnings calls and the annual report
+          {v.filed_results ? `, plus the ${fq(v.filed_results.period)} results filed ${day(v.filed_results.filed)}` : ""}. No news, no broker notes.
         </p>
         <VoiceLegend />
       </header>
@@ -275,6 +276,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
                 <p className="shrink-0 text-right">
                   <span className="text-[28px] font-semibold leading-none tracking-[-0.02em]">{p.score}</span>
                   <span className="block text-[10px] uppercase tracking-wide text-ink-3">delivery score</span>
+                  <span className="block text-[10px] text-ink-3">of 100: delivered 1, partly ½</span>
                 </p>
               )}
             </div>
