@@ -24,6 +24,17 @@ router = APIRouter()
 
 
 # ------------------------------------------------------------------ Push
+@router.get("/digest/brief")
+def digest_brief(window: str = "24h", start: str | None = None, end: str | None = None) -> dict:
+    """FR-PUSH-11: Today as a short spoken script, read by the phone's own voice."""
+    from app.intel.brief import build_brief
+
+    try:
+        return build_brief(window, start, end)
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+
+
 @router.get("/digest")
 def digest(
     window: str = "24h",

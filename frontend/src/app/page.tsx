@@ -8,6 +8,7 @@ import { type Alert, type Digest, useApi } from "@/lib/api";
 import { CATEGORY_LABEL, ago, day, pct } from "@/lib/fmt";
 import { FeedCard } from "@/components/cards";
 import { useReadState } from "@/lib/seen";
+import { ListenBrief } from "@/components/ListenBrief";
 import { AlertSettings } from "@/components/AlertSettings";
 import { firstName } from "@/components/network";
 import { Avatar, ErrorNote, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
@@ -88,6 +89,7 @@ export default function Today() {
         {win === "custom" && range && <RangePicker range={range} onChange={setRange} />}
       </div>
       {data?.freshness?.stale && <StaleNote f={data.freshness} />}
+      {data && data.cards.length > 0 && <ListenBrief query={path.split("?")[1]} />}
 
       {error && !data ? (
         <div className="mt-4">

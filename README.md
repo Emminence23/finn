@@ -11,6 +11,7 @@ A mobile-first investor companion with three layers:
 
 ## 60-second tour
 1. **Today.** The brief for the last 24 hours, 3, 7 or 30 days, or any dates you pick (try 1–15 October for the Pidilite CFO change). Results cards lead with what the numbers say ("Profit down 36% YoY even as revenue grew 12%"), show QoQ and YoY, and are cross-checked against screener.in. A management change shows the incoming person's background and your path to them. Each card is marked Important or Notable with a one-line reason, names the person to call and why, and ends in one next step (the incoming person, the promise scorecard, the contact to call). Routine filings are folded away; filings FINN can't place stay visible, marked "Unclassified".
+   Tap **Listen to the brief** for the same items read aloud, about a minute, in the phone's own voice. On a return visit, new cards are marked and the ones you acted on are dimmed.
 2. **Alert settings** (top right). Change the volume or price threshold and the feed re-ranks.
 3. **Ask → Kaynes.** The promise scorecard: FY26 revenue ₹3,626 Cr against ₹4,000 Cr+ guided, working capital 133 days against ≤85, each with the verbatim quote, call and page beside the reported number. Reported figures, management's words and FINN's own reading look different everywhere on the page. Below "Who you know", an off-the-record panel keeps what contacts told you apart from the evidence: it is never sent to the AI or cited.
 4. **Ask FINN** on the same page: "Why did receivables go up?" The answer cites call pages, and uncited points are removed by code.
@@ -71,7 +72,7 @@ docs/       Requirements, architecture, build log, deploy guide
 - **Are screener.in's standardised tables acceptable as primary data?** FINN reads the exchange filings and uses screener only to cross-check and fill history. If it isn't acceptable, history would come from the filings themselves, at more parsing cost.
 
 ## Where I'd take it next
-- A two-minute **voice brief** of Today for the commute.
+- **A better voice brief:** a natural voice instead of the phone's built-in one, delivered as a podcast-style feed the evening before.
 - **Calendar-aware prep:** the evening before a meeting on your calendar, a note with what changed at their company and the "Before you meet" questions.
 - **Intraday triggers** for price and volume, plus filings polled through market hours.
 - **Watchlist-wide scorecards:** rank every holding by how reliably its management delivers.
