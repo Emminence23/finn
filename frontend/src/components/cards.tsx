@@ -62,6 +62,7 @@ function CardShell({ card, now, read, children }: { card: Card; now: string; rea
   const moves = dedupeMoves(card.alerts);
   return (
     <article
+      data-tour="card"
       className={clsx(
         "mx-3 rounded-2xl border border-line bg-surface p-4 transition-opacity",
         read?.opened && "opacity-60",

@@ -117,6 +117,9 @@ export default function Today() {
             <Link href="/accuracy" className="mt-1 block font-medium text-accent">
               How accurate is FINN?
             </Link>
+            <button onClick={() => window.dispatchEvent(new Event("finn:tour"))} className="mt-1 font-medium text-accent">
+              Take the tour
+            </button>
           </p>
         </>
       )}

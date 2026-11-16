@@ -243,3 +243,8 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Share** builds plain text in code from the card. It survives WhatsApp and mail and needs no image renderer. The first version repeated the title on the clipboard, and its "Copied" label pushed the next-action link into truncation. Now cards show a tick and announce "Copied" to screen readers only.
 - **Offline split in two.** The worker caches only same-origin pages and static files. API data is saved by the app's fetch wrapper per account, because a worker can't see which account a cached API answer belonged to without parsing headers. The paths are whitelisted and small (the 7-day digest is 30 KB), so localStorage is enough.
 - **Bug found offline:** "Waking the server…" appeared under the offline banner, because the health ping fails offline too. It now stays quiet when the browser reports offline.
+
+## Phase 4u: first-visit tour (FR-APP-09)
+- **Why:** FINN has grown to about 15 features, most a tap below the surface. A reviewer on a phone in a hurry will miss the scorecard, the portfolio suggestion and the accuracy page unless something points at them.
+- **Targets are existing labels** (`#promises`, the View and Demo-account radio groups, the accuracy link) plus two `data-tour` attributes, so the tour doesn't need its own markup.
+- **Bugs found walking it:** the first card and the accuracy link sat under the coach card. The accuracy link is at the bottom of Today and can't scroll higher, so the card moves to the top when the target stays low. The first card got pushed down by the meeting prep, which loads after the scroll, so placement runs again once the layout settles.

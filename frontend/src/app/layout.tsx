@@ -6,6 +6,7 @@ import { Gate } from "@/components/Gate";
 import { WakeNote } from "@/components/WakeNote";
 import { OfflineNote } from "@/components/OfflineNote";
 import { ServiceWorker } from "@/components/ServiceWorker";
+import { Tour } from "@/components/Tour";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             {children}
           </div>
           <TabBar />
+          <Tour />
         </Gate>
       </body>
     </html>

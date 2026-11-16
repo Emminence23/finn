@@ -62,7 +62,7 @@ export function ListenBrief({ query }: { query: string }) {
   const mins = Math.max(1, Math.round(brief.seconds / 60));
 
   return (
-    <div className="mx-3 mt-3">
+    <div className="mx-3 mt-3" data-tour="listen">
       {at === null ? (
         <button
           onClick={play}

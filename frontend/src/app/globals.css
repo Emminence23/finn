@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Guided tour highlight */
+.tour-target {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
 /* FINN design tokens. One accent (blue), reserved status colours for verdicts and alerts,
    warm neutral surfaces. Dark mode is its own selected steps, not an inversion. */
 :root {
