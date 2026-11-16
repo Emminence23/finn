@@ -21,8 +21,16 @@ def test_overview_adds_up(seeded):
     assert sum(h["weight"] for h in o["holdings"]) == pytest.approx(100)
     assert sum(t["weight"] for t in o["themes"]) == pytest.approx(100)
     assert sum(h["risk_share"] for h in o["holdings"]) == pytest.approx(100)
-    assert any("Lenders together are 26%" in f for f in o["flags"])
+    assert any("Lenders together are 38%" in f for f in o["flags"])
     assert o["correlated"][0]["a"] in {"INFY", "TCS"}  # the two IT majors move together
+    s = o["summary"]
+    assert s["value"] == pytest.approx(sum(h["qty"] * h["price"] for h in o["holdings"]))
+    # the demo was bought on the chart's first day: the curve starts at the money invested
+    first, last = o["history"]["series"][0], o["history"]["series"][-1]
+    assert first["value"] == pytest.approx(s["invested"], rel=1e-6) == first["nifty"]
+    assert last["value"] == pytest.approx(s["value"], rel=1e-6)
+    assert s["return_1y"] == pytest.approx(s["gain_pct"], abs=0.01)
+    assert len(o["history"]["series"]) > 240 and o["days"] == 127  # a year shown, 6 months of risk
 
 
 def test_suggestion_respects_every_rule_and_is_repeatable(seeded):
@@ -33,16 +41,19 @@ def test_suggestion_respects_every_rule_and_is_repeatable(seeded):
     rows = s1["holdings"]
     assert sum(r["suggested"] for r in rows) == pytest.approx(100)
     for r in rows:
-        assert a.MIN_W * 100 - 1e-6 <= r["suggested"] <= a.MAX_W * 100 + 1e-6
         assert abs(r["change"]) <= a.MAX_STEP * 100 + 1e-6
+        if a.MIN_W * 100 <= r["current"] + r["change"] <= a.MAX_W * 100 + 1e-6:
+            continue
+        # outside the band only when a full step can't reach it
+        assert abs(r["change"]) == pytest.approx(a.MAX_STEP * 100) and r["current"] > a.MAX_W * 100
         assert r["reason"].endswith(".")
     themes = {}
     for r in rows:
         themes[r["theme"]] = themes.get(r["theme"], 0) + r["suggested"]
     assert max(themes.values()) <= a.THEME_CAP * 100 + 1e-6
     assert s1["after"]["volatility"] < s1["before"]["volatility"]
-    rel = next(r for r in rows if r["symbol"] == "RELIANCE")
-    assert rel["change"] == pytest.approx(-3) and "risk" in rel["reason"]
+    titan = next(r for r in rows if r["symbol"] == "TITAN")  # 14% after a strong year
+    assert titan["change"] == pytest.approx(-3) and "3-point move" in titan["reason"]
 
 
 def test_equal_risk_contribution_is_inverse_vol_without_correlation():
@@ -58,15 +69,28 @@ def test_holdings_are_per_account_and_today_follows(seeded):
     from app.network.owner import set_owner
 
     with _client() as c:
+        before = c.get("/portfolio/holdings", headers=DEMO).json()
         assert (
             c.post("/portfolio/holdings", json={"symbol": "PERSISTENT"}, headers=DEMO).status_code
             == 200
         )
         h = c.delete("/portfolio/holdings/KAYNES", headers=DEMO).json()["holdings"]
-        assert "KAYNES" not in h and h["PERSISTENT"] == pytest.approx(
-            0.03 / (1 - 0.04 * 0.97), rel=1e-6
-        )
+        assert "KAYNES" not in h and h["PERSISTENT"] == pytest.approx(0.03, abs=0.002)
         assert sum(h.values()) == pytest.approx(1)
+        # buying more blends the new shares in at today's price; selling keeps the cost
+        pos = {
+            p["symbol"]: p for p in c.get("/portfolio/holdings", headers=DEMO).json()["positions"]
+        }
+        t = pos["TITAN"]
+        qty = {s: p["qty"] for s, p in pos.items()} | {"TITAN": t["qty"] + 10, "TCS": 1}
+        assert c.put("/portfolio/holdings", json={"qty": qty}, headers=DEMO).status_code == 200
+        after = {
+            p["symbol"]: p for p in c.get("/portfolio/holdings", headers=DEMO).json()["positions"]
+        }
+        blended = (t["qty"] * t["avg_cost"] + 10 * t["price"]) / (t["qty"] + 10)
+        assert after["TITAN"]["avg_cost"] == pytest.approx(blended, abs=0.01)
+        assert after["TCS"]["qty"] == 1 and after["TCS"]["avg_cost"] == pos["TCS"]["avg_cost"]
+        assert before["value"] == pytest.approx(sum(p["value"] for p in before["positions"]))
         assert "KAYNES" in c.get("/portfolio/holdings", headers=OTHER).json()["holdings"]
         assert (
             c.post("/portfolio/holdings", json={"symbol": "NOPE"}, headers=DEMO).status_code == 404
@@ -105,10 +129,11 @@ def test_ai_review_is_clipped_cited_and_bounded(seeded):
     assert set(kept) == {"KAYNES", "TCS"} and kept["KAYNES"]["delta"] == -2
     assert {d["symbol"] for d in out["dropped"]} == {"INFY", "ZOMATO"}
     assert sum(out["weights"].values()) == pytest.approx(100)
-    assert all(
-        analytics.MIN_W * 100 - 1e-6 <= v <= analytics.MAX_W * 100 + 1e-6
-        for v in out["weights"].values()
-    )
+    rows = {r["symbol"]: r for r in sug["holdings"]}
+    for s, v in out["weights"].items():  # a nudge stretches code's step by 2 points at most
+        assert rows[s]["lo"] - 2 - 0.2 <= v <= rows[s]["hi"] + 2 + 0.2
+        assert v >= analytics.MIN_W * 100 - 1e-6
+        assert v <= max(analytics.MAX_W * 100, rows[s]["hi"]) + 1e-6
 
 
 def test_review_runs_only_when_asked_and_once(seeded, monkeypatch):

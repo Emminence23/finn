@@ -56,6 +56,7 @@ def holdings_get() -> dict:
     from app.portfolio import holdings
 
     return {
+        **holdings.get_positions(),
         "holdings": holdings.get_holdings(),
         "custom": holdings.is_custom(),
         "candidates": holdings.candidates(),
@@ -73,9 +74,12 @@ def _holdings_call(fn, *args):
 
 @router.put("/portfolio/holdings")
 def holdings_put(body: dict) -> dict:
-    """Replace weights (any scale; normalised). Body: {"weights": {"TCS": 6, ...}}."""
+    """Replace positions. Body: {"qty": {"TCS": 40, ...}} (shares), or {"weights": {...}}
+    (any scale) to re-weight at today's prices keeping the total value."""
     from app.portfolio import holdings
 
+    if "qty" in body:
+        return _holdings_call(holdings.set_positions, body.get("qty") or {})
     return _holdings_call(holdings.set_holdings, body.get("weights") or {})
 
 

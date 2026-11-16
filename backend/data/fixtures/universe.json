@@ -1,23 +1,137 @@
 {
-  "portfolio": [
-    {"symbol": "RELIANCE",   "weight": 0.09, "theme": "conglomerate"},
-    {"symbol": "HDFCBANK",   "weight": 0.08, "theme": "private banking"},
-    {"symbol": "ICICIBANK",  "weight": 0.07, "theme": "private banking"},
-    {"symbol": "INFY",       "weight": 0.06, "theme": "IT services"},
-    {"symbol": "TCS",        "weight": 0.06, "theme": "IT services"},
-    {"symbol": "BAJFINANCE", "weight": 0.06, "theme": "consumer lending"},
-    {"symbol": "CHOLAFIN",   "weight": 0.05, "theme": "rural lending"},
-    {"symbol": "TITAN",      "weight": 0.05, "theme": "consumer discretionary"},
-    {"symbol": "ASIANPAINT", "weight": 0.05, "theme": "consumer staples"},
-    {"symbol": "TRENT",      "weight": 0.05, "theme": "retail"},
-    {"symbol": "SRF",        "weight": 0.05, "theme": "specialty chemicals"},
-    {"symbol": "DEEPAKNTR",  "weight": 0.04, "theme": "specialty chemicals"},
-    {"symbol": "PIDILITIND", "weight": 0.05, "theme": "specialty chemicals"},
-    {"symbol": "SUNPHARMA",  "weight": 0.06, "theme": "pharma"},
-    {"symbol": "DIXON",      "weight": 0.05, "theme": "electronics manufacturing"},
-    {"symbol": "KAYNES",     "weight": 0.04, "theme": "semiconductors"},
-    {"symbol": "POLYCAB",    "weight": 0.05, "theme": "capital goods"},
-    {"symbol": "CGPOWER",    "weight": 0.04, "theme": "semiconductors"}
-  ],
-  "research_set": ["AARTIIND", "PERSISTENT", "MANAPPURAM", "KAYNES"]
+ "portfolio": [
+  {
+   "symbol": "ICICIBANK",
+   "weight": 0.12,
+   "theme": "private banking",
+   "qty": 437,
+   "avg_cost": 1374.31
+  },
+  {
+   "symbol": "BAJFINANCE",
+   "weight": 0.12,
+   "theme": "consumer lending",
+   "qty": 600,
+   "avg_cost": 999.26
+  },
+  {
+   "symbol": "TITAN",
+   "weight": 0.12,
+   "theme": "consumer discretionary",
+   "qty": 157,
+   "avg_cost": 3826.64
+  },
+  {
+   "symbol": "SUNPHARMA",
+   "weight": 0.12,
+   "theme": "pharma",
+   "qty": 348,
+   "avg_cost": 1721.67
+  },
+  {
+   "symbol": "CGPOWER",
+   "weight": 0.11,
+   "theme": "semiconductors",
+   "qty": 740,
+   "avg_cost": 743.56
+  },
+  {
+   "symbol": "CHOLAFIN",
+   "weight": 0.1,
+   "theme": "rural lending",
+   "qty": 293,
+   "avg_cost": 1708.65
+  },
+  {
+   "symbol": "PIDILITIND",
+   "weight": 0.08,
+   "theme": "specialty chemicals",
+   "qty": 272,
+   "avg_cost": 1470.81
+  },
+  {
+   "symbol": "POLYCAB",
+   "weight": 0.07,
+   "theme": "capital goods",
+   "qty": 46,
+   "avg_cost": 7684.54
+  },
+  {
+   "symbol": "RELIANCE",
+   "weight": 0.03,
+   "theme": "conglomerate",
+   "qty": 100,
+   "avg_cost": 1503.95
+  },
+  {
+   "symbol": "HDFCBANK",
+   "weight": 0.03,
+   "theme": "private banking",
+   "qty": 155,
+   "avg_cost": 970.6
+  },
+  {
+   "symbol": "ASIANPAINT",
+   "weight": 0.02,
+   "theme": "consumer staples",
+   "qty": 35,
+   "avg_cost": 2843.46
+  },
+  {
+   "symbol": "TCS",
+   "weight": 0.015,
+   "theme": "IT services",
+   "qty": 25,
+   "avg_cost": 2977.21
+  },
+  {
+   "symbol": "DEEPAKNTR",
+   "weight": 0.015,
+   "theme": "specialty chemicals",
+   "qty": 44,
+   "avg_cost": 1714.27
+  },
+  {
+   "symbol": "INFY",
+   "weight": 0.01,
+   "theme": "IT services",
+   "qty": 34,
+   "avg_cost": 1475.35
+  },
+  {
+   "symbol": "TRENT",
+   "weight": 0.01,
+   "theme": "retail",
+   "qty": 12,
+   "avg_cost": 4320.02
+  },
+  {
+   "symbol": "SRF",
+   "weight": 0.01,
+   "theme": "specialty chemicals",
+   "qty": 17,
+   "avg_cost": 2901.12
+  },
+  {
+   "symbol": "DIXON",
+   "weight": 0.01,
+   "theme": "electronics manufacturing",
+   "qty": 3,
+   "avg_cost": 15311.22
+  },
+  {
+   "symbol": "KAYNES",
+   "weight": 0.01,
+   "theme": "semiconductors",
+   "qty": 8,
+   "avg_cost": 6376.5
+  }
+ ],
+ "research_set": [
+  "AARTIIND",
+  "PERSISTENT",
+  "MANAPPURAM",
+  "KAYNES"
+ ],
+ "bought_on": "2025-11-13"
 }

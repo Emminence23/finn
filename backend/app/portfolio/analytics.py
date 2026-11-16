@@ -28,9 +28,10 @@ import numpy as np
 import pandas as pd
 
 from app.db import session
-from app.portfolio.holdings import get_holdings
+from app.portfolio.holdings import get_holdings, get_positions
 
 TRADING_DAYS = 252
+WINDOW = 126  # sessions of daily returns for risk and the 6-month return (about six months)
 SHRINK = 0.5  # weight on the constant-correlation target
 TILT = 0.30  # strength of the quality tilt
 MIN_W, MAX_W = 0.02, 0.09
@@ -60,6 +61,52 @@ def _prices(symbols: list[str]) -> pd.DataFrame:
     if df.empty:
         return df
     return df.pivot(index="date", columns="symbol", values="close").sort_index().ffill()
+
+
+def _recent(px: pd.DataFrame) -> pd.DataFrame:
+    """The risk window: the last WINDOW sessions of returns (WINDOW + 1 closes)."""
+    return px.iloc[-(WINDOW + 1) :]
+
+
+def _benchmark(dates: list[str]) -> pd.Series | None:
+    with session() as db:
+        rows = db.execute(
+            "SELECT date, close FROM benchmark WHERE name='NIFTY 50' ORDER BY date"
+        ).fetchall()
+    if not rows:
+        return None
+    b = pd.Series({r["date"]: r["close"] for r in rows})
+    return b.reindex(sorted(set(b.index) | set(dates))).ffill().reindex(dates)
+
+
+def _history(px: pd.DataFrame, qty: dict[str, float]) -> dict:
+    """Value of today's positions over the past year (buy and hold), next to the Nifty 50
+    scaled to the same starting value. Both in rupees, so they share one axis."""
+    cols = [s for s in qty if s in px.columns]
+    full = px[cols].bfill()
+    value = (full * pd.Series({s: qty[s] for s in cols})).sum(axis=1)
+    dates = list(value.index)
+    bench = _benchmark(dates)
+    out = []
+    for d, v in value.items():
+        row = {"date": d, "value": round(float(v), 2)}
+        if bench is not None and pd.notna(bench[d]) and pd.notna(bench.iloc[0]):
+            row["nifty"] = round(float(value.iloc[0] * bench[d] / bench.iloc[0]), 2)
+        out.append(row)
+    ret = float(value.iloc[-1] / value.iloc[0] - 1) * 100 if len(value) > 1 else 0.0
+    nifty = (
+        float(bench.iloc[-1] / bench.iloc[0] - 1) * 100
+        if bench is not None and pd.notna(bench.iloc[0]) and pd.notna(bench.iloc[-1])
+        else None
+    )
+    curve = value / value.iloc[0]
+    return {
+        "series": out,
+        "start": dates[0] if dates else None,
+        "return": ret,
+        "nifty_return": nifty,
+        "max_drawdown": float((curve / curve.cummax() - 1).min()) * 100,
+    }
 
 
 def _meta(symbols: list[str]) -> dict[str, dict]:
@@ -253,10 +300,12 @@ def _returns(px: pd.DataFrame, days: int) -> pd.Series:
 # ------------------------------------------------------------------ API
 def overview() -> dict:
     """The portfolio as it stands: holdings, themes, risk, returns, quality."""
-    held = get_holdings()
+    pos = get_positions()
+    held = {p["symbol"]: p["weight"] for p in pos["positions"]}
     symbols = list(held)
     meta = _meta(symbols)
-    px = _prices(symbols)
+    px_all = _prices(symbols)
+    px = _recent(px_all)
     have = [s for s in symbols if s in px.columns]
     w = np.array([held[s] for s in have])
     w = w / w.sum()
@@ -268,8 +317,9 @@ def overview() -> dict:
     daily = np.log(px[have]).diff().fillna(0.0)
     port = (np.exp(daily) - 1).values @ w
     curve = np.cumprod(1 + port)
-    drawdown = float((curve / np.maximum.accumulate(curve) - 1).min()) * 100
     r6, r1 = _returns(px[have], len(px) - 1), _returns(px[have], 21)
+    hist = _history(px_all, {p["symbol"]: p["qty"] for p in pos["positions"]})
+    by_sym = {p["symbol"]: p for p in pos["positions"]}
 
     rows = []
     for i, s in enumerate(have):
@@ -279,6 +329,11 @@ def overview() -> dict:
                 "name": meta.get(s, {}).get("name", s),
                 "theme": theme[s],
                 "weight": float(w[i]) * 100,
+                "qty": by_sym[s]["qty"],
+                "price": by_sym[s]["price"],
+                "value": by_sym[s]["value"],
+                "avg_cost": by_sym[s]["avg_cost"],
+                "gain_pct": by_sym[s]["gain_pct"],
                 "return_6m": float(r6[s]),
                 "return_1m": float(r1[s]),
                 "contribution_6m": float(w[i] * r6[s]),
@@ -339,11 +394,18 @@ def overview() -> dict:
         "custom": _is_custom(),
         "summary": {
             "holdings": len(rows),
+            "value": pos["value"],
+            "invested": pos["invested"],
+            "gain": pos["gain"],
+            "gain_pct": pos["gain_pct"],
             "return_6m": float(curve[-1] - 1) * 100,
             "return_1m": float(np.prod(1 + port[-21:]) - 1) * 100,
-            "max_drawdown": drawdown,
+            "return_1y": hist["return"],
+            "nifty_1y": hist["nifty_return"],
+            "max_drawdown": hist["max_drawdown"],
             **{k: v for k, v in st.items() if k != "risk_share"},
         },
+        "history": hist,
         "holdings": rows,
         "themes": sorted(themes.values(), key=lambda t: -t["weight"]),
         "correlated": [{"a": a, "b": b, "corr": float(c)} for c, a, b in pairs],
@@ -357,11 +419,26 @@ def _is_custom() -> bool:
     return is_custom()
 
 
+def bounds(held: dict[str, float], symbols: list[str]) -> tuple[dict, dict]:
+    """Per-holding limits: within MIN_W..MAX_W and at most MAX_STEP from today's weight.
+    A holding already outside MIN_W..MAX_W moves one full step towards it."""
+    lo, hi = {}, {}
+    for s in symbols:
+        c = held[s]
+        if c - MAX_STEP > MAX_W:
+            lo[s] = hi[s] = c - MAX_STEP
+        elif c + MAX_STEP < MIN_W:
+            lo[s] = hi[s] = c + MAX_STEP
+        else:
+            lo[s], hi[s] = max(MIN_W, c - MAX_STEP), min(MAX_W, c + MAX_STEP)
+    return lo, hi
+
+
 def suggest() -> dict:
     """Code's suggested weights for the same holdings, with the reason for each change."""
     held = get_holdings()
     meta = _meta(list(held))
-    px = _prices(list(held))
+    px = _recent(_prices(list(held)))
     symbols = [s for s in held if s in px.columns]
     cur = np.array([held[s] for s in symbols])
     cur = cur / cur.sum()
@@ -371,10 +448,7 @@ def suggest() -> dict:
 
     base = _erc(cov)
     tilted = base * np.exp(TILT * np.array([score[s] for s in symbols]))
-    lo = {s: max(MIN_W, held[s] - MAX_STEP) for s in symbols}
-    hi = {s: min(MAX_W, held[s] + MAX_STEP) for s in symbols}
-    for s in symbols:  # a holding already outside the band moves one step towards it
-        lo[s], hi[s] = min(lo[s], hi[s]), max(lo[s], hi[s])
+    lo, hi = bounds(held, symbols)
     tilted_n = tilted / tilted.sum()
     target = _project(dict(zip(symbols, tilted, strict=True)), theme, lo, hi)
     new = np.array([target[s] for s in symbols])
@@ -391,6 +465,8 @@ def suggest() -> dict:
                 "risk_balanced": float(base[i]) * 100,
                 "suggested": float(new[i]) * 100,
                 "change": float(new[i] - cur[i]) * 100,
+                "lo": lo[s] * 100,
+                "hi": hi[s] * 100,
                 "score": score[s],
                 "factors": {k: round(v, 2) for k, v in raw[s]["z"].items()},
                 "reason": _reason(
@@ -465,8 +541,10 @@ def _reason(cur, base, tilted, new, risk_share, raw, lo, hi, n) -> str:
             parts.append(f"limited to a {MAX_STEP * 100:.0f}-point move this time")
         elif limit_d > 0:
             parts.append("picks up weight that capped holdings couldn't take")
-        else:
+        elif d < 0:
             parts.append("trimmed to keep its theme within the cap")
+        else:
+            parts.append("held back to keep its theme within the cap")
     if not parts:
         parts.append(
             "trimmed to fund the other changes"

@@ -26,9 +26,16 @@ SYMBOLS_URL = "https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv"
 
 
 def snap_prices() -> None:
-    df = fetch_prices(all_symbols(), period="6mo")
+    df = fetch_prices(all_symbols(), period="1y")
     df.to_csv(fixtures_dir() / "prices.csv", index=False)
     log.info("prices: %d rows, %d symbols", len(df), df["symbol"].nunique())
+    import yfinance as yf
+
+    n = yf.download("^NSEI", period="1y", interval="1d", auto_adjust=True, progress=False)
+    closes = n["Close"].iloc[:, 0] if n["Close"].ndim > 1 else n["Close"]
+    out = closes.round(2).rename("close").rename_axis("date").reset_index()
+    out["date"] = out["date"].dt.strftime("%Y-%m-%d")
+    out.to_csv(fixtures_dir() / "benchmark_nifty50.csv", index=False)
 
 
 def snap_announcements(days: int = 60) -> None:

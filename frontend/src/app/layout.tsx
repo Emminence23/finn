@@ -7,6 +7,7 @@ import { WakeNote } from "@/components/WakeNote";
 import { OfflineNote } from "@/components/OfflineNote";
 import { ServiceWorker } from "@/components/ServiceWorker";
 import { Tour } from "@/components/Tour";
+import { THEME_SCRIPT } from "@/lib/theme";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
@@ -29,7 +30,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className={`${inter.variable} antialiased`}>
         <ServiceWorker />
         <OfflineNote />

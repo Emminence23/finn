@@ -1,40 +1,32 @@
 {
- "7df342782c2c1966dfe9": {
+ "e97a0e7a2539f10dd6cc": {
   "adjustments": [
    {
     "symbol": "CGPOWER",
-    "delta_pp": -0.8,
-    "reason": "The Maharashtra Pollution Control Board directed the closure of manufacturing operations at the Waluj facility.",
+    "delta_pp": -1.5,
+    "reason": "The Maharashtra Pollution Control Board ordered the closure of manufacturing operations at the company's Waluj unit.",
     "cites": [
      "A:106846618"
     ]
    },
    {
+    "symbol": "SUNPHARMA",
+    "delta_pp": 1.0,
+    "reason": "Sun Pharma obtained US FDA approval for ILUMYA to treat adults with active psoriatic arthritis.",
+    "cites": [
+     "A:106835654"
+    ]
+   },
+   {
     "symbol": "KAYNES",
     "delta_pp": -1.0,
-    "reason": "Management has failed to deliver on past guidance while three-year operating cash flows remain negative compared to reported profits.",
+    "reason": "Kaynes faces significant execution and accounting quality concerns, evidenced by a zero management delivery score and negative operating cash flow relative to profits.",
     "cites": [
      "P:KAYNES",
      "F:KAYNES"
     ]
-   },
-   {
-    "symbol": "HDFCBANK",
-    "delta_pp": -0.5,
-    "reason": "Anup Bagchi assumed charge as MD and CEO following the completion of Sashidhar Jagdishan's tenure.",
-    "cites": [
-     "A:106829496"
-    ]
-   },
-   {
-    "symbol": "TRENT",
-    "delta_pp": -0.5,
-    "reason": "Chairman Noel N. Tata is retiring from the board, introducing leadership transition risk.",
-    "cites": [
-     "A:106834506"
-    ]
    }
   ],
-  "summary": "Filings highlight regulatory operational risk at CG Power, leadership transitions at HDFC Bank and Trent, and persistent cash conversion issues at Kaynes. Modest downward adjustments account for these qualitative risks missed by purely quantitative sizing."
+  "summary": "Recent filings and governance records require trimming CG Power due to a regulatory factory closure order and reducing Kaynes over severe cash flow conversion and delivery flags. Conversely, Sun Pharma receives a minor boost following a key US FDA drug approval."
  }
 }

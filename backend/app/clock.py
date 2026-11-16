@@ -28,6 +28,8 @@ WINDOWS = {
     "24h": timedelta(hours=24),
     "3d": timedelta(days=3),
     "7d": timedelta(days=7),
+    "14d": timedelta(days=14),
+    "21d": timedelta(days=21),
     "30d": timedelta(days=30),
 }
 

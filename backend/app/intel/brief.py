@@ -31,7 +31,14 @@ _SAY = [
     (r"%", " percent"),
     (r"&", " and "),
 ]
-_SPANS = {"24h": "the last day", "3d": "the last three days", "7d": "the last week"}
+_SPANS = {
+    "24h": "the last day",
+    "3d": "the last three days",
+    "7d": "the last week",
+    "14d": "the last two weeks",
+    "21d": "the last three weeks",
+    "30d": "the last month",
+}
 _TITLES = ("Dr", "Mr", "Mrs", "Ms")
 
 

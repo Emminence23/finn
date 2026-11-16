@@ -168,8 +168,11 @@ def apply(sug: dict, review: Review, events: list[dict], records: list[dict]) ->
     for k in kept:
         want[k["symbol"]] += k["delta"] / 100
     theme = {s: h["theme"] for s, h in rows.items()}
-    lo = {s: analytics.MIN_W for s in rows}
-    hi = {s: analytics.MAX_W for s in rows}
+    # the nudge may take a holding up to MAX_NUDGE past code's step limit, never past 2-9%
+    # (a holding already above 9% can only come down)
+    n = MAX_NUDGE / 100
+    lo = {s: max(min(analytics.MIN_W, h["lo"] / 100), h["lo"] / 100 - n) for s, h in rows.items()}
+    hi = {s: min(max(analytics.MAX_W, h["hi"] / 100), h["hi"] / 100 + n) for s, h in rows.items()}
     final = analytics._project({s: max(v, 1e-6) for s, v in want.items()}, theme, lo, hi)
     for k in kept:
         k["applied"] = (final[k["symbol"]] - want[k["symbol"]] + k["delta"] / 100) * 100

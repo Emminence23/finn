@@ -111,12 +111,21 @@ CREATE TABLE IF NOT EXISTS portfolio_reviews (
     output_json TEXT NOT NULL,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
--- Per-account holdings (edit your portfolio). No rows = the demo universe's weights.
+-- Positions: shares held and average buy price. owner_id '__demo__' holds the demo
+-- portfolio (seeded, dummy); an account with no rows of its own reads the demo's.
 CREATE TABLE IF NOT EXISTS holdings (
     owner_id TEXT NOT NULL,
     symbol TEXT NOT NULL,
-    weight REAL NOT NULL,
+    qty REAL NOT NULL,
+    avg_cost REAL NOT NULL,
     PRIMARY KEY (owner_id, symbol)
+);
+-- Benchmark index closes (Nifty 50), for the portfolio's one-year chart
+CREATE TABLE IF NOT EXISTS benchmark (
+    name TEXT NOT NULL,
+    date TEXT NOT NULL,
+    close REAL NOT NULL,
+    PRIMARY KEY (name, date)
 );
 -- Meetings the investor plans (prep shows on Today from two days before). Owner-scoped.
 CREATE TABLE IF NOT EXISTS meetings (
@@ -217,6 +226,9 @@ def connect(path: Path | None = None) -> sqlite3.Connection:
 
 def init_db(path: Path | None = None) -> None:
     with connect(path) as conn:
+        cols = {r[1] for r in conn.execute("PRAGMA table_info(holdings)")}
+        if "weight" in cols:  # pre-positions schema: edits were weights only, drop them
+            conn.execute("DROP TABLE holdings")
         conn.executescript(SCHEMA)
 
 

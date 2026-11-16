@@ -92,6 +92,31 @@ def seed_prices(db) -> None:
     log.info("prices: %d rows", len(df))
 
 
+def seed_benchmark(db) -> None:
+    path = fixtures_dir() / "benchmark_nifty50.csv"
+    if not path.exists():
+        return
+    df = pd.read_csv(path)
+    db.execute("DELETE FROM benchmark")
+    db.executemany(
+        "INSERT INTO benchmark VALUES ('NIFTY 50', ?, ?)",
+        df[["date", "close"]].itertuples(index=False),
+    )
+    log.info("benchmark: %d days", len(df))
+
+
+def seed_demo_positions(db) -> None:
+    """The demo portfolio as positions (dummy shares at the prices on its buy date)."""
+    from app.portfolio.holdings import DEMO_OWNER
+
+    rows = [
+        (DEMO_OWNER, p["symbol"], p["qty"], p["avg_cost"]) for p in load_universe()["portfolio"]
+    ]
+    db.execute("DELETE FROM holdings WHERE owner_id=?", (DEMO_OWNER,))
+    db.executemany("INSERT INTO holdings VALUES (?,?,?,?)", rows)
+    log.info("demo positions: %d", len(rows))
+
+
 def seed_announcements(db) -> None:
     rows = _load_json("announcements.json")
     db.executemany(
@@ -253,6 +278,8 @@ def main() -> None:
             db.execute(f"DELETE FROM {t}")
         seed_companies(db)
         seed_prices(db)
+        seed_benchmark(db)
+        seed_demo_positions(db)
         seed_announcements(db)
         seed_fundamentals(db)
         seed_network(db)

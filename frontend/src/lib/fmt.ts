@@ -88,3 +88,24 @@ export function modelName(id: string | null | undefined): string | null {
   const words = m.replace(/-(\d+)-(\d+)\b/, "-$1.$2").split("-");
   return words.map((w) => (/^\d/.test(w) ? w : w[0].toUpperCase() + w.slice(1))).join(" ");
 }
+
+/** Rupee amounts (not crore): "₹53.7 L", "₹1.24 Cr", "₹8,450". `short` drops the space and
+ *  trailing zero for axis labels ("₹50L"). */
+export function inr(v: number | null | undefined, short = false): string {
+  if (v == null) return "—";
+  const a = Math.abs(v);
+  const sign = v < 0 ? "−" : "";
+  if (a >= 1e7) return `${sign}₹${(a / 1e7).toFixed(2)}${short ? "" : " "}Cr`;
+  if (a >= 1e5) {
+    const l = a / 1e5;
+    const s = short && Number.isInteger(Math.round(l * 10) / 10) ? l.toFixed(0) : l.toFixed(1);
+    return `${sign}₹${s}${short ? "" : " "}L`;
+  }
+  return `${sign}₹${Math.round(a).toLocaleString("en-IN")}`;
+}
+
+/** A share price: "₹1,374.3". */
+export function price(v: number | null | undefined): string {
+  if (v == null) return "—";
+  return `₹${v.toLocaleString("en-IN", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`;
+}

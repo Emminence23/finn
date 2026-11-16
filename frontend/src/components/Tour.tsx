@@ -9,7 +9,7 @@ const DONE_KEY = "finn.tour";
 type Step = { href: string; target: string; title: string; body: string };
 
 /** Six stops a first-time reviewer would otherwise miss. Each opens its page and outlines
- *  the thing it describes. Shown once, on a first visit to Today; "Take the tour" replays it. */
+ *  the thing it describes. Shown once, on a first visit to Today; the Tour button replays it. */
 const STEPS: Step[] = [
   {
     href: "/",

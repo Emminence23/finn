@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ChevronDown, SlidersHorizontal, TrendingDown, TrendingUp } from "lucide-react";
+import { ChevronDown, Compass, SlidersHorizontal, Target, TrendingDown, TrendingUp } from "lucide-react";
 import clsx from "clsx";
 import { type Alert, type Digest, useApi } from "@/lib/api";
 import { CATEGORY_LABEL, ago, day, pct } from "@/lib/fmt";
@@ -11,14 +11,17 @@ import { useReadState } from "@/lib/seen";
 import { ListenBrief } from "@/components/ListenBrief";
 import { MeetingPrep } from "@/components/meetings";
 import { AlertSettings } from "@/components/AlertSettings";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { firstName } from "@/components/network";
 import { Avatar, ErrorNote, Header, Panel, SectionTitle, Segmented, Skeleton } from "@/components/ui";
 
-type Win = "24h" | "3d" | "7d" | "30d" | "custom";
+type Win = "24h" | "3d" | "7d" | "14d" | "21d" | "30d" | "custom";
 const WINDOWS: { value: Win; label: string }[] = [
   { value: "24h", label: "24h" },
   { value: "3d", label: "3d" },
   { value: "7d", label: "7d" },
+  { value: "14d", label: "14d" },
+  { value: "21d", label: "21d" },
   { value: "30d", label: "30d" },
   { value: "custom", label: "Dates" },
 ];
@@ -31,6 +34,8 @@ function minusDays(d: string, n: number): string {
   return t.toISOString().slice(0, 10);
 }
 const WIN_KEY = "finn.window";
+const PILL = "flex h-9 items-center gap-1 rounded-full border border-line bg-surface px-3 text-[13px] font-medium text-ink-2";
+const ICON_BTN = "flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-ink-2";
 
 export default function Today() {
   const [win, setWin] = useState<Win>("24h");
@@ -75,14 +80,19 @@ export default function Today() {
       <Header
         title="Today"
         sub={data ? <Summary d={data} /> : "Reading your portfolio's filings…"}
-        right={
-          <button
-            onClick={() => setSettings(true)}
-            aria-label="Alert settings"
-            className="mb-1 rounded-full border border-line bg-surface p-2 text-ink-2"
-          >
-            <SlidersHorizontal size={17} />
-          </button>
+        toolbar={
+          <>
+            <button onClick={() => window.dispatchEvent(new Event("finn:tour"))} className={PILL}>
+              <Compass size={14} /> Tour
+            </button>
+            <Link href="/accuracy" className={PILL}>
+              <Target size={14} /> Accuracy
+            </Link>
+            <ThemeToggle className={ICON_BTN} />
+            <button onClick={() => setSettings(true)} aria-label="Alert settings" title="Alert settings" className={ICON_BTN}>
+              <SlidersHorizontal size={17} />
+            </button>
+          </>
         }
       />
       <div className="px-4">
@@ -114,12 +124,6 @@ export default function Today() {
             NSE filings to {day(data.freshness?.filings_as_of ?? now)},{" "}
             {new Date(data.freshness?.filings_as_of ?? now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
             {data.freshness?.prices_as_of && <> · EOD prices to {day(data.freshness.prices_as_of)}</>}
-            <Link href="/accuracy" className="mt-1 block font-medium text-accent">
-              How accurate is FINN?
-            </Link>
-            <button onClick={() => window.dispatchEvent(new Event("finn:tour"))} className="mt-1 font-medium text-accent">
-              Take the tour
-            </button>
           </p>
         </>
       )}
