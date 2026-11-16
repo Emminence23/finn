@@ -104,13 +104,7 @@ export default function Today() {
       <header className="px-4 pt-3" data-tour="lead">
         <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.02em]">{hello.greeting}</h1>
         {data && !isLoading ? (
-          <div className="mt-2 space-y-2.5">
-            {(data.lead ?? "").split("\n\n").map((para, i) => (
-              <p key={i} className={i === 0 ? "text-[18px] leading-[1.45] tracking-[-0.01em] text-ink" : "text-[16px] leading-[1.5] text-ink"}>
-                {para}
-              </p>
-            ))}
-          </div>
+          <Summary lead={data.lead ?? ""} />
         ) : (
           <div className="mt-3 space-y-2" aria-label="Reading your portfolio's filings">
             <Skeleton className="h-5 w-11/12" />
@@ -145,9 +139,55 @@ export default function Today() {
   );
 }
 
+/** By the clock in India, wherever the phone is: morning from 4 am, afternoon from noon,
+ *  evening from 4 pm, and something for the small hours that isn't "good night". */
 function greeting(): string {
-  const h = new Date().getHours();
-  return h < 12 ? "Good morning." : h < 17 ? "Good afternoon." : "Good evening.";
+  const h = Number(new Intl.DateTimeFormat("en-GB", { hour: "numeric", hourCycle: "h23", timeZone: "Asia/Kolkata" }).format(new Date()));
+  if (h >= 4 && h < 12) return "Good morning.";
+  if (h >= 12 && h < 16) return "Good afternoon.";
+  if (h >= 16 && h < 22) return "Good evening.";
+  return "Up late?";
+}
+
+const SUMMARY_KEY = "finn.summary.open";
+
+/** The day's summary, folded by default: a tap away, never in the way. */
+function Summary({ lead }: { lead: string }) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    try {
+      setOpen(localStorage.getItem(SUMMARY_KEY) === "1");
+    } catch {
+      /* storage unavailable: folded */
+    }
+  }, []);
+  const paras = lead.split("\n\n").filter(Boolean);
+  if (!paras.length) return null;
+  const toggle = () => {
+    setOpen(!open);
+    try {
+      localStorage.setItem(SUMMARY_KEY, open ? "0" : "1");
+    } catch {
+      /* storage unavailable */
+    }
+  };
+  return (
+    <div className="mt-2">
+      <button onClick={toggle} aria-expanded={open} className="flex w-full items-start gap-2 text-left">
+        <span className={open ? "text-[13px] font-medium text-ink-2" : "line-clamp-1 min-w-0 flex-1 text-[15px] text-ink-2"}>{open ? "Hide the summary" : paras[0]}</span>
+        <ChevronDown size={16} className={`mt-0.5 shrink-0 text-ink-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="mt-2 space-y-2.5">
+          {paras.map((para, i) => (
+            <p key={i} className={i === 0 ? "text-[18px] leading-[1.45] tracking-[-0.01em] text-ink" : "text-[16px] leading-[1.5] text-ink"}>
+              {para}
+            </p>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function todayLabel(): string {
@@ -157,7 +197,10 @@ function todayLabel(): string {
 /** Today as a note: what needs you, what's worth knowing, what was set aside and why.
  *  The bands are decided in code (intel/note.py); each band says its rule. */
 function Note({ d, now }: { d: Digest; now: string }) {
-  const act = d.cards.filter((c) => c.band === "act");
+  // one card per stock: a company's other items sit under its card, not beside it
+  const actAll = d.cards.filter((c) => c.band === "act");
+  const act = actAll.filter((c, i) => actAll.findIndex((x) => x.symbol === c.symbol) === i);
+  const alsoFor = (c: Card) => actAll.filter((x) => x.symbol === c.symbol && x.id !== c.id);
   const know = d.cards.filter((c) => c.band === "know");
   const aside = d.cards.filter((c) => c.band === "aside");
   const ids = useMemo(() => d.cards.map((c) => String(c.id)), [d.cards]);
@@ -178,16 +221,26 @@ function Note({ d, now }: { d: Digest; now: string }) {
       {(act.length > 0 || (d.carry?.length ?? 0) > 0) && (
         <>
           {act.length > 0 ? (
-            <Band title="Needs you" rule="Important, at a position of real size (at least half an equal share)." count={act.length} />
+            <Band title="Needs you" rule="Important, at a position of real size (at least half an equal share). One card per stock." count={act.length} />
           ) : (
             <Band title="Still open" rule="Nothing new needs you. These events at your larger positions, from the two weeks before, still might." />
           )}
           <div className="space-y-3">
             {act.slice(0, ACT_TOP).map((c) => (
-              <FeedCard key={c.id} card={c} now={now} showHelper={firstFor(c)} read={readOf(c)} />
+              <div key={c.id}>
+                <FeedCard card={c} now={now} showHelper={firstFor(c)} read={readOf(c)} />
+                {alsoFor(c).length > 0 && (
+                  <Panel className="mx-3 mt-1.5 divide-y divide-line">
+                    <p className="px-4 pt-2.5 text-[11px] font-semibold uppercase tracking-wide text-ink-3">Also from {c.short ?? c.company}</p>
+                    {alsoFor(c).map((x) => (
+                      <NoteRow key={x.id} card={x} now={now} read={readOf(x)} />
+                    ))}
+                  </Panel>
+                )}
+              </div>
             ))}
           </div>
-          {act.length > ACT_TOP && <MoreActs cards={act.slice(ACT_TOP)} now={now} readOf={readOf} />}
+          {act.length > ACT_TOP && <MoreActs cards={act.slice(ACT_TOP).flatMap((c) => [c, ...alsoFor(c)])} now={now} readOf={readOf} />}
           {(d.carry?.length ?? 0) > 0 && <Carry items={d.carry!} first={act.length === 0} />}
         </>
       )}
