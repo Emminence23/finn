@@ -70,6 +70,7 @@ The same table lives in the app at **How accurate is FINN?** (Today's footer), w
 | Material filings kept out of Routine | 25 of 25 | 100 portfolio filings, picked at random and labelled before the levels were tuned (`backend/data/fixtures/eval/materiality_labels.json`) |
 | Share of items marked Important | 13.3% on 7 days, 18.8% on 30 days (target ≤ 20%) | Same digest, cards plus folded filings, one card per event |
 | Filings decided by rules, with no LLM call | 454 of 517 | Ingested portfolio filings |
+| Ask FINN finds the page that answers the question | 20 of 20 tuning questions; 9 of 11 held-out ones, written after the synonym list | 31 investor questions on 4 companies, answer pages marked by a pattern and checked by hand; the same ranking the app uses, no AI (`backend/data/fixtures/eval/retrieval_questions.json`) |
 | People extracted from management-change filings | 7/7 people and roles, 17/18 prior employers, 8/10 schools | Hand-checked golden set |
 | Promises found in Kaynes' calls, small vs mid model | 5 vs 10, including all 3 misses | Same calls, two tiers; the reason the scorecard uses the larger model |
 | Cost on Claude | About $0.32 per new company analysis and $0.02 per question; filings about $0.03 a day for a 20-stock portfolio, shared | Per-call token log (`/admin/costs`); the demo itself ran on Gemini's free tier |

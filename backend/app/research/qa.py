@@ -52,9 +52,54 @@ def _terms(text: str) -> list[str]:
     return [w for w in words if w not in _STOP and len(w) > 1]
 
 
+# How investors ask vs how filings say it. A phrase in the question adds the filing's terms
+# to the search, at a lower weight than the question's own words. General finance
+# vocabulary, written once; tested on questions written after it (retrieval_eval).
+SYNONYMS: list[tuple[str, str]] = [
+    (
+        r"\b(take|takes|taking) to pay|collect(ion|ions)?|paid late|debtors?\b",
+        "receivable receivables debtor days collection",
+    ),
+    (
+        r"\b(indebted|owe|owes|lenders?|leverage|levered|geared|gearing)\b",
+        "debt borrowings net gross leverage",
+    ),
+    (r"\bbacklog|pipeline|orders? (in hand|on hand|pending)|unexecuted\b", "order book"),
+    (r"\b(new business|deals?|wins?|signed|bookings?)\b", "tcv acv order booking deal wins"),
+    (r"\b(busy|bench|billable|idle)\b", "utilization utilisation billable"),
+    (
+        r"\b(leaving|quit|quitting|resign\w*|churn|turnover of (staff|people|employees))\b",
+        "attrition",
+    ),
+    (
+        r"\b(bad loans?|going bad|default\w*|delinquen\w*|stressed)\b",
+        "gnpa nnpa npa stage credit cost",
+    ),
+    (r"\blend against|loan.to.value|per gram\b", "ltv loan-to-value"),
+    (r"\b(new plants?|spend on|invest(ment)? in (plants?|capacity)|expansion)\b", "capex capacity"),
+    (r"\bchip packaging|semiconductor (assembly|packaging)\b", "osat"),
+    (r"\b(margins?|profitability)\b", "ebitda margin"),
+    (r"\b(cash (burn|flow)|cash generation)\b", "operating cash flow cfo"),
+    (r"\b(guid\w*|outlook|target\w*|expect\w*)\b", "guidance outlook target"),
+    (r"\b(stock|inventory) (piling|build)|inventor(y|ies)\b", "inventory days"),
+    (r"\b(dividend|payout)\b", "dividend payout"),
+]
+EXPANSION_WEIGHT = 0.6
+
+
+def _query(question: str) -> dict[str, float]:
+    """The question's own terms at weight 1, plus the filing vocabulary its phrases map to."""
+    q = dict.fromkeys(_terms(question), 1.0)
+    for pattern, terms in SYNONYMS:
+        if re.search(pattern, question, re.I):
+            for t in _terms(terms):
+                q.setdefault(t, EXPANSION_WEIGHT)
+    return q
+
+
 def rank_pages(question: str, docs: list[tuple[DocRef, list[str]]], k: int = TOP_PAGES):
     """BM25 over every page of every document. Returns [(ref, page_no)] best first."""
-    q = set(_terms(question))
+    q = _query(question)
     if not q:
         return []
     corpus = [(r, i + 1, Counter(_terms(t))) for r, pages in docs for i, t in enumerate(pages)]
@@ -71,7 +116,7 @@ def rank_pages(question: str, docs: list[tuple[DocRef, list[str]]], k: int = TOP
             if not c[t]:
                 continue
             idf = math.log(1 + (n - df[t] + 0.5) / (df[t] + 0.5))
-            s += idf * c[t] * 2.2 / (c[t] + 1.2 * (0.25 + 0.75 * length / avg))
+            s += q[t] * idf * c[t] * 2.2 / (c[t] + 1.2 * (0.25 + 0.75 * length / avg))
         if s > 0:
             scored.append((s, r, page))
     scored.sort(key=lambda x: -x[0])

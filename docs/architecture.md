@@ -125,6 +125,17 @@ Prices per million tokens, from `models.yaml`: Haiku $0.10 / $0.50, Sonnet $2 / 
 | Fixtures refreshed by running the ingest scripts | A queue and workers for ingestion; a scheduled job after market close for prices and alerts; filings polled every few minutes in market hours |
 | LLM results cached in SQLite | Shared cache for public-document results (filings are the same for every user); per-user data kept separate |
 
+## Path to production
+The demo serves a frozen snapshot, so three things that a live product needs were left out on purpose. Each has the moment it becomes necessary and what changes then.
+
+| What | Needed when | What changes |
+|---|---|---|
+| **Incremental ingestion** | Today has to update itself instead of being re-seeded from fixtures | A scheduled job after the close (prices, alerts) and a poller every few minutes in market hours (filings). Each new filing is enriched once and appended; the digest reads the same tables, so `intel/` doesn't change. Research views are already keyed by their inputs, so a new transcript marks a view "stale" rather than serving it as current |
+| **Schema migrations** | User data (holdings, networks, alert rules, notes) has to survive a deploy; today the database is rebuilt at build time | Postgres with versioned migrations (Alembic), run before the new release takes traffic. The `ALTER TABLE` guards in `init_db` are the stopgap that works only while every table can be rebuilt from fixtures |
+| **A job queue** | A company analysis (about a minute, several LLM calls) outgrows a request, or two users open the same new company at once | Builds become jobs keyed by ticker and document set, so a second request joins the running one; the stream endpoint reads job progress instead of doing the work. The daily budget and the "ask before a live read" step stay as they are |
+
+Retrieval for Ask FINN is BM25 plus a short finance synonym list. It finds the answer page for every tuning question and 9 of 11 held-out ones (`app/research/retrieval_eval.py`), and the list made no difference on the held-out set. That is the signal for embeddings: when the held-out rate falls, or questions in the logs miss, add a dense ranker alongside BM25 and keep the same test.
+
 ## Cost
 - **Spent today:** $0. The whole build ran on the Gemini free tier: 552 logged calls, 331 of them answered from cache; 1.58M input and 102k output tokens.
 - **On Claude, measured per unit:**

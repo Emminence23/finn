@@ -313,3 +313,9 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **The stored AI review was regenerated** (cards changed): three nudges, CG Power −1.1, Kaynes −0.4, HDFC Bank −0.8.
 - **Not done from the review:** builds off the request worker and a cached digest (the job-queue item already queued), research for more holdings (AI cost), portfolio-level Ask, the call loop, promise due-dates on Today, a server-side "since you last looked", and a real 8:45 notification.
 
+## Phase 5b: the two queued items
+- **Ask FINN retrieval test** (`app/research/retrieval_eval.py`, no AI). 20 investor questions on Kaynes, Aarti, Persistent and Manappuram, each with a pattern for the answer's own wording, checked by hand against the pages. Plain BM25 found an answer page in the top 8 for 16 of 20: every question that used the documents' words (9 of 9), but only 7 of 11 that didn't ("How long do customers take to pay?" never reached "receivable days"; "How busy are the engineers?" never reached "utilization").
+- **A synonym list fixed those:** 15 phrases that map an investor's words to a filing's, added at 0.6 weight so the question's own words still lead. Tuning set 20 of 20, first-ranked 15 of 20 (was 7).
+- **Then 11 held-out questions,** written after the list and not used to change it: 9 of 11 with or without the list. The misses ("How much does Persistent return to shareholders?", "What does Manappuram pay to borrow money?") are exactly the gap a hand list leaves, so the list is recorded as fixing the questions it was written for, not as generalising. Embeddings stay the next step, with this test as the bar (architecture doc, "Path to production").
+- **Path to production** is now a section of the architecture doc: incremental ingestion, migrations and a job queue, each with the moment it becomes necessary.
+
