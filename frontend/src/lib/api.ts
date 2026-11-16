@@ -334,6 +334,8 @@ export type PromiseItem = {
   repeated_in: string[];
   /** number (point or range), direction, milestone (a dated deliverable) or not measurable */
   statement_type?: "number" | "direction" | "milestone" | "not_measurable";
+  /** "code" when the verdict is arithmetic on reported numbers; "ai" when only the model could judge it */
+  judged_by?: "code" | "ai";
   /** A cited management update that revised, delayed or withdrew the target */
   revised?: { from: string | null; to: string | null; in: string | null; update_id: string } | null;
 };

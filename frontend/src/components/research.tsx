@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import clsx from "clsx";
-import { Check, CircleDashed, CircleHelp, CircleSlash, Minus, RotateCcw, Sparkles, X } from "lucide-react";
+import { Check, CircleDashed, CircleHelp, CircleSlash, Minus, RotateCcw, Sparkles, X, Calculator } from "lucide-react";
 import type { Cite, Claim, DocRef, PromiseItem, Verdict } from "@/lib/api";
 import { fq } from "@/lib/fmt";
 
@@ -127,11 +127,12 @@ export function CiteChips({ cites, docs }: { cites: Cite[]; docs: Map<string, Do
    company header says so once, so a reader never has to tap to tell them apart. */
 export const READ_RULE = "border-l-2 border-accent/60 pl-3";
 
-export function FinnRead({ children, label = "FINN's read" }: { children: React.ReactNode; label?: string }) {
+export function FinnRead({ children, label = "FINN's read", code = false }: { children: React.ReactNode; label?: string; code?: boolean }) {
+  const Icon = code ? Calculator : Sparkles;
   return (
     <div className={READ_RULE}>
       <p className="mb-0.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-accent">
-        <Sparkles size={10} aria-hidden /> {label}
+        <Icon size={10} aria-hidden /> {label}
       </p>
       {children}
     </div>
@@ -219,7 +220,7 @@ export function PromiseRow({ p, docs }: { p: PromiseItem; docs: Map<string, DocR
         </p>
       )}
       <div className="mt-2">
-        <FinnRead>
+        <FinnRead code={p.judged_by === "code"} label={p.judged_by === "code" ? "Measured against reported numbers" : "FINN's read (AI)"}>
           {!PENDING.includes(p.verdict) && p.verdict !== "revised" && (
             <p className="text-[13px] leading-snug">
               {p.actual}

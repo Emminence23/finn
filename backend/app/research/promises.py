@@ -25,6 +25,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from app.llm import get_llm
+from app.research import measure
 
 PROMPT_VERSION = "promises-v2"
 VERDICTS = ("delivered", "partly", "missed", "revised", "unclear", "too_early", "not_measurable")
@@ -142,10 +143,12 @@ def build_scorecard(statements: list[dict], fin: dict, latest_period: str) -> di
         prompt_version=PROMPT_VERSION,
         max_tokens=20000,  # thinking models spend part of this budget reasoning
     )
-    return validate(res, promises, updates, acts, latest_period)
+    return validate(res, promises, updates, acts, latest_period, fin)
 
 
-def validate(res: Scorecard, promises, updates, acts, latest_period: str) -> dict:
+def validate(
+    res: Scorecard, promises, updates, acts, latest_period: str, fin: dict | None = None
+) -> dict:
     by_id = {p["id"]: p for p in promises}
     upd_ids = {u["id"] for u in updates}
     act_ids = {a["id"] for a in acts}
@@ -186,7 +189,7 @@ def validate(res: Scorecard, promises, updates, acts, latest_period: str) -> dic
             }
         )
     return annotate(
-        {"items": items, "credibility": res.credibility}, promises + updates, latest_period
+        {"items": items, "credibility": res.credibility}, promises + updates, latest_period, fin
     )
 
 
@@ -263,7 +266,9 @@ _ORDER = {
 }
 
 
-def annotate(card: dict, statements: list[dict], latest_period: str) -> dict:
+def annotate(
+    card: dict, statements: list[dict], latest_period: str, fin: dict | None = None
+) -> dict:
     """Apply the statement rules to a scorecard and recompute counts and score. Idempotent:
     it starts from each item's `base_verdict` (the verdict after the evidence guards), so it
     can be re-run on stored views when the rules change."""
@@ -271,8 +276,43 @@ def annotate(card: dict, statements: list[dict], latest_period: str) -> dict:
     items = []
     for it in card.get("items", []):
         it = dict(it)
-        base = it.setdefault("base_verdict", it["verdict"])
+        it.setdefault("base_verdict", it["verdict"])
+        it.setdefault(
+            "ai",
+            {
+                "verdict": it["base_verdict"],
+                "actual": it.get("actual"),
+                "evidence": it.get("evidence", []),
+                "note": it.get("note"),
+                "guard": it.get("guard"),
+            },
+        )
         main = stmts.get(it["promise_ids"][-1], it)
+        # Code judges whatever it can measure; the model's verdict stands for the rest.
+        code = measure.judge(
+            main.get("target") or it.get("target") or "", it.get("deadline"), latest_period, fin
+        )
+        if code:
+            base = code["verdict"]
+            it.update(
+                actual=code["actual"],
+                evidence=code["evidence"],
+                check=code["check"],
+                judged_by="code",
+                guard=None,
+            )
+            if base != it["ai"]["verdict"]:
+                it["note"] = f"Measured in code. The AI read it as {it['ai']['verdict']}."
+        else:
+            base = it["ai"]["verdict"]
+            it.update(
+                actual=it["ai"]["actual"],
+                evidence=it["ai"]["evidence"],
+                note=it["ai"]["note"],
+                guard=it["ai"]["guard"],
+                judged_by="ai",
+            )
+            it.pop("check", None)
         kind = statement_type(main)
         rev = revision(it["promise_ids"], it.get("evidence", []), stmts)
         verdict = base

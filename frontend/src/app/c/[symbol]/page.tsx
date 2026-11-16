@@ -259,6 +259,15 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
             <div className="mt-3">
               <VerdictBar counts={p.counts} />
             </div>
+            {(() => {
+              const due = p.items.filter((i) => !["too_early", "not_measurable"].includes(i.verdict));
+              const byCode = due.filter((i) => i.judged_by === "code").length;
+              return due.length > 0 ? (
+                <p className="mt-2 text-[12px] leading-snug text-ink-3">
+                  {byCode} of {due.length} judged by arithmetic on reported numbers; {due.length - byCode === 0 ? "none" : due.length - byCode} left to the AI because no reported figure measures {due.length - byCode === 1 ? "it" : "them"}.
+                </p>
+              ) : null;
+            })()}
             {p.credibility && (
               <div className="mt-4 border-t border-line pt-3">
                 <FinnRead label="FINN's read on their record">
@@ -295,7 +304,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
             )}
             <div className="mt-3 border-t border-line pt-2.5">
               <AiTag
-                from={`promises read from ${transcripts.length} calls, judged against reported numbers`}
+                from={`promises read by AI from ${transcripts.length} calls; numeric ones judged in code`}
                 model={v.models?.promise_vs_delivery}
               />
             </div>

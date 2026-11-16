@@ -356,3 +356,87 @@ def test_verdicts_rest_on_reported_figures_or_quotes_that_exist(symbol):
         assert set(item["evidence"]) <= known, item["evidence"]
         if item["verdict"] in SCORED:
             assert item["evidence"], item["target"]
+
+
+# ------------------------------------------------------------------ code judges numbers
+FIN = {
+    "is_lender": False,
+    "trajectory": {
+        "annual": [
+            {"period": "2025-03", "revenue": 2722.0, "margin_pct": 15.1, "pat": 293.0},
+            {"period": "2026-03", "revenue": 3626.0, "margin_pct": 16.0, "pat": 364.0},
+        ],
+        "quarterly": [{"period": "2026-06", "revenue": 946.0, "margin_pct": 16.0}],
+    },
+    "cash_quality": {"annual": [{"period": "2026-03", "cfo": -600.0, "fcf": -1841.0}]},
+    "balance_sheet": {"annual": [{"period": "2026-03", "working_capital_days": 133.0}]},
+}
+
+
+@pytest.mark.parametrize(
+    "target,deadline,verdict",
+    [
+        ("FY26 full year revenue to cross minimum INR 4,000 crores", "2026-03", "missed"),
+        ("FY26 revenue of Rs 3,700 crore", "2026-03", "partly"),  # 2% short
+        ("Revenue of INR 35 billion in FY26", "2026-03", "delivered"),
+        ("Net working capital targeted at 85 days or better by year end", "2026-03", "missed"),
+        ("Consolidated operating cash flow to be positive by end of FY26", "2026-03", "missed"),
+        ("EBITDA margin of 15-16%", "2026-06", "delivered"),
+        ("Revenue growth of 30-35%", "2026-03", "delivered"),  # 33.2%
+    ],
+)
+def test_code_judges_what_it_can_measure(target, deadline, verdict):
+    from app.research.measure import judge
+
+    out = judge(target, deadline, "2026-06", FIN)
+    assert out and out["verdict"] == verdict and out["evidence"]
+
+
+@pytest.mark.parametrize(
+    "target,deadline",
+    [
+        ("Rail business revenue growth of 20-25%", "2026-03"),  # a segment
+        ("H2 FY26 smart metering revenue execution of about INR 300 crore", "2026-03"),
+        ("Achieve revenue growth at 2x market growth", "2026-03"),  # needs market data
+        ("PCB revenue of INR 300 crore and OSAT revenue of INR 250 crore", "2026-03"),
+        ("FY27 revenue of Rs 5,000 crore", "2027-03"),  # not due
+        ("Revenue of Rs 1,000 crore in Q1", "2026-06"),  # one quarter of a flow: not annualised
+    ],
+)
+def test_code_leaves_the_rest_to_the_model(target, deadline):
+    from app.research.measure import judge
+
+    assert judge(target, deadline, "2026-06", FIN) is None
+
+
+def test_code_verdict_overrides_the_model_and_says_so():
+    from app.research.promises import annotate
+
+    stmt = {
+        "id": "T1",
+        "kind": "guidance",
+        "target": "FY26 revenue of Rs 3,000 crore",
+        "quote": "we will do 3,000 crore",
+        "horizon": "FY26",
+        "materiality": 3,
+    }
+    item = {
+        "promise_ids": ["T1"],
+        "verdict": "missed",
+        "deadline": "2026-03",
+        "target": stmt["target"],
+        "actual": "model text",
+        "evidence": [],
+        "note": "model",
+    }
+    out = annotate({"items": [item]}, [stmt], "2026-06", FIN)
+    (it,) = out["items"]
+    assert it["verdict"] == "delivered" and it["judged_by"] == "code"
+    assert "AI read it as missed" in it["note"] and it["ai"]["verdict"] == "missed"
+    assert out["score"] == 100
+    # idempotent on re-read, and without financials the model's verdict comes back
+    assert annotate(out, [stmt], "2026-06", FIN)["items"][0]["verdict"] == "delivered"
+    back = annotate(out, [stmt], "2026-06", None)["items"][0]
+    assert (
+        back["verdict"] == "missed" and back["judged_by"] == "ai" and back["actual"] == "model text"
+    )

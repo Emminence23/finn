@@ -64,12 +64,23 @@ def add_meeting(person_id: str, day: str, note: str | None = None) -> dict:
     d = date.fromisoformat(day)
     if d < today():
         raise ValueError("pick today or a later date")
+    clean = " ".join((note or "").split())[:MAX_NOTE]
     with session() as db:
-        cur = db.execute(
-            "INSERT INTO meetings (owner_id, person_id, day, note) VALUES (?,?,?,?)",
-            (current_owner(), person_id, d.isoformat(), " ".join((note or "").split())[:MAX_NOTE]),
-        )
-        mid = cur.lastrowid
+        # One meeting per person per day: adding it again updates the topic, never duplicates
+        # (a double tap, or the same meeting noted twice, would otherwise stack prep cards).
+        same = db.execute(
+            "SELECT id FROM meetings WHERE owner_id=? AND person_id=? AND day=?",
+            (current_owner(), person_id, d.isoformat()),
+        ).fetchone()
+        if same:
+            mid = same["id"]
+            if clean:
+                db.execute("UPDATE meetings SET note=? WHERE id=?", (clean, mid))
+        else:
+            mid = db.execute(
+                "INSERT INTO meetings (owner_id, person_id, day, note) VALUES (?,?,?,?)",
+                (current_owner(), person_id, d.isoformat(), clean),
+            ).lastrowid
     return next(m for m in list_meetings() if m["id"] == mid)
 
 

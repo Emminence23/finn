@@ -31,6 +31,12 @@ def test_prep_shows_two_days_ahead_with_changes_and_questions(seeded):
             headers=DEMO,
         ).json()
         assert soon["when"] == "tomorrow"
+        again = c.post(
+            "/people/meetings",
+            json={"person": k, "day": soon["day"], "note": "lunch"},
+            headers=DEMO,
+        ).json()
+        assert again["id"] == soon["id"] and again["note"] == "lunch"  # updated, not duplicated
         c.post(
             "/people/meetings",
             json={"person": k, "day": (today + timedelta(days=9)).isoformat()},

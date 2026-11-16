@@ -124,7 +124,10 @@ def with_network(view: dict) -> dict:
     if view.get("promises", {}).get("items"):
         # statement rules run on every read, so stored views follow the current rules
         view["promises"] = promises.annotate(
-            view["promises"], view.get("guidance") or [], view["latest_quarter"]
+            view["promises"],
+            view.get("guidance") or [],
+            view["latest_quarter"],
+            view.get("financials"),
         )
     view["helpers"] = graph.who_can_help(view["symbol"], limit=5)
     view["suggested_questions"] = qa.suggested_questions(view)
