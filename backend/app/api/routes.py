@@ -142,6 +142,17 @@ def people_reset() -> dict:
     return {"contacts": graph.reset_network()}
 
 
+@router.put("/people/{person_id}/identity")
+def person_identity(person_id: str, body: dict) -> dict:
+    """FR-NET-05: the investor says whether a filing person is one of their contacts."""
+    try:
+        return graph.answer_identity(person_id, body.get("contact", ""), body.get("verdict", ""))
+    except KeyError as e:
+        raise HTTPException(404, "person not found") from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+
+
 @router.delete("/people/{person_id}")
 def person_delete(person_id: str) -> dict:
     """N-7: remove a contact and every link derived from it, for this account only."""

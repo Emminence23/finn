@@ -9,6 +9,7 @@ Overlaps are derived from roles and education. Confidence is explicit:
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import date
 
@@ -234,10 +235,88 @@ def person_from_extraction(p: dict, symbol: str, key: str) -> Person:
     return Person(key, p["name"], p.get("role"), False, [], p.get("bio"), roles, schools)
 
 
+# ------------------------------------------------------------------ identity (FR-NET-05)
+def normalise_name(name: str) -> str:
+    return " ".join(re.sub(r"[^a-z ]+", " ", name.lower()).split())
+
+
+def identity_key(target: Person) -> str:
+    """Stable across rebuilds: the filing company plus the normalised name."""
+    sym = next((r.symbol for r in target.roles if r.end is None and r.symbol), "")
+    return f"{sym}:{normalise_name(target.name)}"
+
+
+def _answers(owner: str, key: str) -> dict[str, str]:
+    with session() as db:
+        return {
+            r["contact_id"]: r["verdict"]
+            for r in db.execute(
+                "SELECT contact_id, verdict FROM identity_answers "
+                "WHERE owner_id=? AND target_key=?",
+                (owner, key),
+            )
+        }
+
+
+def same_name_contacts(target: Person, people: dict[str, Person]) -> list[dict]:
+    """Contacts who share a filing person's name. A shared name alone proves nothing, so FINN
+    only says "possible match"; it says "likely" when an employer or school also agrees, and
+    asserts identity only after the investor says so. "Not them" hides the match for good."""
+    name = normalise_name(target.name)
+    if not name or target.is_contact:
+        return []
+    answers = _answers(current_owner(), identity_key(target))
+    t_orgs = {r.key for r in target.roles} | {s.key for s in target.education}
+    out = []
+    for c in people.values():
+        if not c.is_contact or normalise_name(c.name) != name:
+            continue
+        verdict = answers.get(c.id)
+        if verdict == "different":
+            continue
+        agrees = sorted(
+            {r.company for r in c.roles if r.key in t_orgs}
+            | {s.school for s in c.education if s.key in t_orgs}
+        )
+        status = "confirmed" if verdict == "same" else "likely" if agrees else "possible"
+        out.append({"contact": _contact_summary(c), "status": status, "agrees": agrees})
+    return out
+
+
+def answer_identity(target_id: str, contact_id: str, verdict: str) -> dict:
+    if verdict not in ("same", "different"):
+        raise ValueError("verdict must be 'same' or 'different'")
+    people = load_people()
+    target, contact = people.get(target_id), people.get(contact_id)
+    if target is None or contact is None or not contact.is_contact:
+        raise KeyError("unknown person")
+    with session() as db:
+        db.execute(
+            "INSERT OR REPLACE INTO identity_answers VALUES (?,?,?,?)",
+            (current_owner(), identity_key(target), contact_id, verdict),
+        )
+    return {"target": target_id, "contact": contact_id, "verdict": verdict}
+
+
 def paths_to_person(target: Person, people: dict[str, Person], limit: int = 5) -> dict:
     target_id = target.id
     me = investor(people)
     direct = [o.__dict__ for o in overlaps(me, target)]
+    same_name = same_name_contacts(target, people)
+    for m in same_name:
+        if m["status"] == "confirmed":
+            c = m["contact"]
+            direct.insert(
+                0,
+                {
+                    "kind": "contact",
+                    "org": None,
+                    "confidence": "confirmed",
+                    "basis": "declared",
+                    "detail": f"Your {c['relationship'] or 'contact'} {c['name']} (you confirmed)",
+                    "strength": c["strength"] or 0.5,
+                },
+            )
     if target.relationship:
         direct.insert(
             0,
@@ -250,9 +329,10 @@ def paths_to_person(target: Person, people: dict[str, Person], limit: int = 5) -
                 "strength": target.relationship["strength"],
             },
         )
+    namesakes = {m["contact"]["id"] for m in same_name}  # shown apart, never as a path
     via: list[dict] = []
     for c in people.values():
-        if not c.is_contact or c.id == target_id or not c.relationship:
+        if not c.is_contact or c.id == target_id or not c.relationship or c.id in namesakes:
             continue
         explicit = [k for k in c.knows if k["person"] == target_id]
         links = [
@@ -278,7 +358,12 @@ def paths_to_person(target: Person, people: dict[str, Person], limit: int = 5) -
             }
         )
     via.sort(key=lambda v: -v["strength"])
-    return {"target": _person_summary(target), "direct": direct, "via": via[:limit]}
+    return {
+        "target": _person_summary(target),
+        "direct": direct,
+        "via": via[:limit],
+        "same_name": same_name,
+    }
 
 
 # ------------------------------------------------------------------ who can help (FR-NET-03)
@@ -533,6 +618,9 @@ def delete_contact(person_id: str, owner: str | None = None) -> bool:
             "DELETE FROM relationships WHERE owner_id=? AND (person_id=? OR other_id=?)",
             (owner, person_id, person_id),
         )
+        db.execute(
+            "DELETE FROM identity_answers WHERE owner_id=? AND contact_id=?", (owner, person_id)
+        )
         db.execute("DELETE FROM people WHERE id=? AND owner_id=?", (person_id, owner))
     return True
 
@@ -544,5 +632,6 @@ def reset_network(owner: str | None = None) -> int:
     owner = owner or current_owner()
     with session() as db:
         db.execute("DELETE FROM relationships WHERE owner_id=?", (owner,))
+        db.execute("DELETE FROM identity_answers WHERE owner_id=?", (owner,))
         db.execute("DELETE FROM people WHERE owner_id=?", (owner,))
         return seed_owner_network(db, owner)

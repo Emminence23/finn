@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
+import { useState } from "react";
+import { useSWRConfig } from "swr";
+import { ArrowRight, Phone, UserRoundSearch } from "lucide-react";
 import clsx from "clsx";
-import type { Helper, Link as NetLink, Paths } from "@/lib/api";
+import { type Helper, type Link as NetLink, type Paths, type SameName, api } from "@/lib/api";
 import { Avatar } from "./ui";
 
 export function firstName(name: string): string {
@@ -88,13 +90,67 @@ export function HelperList({ helpers, max = 3 }: { helpers: Helper[]; max?: numb
 }
 
 /** How the investor reaches a person: a shared past (direct) or through one contact. */
+/** FR-NET-05: a shared name is a question for the investor, not a fact. "Possible" when only
+ *  the name matches, "likely" when an employer or school also agrees; asserted only once the
+ *  investor says so, and "Not them" hides it for good. */
+function SameNameNote({ m, targetId, targetName }: { m: SameName; targetId: string; targetName: string }) {
+  const { mutate } = useSWRConfig();
+  const [busy, setBusy] = useState(false);
+  const answerable = !targetId.startsWith("auto_");
+  const answer = async (verdict: "same" | "different") => {
+    setBusy(true);
+    await api(`/people/${targetId}/identity`, {
+      method: "PUT",
+      body: JSON.stringify({ contact: m.contact.id, verdict }),
+    }).catch(() => null);
+    await mutate(() => true, undefined, { revalidate: true });
+    setBusy(false);
+  };
+  if (m.status === "confirmed") return null; // shown as a direct "your contact" link instead
+  return (
+    <div className="flex gap-2 rounded-xl bg-surface-2 px-3 py-2 text-[12px] leading-snug">
+      <UserRoundSearch size={15} className="mt-0.5 shrink-0 text-warn" />
+      <div className="min-w-0">
+        <p className="text-ink">
+          <span className="font-semibold">{m.status === "likely" ? "Likely" : "Possible"} match:</span> your contact{" "}
+          <Link href={`/people/${m.contact.id}`} className="font-medium text-accent">
+            {m.contact.name}
+          </Link>{" "}
+          {m.status === "likely"
+            ? `shares this name and ${m.agrees.join(" and ")}.`
+            : `shares this name, but nothing else in the two records agrees.`}{" "}
+          <span className="text-ink-3">FINN doesn&apos;t assume they are the same {targetName}.</span>
+        </p>
+        {answerable && (
+          <div className="mt-1.5 flex gap-2">
+            <button disabled={busy} onClick={() => answer("same")} className="rounded-full border border-line bg-surface px-2.5 py-0.5 font-medium disabled:opacity-50">
+              Same person
+            </button>
+            <button disabled={busy} onClick={() => answer("different")} className="rounded-full border border-line bg-surface px-2.5 py-0.5 font-medium disabled:opacity-50">
+              Not them
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function PathView({ paths, compact }: { paths: Paths; compact?: boolean }) {
   const { direct, via, target } = paths;
-  if (!direct.length && !via.length)
-    return <p className="text-[12px] text-ink-3">No path in your network yet.</p>;
+  const same = (paths.same_name ?? []).filter((m) => m.status !== "confirmed");
   const first = firstName(target.name);
+  const notes = same.map((m) => <SameNameNote key={m.contact.id} m={m} targetId={target.id} targetName={first} />);
+  if (!direct.length && !via.length)
+    return (
+      <div className="space-y-2">
+        {notes}
+        <p className="text-[12px] text-ink-3">No path in your network yet.</p>
+      </div>
+    );
   return (
     <div className="space-y-2">
+      {notes}
       {direct.slice(0, compact ? 1 : 3).map((l, i) => (
         <div key={`d${i}`} className="text-[13px] leading-snug">
           <span className="font-semibold">You</span>

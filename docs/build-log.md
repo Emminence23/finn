@@ -141,3 +141,15 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
 - **Tried 16 Nov 2026, 07:53 IST.** Extraction ran and found 32 statements and 28 promises due for checking. Then the scorecard step hit HTTP 429 on both models allowed for it (`gemini-4-hydrogen`, then `gemini-3.5-flash`), and the guidance step's fallbacks were also exhausted.
 - **The build guard worked as designed.** The view was marked incomplete (`missing: promises`) and the fixture was **not** written, so the committed Kaynes view (4 missed, 1 can't tell, 4 not yet due) is still what the demo serves.
 - **To finish:** after the free daily quota resets, run `make research` with `--force KAYNES`, check that the four misses are still found, re-run `make check` and commit the fixture. No paid model was used; Claude stays off unless the owner allows it.
+
+## Phase 4g: same name, different person (FR-NET-05)
+- **Gap found while checking PLAN_v2:** the spec listed entity resolution as a Must, but nothing linked a filing name to a contact. So the same-name trap could not happen, and it also could not be handled.
+- **Rule:**
+  - a contact who shares a filing person's normalised name is shown as a *question*;
+  - it is "possible" when nothing else agrees and "likely" when an employer or school also agrees;
+  - it becomes a direct "your contact" link only after the investor taps **Same person**, and **Not them** hides it.
+  - Answers are stored per account, keyed by company and name so they survive a re-extraction, and are deleted with the contact or a reset.
+  - Namesakes are kept out of the "via" paths, so nobody is shown as a route to themselves.
+- **Planted cases:**
+  - *Amit Agarwal*, a Jaipur chartered accountant in the main demo network, sits next to Pidilite's incoming CFO of the same name. He is "possible", with nothing else in the two records agreeing.
+  - *Rajat Shah* in the second account shares Ingersoll Rand and IIT Guwahati with CG Power's new VP Services, so he is "likely".

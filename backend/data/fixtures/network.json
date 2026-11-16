@@ -371,6 +371,16 @@
       "education": [{"school": "IIT Bombay", "program": "B.Tech Chemical", "start_year": 2004, "end_year": 2008}],
       "themes": ["specialty chemicals", "plant operations"],
       "relationship": {"type": "classmate", "strength": 0.7, "last_contact": "2026-05-08", "context": "IIT Bombay batchmate"}
+    },
+    {
+      "id": "c_amit_agarwal_ca",
+      "name": "Amit Agarwal",
+      "_planted": "FR-NET-05 trap: same name as Pidilite's incoming CFO, unrelated career. FINN must not present him as the CFO.",
+      "headline": "Partner, a chartered accountancy firm in Jaipur",
+      "roles": [{"company": "Agarwal & Associates", "title": "Partner", "start_year": 2009, "end_year": null}],
+      "education": [{"school": "University of Rajasthan", "program": "B.Com", "start_year": 2002, "end_year": 2005}],
+      "themes": ["tax", "audit"],
+      "relationship": {"type": "friend", "strength": 0.4, "last_contact": "2026-06-11", "context": "Family friend from Jaipur; does the family's taxes"}
     }
   ]
 }

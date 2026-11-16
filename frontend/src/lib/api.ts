@@ -132,7 +132,11 @@ export type Paths = {
   target: Contact;
   direct: Link[];
   via: { contact: Contact; link: Link; other_links: Link[]; strength: number }[];
+  same_name?: SameName[];
 };
+
+/** FR-NET-05: a contact who shares the person's name. Never asserted unless you confirm. */
+export type SameName = { contact: Contact; status: "possible" | "likely" | "confirmed"; agrees: string[] };
 
 export type Helper = {
   contact: Contact;

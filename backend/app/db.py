@@ -105,6 +105,14 @@ CREATE TABLE IF NOT EXISTS relationships (
     strength REAL,
     last_contact TEXT
 );
+-- FR-NET-05: the investor's answer to "is this filing person your contact?" (persists)
+CREATE TABLE IF NOT EXISTS identity_answers (
+    owner_id TEXT NOT NULL,
+    target_key TEXT NOT NULL,          -- symbol:normalised name of the filing person
+    contact_id TEXT NOT NULL,
+    verdict TEXT NOT NULL,             -- same | different
+    PRIMARY KEY (owner_id, target_key, contact_id)
+);
 CREATE TABLE IF NOT EXISTS company_links (
     symbol TEXT NOT NULL,
     other TEXT NOT NULL,

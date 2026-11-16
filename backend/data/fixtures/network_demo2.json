@@ -46,6 +46,19 @@
    "education": [{"school": "Christ University", "program": "MBA", "start_year": 2013, "end_year": 2015}],
    "themes": ["gold loans", "rural lending"],
    "relationship": {"type": "friend", "strength": 0.65, "last_contact": "2026-07-21", "context": "College friend's sister; the best read I have on gold loan branches"}
+  },
+  {
+   "id": "d2_rajat_shah",
+   "name": "Rajat Shah",
+   "_planted": "FR-NET-05: same name as CG Power's new VP Services, and employer and school agree. FINN may say 'likely', not assert it.",
+   "headline": "Services leader, industrial equipment",
+   "roles": [
+    {"company": "Ingersoll Rand", "title": "Director, Aftermarket Services", "start_year": 2014, "end_year": 2021},
+    {"company": "Industrial equipment maker", "title": "Head of Services", "start_year": 2021, "end_year": null}
+   ],
+   "education": [{"school": "IIT Guwahati", "program": "B.Tech", "start_year": 1998, "end_year": 2002}],
+   "themes": ["industrial services"],
+   "relationship": {"type": "former colleague", "strength": 0.55, "last_contact": "2026-05-30", "context": "Worked together on a services pricing project"}
   }
  ]
 }
