@@ -8,7 +8,17 @@ import clsx from "clsx";
 import { ApiError, api, type Research, stream } from "@/lib/api";
 import { crore, fq, pct, shortName, times } from "@/lib/fmt";
 import { HelperList } from "@/components/network";
-import { ClaimList, CredibilityText, PENDING, PromiseRow, StatTile, VerdictBar, useDocs } from "@/components/research";
+import {
+  ClaimList,
+  CredibilityText,
+  FinnRead,
+  PENDING,
+  PromiseRow,
+  StatTile,
+  VerdictBar,
+  VoiceLegend,
+  useDocs,
+} from "@/components/research";
 import { AiTag, Panel, SectionTitle, Skeleton } from "@/components/ui";
 import { AskFinn } from "@/components/AskFinn";
 
@@ -199,6 +209,7 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
         <p className="mt-1 text-[12px] text-ink-3">
           From {transcripts.length} earnings calls and the annual report. No news, no broker notes.
         </p>
+        <VoiceLegend />
       </header>
 
       {v.incomplete.length > 0 && (
@@ -243,7 +254,9 @@ function ResearchView({ v, rebuild, initialQ }: { v: Research; rebuild: () => vo
             </div>
             {p.credibility && (
               <div className="mt-4 border-t border-line pt-3">
-                <CredibilityText text={p.credibility} docs={docs} />
+                <FinnRead label="FINN's read on their record">
+                  <CredibilityText text={p.credibility} docs={docs} />
+                </FinnRead>
               </div>
             )}
             <ul className="mt-2 divide-y divide-line border-t border-line">

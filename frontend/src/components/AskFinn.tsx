@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUp, CircleSlash, Loader2 } from "lucide-react";
 import { ApiError, api, type DocRef, type QaAnswer } from "@/lib/api";
-import { CiteChips, cleanClaim } from "./research";
+import { CiteChips, READ_RULE, cleanClaim } from "./research";
 import { AiTag, Panel } from "./ui";
 
 /** Ask FINN about one company. Answers come only from the documents and numbers FINN has
@@ -121,10 +121,9 @@ export function AskFinn({
               The documents FINN read don&apos;t answer this.
             </p>
           )}
-          <ul className="mt-1.5 space-y-1.5">
+          <ul className={`mt-1.5 space-y-1.5 ${READ_RULE}`}>
             {a.points.map((p, j) => (
               <li key={j} className="flex gap-2 text-[13px] leading-snug">
-                <span className="mt-[7px] size-1 shrink-0 rounded-full bg-ink-3" aria-hidden />
                 <span>
                   {cleanClaim(p.text)}
                   <CiteChips cites={p.cites} docs={docs} />

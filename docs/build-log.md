@@ -115,3 +115,12 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - **Result:** Important is 10.7% of digest items on 7 days and 18.6% on 30 days. The 24-hour window (3 cards) is too small to hold to a share.
   - "Items" means cards plus folded filings, one per item, which is how the digest presents them.
 - **Reasons name the rule, not the numbers.** The first reason line repeated the headline and the move chips. Results now say "PAT or revenue moved 15% or more YoY"; other cards give the category and materiality, or the stock move that decided it.
+
+## Phase 4e: three voices on the company page (plan v2, item 2)
+- **Why:** a scorecard row mixed three kinds of sentence with nothing to tell them apart: management's quote, the model's "Actual" line and the model's note. The model's line contains numbers, so it read as if it were a reported figure.
+- **One visual rule per voice:**
+  - reported figures stay plain tabular numbers (tiles, tables);
+  - management's words are italic quotes on a grey rule with call and page;
+  - FINN's read (outcome and note, the credibility paragraph, business, bull/bear and Ask FINN answers) sits on an accent rule, labelled "FINN's read" where it shares space with a quote.
+  - A three-item legend under the company header says so once.
+- **Outcome lines now link to the figures they rest on.** The verdict's evidence ids (`FY:2026-03`, `Q:2026-06`) render as "FY26 reported" chips that jump to the numbers section. A fixture test checks that every judged row cites only ids that exist.

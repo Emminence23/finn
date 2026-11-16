@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import clsx from "clsx";
-import { Check, CircleDashed, CircleHelp, CircleSlash, Minus, RotateCcw, X } from "lucide-react";
+import { Check, CircleDashed, CircleHelp, CircleSlash, Minus, RotateCcw, Sparkles, X } from "lucide-react";
 import type { Cite, Claim, DocRef, PromiseItem, Verdict } from "@/lib/api";
 import { fq } from "@/lib/fmt";
 
@@ -121,9 +121,36 @@ export function CiteChips({ cites, docs }: { cites: Cite[]; docs: Map<string, Do
   );
 }
 
+// ------------------------------------------------------------------ three voices (PL-7)
+/* Reported figures are plain tabular numbers with no rule. Management's words are italic
+   quotes on a grey rule. FINN's interpretation sits on an accent rule. The legend under the
+   company header says so once, so a reader never has to tap to tell them apart. */
+export const READ_RULE = "border-l-2 border-accent/60 pl-3";
+
+export function FinnRead({ children, label = "FINN's read" }: { children: React.ReactNode; label?: string }) {
+  return (
+    <div className={READ_RULE}>
+      <p className="mb-0.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-accent">
+        <Sparkles size={10} aria-hidden /> {label}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+export function VoiceLegend() {
+  return (
+    <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-3" aria-label="How to read this page">
+      <span className="tnum font-medium text-ink-2">₹ Reported figures</span>
+      <span className="border-l-2 border-line pl-1.5 italic">&ldquo;Management&apos;s words&rdquo;</span>
+      <span className="border-l-2 border-accent/60 pl-1.5 text-ink-2">FINN&apos;s read</span>
+    </p>
+  );
+}
+
 export function ClaimList({ claims, docs, marker }: { claims: Claim[]; docs: Map<string, DocRef>; marker?: React.ReactNode }) {
   return (
-    <ul className="space-y-2">
+    <ul className={clsx("space-y-2", READ_RULE)}>
       {claims.map((c, i) => (
         <li key={i} className="flex gap-2 text-[13px] leading-snug">
           {marker && <span className="mt-0.5 shrink-0">{marker}</span>}
@@ -156,6 +183,11 @@ export function CredibilityText({ text, docs }: { text: string; docs: Map<string
   );
 }
 
+/** The reported figures a verdict rests on, as chips that jump to the numbers. */
+function reportedCites(evidence: string[]): Cite[] {
+  return evidence.filter((e) => /^(Q|FY):/.test(e)).map((doc) => ({ doc, page: null }));
+}
+
 // ------------------------------------------------------------------ promise row
 export function PromiseRow({ p, docs }: { p: PromiseItem; docs: Map<string, DocRef> }) {
   const d = docs.get(p.doc_id);
@@ -186,18 +218,22 @@ export function PromiseRow({ p, docs }: { p: PromiseItem; docs: Map<string, DocR
           {p.verdict !== "revised" && <span className="text-ink-3"> (judged against the outcome below)</span>}
         </p>
       )}
-      {!PENDING.includes(p.verdict) && p.verdict !== "revised" && (
-        <p className="mt-2 text-[13px] leading-snug">
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-ink-3">Actual </span>
-          {p.actual}
-        </p>
-      )}
-      <p className="mt-1 text-[12px] leading-snug text-ink-3">
-        {p.statement_type && <>{TYPE_LABEL[p.statement_type]} · </>}
-        {p.verdict === "too_early" && p.horizon ? `Due ${p.horizon}. ` : ""}
-        {p.verdict === "not_measurable" ? "No number, direction or date to check it against, so no verdict." : p.note}
-        {p.guard && <span className="italic"> (Held back: {p.guard}.)</span>}
-      </p>
+      <div className="mt-2">
+        <FinnRead>
+          {!PENDING.includes(p.verdict) && p.verdict !== "revised" && (
+            <p className="text-[13px] leading-snug">
+              {p.actual}
+              <CiteChips cites={reportedCites(p.evidence)} docs={docs} />
+            </p>
+          )}
+          <p className="mt-0.5 text-[12px] leading-snug text-ink-3">
+            {p.statement_type && <>{TYPE_LABEL[p.statement_type]} · </>}
+            {p.verdict === "too_early" && p.horizon ? `Due ${p.horizon}. ` : ""}
+            {p.verdict === "not_measurable" ? "No number, direction or date to check it against, so no verdict." : p.note}
+            {p.guard && <span className="italic"> (Held back: {p.guard}.)</span>}
+          </p>
+        </FinnRead>
+      </div>
     </li>
   );
 }

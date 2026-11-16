@@ -340,3 +340,19 @@ def test_injected_verdict_without_evidence_is_held_back():
     )
     (item,) = validate(res, [promise], [], [{"id": "FY:2026-03"}], "2026-06")["items"]
     assert item["verdict"] == "unclear" and item["evidence"] == []
+
+
+@pytest.mark.parametrize("symbol", ["KAYNES", "AARTIIND", "PERSISTENT", "MANAPPURAM"])
+def test_verdicts_rest_on_reported_figures_or_quotes_that_exist(symbol):
+    """PL-7: a scorecard row shows management's words (a verbatim quote) apart from FINN's
+    read, and FINN's read links to the reported figures it rests on. Every judged row must
+    therefore carry a quote and cite only ids that exist in the stored view."""
+    from app.research.promises import SCORED, actuals
+
+    view = json.loads((FIXTURES / "research" / f"{symbol}.json").read_text())
+    known = {a["id"] for a in actuals(view["financials"])} | {s["id"] for s in view["guidance"]}
+    for item in view["promises"]["items"]:
+        assert item["quote"].strip()
+        assert set(item["evidence"]) <= known, item["evidence"]
+        if item["verdict"] in SCORED:
+            assert item["evidence"], item["target"]
