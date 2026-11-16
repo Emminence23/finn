@@ -197,6 +197,17 @@ def person(person_id: str) -> dict:
     return p
 
 
+@router.get("/people/{person_id}/questions")
+def person_questions(person_id: str) -> dict:
+    """Questions worth asking before a meeting, from FINN's research (no LLM)."""
+    from app.network.diligence import meeting_questions
+
+    out = meeting_questions(person_id)
+    if out is None:
+        raise HTTPException(404, "person not found")
+    return out
+
+
 @router.get("/people/{person_id}/paths")
 def person_paths(person_id: str) -> dict:
     people = graph.load_people()

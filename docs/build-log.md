@@ -168,3 +168,12 @@ Key prompts, course-corrections, and accept-vs-rewrite decisions made while buil
   - a spy-model test confirms it.
 - **Shown in their own place:** a dashed "off the record" panel under "Who you know", with "Karthik told you · date" attribution.
 - **Privacy:** deleting a contact deletes the notes attributed to them and keeps the investor's own notes. Restoring the demo network clears all notes.
+
+## Phase 4j: questions to ask before a meeting (FR-NET-09)
+- **Built in code, not by the model.** The questions come from what the research already established: missed or revised promises, one negative flag, the next promise falling due. So the network never goes near an LLM, the feature costs nothing, and each question can show its source (call and page plus outcome, or "computed from reported financials").
+- **Wording follows the relation:**
+  - former employee: "From your time at Kaynes, was that ever realistic?";
+  - current employee: public figures only, with the insider caution;
+  - industry peer: "Was that specific to Aarti, or industry-wide?"
+- **First version was repetitive:** three near-identical "they guided X and missed" lines. Now there are at most two misses, worded differently, plus one flag.
+- **Coverage:** 11 of the 44 people visible to the main demo account get questions. That is everyone linked to a company with a research view; the rest get none rather than generic filler.

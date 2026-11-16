@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { type PersonProfile, api, useApi } from "@/lib/api";
 import { day } from "@/lib/fmt";
-import { PathView, firstName } from "@/components/network";
+import { InsiderNote, PathView, firstName } from "@/components/network";
 import { Avatar, ErrorNote, Panel, Pill, SectionTitle, Skeleton } from "@/components/ui";
 
 export default function PersonPage() {
@@ -121,6 +121,8 @@ function Profile({ p }: { p: PersonProfile }) {
         </>
       )}
 
+      <MeetingQuestions id={p.id} first={first} />
+
       <SectionTitle>Career</SectionTitle>
       <Panel className="p-4">
         <ol className="relative space-y-3 border-l border-line pl-4">
@@ -206,5 +208,60 @@ function RemoveContact({ id, name }: { id: string; name: string }) {
         {busy ? "Removing…" : "Remove from my network"}
       </button>
     </div>
+  );
+}
+
+type QGroup = {
+  symbol: string;
+  company: string;
+  relation: "current" | "former" | "peer";
+  insider: boolean;
+  questions: {
+    question: string;
+    basis: { kind: "promise" | "flag"; said_in?: string; doc_id?: string; page?: number; outcome?: string };
+  }[];
+};
+
+const RELATION: Record<QGroup["relation"], string> = {
+  current: "works there now",
+  former: "worked there",
+  peer: "knows the industry",
+};
+
+/** Questions worth asking before a meeting: built in code from FINN's research on companies
+ *  this person knows, each showing what it rests on. No AI, and nothing about the person is
+ *  sent anywhere. */
+function MeetingQuestions({ id, first }: { id: string; first: string }) {
+  const { data } = useApi<{ groups: QGroup[] }>(`/people/${id}/questions`);
+  if (!data?.groups.length) return null;
+  return (
+    <>
+      <SectionTitle aside="from FINN's research">Before you meet {first}</SectionTitle>
+      <Panel className="divide-y divide-line">
+        {data.groups.map((g) => (
+          <div key={g.symbol} className="px-4 py-3">
+            <p className="text-[12px] text-ink-3">
+              <Link href={`/c/${g.symbol}#promises`} className="font-semibold text-ink">
+                {g.company.replace(/ (Limited|Ltd)$/, "")}
+              </Link>{" "}
+              · {first} {RELATION[g.relation]}
+            </p>
+            {g.insider && <InsiderNote />}
+            <ol className="mt-2 space-y-2.5">
+              {g.questions.map((q, i) => (
+                <li key={i} className="text-[14px] leading-snug">
+                  {q.question}
+                  <span className="mt-0.5 block text-[11px] text-ink-3">
+                    {q.basis.kind === "promise"
+                      ? `${q.basis.said_in}${q.basis.page ? `, p.${q.basis.page}` : ""}${q.basis.outcome ? ` · ${q.basis.outcome}` : ""}`
+                      : "Computed from reported financials"}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </Panel>
+    </>
   );
 }
