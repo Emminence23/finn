@@ -398,11 +398,14 @@ function ResearchView({
           />
           </div>
         </div>
-        <p className="tnum mt-1 text-[13px] text-ink-2">
-          {s.price != null && <>₹{s.price.toLocaleString("en-IN")} · </>}
-          {s.market_cap_cr != null && <>mcap {crore(s.market_cap_cr)} · </>}
-          {s.pe != null && <>P/E {s.pe}</>}
-        </p>
+        {/* the computed panel below has today's price, market cap and P/E; this line is the read's own copy */}
+        {!computed && (
+          <p className="tnum mt-1 text-[13px] text-ink-2">
+            {s.price != null && <>₹{s.price.toLocaleString("en-IN")} · </>}
+            {s.market_cap_cr != null && <>mcap {crore(s.market_cap_cr)} · </>}
+            {s.pe != null && <>P/E {s.pe}</>}
+          </p>
+        )}
         <p className="mt-1 text-[12px] text-ink-3">
           From {transcripts.length} earnings calls and the annual report
           {v.filed_results ? `, plus the ${fq(v.filed_results.period)} results filed ${day(v.filed_results.filed)}` : ""}{computed ? ", reported financials, NSE prices and filings, and brokerage reports where FINN has them" : ""}.

@@ -110,13 +110,16 @@ function Pill({ v }: { v: LedgerItem["verdict"] }) {
 }
 
 function Table({ columns, rows }: { columns: string[]; rows: string[][] }) {
+  // a column of prose (a filing's summary) wraps and reads left to right; figures stay right-aligned
+  const prose = columns.map((_, i) => i > 0 && rows.some((r) => (r[i] ?? "").length > 24 && /[a-z]{3}/i.test(r[i] ?? "")));
+  const shortFirst = rows.every((r) => (r[0] ?? "").length <= 12);
   return (
     <div className="-mx-1 overflow-x-auto">
       <table className="tnum w-full min-w-[300px] text-[12px]">
         <thead>
           <tr className="text-ink-3">
             {columns.map((c, i) => (
-              <th key={i} className={clsx("px-1 pb-1 font-medium", i ? "text-right" : "text-left")}>
+              <th key={i} className={clsx("px-1 pb-1 font-medium", i && !prose[i] ? "text-right" : "text-left")}>
                 {c}
               </th>
             ))}
@@ -126,7 +129,13 @@ function Table({ columns, rows }: { columns: string[]; rows: string[][] }) {
           {rows.map((r, j) => (
             <tr key={j}>
               {r.map((c, i) => (
-                <td key={i} className={clsx("px-1 py-1.5", i ? "whitespace-nowrap text-right" : "text-left font-medium")}>
+                <td
+                  key={i}
+                  className={clsx(
+                    "px-1 py-1.5 align-top",
+                    prose[i] ? "text-left leading-snug" : i ? "whitespace-nowrap text-right" : clsx("text-left font-medium", shortFirst && "whitespace-nowrap"),
+                  )}
+                >
                   {c}
                 </td>
               ))}

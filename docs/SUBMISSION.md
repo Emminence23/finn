@@ -1,4 +1,4 @@
-# Submission notes (checkpoint, 16 Nov 2026)
+# Submission notes (17 Nov 2026)
 
 ## What to open
 - **Prototype (responsive web, made for a phone):** https://finn-iota-murex.vercel.app. Passcode in the covering email. Add it to the home screen for the app feel. The free API host sleeps when idle, so the first load can take up to a minute; the page says so.
@@ -16,7 +16,8 @@ Portfolio, Watchlist and Top movers round it out in a Groww-like layout.
 
 **Key decisions and tradeoffs**
 - *Code computes, AI reads.* Models extract promises (quoted verbatim, then string-matched to the page) and write prose that must cite a page. Code decides verdicts, ranks alerts, re-weights the portfolio and drops any point without a source. An AI verdict is used only where arithmetic can't settle a promise, and it is labelled as AI.
-- *Primary sources only for Pull:* the annual report, transcripts and exchange filings. No news, no broker notes, no outside knowledge. Person enrichment on the Push and Network side is kept separate.
+- *Primary sources for the analysis:* the annual report, transcripts and exchange filings, and no news or outside knowledge. Brokerage reports (only those the brokers publish openly) sit in their own section of the company report, every figure traced to its sentence and page, and never feed the verdicts. Person enrichment on the Push and Network side is kept separate.
+- *One company report, saved for a week:* Ask and the company page show the same report. Code looks up a saved copy before fetching anything (no AI tokens), shows how old it is, and builds a fresh one in the background on request. Saved reports live in a Render Key Value instance, so they survive the daily redeploy.
 - *A fixed pipeline over an open-ended agent:* it is cheaper, cacheable and testable. The strongest model is spent only on the judgement step.
 - *Measured, not claimed:* an in-app accuracy page recomputes its checks from live data. There is a 100-filing labelled set for materiality and a 31-question retrieval eval.
 - *Calm UX:* a few numbers up front with the rest folded away, every page appearing whole behind a loading bar, and tours chosen by use case.
