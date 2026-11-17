@@ -98,6 +98,11 @@ class GeminiProvider:
                     row |= {"status": "quota_used_up", "detail": "today's free quota is spent"}
                 elif code == 429:
                     row |= {"status": "works", "detail": "busy this minute (429), key is valid"}
+                elif code in (500, 503, 504):
+                    row |= {
+                        "status": "works",
+                        "detail": f"model busy at Google ({code}), key is valid",
+                    }
                 elif code in (400, 401, 403) and ("API key" in msg or "PERMISSION" in msg):
                     row |= {"status": "rejected", "detail": f"Google refused the key ({code})"}
                 else:
