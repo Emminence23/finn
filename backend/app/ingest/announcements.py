@@ -58,7 +58,9 @@ def fetch_announcements(
 
 
 def fetch_universe_announcements(symbols: list[str], days: int = 60) -> list[dict]:
-    end = date.today()
+    from app.live import ist_now
+
+    end = ist_now().date()  # India's date, also on a UTC server
     start = end - timedelta(days=days)
     seen: dict[str, dict] = {}
     for s in symbols:

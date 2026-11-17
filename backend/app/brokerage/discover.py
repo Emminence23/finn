@@ -130,7 +130,9 @@ def results_dates(symbol: str, n: int = 2) -> list[date]:
 
 
 def candidates(symbol: str, company: str | None, today: date | None = None) -> list[dict]:
-    today = today or date.today()
+    from app.live import ist_now
+
+    today = today or ist_now().date()
     out = []
     for q in last_quarters(today):
         for name in name_variants(symbol, company):

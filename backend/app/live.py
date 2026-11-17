@@ -127,10 +127,35 @@ def intraday(symbol: str) -> list[dict]:
 
 # -- sources ------------------------------------------------------------------------------
 def _fetch_filings() -> list[dict]:
-    from app.ingest.announcements import fetch_universe_announcements
+    """The last 3 days for every tracked company, by India's date (the server runs on UTC,
+    which is still yesterday until 05:30 IST). NSE's bot check often refuses the first
+    requests of a session with a 403, so refused companies are asked again, twice."""
+    from app.http import get_fetcher
+    from app.ingest.announcements import fetch_announcements
     from app.ingest.universe import all_symbols
 
-    return fetch_universe_announcements(all_symbols(), days=3)
+    end = ist_now().date()
+    start = end - timedelta(days=3)
+    seen: dict[str, dict] = {}
+    todo = list(all_symbols())
+    for attempt in range(3):
+        failed = []
+        for s in todo:
+            try:
+                for a in fetch_announcements(s, start, end):
+                    seen[a["id"]] = a
+            except Exception as e:  # noqa: BLE001
+                failed.append(s)
+                log.info("filings %s refused (try %d): %s", s, attempt + 1, type(e).__name__)
+        if not failed:
+            break
+        todo = failed
+        f = get_fetcher()
+        f._nse_primed = False  # fresh cookies before the next pass
+        time.sleep(5 * (attempt + 1))
+    else:
+        log.warning("filings: NSE still refused %s", ", ".join(todo))
+    return sorted(seen.values(), key=lambda a: a["ts"], reverse=True)
 
 
 def _fetch_prices() -> tuple[list[list], list[list]]:
