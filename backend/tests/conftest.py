@@ -11,6 +11,7 @@ def isolated_env(tmp_path, monkeypatch):
     monkeypatch.setenv("FINN_DEMO_PASSCODE", "")
     monkeypatch.setenv("FINN_LIVE_REFRESH", "0")
     monkeypatch.setenv("FINN_WEB_SEARCH", "0")
+    monkeypatch.setenv("FINN_AI_NOTE", "0")
     for k in ("LLM_PROVIDER", "GEMINI_API_KEY", "GROQ_API_KEY", "ANTHROPIC_API_KEY"):
         monkeypatch.delenv(k, raising=False)
     config.get_settings.cache_clear()

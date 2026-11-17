@@ -18,6 +18,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import os
 import re
 import threading
 
@@ -140,6 +141,8 @@ def attach(d: dict, names: list[str]) -> None:
     """Add d['lead_ai'] when a checked note exists for these facts; otherwise start writing
     one and mark d['lead_ai_pending']."""
     if not d["cards"] and not d.get("carry"):
+        return
+    if os.environ.get("FINN_AI_NOTE", "1") == "0":  # tests: no background model calls
         return
     f = facts(d)
     key = _key(f)
