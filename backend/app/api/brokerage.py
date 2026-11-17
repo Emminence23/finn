@@ -7,7 +7,7 @@ from __future__ import annotations
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from app.brokerage import discover, explain, jobs, service
+from app.brokerage import discover, explain, jobs, news, service
 from app.network.owner import current_owner, is_sandbox
 
 router = APIRouter()
@@ -171,3 +171,16 @@ def add_link(symbol: str, body: Link) -> dict:
         return discover.add_link(symbol, body.url.strip(), body.brokerage)
     except ValueError as e:
         raise HTTPException(400, str(e)) from e
+
+
+@router.get("/companies/{symbol}/brokerage/news")
+def broker_news(symbol: str) -> dict:
+    """Banks' and brokers' calls on this company as reported in the financial press, each
+    checked against its article sentence. The first request starts the search (about a
+    minute); poll until job.status is done. Saved for 12 hours."""
+    return news.get(symbol)
+
+
+@router.post("/companies/{symbol}/brokerage/news/refresh")
+def broker_news_refresh(symbol: str) -> dict:
+    return news.refresh(symbol)

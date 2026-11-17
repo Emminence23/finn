@@ -781,6 +781,151 @@ export function BrokerBody({
   );
 }
 
+// ------------------------------------------------------------------ calls in the press
+type NewsCall = {
+  house_id: string;
+  house: string;
+  rating: string | null;
+  target: number | null;
+  previous_target: number | null;
+  action: string | null;
+  quote: string;
+  date: string | null;
+  headline: string;
+  url: string;
+  source: string;
+  read: "article" | "headline";
+};
+type BrokerNews = {
+  symbol: string;
+  calls: NewsCall[];
+  latest: NewsCall[];
+  articles?: { title: string; url: string; date: string | null }[];
+  saved_at?: number;
+  job: { status: string; stage?: string; articles?: number; why?: string };
+};
+
+function ratingTone(r: string | null): "good" | "bad" | "neutral" {
+  if (!r) return "neutral";
+  if (/buy|overweight|outperform|add|accumulate|positive/i.test(r)) return "good";
+  if (/sell|underweight|underperform|reduce|negative/i.test(r)) return "bad";
+  return "neutral";
+}
+
+const median = (xs: number[]) => {
+  const s = [...xs].sort((a, b) => a - b);
+  return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null;
+};
+
+/** Banks and brokers whose reports FINN can't read (Goldman Sachs, Morgan Stanley, JPMorgan,
+ * Nomura, Jefferies, Citi…): their calls as the financial press reported them, each kept only
+ * if code finds the house and the target in the article's own sentence. */
+export function BankCalls({ symbol }: { symbol: string }) {
+  const path = `/companies/${symbol}/brokerage/news`;
+  const { data, mutate } = useApi<BrokerNews>(path, {
+    refreshInterval: (d) => (d?.job?.status === "running" ? 4000 : 0),
+  });
+  const [open, setOpen] = useState<NewsCall | null>(null);
+  const [all, setAll] = useState(false);
+  if (!data) return null;
+  const running = data.job?.status === "running";
+  const rows = data.latest;
+  const targets = rows.map((c) => c.target).filter((t): t is number => t != null);
+  const shown = all ? rows : rows.slice(0, 8);
+  return (
+    <>
+      <SectionTitle aside="as reported in the press">What banks and brokers say</SectionTitle>
+      <Panel>
+        {rows.length === 0 ? (
+          <p className="flex items-center gap-1.5 p-4 text-[13px] text-ink-2">
+            {running ? (
+              <>
+                <Loader2 size={13} className="animate-spin" />
+                {data.job.stage === "reading" ? `Reading ${data.job.articles ?? ""} news articles…` : "Searching the financial press…"}
+              </>
+            ) : data.job?.status === "failed" ? (
+              `Couldn't search right now${data.job.why ? `: ${data.job.why}` : ""}.`
+            ) : (
+              "No bank or broker calls on this company in the press in the last six months."
+            )}
+          </p>
+        ) : (
+          <div>
+            <div className="p-4 pb-2">
+              <p className="text-[12px] text-ink-3">
+                {rows.length} houses · {targets.length} with a target
+                {targets.length > 1 && (
+                  <>
+                    {" "}
+                    · {rs(Math.min(...targets))} to {rs(Math.max(...targets))}, median {rs(median(targets))}
+                  </>
+                )}
+              </p>
+            </div>
+            <ul className="divide-y divide-line px-4">
+              {shown.map((c) => (
+                <li key={c.house_id}>
+                  <button onClick={() => setOpen(c)} className="flex w-full items-center gap-2 py-2.5 text-left">
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[14px] font-medium">{c.house}</span>
+                      <span className="block truncate text-[11px] text-ink-3">
+                        {c.date ? day(c.date) : ""} · {c.source}
+                        {c.action && c.action !== "other" ? ` · ${c.action}` : ""}
+                      </span>
+                    </span>
+                    {c.rating && <Pill tone={ratingTone(c.rating)}>{c.rating[0].toUpperCase() + c.rating.slice(1)}</Pill>}
+                    <span className="w-[76px] shrink-0 text-right text-[14px] tabular-nums">
+                      {rs(c.target)}
+                      {c.previous_target != null && c.target != null && (
+                        <span className={clsx("block text-[11px]", c.target >= c.previous_target ? "text-good" : "text-bad")}>
+                          from {rs(c.previous_target)}
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            {rows.length > 8 && (
+              <button onClick={() => setAll((v) => !v)} className="px-4 pb-2 text-[12px] font-medium text-accent">
+                {all ? "Show fewer" : `Show all ${rows.length}`}
+              </button>
+            )}
+            <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3 text-[11px] text-ink-3">
+              <span>Second-hand: read from news articles, not the reports, and kept apart from the report figures above.</span>
+              <button
+                disabled={running}
+                onClick={async () => {
+                  await api(`${path}/refresh`, { method: "POST" });
+                  mutate();
+                }}
+                className="inline-flex shrink-0 items-center gap-1 font-medium text-accent disabled:opacity-50"
+              >
+                {running && <Loader2 size={12} className="animate-spin" />} Check again
+              </button>
+            </div>
+          </div>
+        )}
+      </Panel>
+      <Sheet open={!!open} onClose={() => setOpen(null)} title={open ? `${open.house} on ${symbol}` : ""}>
+        {open && (
+          <div className="space-y-3 text-[13px] leading-snug">
+            <blockquote className="border-l-2 border-line pl-3 italic">“{open.quote}”</blockquote>
+            <p className="text-ink-3">
+              {open.read === "article" ? "From the article" : "From the headline (the article itself couldn't be opened)"}:{" "}
+              <a href={open.url} target="_blank" rel="noreferrer" className="text-accent">
+                {open.headline}
+              </a>{" "}
+              · {open.source} · {open.date ? day(open.date) : ""}
+            </p>
+            <p className="text-[11px] text-ink-3">AI found this call; code checked the house and the target are in that sentence.</p>
+          </div>
+        )}
+      </Sheet>
+    </>
+  );
+}
+
 /** The company-page section: fetches its four parts. */
 export function BrokerSection({ symbol }: { symbol: string }) {
   const base = `/companies/${symbol}/brokerage`;
@@ -798,6 +943,7 @@ export function BrokerSection({ symbol }: { symbol: string }) {
       <Panel>
         <BrokerBody ov={ov.data} rev={rev.data} div={div.data} track={track.data} symbol={symbol} refresh={refresh} />
       </Panel>
+      <BankCalls symbol={symbol} />
     </>
   );
 }
