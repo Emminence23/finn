@@ -1,5 +1,23 @@
 {
  "announcements": {
+  "106863558": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Allotment of 1412278  Shares"
+  },
+  "106863353": {
+   "category": "press_release",
+   "category_source": "llm",
+   "materiality": 5,
+   "summary": "HFS Research ranked TCS as a leader in agentic application management services."
+  },
+  "106863135": {
+   "category": "fund_raise",
+   "category_source": "rules",
+   "materiality": 90,
+   "summary": "Allotted 114,146,341 equity shares at Rs 1,025 per share aggregating to Rs 117,000 million via QIP."
+  },
   "106863079": {
    "category": "fund_raise",
    "category_source": "llm",
@@ -3305,108 +3323,6 @@
    "category_source": "rules",
    "materiality": 2,
    "summary": "SES ESG Research assigned Tata Steel an independent voluntary adjusted ESG score of 68.3 with Grade B."
-  },
-  "106783719": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106783690": {
-   "category": "capex",
-   "category_source": "rules",
-   "materiality": 40,
-   "summary": "Commenced commercial production of VAE at Dahej facility with an installed capacity of 1,50,000 tons per annum."
-  },
-  "106783625": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 0,
-   "summary": "Company executives participated in the Institutional Investors' Meeting at Jefferies India Forum 2026."
-  },
-  "106783624": {
-   "category": "postal_ballot",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Voting results"
-  },
-  "106783619": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Please note that the Company executives will be participating in the Institutional Investors' Meeting - CITIC CLSA Investors' Forum 2026, scheduled to be held on September 22 & 23, 2026 at Hong Kong. It is expected that the meeting with the investors will be on one-on-one basis"
-  },
-  "106783604": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Intimation of Schedule of Analyst / Institutional Investor Meeting under the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended"
-  },
-  "106783598": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Intimation of Schedule of Analyst / Institutional Investor Meeting under the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended"
-  },
-  "106783590": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Intimation of Schedule of Analyst / Institutional Investor Meeting under the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended"
-  },
-  "106783492": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Analyst(s)/Investor(s) meet"
-  },
-  "106783474": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Copy of Newspaper Publication"
-  },
-  "106783355": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 66896  Shares"
-  },
-  "106783066": {
-   "category": "credit_rating",
-   "category_source": "rules",
-   "materiality": 10,
-   "summary": "Assigned an independent ESG score of 63 under the Performer category by Niche99 ESG Ratings."
-  },
-  "106782978": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106782977": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106782919": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of Analysts / Institutional Investors Meeting"
-  },
-  "106782859": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 735050  Shares"
-  },
-  "106782823": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 0,
-   "summary": "Schedule of upcoming investor meets including Anand Rathi, CITIC CLSA, and Citi conferences."
   }
  },
  "results": {
