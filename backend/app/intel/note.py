@@ -363,14 +363,19 @@ def _day(book: dict, moves: list[str]) -> str | None:
         return None
     dt = datetime.fromisoformat(book["as_of"])
     g, gp = book["day_gain"], book["day_gain_pct"]
+    from app.clock import freshness
+
+    live = freshness().get("prices_live_at")  # the market is open: prices are trades, not a close
+    when = (
+        f"Your portfolio at {live[11:16]} today is"
+        if live and live[:10] == book["as_of"][:10]
+        else f"Your portfolio ended {dt.day} {dt:%b}, the last close,"
+    )
     if abs(gp) < 0.05:
-        head = f"Your portfolio ended {dt.day} {dt:%b}, the last close, about flat"
+        head = f"{when} about flat"
     else:
         word = "up" if g > 0 else "down"
-        head = (
-            f"Your portfolio ended {dt.day} {dt:%b}, the last close, {word} "
-            f"{abs(gp):.1f}% ({rupees(abs(g))}) at {rupees(book['value'])}"
-        )
+        head = f"{when} {word} {abs(gp):.1f}% ({rupees(abs(g))}) at {rupees(book['value'])}"
     big = sorted(
         (p for p in book["positions"] if abs(p["day_pct"]) >= 2),
         key=lambda p: -abs(p["day_pct"]),
