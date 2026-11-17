@@ -387,6 +387,10 @@ export type Digest = {
   counts: { filings: number; cards: number; routine: number; alerts: number };
   /** the note's opening paragraph, assembled in code */
   lead?: string;
+  /** the same, written by the free model from code's facts and checked by code */
+  lead_ai?: { text: string; by: "ai" };
+  /** the AI note is being written; ask again in a few seconds */
+  lead_ai_pending?: boolean;
   /** Important events at real positions from the two weeks before the window */
   carry?: CarryItem[];
   /** price moves at holdings with no filing to explain them */

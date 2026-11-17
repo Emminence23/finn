@@ -315,6 +315,9 @@ def annotate(d: dict) -> dict:
         "with no price reaction.",
     }
     d["lead"] = lead(d, book)
+    from app.intel import ai_note
+
+    ai_note.attach(d, [short(p["name"]) for p in pos.values()])
     return d
 
 

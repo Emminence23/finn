@@ -15,7 +15,7 @@ import { MeetingPrep } from "@/components/meetings";
 import { AlertSettings } from "@/components/AlertSettings";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ReachButtons, firstName } from "@/components/network";
-import { Avatar, ErrorNote, Panel, Segmented, Skeleton, SlowHint } from "@/components/ui";
+import { AiTag, Avatar, ErrorNote, Panel, Segmented, Skeleton, SlowHint } from "@/components/ui";
 import { useTitle } from "@/lib/title";
 
 type Win = "24h" | "3d" | "7d" | "14d" | "21d" | "30d" | "custom";
@@ -74,7 +74,9 @@ export default function Today() {
     win === "custom" && range
       ? `/digest?start=${range.from}T00:00:00&end=${range.to}T23:59:59`
       : `/digest?window=${win === "custom" ? "7d" : win}`;
-  const { data, error, isLoading, mutate } = useApi<Digest>(path);
+  const { data, error, isLoading, mutate } = useApi<Digest>(path, {
+    refreshInterval: (d) => (d?.lead_ai_pending ? 6000 : 0), // pick up the AI note once written
+  });
   const now = data?.window.end ?? new Date().toISOString();
   useEffect(() => {
     if (data?.window.name) setLastEnd((e) => e ?? data.window.end);
@@ -106,7 +108,7 @@ export default function Today() {
       <header className="px-4 pt-3" data-tour="lead">
         <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.02em]">{hello.greeting}</h1>
         {data && !isLoading ? (
-          <Summary lead={data.lead ?? ""} />
+          <Summary lead={data.lead_ai?.text ?? data.lead ?? ""} ai={!!data.lead_ai} />
         ) : (
           <div className="mt-3 space-y-2" aria-label="Reading your portfolio's filings">
             <Skeleton className="h-5 w-11/12" />
@@ -154,7 +156,7 @@ function greeting(): string {
 const SUMMARY_KEY = "finn.summary.open";
 
 /** The day's summary, folded by default: a tap away, never in the way. */
-function Summary({ lead }: { lead: string }) {
+function Summary({ lead, ai }: { lead: string; ai: boolean }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     try {
@@ -181,6 +183,7 @@ function Summary({ lead }: { lead: string }) {
       </button>
       {open && (
         <div className="mt-2 space-y-2.5">
+          {ai && <AiTag from="written from FINN's ranking; every figure checked by code" />}
           {paras.map((para, i) => (
             <p key={i} className={i === 0 ? "text-[18px] leading-[1.45] tracking-[-0.01em] text-ink" : "text-[16px] leading-[1.5] text-ink"}>
               {para}
