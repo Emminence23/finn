@@ -44,13 +44,9 @@ def portfolio_suggested() -> dict:
 @router.post("/portfolio/suggested/review")
 def portfolio_review() -> dict:
     """Ask the model to review the suggestion (uses quota; stored by input hash)."""
-    from app.llm.base import LLMError
     from app.portfolio import review
 
-    try:
-        return review.get_review(run=True)
-    except LLMError as e:
-        raise HTTPException(503, f"AI review unavailable: {e}") from e
+    return review.get_review(run=True)  # AI quota or errors: app/errors.py says which
 
 
 @router.get("/portfolio/settings")
@@ -731,10 +727,7 @@ def research_ask(symbol: str, body: Question) -> dict:
     today = datetime.now(UTC).date().isoformat()
     if not QUESTIONS.take(get_settings().max_questions_per_day, today):
         raise HTTPException(429, "Today's questions are used up on this demo.")
-    try:
-        return qa.answer(view, body.question)
-    except Exception as e:  # LLM quota or provider error: say so instead of a 500
-        raise HTTPException(503, f"FINN couldn't answer right now ({type(e).__name__})") from e
+    return qa.answer(view, body.question)  # AI quota or errors: app/errors.py says which
 
 
 # ------------------------------------------------------------------ Signal-to-Network (Task C)
@@ -871,12 +864,13 @@ def _grounded_answer(view: dict, message: str) -> dict:
         }
     try:
         answer = qa.answer(view, message)
-    except Exception as e:  # LLM quota or provider error: the code-built outputs still work
+    except Exception as e:  # noqa: BLE001 - the code-built outputs still work: say why
+        from app.errors import describe
+
         return {
             "kind": "reply",
             **pull.reply(view, "overview"),
-            "notice": f"FINN couldn't answer that right now ({type(e).__name__}). "
-            "The outputs below are built in code and still work.",
+            "notice": f"{describe(e)} The outputs below are built in code and still work.",
         }
     out = pull.reply(view, "overview")
     out.update(intent="qa", title="Answer", blocks=[{"type": "answer", **answer}])

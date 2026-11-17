@@ -66,10 +66,7 @@ def divergence(symbol: str) -> dict:
 @router.post("/companies/{symbol}/brokerage/divergence/explain")
 def explain_now(symbol: str) -> dict:
     """Runs the AI explanation once for the current evidence (stored after)."""
-    try:
-        return explain.get(symbol, run=True)
-    except Exception as e:
-        raise HTTPException(503, "The AI is busy; try again in a minute.") from e
+    return explain.get(symbol, run=True)  # AI quota or errors: app/errors.py says which
 
 
 @router.get("/companies/{symbol}/brokerage/track-record")

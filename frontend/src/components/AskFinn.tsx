@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowUp, CircleSlash, Loader2 } from "lucide-react";
-import { ApiError, api, type DocRef, type QaAnswer } from "@/lib/api";
+import { api, type DocRef, type QaAnswer } from "@/lib/api";
 import { CiteChips, READ_RULE, cleanClaim } from "./research";
+import { explainLine } from "@/lib/errors";
 import { AiTag, Panel } from "./ui";
 
 /** Ask FINN about one company. Answers come only from the documents and numbers FINN has
@@ -53,11 +54,7 @@ export function AskFinn({
       });
       setThread((t) => [a, ...t]);
     } catch (e) {
-      setError(
-        e instanceof ApiError && e.status === 429
-          ? "Today's questions are used up on this demo. The research below is still all there."
-          : "FINN couldn't answer just now (the AI provider may be busy). Try again in a minute.",
-      );
+      setError(explainLine(e));
       setQ(text);
     } finally {
       setBusy(null);

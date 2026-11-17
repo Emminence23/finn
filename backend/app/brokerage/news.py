@@ -121,6 +121,19 @@ def short_name(symbol: str) -> str:
     return " ".join(words[:2]) or symbol
 
 
+def search_names(symbol: str) -> list[str]:
+    """What the press calls the company: the everyday short name first when there is one
+    ("LIC", not "Life Insurance"), then the trimmed company name."""
+    from app.research.qa import COMMON_NAMES
+
+    common = COMMON_NAMES.get(symbol, [])
+    out = [c.upper() if len(c) <= 4 else c.title() for c in common[:2]]
+    sn = short_name(symbol)
+    if not common:
+        out.append(sn)
+    return list(dict.fromkeys(out))
+
+
 def houses_in(text: str) -> list[str]:
     return [h for h, rx in _RX.items() if rx.search(text)]
 
@@ -158,14 +171,19 @@ def _rss_items(xml: str) -> list[dict]:
     return out
 
 
-def search(name: str, symbol: str) -> list[dict]:
+# a short name that is also the start of another company's name: skip those headlines
+NOT_THIS = {"LICI": [r"LIC Housing"], "SBIN": [r"SBI Life", r"SBI Card", r"SBI Cards"]}
+
+
+def search(name: str, symbol: str, names: list[str] | None = None) -> list[dict]:
     """Candidate articles from news feeds, newest first, de-duplicated by headline."""
     f = get_fetcher()
     found: dict[str, dict] = {}
     cutoff = (datetime.now() - timedelta(days=180)).date().isoformat()
     for group in QUERY_GROUPS:
         ors = " OR ".join(f'"{h}"' for h in group)
-        q = f'"{name}" ({ors}) target'
+        who = " OR ".join(f'"{n}"' for n in (names or [name]))
+        q = f"({who}) ({ors}) target"
         for url in (
             f"https://www.bing.com/news/search?q={quote_plus(q)}&format=rss&count=30&setmkt=en-IN",
             f"https://news.google.com/rss/search?q={quote_plus(q + ' when:180d')}"
@@ -178,8 +196,10 @@ def search(name: str, symbol: str) -> list[dict]:
                 continue
             for it in items:
                 text = f"{it['title']} {it['snippet']}"
-                first = name.split()[0]
-                if not re.search(rf"\b{re.escape(first)}\b|\b{re.escape(symbol)}\b", text, re.I):
+                pats = [re.escape(n) for n in (names or [name.split()[0]])] + [re.escape(symbol)]
+                if not re.search(rf"\b(?:{'|'.join(pats)})\b", text, re.I):
+                    continue
+                if any(re.search(p, text, re.I) for p in NOT_THIS.get(symbol, [])):
                     continue
                 if re.search(r"\$|\.US\b|America|NYSE|Nasdaq", text):  # a namesake abroad
                     continue
@@ -487,7 +507,7 @@ def _run(symbol: str) -> None:
     try:
         name = short_name(symbol)
         _set(symbol, stage="searching")
-        arts = search(name, symbol)
+        arts = search(name, symbol, search_names(symbol))
         _set(symbol, stage="reading", articles=len(arts))
         # articles FINN can open first (full text), then headline-only ones (no fetch)
         direct = [a for a in arts if "news.google.com" not in a["url"]]

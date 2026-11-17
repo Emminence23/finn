@@ -25,24 +25,63 @@ class GeminiProvider:
     # Busy/overloaded models (503/504) and per-minute quota (429) are transient on the free tier.
     RETRYABLE = (429, 500, 503, 504)
 
-    def __init__(self, api_key: str, timeout_s: int = 120) -> None:
+    def __init__(self, api_key: str, timeout_s: int = 120, fallback_keys: list[str] = ()) -> None:
+        import threading
+
         from google import genai
         from google.genai import types
 
         self._genai = genai
         # Without a timeout an overloaded model can hang a request indefinitely.
-        self.client = genai.Client(
-            api_key=api_key, http_options=types.HttpOptions(timeout=timeout_s * 1000)
-        )
+        keys = [k for k in [api_key, *fallback_keys] if k]
+        self.clients = [
+            genai.Client(api_key=k, http_options=types.HttpOptions(timeout=timeout_s * 1000))
+            for k in dict.fromkeys(keys)
+        ]
+        self.client = self.clients[0]
+        # (key index, model) -> when its daily quota ran out; re-probed after an hour
+        self._spent: dict[tuple[int, str], float] = {}
+        self._lock = threading.Lock()
 
     def complete(self, req: LLMRequest) -> LLMResponse:
+        """Each key in turn: a key whose daily quota for this model is spent hands over to
+        the next (the fallback key's own Google project). Only when every key is spent does
+        the router move to another model."""
+        import time
+
+        spent_now = []
+        for i, client in enumerate(self.clients):
+            with self._lock:
+                if time.time() - self._spent.get((i, req.model), 0) < 3600:
+                    continue
+            try:
+                return self._complete_with(client, req)
+            except QuotaExhausted:
+                with self._lock:
+                    self._spent[(i, req.model)] = time.time()
+                spent_now.append("primary" if i == 0 else f"fallback {i}")
+                import logging
+
+                logging.getLogger(__name__).warning(
+                    "gemini %s: daily quota spent on the %s key%s",
+                    req.model,
+                    spent_now[-1],
+                    ", trying the next key" if i + 1 < len(self.clients) else "",
+                )
+        n = len(self.clients)
+        raise QuotaExhausted(
+            f"gemini {req.model}: daily free quota spent on "
+            + ("the only key" if n == 1 else f"all {n} keys")
+        )
+
+    def _complete_with(self, client, req: LLMRequest) -> LLMResponse:
         import time
 
         from google.genai import errors
 
         for attempt in range(4):
             try:
-                return self._complete_once(req)
+                return self._complete_once(req, client)
             except errors.APIError as e:
                 if getattr(e, "code", None) == 429 and "PerDay" in str(e):
                     raise QuotaExhausted(f"gemini {req.model}: daily quota exhausted") from e
@@ -51,7 +90,7 @@ class GeminiProvider:
                 time.sleep(2 ** (attempt + 1))  # 2s, 4s, 8s
         raise LLMError("unreachable")
 
-    def _complete_once(self, req: LLMRequest) -> LLMResponse:
+    def _complete_once(self, req: LLMRequest, client=None) -> LLMResponse:
         from google.genai import types
 
         parts: list = []
@@ -73,7 +112,9 @@ class GeminiProvider:
                 else {}
             ),
         )
-        resp = self.client.models.generate_content(model=req.model, contents=parts, config=config)
+        resp = (client or self.client).models.generate_content(
+            model=req.model, contents=parts, config=config
+        )
         if not resp.text:
             raise LLMError(f"gemini returned no text (finish={_gemini_finish(resp)})")
         usage = resp.usage_metadata
@@ -183,7 +224,7 @@ def build_provider(name: str, s: Settings) -> Provider:
     match name:
         case "gemini":
             _require(s.gemini_api_key, "GEMINI_API_KEY")
-            return GeminiProvider(s.gemini_api_key)
+            return GeminiProvider(s.gemini_api_key, fallback_keys=[s.gemini_api_key_fallback])
         case "groq":
             _require(s.groq_api_key, "GROQ_API_KEY")
             return OpenAICompatProvider("groq", "https://api.groq.com/openai/v1", s.groq_api_key)

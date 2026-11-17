@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUp, Building2, ChevronRight, RotateCcw, User, Users, X } from "lucide-react";
-import { ApiError, api, stream, type Contact, type ResearchSummary, useApi } from "@/lib/api";
+import { api, stream, type Contact, type ResearchSummary, useApi } from "@/lib/api";
 import { shortName } from "@/lib/fmt";
 import { Blocks, type PullReply } from "@/components/pull";
 import { ProgressRing, useElapsed } from "@/components/ProgressRing";
 import { Header } from "@/components/ui";
 import { SavedNote } from "@/components/saved";
 import { useTitle } from "@/lib/title";
+import { explain } from "@/lib/errors";
 
 /** Pull (FR-PULL-13): ask about a company in plain words and FINN answers in the thread, from
  *  the company's annual report, last four earnings calls and reported numbers. Code decides
@@ -20,7 +21,7 @@ type Msg =
   | { id: string; role: "user"; text: string }
   | { id: string; role: "finn"; asked: string; reply: PullReply }
   | { id: string; role: "finn"; asked: string; people: Contact[]; themes: string[] }
-  | { id: string; role: "finn"; asked: string; error: string };
+  | { id: string; role: "finn"; asked: string; error: string; detail?: string; retry?: boolean; code?: string };
 
 const KEY = "finn.pull";
 const STARTERS = [
@@ -126,7 +127,11 @@ export default function Ask() {
       setBusy({ text: t, open: !opts.intent && /^\s*(why|how|explain|what caused|what drove)/i.test(t) });
       requestAnimationFrame(() => end.current?.scrollIntoView({ block: "end" }));
       try {
-        const reply = await api<PullReply>("/pull/chat", { method: "POST", body: JSON.stringify({ message: t, symbol: ctx, intent: opts.intent }) });
+        const reply = await api<PullReply>("/pull/chat", {
+          method: "POST",
+          body: JSON.stringify({ message: t, symbol: ctx, intent: opts.intent }),
+          signal: AbortSignal.timeout(150_000), // longer than any answer FINN builds
+        });
         if (reply.kind === "pick") {
           const { ps, ts } = network(t);
           if (ps.length || ts.length) {
@@ -137,8 +142,8 @@ export default function Ask() {
         if (reply.kind === "reply" && reply.symbol) setSymbol(reply.symbol);
         setMsgs((m) => [...m, { id: uid(), role: "finn", asked: t, reply }]);
       } catch (e) {
-        const msg = e instanceof ApiError && e.status === 401 ? "Enter the passcode first." : "FINN couldn't reach the server. Try again in a moment.";
-        setMsgs((m) => [...m, { id: uid(), role: "finn", asked: t, error: msg }]);
+        const x = explain(e);
+        setMsgs((m) => [...m, { id: uid(), role: "finn", asked: t, error: x.title, detail: x.detail, retry: x.retry, code: x.code }]);
       } finally {
         setBusy(null);
         requestAnimationFrame(() => lastReply.current?.scrollIntoView({ block: "start", behavior: "smooth" }));
@@ -337,7 +342,18 @@ function FinnMessage({
   const docs = useMemo(() => new Map(("reply" in m && m.reply.kind === "reply" ? m.reply.documents : []).map((d) => [d.id, d])), [m]);
   const card = "rounded-2xl border border-line bg-surface p-4";
 
-  if ("error" in m) return <p className={`${card} text-[13px] text-ink-2`}>{m.error}</p>;
+  if ("error" in m)
+    return (
+      <div className={card} role="alert" data-error-code={m.code}>
+        <p className="text-[14px] font-medium leading-snug">{m.error}</p>
+        {m.detail && <p className="mt-1 text-[12px] leading-snug text-ink-3">{m.detail}</p>}
+        {m.retry && latest && (
+          <button onClick={() => send(m.asked)} className="mt-2 text-[13px] font-medium text-accent">
+            Try again
+          </button>
+        )}
+      </div>
+    );
 
   if ("people" in m)
     return (

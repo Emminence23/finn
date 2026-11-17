@@ -12,6 +12,8 @@ services:
         value: gemini
       - key: GEMINI_API_KEY
         sync: false
+      - key: GEMINI_API_KEY_FALLBACK # a second Google project's key, used after the first's free quota
+        sync: false
       - key: GROQ_API_KEY
         sync: false
       - key: ANTHROPIC_API_KEY

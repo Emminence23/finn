@@ -274,13 +274,52 @@ def _aliases() -> dict[str, list[str]]:
     from app.ingest.universe import fixtures_dir
 
     path = fixtures_dir() / "companies_meta.json"
-    if not path.exists():
-        return {}
-    meta = json.loads(path.read_text())["companies"]
-    return {
+    meta = json.loads(path.read_text())["companies"] if path.exists() else {}
+    out = {
         sym: [a.lower() for a in m.get("aliases", []) if len(a) >= 3 or "&" in a]
         for sym, m in meta.items()
     }
+    for sym, names in COMMON_NAMES.items():  # what people call the large caps
+        out.setdefault(sym, [])
+        out[sym] += [n for n in names if n not in out[sym]]
+    return out
+
+
+# Short names people use for large caps that the company name alone doesn't give. Without
+# these, "LIC" reads as LIC Housing Finance (the only listed name starting with "LIC").
+COMMON_NAMES: dict[str, list[str]] = {
+    "LICI": ["lic", "life insurance corporation", "lic of india"],
+    "SBIN": ["sbi", "state bank"],
+    "HINDUNILVR": ["hul", "hindustan unilever"],
+    "RELIANCE": ["ril", "reliance"],
+    "BHARTIARTL": ["airtel", "bharti airtel"],
+    "INFY": ["infy", "infosys"],
+    "KOTAKBANK": ["kotak bank", "kotak mahindra bank"],
+    "MARUTI": ["maruti", "maruti suzuki"],
+    "SUNPHARMA": ["sun pharma"],
+    "ONGC": ["ongc"],
+    "NTPC": ["ntpc"],
+    "BPCL": ["bpcl"],
+    "IOC": ["ioc", "indian oil"],
+    "HDFCLIFE": ["hdfc life"],
+    "SBILIFE": ["sbi life"],
+    "ICICIPRULI": ["icici pru", "icici prudential life"],
+    "BAJAJFINSV": ["bajaj finserv"],
+    "BAJAJ-AUTO": ["bajaj auto"],
+    "ULTRACEMCO": ["ultratech"],
+    "ADANIENT": ["adani enterprises", "adani ent"],
+    "ADANIPORTS": ["adani ports"],
+    "TATAMOTORS": ["tata motors"],
+    "HCLTECH": ["hcl tech", "hcl"],
+    "TECHM": ["tech mahindra"],
+    "WIPRO": ["wipro"],
+    "COALINDIA": ["coal india"],
+    "POWERGRID": ["power grid"],
+    "DMART": ["dmart", "avenue supermarts"],
+    "IRCTC": ["irctc"],
+    "HAL": ["hal", "hindustan aeronautics"],
+    "BEL": ["bel", "bharat electronics"],
+}
 
 
 def _core(name: str) -> list[str]:
@@ -339,6 +378,11 @@ def resolve_company(question: str, rows: list[dict], ready: set[str]) -> str | N
             )
         ):
             score = max(score, 3)
+        if any(  # curated short names ("LIC", "SBI", "HUL") name any company
+            re.search(rf"(?<![a-z0-9]){re.escape(a)}(?![a-z0-9&])", question.lower())
+            for a in COMMON_NAMES.get(sym, [])
+        ):
+            score, length = max(score, 3), max(length, 1)
         if not score and len(first) >= 4:
             if followed and first in lower:
                 score = 2

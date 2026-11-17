@@ -55,6 +55,15 @@ class QuotaExhausted(LLMError):
     Retrying the same model is pointless; the router moves to the next fallback model."""
 
 
+class AllModelsExhausted(QuotaExhausted):
+    """Every model the task may use (primary and fallbacks) is out of quota: the request
+    can't be answered by AI until the free tier resets."""
+
+    def __init__(self, task: str, models: list[str]) -> None:
+        self.task, self.models = task, models
+        super().__init__(f"task {task}: every model is out of free quota ({', '.join(models)})")
+
+
 class Provider(Protocol):
     name: str
     supports_pdf: bool

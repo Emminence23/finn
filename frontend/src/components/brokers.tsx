@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Check, ChevronDown, FileText, Loader2, Upload } from "lucide-react";
 import { api, getAccount, useApi } from "@/lib/api";
 import { day, pct, price } from "@/lib/fmt";
+import { explainLine } from "@/lib/errors";
 import { AiTag, Panel, Pill, SectionTitle, Segmented, Sheet } from "./ui";
 
 // ------------------------------------------------------------------ types (backend app/brokerage/service.py)
@@ -500,7 +501,7 @@ function UploadSheet({ symbol, open, close, done }: { symbol: string; open: bool
       }
       setState("Still reading; check back in a minute.");
     } catch (e) {
-      setState(e instanceof Error ? e.message.replace(/^\{"detail":"|"\}$/g, "") : "Couldn't add it.");
+      setState(explainLine(e));
     }
   }
   return (
@@ -590,7 +591,7 @@ export function FindReports({ symbol, done }: { symbol: string; done: () => void
       setState(s);
       await follow();
     } catch (e) {
-      setErr(e instanceof Error ? e.message.replace(/^\{"detail":"|"\}$/g, "") : "Couldn't start.");
+      setErr(explainLine(e));
     }
   }
   return (

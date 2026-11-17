@@ -35,6 +35,9 @@ class Settings:
     # LLM_PROVIDER overrides the yaml default_provider
     llm_provider: str = field(default_factory=lambda: _env("LLM_PROVIDER"))
     gemini_api_key: str = field(default_factory=lambda: _env("GEMINI_API_KEY"))
+    # A second key from a different Google project: used when the first key's free daily
+    # quota for a model is spent (quota is counted per project, not per key).
+    gemini_api_key_fallback: str = field(default_factory=lambda: _env("GEMINI_API_KEY_FALLBACK"))
     groq_api_key: str = field(default_factory=lambda: _env("GROQ_API_KEY"))
     openrouter_api_key: str = field(default_factory=lambda: _env("OPENROUTER_API_KEY"))
     anthropic_api_key: str = field(default_factory=lambda: _env("ANTHROPIC_API_KEY"))

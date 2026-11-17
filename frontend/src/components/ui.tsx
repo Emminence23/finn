@@ -5,6 +5,7 @@ import { ProgressRing } from "./ProgressRing";
 import { useEffect, useRef } from "react";
 import { Sparkles, X } from "lucide-react";
 import { initials, modelName } from "@/lib/fmt";
+import { explain } from "@/lib/errors";
 import { useSlow } from "@/lib/slow";
 
 export function Header({
@@ -148,18 +149,13 @@ export function ErrorNote({
   error: unknown;
   retry?: () => void;
 }) {
-  const msg = error instanceof Error ? error.message : String(error);
+  const x = explain(error);
   return (
     <Panel className="p-4 text-[14px]">
-      <p className="font-medium">Couldn&apos;t reach FINN&apos;s API.</p>
-      <p className="mt-1 break-words text-[12px] text-ink-3">
-        {msg.slice(0, 160)}
-      </p>
-      {retry && (
-        <button
-          onClick={retry}
-          className="mt-3 text-[13px] font-medium text-accent"
-        >
+      <p className="font-medium leading-snug">{x.title}</p>
+      {x.detail && <p className="mt-1 break-words text-[12px] leading-snug text-ink-3">{x.detail}</p>}
+      {retry && x.retry && (
+        <button onClick={retry} className="mt-3 text-[13px] font-medium text-accent">
           Try again
         </button>
       )}

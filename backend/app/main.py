@@ -51,6 +51,9 @@ async def select_account(x_finn_user: str | None = Header(default=None)) -> None
 
 
 app = FastAPI(title="FINN API", version="0.1.0", lifespan=lifespan)
+from app import errors  # noqa: E402
+
+errors.install(app)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=list(get_settings().allowed_origins),

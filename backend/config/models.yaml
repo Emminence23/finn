@@ -14,7 +14,7 @@ tasks:
   answer_question:     {tier: mid}     # Ask FINN: grounded Q&A over one company
   plan_question:       {tier: fast}    # Ask: picks a report and tickers when code's rules can't (no data sent)
   portfolio_review:    {tier: mid}     # nudges code's suggested weights from filings, ±2 pts
-  extract_brokerage:   {tier: mid}     # brokerage report -> observation; code verifies every quote
+  extract_brokerage:   {tier: fast}    # brokerage report -> observation; code verifies every quote
   explain_divergence:  {tier: mid}     # why brokerages disagree, numbers checked in code
   extract_broker_news: {tier: fast}    # bank calls as reported in the press; code checks each quote
   summarise_broker_views: {tier: fast} # 3-4 sentences from code facts; code checks every figure
@@ -40,6 +40,6 @@ pricing:
 # Every fallback must support schema-constrained JSON (Gemma on the Gemini API does not).
 fallbacks:
   gemini:
-    fast:   [gemini-3.1-flash-lite, gemini-2.5-flash-lite]
-    mid:    [gemini-4-hydrogen, gemini-3.1-flash-lite]
+    fast:   [gemini-3.1-flash-lite]
+    mid:    [gemini-3.1-flash-lite, gemini-4-hydrogen]  # quick first; hydrogen takes ~2 min
     strong: [gemini-3.5-flash, gemini-3.1-flash-lite]

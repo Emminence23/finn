@@ -22,7 +22,14 @@ from pydantic import BaseModel, ValidationError
 
 from app.config import Settings, get_settings
 from app.db import session
-from app.llm.base import Doc, LLMError, LLMRequest, Provider, QuotaExhausted
+from app.llm.base import (
+    AllModelsExhausted,
+    Doc,
+    LLMError,
+    LLMRequest,
+    Provider,
+    QuotaExhausted,
+)
 from app.llm.providers import build_provider
 
 log = logging.getLogger(__name__)
@@ -181,11 +188,7 @@ class LLMRouter:
                 last_err = e
         if last_err is not None and quota_err is None:
             raise last_err
-        tried = ", ".join(r.model for r in routes)
-        raise LLMError(
-            f"task {task}: every configured model is out of quota ({tried})"
-            + (f": {quota_err}" if quota_err else "")
-        )
+        raise AllModelsExhausted(task, [r.model for r in routes])
 
     def _call(self, r: Route, system, prompt, schema, docs, prompt_version, max_tokens, use_cache):
         task = r.task

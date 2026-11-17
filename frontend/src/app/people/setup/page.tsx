@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useSWRConfig } from "swr";
 import { ArrowLeft, Lock, Plus, Upload, X } from "lucide-react";
 import { api, getSandbox, setAccount, setSandbox } from "@/lib/api";
+import { explainLine } from "@/lib/errors";
 import { Panel, SectionTitle } from "@/components/ui";
 
 type Row = { name: string; title: string; from: string; to: string };
@@ -63,7 +64,7 @@ export default function SetupPage() {
       setMsg(await what());
       await refresh();
     } catch (e) {
-      setMsg(e instanceof Error ? e.message.replace(/^\{"detail":"(.*)"\}$/, "$1") : "Something went wrong");
+      setMsg(explainLine(e));
     } finally {
       setBusy(false);
     }
