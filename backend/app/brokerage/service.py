@@ -44,6 +44,9 @@ def usable_target(o: dict) -> bool:
 
 
 def _prices(symbol: str) -> list[tuple[str, float]]:
+    from app.ingest.prices import ensure
+
+    ensure(symbol)  # a company outside the universe gets its prices on first need
     with session() as db:
         return [
             (r["date"], r["close"])

@@ -73,13 +73,16 @@ def describe(e: Exception) -> str:
     return f"Something broke inside FINN ({type(e).__name__}, reference {request_id.get()})."
 
 
-def body(status: int, code: str, message: str, detail: str | None = None) -> JSONResponse:
+def body(
+    status: int, code: str, message: str, detail: str | None = None, raw: object = None
+) -> JSONResponse:
+    """`raw` keeps a route's own structured detail (e.g. {"status": "not_listed"}) as is."""
     rid = request_id.get()
     return JSONResponse(
         status_code=status,
         content={
             "error": {"code": code, "message": message, "detail": detail, "request_id": rid},
-            "detail": message,
+            "detail": message if raw is None else raw,
         },
         headers={"X-Request-Id": rid},
     )
@@ -149,6 +152,9 @@ def install(app: FastAPI) -> None:
         code = {401: "unauthorized", 429: "daily_budget", 404: "not_found"}.get(
             e.status_code, "bad_request" if e.status_code < 500 else "internal"
         )
+        if isinstance(e.detail, dict):
+            msg = str(e.detail.get("message") or e.detail.get("status") or "Not found.")
+            return body(e.status_code, code, msg, raw=e.detail)
         return body(e.status_code, code, str(e.detail))
 
     @app.exception_handler(RequestValidationError)

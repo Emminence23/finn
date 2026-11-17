@@ -3,10 +3,54 @@
 from __future__ import annotations
 
 import logging
+import os
+import threading
+import time
 
 import pandas as pd
 
 log = logging.getLogger(__name__)
+
+# Companies outside FINN's universe get prices on first need (a brokerage view on LIC needs
+# its close); the live refresh then keeps them current with the rest.
+_extra: set[str] = set()
+_missed: dict[str, float] = {}  # symbol -> when Yahoo had nothing, so we don't ask every call
+_lock = threading.Lock()
+MISS_WAIT_S = 6 * 3600
+
+
+def extra_symbols() -> list[str]:
+    with _lock:
+        return sorted(_extra)
+
+
+def ensure(symbol: str) -> bool:
+    """True when the database holds prices for `symbol`; fetches a year of them if not."""
+    from app.db import session
+
+    symbol = symbol.upper()
+    with session() as db:
+        if db.execute("SELECT 1 FROM prices WHERE symbol=? LIMIT 1", (symbol,)).fetchone():
+            return True
+    if os.environ.get("FINN_WEB_SEARCH", "1") == "0":  # tests: no outside calls
+        return False
+    with _lock:
+        if time.time() - _missed.get(symbol, 0) < MISS_WAIT_S:
+            return False
+    try:
+        df = fetch_prices([symbol], period="1y")
+    except Exception as e:  # noqa: BLE001 - no price is shown as no price
+        log.warning("prices for %s: %s", symbol, e)
+        with _lock:
+            _missed[symbol] = time.time()
+        return False
+    rows = df[["symbol", "date", "open", "high", "low", "close", "volume"]].values.tolist()
+    with session() as db:
+        db.executemany("INSERT OR REPLACE INTO prices VALUES (?,?,?,?,?,?,?)", rows)
+    with _lock:
+        _extra.add(symbol)
+    log.info("prices for %s fetched on demand: %d days", symbol, len(rows))
+    return True
 
 
 def fetch_prices(symbols: list[str], period: str = "6mo") -> pd.DataFrame:

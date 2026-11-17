@@ -409,4 +409,6 @@ def test_ask_routes_broker_questions_to_the_brokerage_view(seeded):
     assert b["type"] == "brokers" and b["overview"]["reports"] == 12 and b["track"]
     with _client() as c:
         none = c.post("/pull/chat", json={"message": "TCS broker views"}, headers=DEMO).json()
-    assert none["blocks"][0]["overview"]["reports"] == 0  # says so, never invents
+    said = " ".join(b.get("text", "") for b in none["blocks"])
+    assert "No bank or broker calls" in said and "holds no brokerage reports" in said
+    assert not any(b["type"] in ("brokers", "table") for b in none["blocks"])  # never invents

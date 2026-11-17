@@ -23,6 +23,7 @@ from __future__ import annotations
 import html
 import json
 import logging
+import os
 import re
 import threading
 from datetime import datetime, timedelta
@@ -357,6 +358,9 @@ def latest_by_house(calls: list[dict]) -> list[dict]:
 
 # -- the summary -------------------------------------------------------------------------
 def _close(symbol: str) -> float | None:
+    from app.ingest.prices import ensure
+
+    ensure(symbol)
     with session() as db:
         r = db.execute(
             "SELECT close FROM prices WHERE symbol=? ORDER BY date DESC LIMIT 1", (symbol,)
@@ -567,6 +571,10 @@ def get(symbol: str, start: bool = True) -> dict:
 
 def refresh(symbol: str) -> dict:
     symbol = symbol.upper()
+    if os.environ.get("FINN_WEB_SEARCH", "1") == "0":  # tests: no outside calls
+        with _lock:
+            _jobs[symbol] = {"status": "done", "stage": "done", "why": "web search is off"}
+            return dict(_jobs[symbol])
     today = datetime.now().date().isoformat()
     with _lock:
         if _jobs.get(symbol, {}).get("status") == "running":

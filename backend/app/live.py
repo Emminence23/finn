@@ -161,10 +161,10 @@ def _fetch_filings() -> list[dict]:
 def _fetch_prices() -> tuple[list[list], list[list]]:
     import yfinance as yf
 
-    from app.ingest.prices import fetch_prices
+    from app.ingest.prices import extra_symbols, fetch_prices
     from app.ingest.universe import all_symbols
 
-    df = fetch_prices(all_symbols(), period="5d")
+    df = fetch_prices(sorted(set(all_symbols()) | set(extra_symbols())), period="5d")
     prices = df[["symbol", "date", "open", "high", "low", "close", "volume"]].values.tolist()
     n = yf.download("^NSEI", period="5d", interval="1d", auto_adjust=True, progress=False)
     closes = n["Close"].iloc[:, 0] if n["Close"].ndim > 1 else n["Close"]

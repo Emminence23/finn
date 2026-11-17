@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import os
 import re
 import threading
 from datetime import date, datetime, timedelta
@@ -264,6 +265,8 @@ def _search(symbol: str) -> None:
 def search(symbol: str) -> dict:
     """Start looking for this company's public brokerage reports in the background."""
     symbol = symbol.upper()
+    if os.environ.get("FINN_WEB_SEARCH", "1") == "0":  # tests: no outside calls
+        return {"status": "done", "found": 0, "why": "web search is off"}
     if status(symbol).get("status") == "running":
         return status(symbol)
     with _lock:
