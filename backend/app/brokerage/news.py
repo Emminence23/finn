@@ -142,9 +142,14 @@ def _rss_items(xml: str) -> list[dict]:
             when = parsedate_to_datetime(g("pubDate")).date().isoformat()
         except (TypeError, ValueError):
             when = None
+        title = re.sub(r"<[^>]+>", "", g("title"))
+        publisher = None
+        if "news.google.com" in link and " - " in title:  # Google ends titles with " - Publisher"
+            title, publisher = title.rsplit(" - ", 1)
         out.append(
             {
-                "title": re.sub(r"<[^>]+>", "", g("title")),
+                "title": title,
+                "publisher": publisher,
                 "snippet": re.sub(r"<[^>]+>", "", g("description"))[:400],
                 "url": link,
                 "date": when,
@@ -314,7 +319,7 @@ def extract(symbol: str, name: str, arts: list[dict]) -> list[dict]:
                 "date": a["date"],
                 "headline": a["title"],
                 "url": a["url"],
-                "source": urlparse(a["url"]).netloc.removeprefix("www."),
+                "source": a.get("publisher") or urlparse(a["url"]).netloc.removeprefix("www."),
                 "read": "article" if a.get("text") else "headline",
             }
         )

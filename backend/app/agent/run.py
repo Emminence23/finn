@@ -27,7 +27,7 @@ _run_lock = threading.Lock()
 
 def saved_key(kind: str, tickers: list[str]) -> str | None:
     """Where a report is saved for a week. The portfolio isn't: it changes with the holdings."""
-    if kind == "portfolio" or not tickers:
+    if kind in ("portfolio", "brokers") or not tickers:  # brokers: the press view moves daily
         return None
     kind = "compare" if len(tickers) > 1 else kind
     return f"report:{kind}:{'-'.join(t.upper() for t in tickers)}"

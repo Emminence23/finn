@@ -34,6 +34,7 @@ Kind = Literal[
     "full",
     "compare",
     "portfolio",
+    "brokers",
 ]
 
 # First match wins; the order puts the specific before the general.
@@ -41,6 +42,12 @@ _RULES: list[tuple[str, str]] = [
     (
         "portfolio",
         r"\bmy (portfolio|holdings|stocks|positions)\b|\bportfolio\b|which of my|across my",
+    ),
+    (
+        "brokers",
+        r"broker|analyst|target price|price target|\btp\b|\bratings?\b|street (view|expect)|"
+        r"goldman|morgan stanley|j\.?p\.? ?morgan|nomura|jefferies|\bciti\b|nuvama|motilal|"
+        r"axis (securities|capital)|clsa|hsbc|bernstein|\bubs\b|macquarie|kotak inst|investment bank",
     ),
     (
         "verdict",

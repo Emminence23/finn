@@ -27,8 +27,19 @@ KINDS = {
     "full": "Full report",
     "compare": "Comparison",
     "portfolio": "Your portfolio",
+    "brokers": "What brokers say",
 }
-MENU = ["verdict", "results", "bull_bear", "valuation", "momentum", "filings", "guidance", "full"]
+MENU = [
+    "verdict",
+    "results",
+    "bull_bear",
+    "valuation",
+    "momentum",
+    "filings",
+    "guidance",
+    "brokers",
+    "full",
+]
 
 
 # ------------------------------------------------------------------ formatting
@@ -170,8 +181,12 @@ def bull_bear_blocks(a: dict) -> list[dict]:
     in the earnings calls where it has read them."""
     bb = a["bull_bear"]
     rsch = a.get("research") or {}
-    bull = [_pt(x) for x in bb["bull"]] + [_pt(f"From the calls: {x}") for x in rsch.get("bull", [])[:2]]
-    bear = [_pt(x) for x in bb["bear"]] + [_pt(f"From the calls: {x}") for x in rsch.get("bear", [])[:2]]
+    bull = [_pt(x) for x in bb["bull"]] + [
+        _pt(f"From the calls: {x}") for x in rsch.get("bull", [])[:2]
+    ]
+    bear = [_pt(x) for x in bb["bear"]] + [
+        _pt(f"From the calls: {x}") for x in rsch.get("bear", [])[:2]
+    ]
     out = []
     if bull:
         out.append({"type": "points", "title": "Bull case", "tone": "positive", "items": bull})
@@ -202,6 +217,91 @@ def brokers_block(a: dict) -> list[dict]:
         )
         lines.append(_pt(f"{hz}: {span}, median {pc(t['vs_close_pct'])} from the last close."))
     return [{"type": "points", "title": "Brokerage views FINN holds", "items": lines}]
+
+
+def press_block(ticker: str, wait_s: float = 0) -> list[dict]:
+    """Banks' and brokers' calls as the press reported them (app/brokerage/news.py). With
+    `wait_s`, a company not searched in the last 12 hours is searched now, up to that long."""
+    import time
+
+    from app.brokerage import news
+
+    got = news.get(ticker, start=True)
+    t_end = time.monotonic() + wait_s
+    while (
+        got["job"].get("status") == "running" and not got.get("latest") and time.monotonic() < t_end
+    ):
+        time.sleep(2)
+        got = news.get(ticker, start=False)
+    rows = got.get("latest") or []
+    if not rows:
+        if got["job"].get("status") == "running":
+            return [
+                _txt(
+                    "Still searching the financial press for bank and broker calls; ask again in a minute."
+                )
+            ]
+        return (
+            [_txt("No bank or broker calls on it in the press in the last six months.")]
+            if wait_s
+            else []
+        )
+    tgts = [c["target"] for c in rows if c["target"] is not None]
+    head = f"{len(rows)} houses in the press"
+    if len(tgts) > 1:
+        med = (
+            sorted(tgts)[len(tgts) // 2]
+            if len(tgts) % 2
+            else sum(sorted(tgts)[len(tgts) // 2 - 1 : len(tgts) // 2 + 1]) / 2
+        )
+        head += f": targets {rs(min(tgts))} to {rs(max(tgts))}, median {rs(med)}"
+    table = [
+        [
+            c["house"],
+            (c["rating"] or "–").capitalize(),
+            rs(c["target"])
+            + (f" (from {rs(c['previous_target'])})" if c["previous_target"] else ""),
+            c["date"] or "",
+            c["source"],
+        ]
+        for c in rows
+    ]
+    return [
+        {
+            "type": "table",
+            "title": head,
+            "columns": ["House", "Call", "Target", "Date", "Reported by"],
+            "rows": table,
+        },
+        {
+            "type": "note",
+            "text": "As reported in the press, not read from the reports: AI listed each call and code kept it only if the house and the target are in the article's own sentence. The company page links every article.",
+        },
+    ]
+
+
+def brokers_report(a: dict, ticker: str) -> list[dict]:
+    """The report-read views FINN holds, then the press. When FINN holds no reports, it
+    starts looking for public ones (ICICI Securities, PL Capital) for next time."""
+    out = brokers_block(a)
+    b = a.get("brokers") or {}
+    if not b.get("reports"):
+        from datetime import UTC, datetime
+
+        from app.api.routes import BUDGET
+        from app.brokerage import discover
+        from app.config import get_settings
+
+        if discover.status(ticker).get("status") != "running" and BUDGET.take(
+            get_settings().max_live_builds_per_day, datetime.now(UTC).date().isoformat()
+        ):
+            discover.search(ticker)
+        out.append(
+            _txt(
+                "FINN holds no brokerage reports on it yet, so it is checking ICICI Securities' and PL Capital's public servers now; they will show on the company page."
+            )
+        )
+    return out + press_block(ticker, wait_s=90)
 
 
 def holding_block(a: dict) -> list[dict]:
@@ -359,6 +459,8 @@ def build(kind: str, tickers: list[str]) -> dict:
         blocks = filings_blocks(t)
     elif kind == "guidance":
         blocks = guidance_blocks(t)
+    elif kind == "brokers":
+        blocks = brokers_report(a, t)
     elif kind == "verdict":
         grades = [s["grade"] for s in a["scorecard"]]
         lead = f"FINN doesn't tell you to buy or sell. On the numbers, {a['name']} reads strong on {grades.count('strong')} of {len(grades)} checks and weak on {grades.count('weak')}."
@@ -382,6 +484,7 @@ def build(kind: str, tickers: list[str]) -> dict:
             *bull_bear_blocks(a),
             *valuation_blocks(a)[:1],
             *brokers_block(a),
+            *press_block(t),
             *filings_blocks(t)[:1],
             *holding_block(a),
         ]
