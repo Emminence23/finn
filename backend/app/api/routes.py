@@ -232,6 +232,24 @@ def compare_two(a: str, b: str) -> dict:
 
 
 # ------------------------------------------------------------------ Push
+@router.get("/ai/keys")
+def ai_keys(model: str = "gemini-3.1-flash-lite") -> dict:
+    """Checks each configured Gemini key with one tiny request (on the light model by
+    default, to spare the main model's 20-a-day quota). Says which work; never shows a key."""
+    from app.config import get_settings
+    from app.llm.providers import GeminiProvider
+
+    s = get_settings()
+    if not s.gemini_api_key:
+        return {"keys": [], "note": "GEMINI_API_KEY is not set"}
+    p = GeminiProvider(s.gemini_api_key, timeout_s=30, fallback_keys=s.gemini_api_key_fallbacks)
+    configured = 1 + len(s.gemini_api_key_fallbacks)
+    out = {"keys": p.probe(model), "configured": configured}
+    if len(p.clients) < configured:
+        out["note"] = f"{configured - len(p.clients)} key(s) repeat another key and were merged"
+    return out
+
+
 @router.get("/live")
 def live_status() -> dict:
     """When NSE and prices were last checked, and whether a check is running."""

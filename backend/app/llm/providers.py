@@ -74,6 +74,41 @@ class GeminiProvider:
             + ("the only key" if n == 1 else f"all {n} keys")
         )
 
+    def probe(self, model: str) -> list[dict]:
+        """One tiny request per key, no retries: does each key work? Never returns a key."""
+        from google.genai import errors
+
+        out = []
+        for i, client in enumerate(self.clients):
+            name = (
+                "GEMINI_API_KEY"
+                if i == 0
+                else ("GEMINI_API_KEY_FALLBACK" if i == 1 else f"GEMINI_API_KEY_FALLBACK_{i}")
+            )
+            row = {"key": name, "model": model}
+            try:
+                self._complete_once(
+                    LLMRequest(model=model, system="Reply with OK.", prompt="OK?", max_tokens=8),
+                    client,
+                )
+                row |= {"status": "works"}
+            except errors.APIError as e:
+                code, msg = getattr(e, "code", None), str(e)
+                if code == 429 and "PerDay" in msg:
+                    row |= {"status": "quota_used_up", "detail": "today's free quota is spent"}
+                elif code == 429:
+                    row |= {"status": "works", "detail": "busy this minute (429), key is valid"}
+                elif code in (400, 401, 403) and ("API key" in msg or "PERMISSION" in msg):
+                    row |= {"status": "rejected", "detail": f"Google refused the key ({code})"}
+                else:
+                    row |= {"status": "error", "detail": f"{code}: {msg[:120]}"}
+            except LLMError as e:  # answered, but empty: the key works
+                row |= {"status": "works", "detail": str(e)[:80]}
+            except Exception as e:  # noqa: BLE001
+                row |= {"status": "error", "detail": f"{type(e).__name__}: {str(e)[:120]}"}
+            out.append(row)
+        return out
+
     def _complete_with(self, client, req: LLMRequest) -> LLMResponse:
         import time
 
