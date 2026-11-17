@@ -820,10 +820,14 @@ def pull_chat(body: PullMessage) -> dict:
     if symbol and intent == "brokers":  # read from brokerage reports
         listed = _listed(symbol)
         if listed or view:
-            return {
-                "kind": "reply",
-                **pull.brokers(symbol, (view or {}).get("company") or listed["name"], owner),
-            }
+            res = pull.brokers(symbol, (view or {}).get("company") or listed["name"], owner)
+            held = any(b.get("overview", {}).get("reports") for b in res.get("blocks", []))
+            if not held:  # no reports read: the press view, and a search for public reports
+                from app.agent.plan import Plan
+
+                return agent.reply(Plan(report="brokers", tickers=[symbol]), owner)
+            res["blocks"] = [*res["blocks"], *agent_reports.press_block(symbol, wait_s=60)]
+            return {"kind": "reply", **res}
     if view and intent == "qa" and pull._WHY.search(body.message.strip().lower()):
         return _grounded_answer(view, body.message)  # an open "why" on a company FINN has read
     if view and (intent in RESEARCH_INTENTS or body.intent in pull.TITLES) and intent != "qa":
