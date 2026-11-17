@@ -191,9 +191,10 @@ def watchlist_reset() -> dict:
 
 @router.get("/movers")
 def movers(limit: int = Query(3, ge=1, le=10)) -> dict:
+    from app.clock import freshness
     from app.portfolio import watchlist
 
-    return watchlist.movers(limit)
+    return watchlist.movers(limit) | {"live_at": freshness()["prices_live_at"]}
 
 
 # ------------------------------------------------------------------ Accuracy
@@ -235,6 +236,36 @@ def compare_two(a: str, b: str) -> dict:
 
 
 # ------------------------------------------------------------------ Push
+@router.get("/live")
+def live_status() -> dict:
+    """When NSE and prices were last checked, and whether a check is running."""
+    from app import live
+
+    return live.status()
+
+
+@router.get("/companies/{symbol}/intraday")
+def intraday(symbol: str) -> dict:
+    """Today's hourly prices for one company (filled by the live refresh)."""
+    from app import live
+
+    return {
+        "symbol": symbol.upper(),
+        "bars": live.intraday(symbol.upper()),
+        "at": live.status()["prices_at"],
+    }
+
+
+@router.post("/live/refresh")
+def live_refresh() -> dict:
+    """Check NSE and prices now (in the background); poll GET /live for the result."""
+    from app import live
+
+    if live.enabled():
+        live.refresh_in_background()
+    return live.status() | {"running": True}
+
+
 @router.get("/digest/brief")
 def digest_brief(window: str = "24h", start: str | None = None, end: str | None = None) -> dict:
     """FR-PUSH-11: Today as a short spoken script, read by the phone's own voice."""
@@ -253,6 +284,9 @@ def digest(
     end: str | None = None,
     include_research_set: bool = False,
 ) -> dict:
+    from app import live
+
+    live.maybe_refresh()  # a run older than half an hour starts in the background
     try:
         return build_digest(window, start, end, include_research_set)
     except ValueError as e:

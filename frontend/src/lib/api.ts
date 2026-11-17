@@ -377,6 +377,10 @@ export type Digest = {
   freshness?: {
     prices_as_of: string | null;
     filings_as_of: string | null;
+    /** when the API last checked NSE and prices (it does every 15-30 minutes) */
+    checked_at?: string | null;
+    /** set while the market is open: today's prices are trades as of this time */
+    prices_live_at?: string | null;
     sessions_behind: number | null;
     stale: boolean;
   };

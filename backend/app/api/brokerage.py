@@ -7,7 +7,7 @@ from __future__ import annotations
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from app.brokerage import explain, jobs, service
+from app.brokerage import discover, explain, jobs, service
 from app.network.owner import current_owner, is_sandbox
 
 router = APIRouter()
@@ -127,3 +127,47 @@ def ingest_status(job_id: str) -> dict:
     if out is None:
         raise HTTPException(404, "no such job")
     return out
+
+
+def _take_read() -> None:
+    from datetime import UTC, datetime
+
+    from app.api.routes import BUDGET
+    from app.config import get_settings
+
+    if not BUDGET.take(
+        get_settings().max_live_builds_per_day, datetime.now(UTC).date().isoformat()
+    ):
+        raise HTTPException(429, "Today's AI reads are used up; try tomorrow.")
+
+
+@router.post("/companies/{symbol}/brokerage/find")
+def find_reports(symbol: str) -> dict:
+    """Look for this company's public brokerage reports (ICICI Securities, PL Capital) and
+    read the newest few in the background. Poll GET .../find for progress."""
+    if discover.status(symbol.upper()).get("status") != "running":
+        _take_read()
+    return discover.search(symbol)
+
+
+@router.get("/companies/{symbol}/brokerage/find")
+def find_status(symbol: str) -> dict:
+    return discover.status(symbol.upper())
+
+
+class Link(BaseModel):
+    url: str = Field(min_length=12, max_length=500)
+    brokerage: str | None = Field(None, max_length=80)
+    permitted: bool = Field(description="the link is a public copy the investor may use")
+
+
+@router.post("/companies/{symbol}/brokerage/link")
+def add_link(symbol: str, body: Link) -> dict:
+    """Read one publicly posted brokerage PDF from its link."""
+    if not body.permitted:
+        raise HTTPException(400, "Confirm the link is a public copy you may use.")
+    _take_read()
+    try:
+        return discover.add_link(symbol, body.url.strip(), body.brokerage)
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e

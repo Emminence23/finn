@@ -540,6 +540,112 @@ function UploadSheet({ symbol, open, close, done }: { symbol: string; open: bool
   );
 }
 
+// ------------------------------------------------------------------ finding public reports
+type FindStatus = {
+  status: "idle" | "running" | "done" | "failed";
+  stage?: "looking" | "reading" | "done" | "failed";
+  tried?: number;
+  total?: number;
+  found?: string[];
+  read?: number;
+  added?: number;
+  why?: string;
+};
+
+function findLabel(s: FindStatus): string {
+  if (s.status === "failed") return s.why ? `Couldn't finish: ${s.why}.` : "Couldn't finish.";
+  if (s.stage === "looking") return `Looking on brokerages' public servers… (${s.tried ?? 0} of ${s.total ?? "?"})`;
+  if (s.stage === "reading") return `Found ${s.found?.length ?? 0}. Reading ${Math.min((s.read ?? 0) + 1, s.found?.length ?? 1)} of ${s.found?.length ?? 0}…`;
+  if (s.status === "done")
+    return s.added ? `Added ${s.added} report${s.added === 1 ? "" : "s"}.` : "No new public reports found. Paste a link if you have one.";
+  return "";
+}
+
+/** One tap: FINN tries the file names ICICI Securities and PL Capital use for this company's
+ * recent results, reads the newest few, and keeps them for everyone for a month. */
+export function FindReports({ symbol, done }: { symbol: string; done: () => void }) {
+  const [state, setState] = useState<FindStatus | null>(null);
+  const [link, setLink] = useState("");
+  const [broker, setBroker] = useState("");
+  const [ok, setOk] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const base = `/companies/${symbol}/brokerage`;
+  const busy = state?.status === "running";
+
+  async function follow() {
+    for (let i = 0; i < 150; i++) {
+      const s = await api<FindStatus>(`${base}/find`);
+      setState(s);
+      if (s.status !== "running") {
+        if (s.added) done();
+        return;
+      }
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  }
+  async function run(path: string, body?: object) {
+    setErr(null);
+    try {
+      const s = await api<FindStatus>(path, { method: "POST", body: body ? JSON.stringify(body) : undefined });
+      setState(s);
+      await follow();
+    } catch (e) {
+      setErr(e instanceof Error ? e.message.replace(/^\{"detail":"|"\}$/g, "") : "Couldn't start.");
+    }
+  }
+  return (
+    <div className="space-y-3 text-[13px]">
+      <button
+        disabled={busy}
+        onClick={() => run(`${base}/find`)}
+        className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-accent py-2.5 font-medium text-white disabled:opacity-50"
+      >
+        {busy ? <Loader2 size={14} className="animate-spin" /> : <FileText size={14} />} Find public broker reports
+      </button>
+      {state && state.status !== "idle" && (
+        <p className="flex items-center gap-1.5 text-ink-2">
+          {busy && <Loader2 size={13} className="animate-spin" />}
+          {findLabel(state)}
+        </p>
+      )}
+      <details className="rounded-xl border border-line px-3 py-2">
+        <summary className="cursor-pointer text-[12px] font-medium text-ink-2">Have a link to a report?</summary>
+        <div className="mt-2 space-y-2">
+          <input
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            placeholder="https://…/report.pdf"
+            inputMode="url"
+            className="w-full rounded-xl border border-line bg-surface px-3 py-2"
+          />
+          <input
+            value={broker}
+            onChange={(e) => setBroker(e.target.value)}
+            placeholder="Brokerage (if the link isn't on its own site)"
+            className="w-full rounded-xl border border-line bg-surface px-3 py-2"
+          />
+          <label className="flex items-start gap-2">
+            <input type="checkbox" checked={ok} onChange={(e) => setOk(e.target.checked)} className="mt-0.5" />
+            <span>It&apos;s a public copy, open without a login.</span>
+          </label>
+          <button
+            disabled={busy || !ok || link.length < 12}
+            onClick={() => run(`${base}/link`, { url: link, brokerage: broker || null, permitted: ok })}
+            className="w-full rounded-full border border-line py-2 font-medium disabled:opacity-40"
+          >
+            Read it
+          </button>
+        </div>
+      </details>
+      {err && <p className="text-bad">{err}</p>}
+      <p className="text-[11px] text-ink-3">
+        Searches ICICI Securities and PL Capital&apos;s open research servers for the last four results. AI reads each PDF once;
+        code checks every figure against its page.
+      </p>
+    </div>
+  );
+}
+
 // ------------------------------------------------------------------ the whole view
 export function BrokerBody({
   ov,
@@ -569,10 +675,11 @@ export function BrokerBody({
   if (ov.reports === 0 && ov.stale.length === 0) {
     return (
       <div className="p-4 text-[13px] leading-snug">
-        <p>FINN has no brokerage reports on this company yet.</p>
+        <p className="mb-3">FINN has no brokerage reports on this company yet.</p>
+        {!compact && <FindReports symbol={symbol} done={() => refresh?.()} />}
         {!compact && (
-          <button onClick={() => setAdding(true)} className="mt-2 inline-flex items-center gap-1 font-medium text-accent">
-            <Upload size={13} /> Add one you have
+          <button onClick={() => setAdding(true)} className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-accent">
+            <Upload size={13} /> Or upload a PDF you have (private to you)
           </button>
         )}
         <UploadSheet symbol={symbol} open={adding} close={() => setAdding(false)} done={() => refresh?.()} />
@@ -652,6 +759,14 @@ export function BrokerBody({
         </div>
       )}
 
+      {!compact && (
+        <details className="border-t border-line px-4 py-3">
+          <summary className="cursor-pointer text-[12px] font-medium text-accent">Look for newer reports</summary>
+          <div className="mt-3">
+            <FindReports symbol={symbol} done={() => refresh?.()} />
+          </div>
+        </details>
+      )}
       <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3 text-[11px] text-ink-3">
         <span>In the reports currently available to FINN, not the whole market.</span>
         {!compact && (

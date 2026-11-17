@@ -19,6 +19,8 @@ export type Mover = {
 };
 export type Movers = {
   as_of: string | null;
+  /** while the market is open: the time of the prices, IST */
+  live_at?: string | null;
   gainers: Mover[];
   losers: Mover[];
   count: number;
@@ -186,8 +188,10 @@ export function MoversStrip({ className }: { className?: string }) {
       <div className="flex items-center justify-between gap-2 px-4">
         <h2 className="text-[15px] font-semibold">
           Top movers
-          {data.as_of && (
-            <span className="font-normal text-ink-3"> · {day(data.as_of)}</span>
+          {data.live_at ? (
+            <span className="font-normal text-ink-3"> · live {data.live_at.slice(11, 16)}</span>
+          ) : (
+            data.as_of && <span className="font-normal text-ink-3"> · {day(data.as_of)}</span>
           )}
         </h2>
         <Segmented

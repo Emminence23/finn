@@ -37,6 +37,8 @@ function minusDays(d: string, n: number): string {
   return t.toISOString().slice(0, 10);
 }
 const WIN_KEY = "finn.window";
+/** "2026-11-17T11:47" (IST, as the API sends it) -> "11:47" */
+const clock = (ts: string) => ts.slice(11, 16);
 const ICON_BTN = "flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-ink-2";
 
 export default function Today() {
@@ -260,7 +262,12 @@ function Note({ d, now }: { d: Digest; now: string }) {
       <p className="px-4 pb-6 pt-4 text-center text-[11px] text-ink-3">
         NSE filings to {day(d.freshness?.filings_as_of ?? now)},{" "}
         {new Date(d.freshness?.filings_as_of ?? now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
-        {d.freshness?.prices_as_of && <> · closing prices to {day(d.freshness.prices_as_of)}</>}
+        {d.freshness?.prices_live_at ? (
+          <> · prices live at {clock(d.freshness.prices_live_at)}</>
+        ) : (
+          d.freshness?.prices_as_of && <> · closing prices to {day(d.freshness.prices_as_of)}</>
+        )}
+        {d.freshness?.checked_at && <> · checked {clock(d.freshness.checked_at)}</>}
       </p>
     </>
   );

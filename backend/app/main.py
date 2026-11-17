@@ -21,6 +21,15 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     init_db()
+    from app import live
+
+    live.start()
+    from app.brokerage import discover
+
+    try:
+        discover.restore()
+    except Exception as e:  # noqa: BLE001 - reports found earlier are a convenience
+        logging.getLogger("startup").warning("broker restore failed: %s", e)
     yield
 
 
@@ -80,9 +89,15 @@ def health() -> dict:
             t: db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
             for t in ("companies", "announcements", "prices", "people")
         }
-    from app import store
+    from app import live, store
 
-    return {"status": "ok", "counts": counts, "saved_reports": store.backend()}
+    live.maybe_refresh()  # the keep-warm ping also keeps the data current
+    return {
+        "status": "ok",
+        "counts": counts,
+        "saved_reports": store.backend(),
+        "live": live.status(),
+    }
 
 
 @app.get("/admin/costs", dependencies=[Depends(require_passcode)])
