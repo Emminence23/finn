@@ -412,3 +412,22 @@ def test_ask_routes_broker_questions_to_the_brokerage_view(seeded):
     said = " ".join(b.get("text", "") for b in none["blocks"])
     assert "No bank or broker calls" in said and "holds no brokerage reports" in said
     assert not any(b["type"] in ("brokers", "table") for b in none["blocks"])  # never invents
+
+
+def test_broker_summary_check_allows_the_year_of_a_given_date_only():
+    from app.brokerage.news import check_summary
+
+    f = {
+        "last_close": 400, "low": 470, "high": 635, "median": 552, "houses": 2,
+        "with_target": 2, "positive": ["Elara", "Motilal Oswal"], "negative": [],
+        "neutral_or_unrated": [], "median_vs_close_pct": 38.1,
+        "calls": [
+            {"house": "Elara", "target": 635, "previous_target": None,
+             "vs_close_pct": 58.8, "date": "2026-11-06"},
+            {"house": "Motilal Oswal", "target": 470, "previous_target": None,
+             "vs_close_pct": 17.6, "date": "2026-11-06"},
+        ],
+    }  # fmt: skip
+    assert check_summary("On 6 November 2026 Elara and Motilal Oswal said Buy.", f) is None
+    assert check_summary("Elara sees ₹2,026.", f)  # a year is not a price
+    assert check_summary("In 2027 Elara expects more.", f)  # a year the facts don't give

@@ -461,12 +461,16 @@ def check_summary(text: str, f: dict) -> str | None:
         allowed |= {c["target"], c["previous_target"]}
         pcts.add(c["vs_close_pct"])
     allowed = {round(x) for x in allowed if x is not None}
+    # a date the facts give may be written out ("6 November 2026"): its year isn't a figure
+    years = {float(y) for y in re.findall(r"\b(20\d\d)-\d\d-\d\d", json.dumps(f, default=str))}
     pcts = {x for x in pcts if x is not None}
     for m in re.finditer(r"(₹|Rs\.?\s?)?([\d,]+(?:\.\d+)?)\s?(%|per ?cent)?", text):
         raw = m.group(2).replace(",", "")
         if not raw or not raw[0].isdigit():
             continue
         v = float(raw)
+        if not m.group(1) and not m.group(3) and v in years:
+            continue
         if m.group(3):
             if not any(abs(v - abs(p)) <= 0.6 for p in pcts):
                 return f"percentage {v} not in the facts"
