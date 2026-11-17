@@ -47,7 +47,7 @@ export type Theme = {
 export type GuidanceItem = { target: string; horizon: string | null; quote: string; doc_id: string; page: number; headline: boolean };
 type Point = Claim & { tone?: string };
 export type Block =
-  | { type: "text"; text: string; cites?: Cite[] }
+  | { type: "text"; text: string; cites?: Cite[]; by?: "ai" | "code" }
   | { type: "note"; text: string }
   | { type: "points"; title?: string; tone?: string; items: Point[] }
   | { type: "table"; title?: string; columns: string[]; rows: string[][] }
@@ -310,6 +310,11 @@ export function Blocks({ blocks, docs, base }: { blocks: Block[]; docs: Map<stri
           case "text":
             return (
               <p key={i} className="text-[14px] leading-relaxed">
+                {b.by === "ai" && (
+                  <span className="mb-1 block">
+                    <AiTag from="figures checked by code" />
+                  </span>
+                )}
                 {cleanClaim(b.text)}
                 {b.cites && <CiteChips cites={b.cites} docs={docs} base={base} />}
               </p>

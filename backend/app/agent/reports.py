@@ -266,7 +266,12 @@ def press_block(ticker: str, wait_s: float = 0) -> list[dict]:
         ]
         for c in rows
     ]
+    summ = got.get("summary") or {}
+    lead = (
+        [{"type": "text", "text": summ["text"], "by": summ.get("by")}] if summ.get("text") else []
+    )
     return [
+        *lead,
         {
             "type": "table",
             "title": head,
@@ -275,7 +280,13 @@ def press_block(ticker: str, wait_s: float = 0) -> list[dict]:
         },
         {
             "type": "note",
-            "text": "As reported in the press, not read from the reports: AI listed each call and code kept it only if the house and the target are in the article's own sentence. The company page links every article.",
+            "text": "As reported in the press, not read from the reports: AI listed each call and code kept it only if the house and the target are in the article's own sentence."
+            + (
+                " AI wrote the summary from code's figures; code checked every number and house in it."
+                if summ.get("by") == "ai"
+                else ""
+            )
+            + " The company page links every article.",
         },
     ]
 
@@ -284,6 +295,7 @@ def brokers_report(a: dict, ticker: str) -> list[dict]:
     """The report-read views FINN holds, then the press. When FINN holds no reports, it
     starts looking for public ones (ICICI Securities, PL Capital) for next time."""
     out = brokers_block(a)
+    after = []
     b = a.get("brokers") or {}
     if not b.get("reports"):
         from datetime import UTC, datetime
@@ -296,12 +308,12 @@ def brokers_report(a: dict, ticker: str) -> list[dict]:
             get_settings().max_live_builds_per_day, datetime.now(UTC).date().isoformat()
         ):
             discover.search(ticker)
-        out.append(
+        after.append(
             _txt(
                 "FINN holds no brokerage reports on it yet, so it is checking ICICI Securities' and PL Capital's public servers now; they will show on the company page."
             )
         )
-    return out + press_block(ticker, wait_s=90)
+    return out + press_block(ticker, wait_s=90) + after
 
 
 def holding_block(a: dict) -> list[dict]:
@@ -497,7 +509,8 @@ def build(kind: str, tickers: list[str]) -> dict:
             *holding_block(a),
         ]
     blocks = [b for b in blocks if b.get("text", True)]
-    blocks.append(_source(a, ", and the latest earnings call" if kind == "guidance" else ""))
+    if kind != "brokers":  # the brokers report carries its own source note
+        blocks.append(_source(a, ", and the latest earnings call" if kind == "guidance" else ""))
     return {
         "title": KINDS[kind],
         "blocks": blocks,

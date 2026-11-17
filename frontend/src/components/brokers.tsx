@@ -801,6 +801,7 @@ type BrokerNews = {
   calls: NewsCall[];
   latest: NewsCall[];
   articles?: { title: string; url: string; date: string | null }[];
+  summary?: { text: string; by: "ai" | "code" };
   saved_at?: number;
   job: { status: string; stage?: string; articles?: number; why?: string };
 };
@@ -852,6 +853,12 @@ export function BankCalls({ symbol }: { symbol: string }) {
         ) : (
           <div>
             <div className="p-4 pb-2">
+              {data.summary?.text && (
+                <div className="mb-2">
+                  {data.summary.by === "ai" && <AiTag from="figures checked by code" />}
+                  <p className="mt-1 text-[14px] leading-relaxed">{data.summary.text}</p>
+                </div>
+              )}
               <p className="text-[12px] text-ink-3">
                 {rows.length} houses · {targets.length} with a target
                 {targets.length > 1 && (

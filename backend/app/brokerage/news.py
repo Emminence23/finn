@@ -335,6 +335,153 @@ def latest_by_house(calls: list[dict]) -> list[dict]:
     return sorted(best.values(), key=lambda c: c["date"] or "", reverse=True)
 
 
+# -- the summary -------------------------------------------------------------------------
+def _close(symbol: str) -> float | None:
+    with session() as db:
+        r = db.execute(
+            "SELECT close FROM prices WHERE symbol=? ORDER BY date DESC LIMIT 1", (symbol,)
+        ).fetchone()
+    return r[0] if r else None
+
+
+def _r(x: float | None) -> float | int | None:
+    """Whole rupees above ₹100 (so the model writes ₹5,300, not ₹5,300.0)."""
+    return None if x is None else int(round(x)) if x >= 100 else round(x, 2)
+
+
+def facts(symbol: str, latest: list[dict]) -> dict:
+    """Everything the summary may say, computed in code."""
+    close = _r(_close(symbol))
+    tg = sorted(c["target"] for c in latest if c["target"] is not None)
+    med = (
+        (tg[len(tg) // 2] if len(tg) % 2 else (tg[len(tg) // 2 - 1] + tg[len(tg) // 2]) / 2)
+        if tg
+        else None
+    )
+    up = lambda t: round((t / close - 1) * 100, 1) if close and t else None  # noqa: E731
+    pos = [
+        c
+        for c in latest
+        if c["rating"]
+        and re.search(r"buy|overweight|outperform|add|accumulate|positive", c["rating"], re.I)
+    ]
+    neg = [
+        c
+        for c in latest
+        if c["rating"]
+        and re.search(r"sell|underweight|underperform|reduce|negative", c["rating"], re.I)
+    ]
+    return {
+        "last_close": close,
+        "houses": len(latest),
+        "with_target": len(tg),
+        "low": _r(tg[0]) if tg else None,
+        "high": _r(tg[-1]) if tg else None,
+        "median": _r(med),
+        "median_vs_close_pct": up(med),
+        "positive": [c["house"] for c in pos],
+        "negative": [c["house"] for c in neg],
+        "neutral_or_unrated": [c["house"] for c in latest if c not in pos and c not in neg],
+        "calls": [
+            {
+                "house": c["house"],
+                "rating": c["rating"],
+                "target": _r(c["target"]),
+                "vs_close_pct": up(c["target"]),
+                "previous_target": _r(c["previous_target"]),
+                "action": c["action"],
+                "date": c["date"],
+            }
+            for c in latest
+        ],
+    }
+
+
+def code_summary(f: dict) -> str:
+    if not f["houses"]:
+        return ""
+    s = f"{f['houses']} houses reported in the press"
+    if f["positive"] or f["negative"]:
+        s += f": {len(f['positive'])} positive, {len(f['negative'])} negative"
+    s += "."
+    if f["with_target"] > 1 and f["last_close"]:
+        s += (
+            f" Targets run from ₹{f['low']:,.0f} to ₹{f['high']:,.0f};"
+            f" the median ₹{f['median']:,.0f} is {f['median_vs_close_pct']:+.1f}%"
+            f" from the last close of ₹{f['last_close']:,.0f}."
+        )
+    if f["negative"]:
+        s += f" Cautious: {', '.join(f['negative'])}."
+    return s
+
+
+class Summary(BaseModel):
+    text: str = Field(description="3 or 4 short sentences, plain English")
+
+
+SUM_SYSTEM = (
+    "You write a short summary of what banks and brokers say about one Indian listed company, "
+    "for an investor. Use ONLY the facts given (computed by code). Say where they agree, the "
+    "target range and median against the last close, who is cautious, and any recent upgrade, "
+    "downgrade or target change. Rupee figures as ₹1,234. No advice, no adjectives like "
+    "'strong buy', nothing not in the facts. 3-4 sentences."
+)
+
+
+def check_summary(text: str, f: dict) -> str | None:
+    """None when every figure and house in the text comes from the facts."""
+    allowed = {f["last_close"], f["low"], f["high"], f["median"], f["houses"], f["with_target"]}
+    allowed |= {len(f["positive"]), len(f["negative"]), len(f["neutral_or_unrated"])}
+    pcts = {f["median_vs_close_pct"]}
+    for c in f["calls"]:
+        allowed |= {c["target"], c["previous_target"]}
+        pcts.add(c["vs_close_pct"])
+    allowed = {round(x) for x in allowed if x is not None}
+    pcts = {x for x in pcts if x is not None}
+    for m in re.finditer(r"(₹|Rs\.?\s?)?([\d,]+(?:\.\d+)?)\s?(%|per ?cent)?", text):
+        raw = m.group(2).replace(",", "")
+        if not raw or not raw[0].isdigit():
+            continue
+        v = float(raw)
+        if m.group(3):
+            if not any(abs(v - abs(p)) <= 0.6 for p in pcts):
+                return f"percentage {v} not in the facts"
+        elif (m.group(1) or v >= 20) and not any(abs(v - a) <= 1 for a in allowed):
+            return f"figure {v:,.0f} not in the facts"
+    named = set(houses_in(text))
+    known = {h for c in f["calls"] for h in houses_in(c["house"])}
+    if named - known:
+        return f"names {', '.join(named - known)}, not in the calls"
+    return None
+
+
+def summarise(symbol: str, name: str, latest: list[dict]) -> dict:
+    """AI writes it from code's facts; code checks it; code's own sentence if it fails."""
+    f = facts(symbol, latest)
+    fallback = {"text": code_summary(f), "by": "code"}
+    if f["houses"] < 2:
+        return fallback
+    from app.llm.router import get_llm
+
+    try:
+        out = get_llm().run(
+            "summarise_broker_views",
+            system=SUM_SYSTEM,
+            prompt=f"Company: {name} ({symbol})\nFacts:\n{json.dumps(f, ensure_ascii=False)}",
+            schema=Summary,
+            prompt_version="broker-summary-v1",
+            max_tokens=600,
+        )
+    except Exception as e:  # noqa: BLE001
+        log.info("broker summary %s failed: %s", symbol, e)
+        return fallback
+    why = check_summary(out.text, f)
+    if why:
+        log.info("broker summary %s rejected (%s): %s", symbol, why, out.text[:120])
+        return fallback | {"rejected": why}
+    return {"text": out.text.strip(), "by": "ai"}
+
+
 # -- the job -------------------------------------------------------------------------------
 def _run(symbol: str) -> None:
     try:
@@ -357,12 +504,14 @@ def _run(symbol: str) -> None:
             chosen.append(a)
         chosen.sort(key=lambda a: a["date"] or "", reverse=True)
         calls = extract(symbol, name, chosen) if chosen else []
+        latest = latest_by_house(calls)
         result = {
             "symbol": symbol,
             "searched_for": name,
             "articles": [{k: a[k] for k in ("title", "url", "date")} for a in chosen],
             "calls": calls,
-            "latest": latest_by_house(calls),
+            "latest": latest,
+            "summary": summarise(symbol, name, latest),
             "checked_at": datetime.now().isoformat(timespec="seconds"),
         }
         store.put(f"brokernews:{symbol}", result, ttl=TTL_S)
@@ -384,7 +533,11 @@ def get(symbol: str, start: bool = True) -> dict:
     with _lock:
         job = dict(_jobs.get(symbol, {}))
     if got:
-        return got[0] | {"saved_at": got[1], "job": job or {"status": "done"}}
+        res = got[0]
+        if "summary" not in res and res.get("latest"):  # saved before summaries existed
+            res["summary"] = summarise(symbol, res.get("searched_for") or symbol, res["latest"])
+            store.put(f"brokernews:{symbol}", res, ttl=TTL_S)
+        return res | {"saved_at": got[1], "job": job or {"status": "done"}}
     if start and job.get("status") != "running":
         refresh(symbol)
         with _lock:
