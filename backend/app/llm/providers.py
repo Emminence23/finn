@@ -224,7 +224,7 @@ def build_provider(name: str, s: Settings) -> Provider:
     match name:
         case "gemini":
             _require(s.gemini_api_key, "GEMINI_API_KEY")
-            return GeminiProvider(s.gemini_api_key, fallback_keys=[s.gemini_api_key_fallback])
+            return GeminiProvider(s.gemini_api_key, fallback_keys=s.gemini_api_key_fallbacks)
         case "groq":
             _require(s.groq_api_key, "GROQ_API_KEY")
             return OpenAICompatProvider("groq", "https://api.groq.com/openai/v1", s.groq_api_key)

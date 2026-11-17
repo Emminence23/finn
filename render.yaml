@@ -14,6 +14,8 @@ services:
         sync: false
       - key: GEMINI_API_KEY_FALLBACK # a second Google project's key, used after the first's free quota
         sync: false
+      - key: GEMINI_API_KEY_FALLBACK_2 # a third project's key, tried after the first fallback
+        sync: false
       - key: GROQ_API_KEY
         sync: false
       - key: ANTHROPIC_API_KEY

@@ -20,7 +20,7 @@ Both deploy from `main` on every push: Render through Blueprint auto-sync, Verce
 1. Render dashboard → **New → Blueprint** → pick this repo. Render reads `render.yaml`.
 2. Fill the secret values it asks for:
    - `GEMINI_API_KEY` and/or `ANTHROPIC_API_KEY` (set `LLM_PROVIDER=anthropic` to run everything on Claude);
-   - optional `GEMINI_API_KEY_FALLBACK`: a key from a **second Google project** (free quota is counted per project, so a second key in the same project adds nothing). When the first key's daily quota for a model is spent, FINN uses this key for that model before falling back to another model. When every key and model is spent, the API answers `503` with code `ai_quota` and the reset time, and the app says so;
+   - optional `GEMINI_API_KEY_FALLBACK`: a key from a **second Google project** (free quota is counted per project, so a second key in the same project adds nothing). When the first key's daily quota for a model is spent, FINN uses this key for that model before falling back to another model. Add `GEMINI_API_KEY_FALLBACK_2` (up to `_5`), each from yet another project, to extend the chain; keys are tried in order. When every key and model is spent, the API answers `503` with code `ai_quota` and the reset time, and the app says so;
    - `FINN_DEMO_PASSCODE`: the passcode reviewers type once;
    - `ALLOWED_ORIGINS`: the Vercel URL from step 2 (comma-separated if more than one).
 3. Check `https://<service>.onrender.com/health` returns `{"status":"ok", …}`.
