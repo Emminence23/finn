@@ -1,5 +1,41 @@
 {
  "announcements": {
+  "106864488": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Allotment of 461865  Shares"
+  },
+  "106864466": {
+   "category": "earnings_call",
+   "category_source": "rules",
+   "materiality": 15,
+   "summary": "Transcript"
+  },
+  "106864030": {
+   "category": "investor_meetings",
+   "category_source": "llm",
+   "materiality": 2,
+   "summary": "Company executives participated in the JM Financial India Conference with no unpublished price sensitive information shared."
+  },
+  "106863844": {
+   "category": "credit_rating",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "CRISIL reaffirmed CRISIL AAA/Stable rating for non-convertible debentures and bank loans, and CRISIL A1+ for commercial paper."
+  },
+  "106863821": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "This is further to the disclosure dated November 12, 2026 made by the Company. We wish to inform you that the Company executives participated in the Institutional Investors Meeting - Avendus Spark INDX: Annual Investor Conference at Mumbai"
+  },
+  "106863688": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Granted 186,031 stock options at Rs. 816.50 and restricted stock units under employee incentive schemes."
+  },
   "106863558": {
    "category": "unclassified",
    "category_source": "rules",
@@ -3203,126 +3239,6 @@
    "category_source": "rules",
    "materiality": 40,
    "summary": "Senior management personnel resigned from the company."
-  },
-  "106785072": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106785071": {
-   "category": "agm_egm",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Voting results"
-  },
-  "106785015": {
-   "category": "management_change",
-   "category_source": "llm",
-   "materiality": 40,
-   "summary": "Cdr. Jayant Shivaji Konde resigned as Senior Vice President Administration effective September 18, 2026."
-  },
-  "106785002": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106784999": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106784946": {
-   "category": "litigation",
-   "category_source": "rules",
-   "materiality": 50,
-   "summary": "An appeal regarding writ petition on Steel Development Fund loan waiver obligations is pending in court."
-  },
-  "106784844": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 10,
-   "summary": "Niche99 assigned an ESG rating of 72 placing the company in the Leader category."
-  },
-  "106784836": {
-   "category": "press_release",
-   "category_source": "rules",
-   "materiality": 30,
-   "summary": "The company clarified that news regarding FSSAI legal action on baby formula is factually incorrect."
-  },
-  "106784816": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "The bank filed its annual securities report for the fiscal year ended March 31, 2026, in Japan."
-  },
-  "106784778": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Grant of Performance Stock Units under Titan Company Limited Performance Based Stock Unit Scheme 2026"
-  },
-  "106784727": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 4885  Shares"
-  },
-  "106784514": {
-   "category": "agm_egm",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Proceedings of Annual General Meeting held on September 18, 2026"
-  },
-  "106784488": {
-   "category": "press_release",
-   "category_source": "rules",
-   "materiality": 30,
-   "summary": "Stock exchange sought clarification regarding news of FSSAI initiating legal action on baby formula."
-  },
-  "106784394": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "The company entered into a tripartite agreement with new and old RTAs."
-  },
-  "106784374": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 2,
-   "summary": "Niche Ninety Nine assigned Eternal Limited an ESG rating of 76.00 with a Leader band for FY2026."
-  },
-  "106784340": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 2,
-   "summary": "S&P Global assigned Dabur India a Corporate Sustainability Assessment score of 85 and an ESG score of 86."
-  },
-  "106784333": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 2,
-   "summary": "Niche Ninety-Nine assigned Dabur India an independent ESG rating of 71.95 under the Leader category."
-  },
-  "106784319": {
-   "category": "M&A",
-   "category_source": "llm",
-   "materiality": 75,
-   "summary": "Persistent Systems announced the minimum acceptance threshold condition for its public takeover offer of Nagarro SE has been fulfilled."
-  },
-  "106784094": {
-   "category": "press_release",
-   "category_source": "rules",
-   "materiality": 40,
-   "summary": "L&T Semiconductor Technologies unveiled 40 products at SEMICON 2026, marking a milestone with its first silicon carbide chips."
-  },
-  "106784091": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 2,
-   "summary": "SES ESG Research assigned Tata Steel an independent voluntary adjusted ESG score of 68.3 with Grade B."
   }
  },
  "results": {
@@ -6218,18 +6134,6 @@
       "program": null
      }
     ]
-   }
-  ],
-  "106785015": [
-   {
-    "name": "Jayant Shivaji Konde",
-    "role": "Senior Vice President – Administration",
-    "direction": "outgoing",
-    "effective_date": "2026-09-18",
-    "is_senior": true,
-    "bio": null,
-    "prior_roles": [],
-    "education": []
    }
   ]
  }

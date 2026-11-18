@@ -2,12 +2,12 @@
  "name": "Manappuram Finance Ltd",
  "about": "Manappuram Finance is a Non-Banking Finance Company (NBFC), which provides a wide range of fund based and fee based services including gold loans, money exchange facilities, etc. The Company is a Systemically Important Non-Deposit taking NBFC(NBFC-ND).(Source : 202003 Annual Report Page No:120)",
  "top_ratios": {
-  "Market Cap": "₹ 27,964 Cr.",
-  "Current Price": "₹ 298",
+  "Market Cap": "₹ 26,616 Cr.",
+  "Current Price": "₹ 283",
   "High / Low": "₹ 382 / 245",
-  "Stock P/E": "14.5",
+  "Stock P/E": "13.8",
   "Book Value": "₹ 184",
-  "Dividend Yield": "0.66 %",
+  "Dividend Yield": "0.69 %",
   "ROCE": "8.25 %",
   "ROE": "6.97 %",
   "Face Value": "₹ 2.00"
@@ -849,6 +849,12 @@
    "url": "https://www.bseindia.com/bseplus/AnnualReport/531213/5312130312.pdf"
   },
   {
+   "kind": "transcript",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cd833b5c-3f46-4e7d-b24d-f10174e40ca4.pdf"
+  },
+  {
    "kind": "ppt",
    "period": "2026-11",
    "label": "Nov 2026",
@@ -948,7 +954,7 @@
    "kind": "ppt",
    "period": "2025-05",
    "label": "May 2025",
-   "url": "https://www.manappuram.com/sites/default/files/2025-05/MFL%20IR%20Presentation%20Q4FY2025.V1-1.pdf"
+   "url": "https://www.manappuram.com/sites/default/files/2025-05/MFL%20IR%20Presentation%20Q4FY2025.V1-2.pdf"
   },
   {
    "kind": "recording",
@@ -966,7 +972,7 @@
    "kind": "ppt",
    "period": "2025-05",
    "label": "May 2025",
-   "url": "https://www.manappuram.com/sites/default/files/2025-05/MFL%20IR%20Presentation%20Q4FY2025.V1-2.pdf"
+   "url": "https://www.manappuram.com/sites/default/files/2025-05/MFL%20IR%20Presentation%20Q4FY2025.V1-1.pdf"
   },
   {
    "kind": "ppt",
