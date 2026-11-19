@@ -2,7 +2,7 @@
  "name": "Vodafone Idea Ltd",
  "about": "Vodafone Idea is one of the leading telecom service providers in India. The Company is engaged in the business of Mobility and Long Distance services, trading of handsets and data cards. [1]",
  "top_ratios": {
-  "Market Cap": "₹ 1,31,529 Cr.",
+  "Market Cap": "₹ 1,31,203 Cr.",
   "Current Price": "₹ 12.1",
   "High / Low": "₹ 15.8 / 8.13",
   "Stock P/E": "",
@@ -901,6 +901,12 @@
    "period": "FY2012",
    "label": "Annual Report 2012",
    "url": "https://www.bseindia.com/bseplus/AnnualReport/532822/5328220312.pdf"
+  },
+  {
+   "kind": "transcript",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d1330e30-118d-48ac-a47c-3eb778a9bd95.pdf"
   },
   {
    "kind": "ppt",

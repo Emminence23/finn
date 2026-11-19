@@ -1,5 +1,29 @@
 {
  "announcements": {
+  "106866054": {
+   "category": "earnings_call",
+   "category_source": "rules",
+   "materiality": 15,
+   "summary": "Transcript of the Earnings call held on 13 November 2026 for the second quarter and half year ended 30 September 2026"
+  },
+  "106865633": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Allotment of 720608 Shares pursuant to exercise of ESOP"
+  },
+  "106865393": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
+  "106865195": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 50,
+   "summary": "Subscribed to 12.30 crore equity shares aggregating Rs 123 crore in Jio BlackRock Asset Management Private Limited."
+  },
   "106864488": {
    "category": "unclassified",
    "category_source": "rules",
@@ -3227,18 +3251,6 @@
    "category_source": "rules",
    "materiality": 15,
    "summary": "Persistent earned Databricks Brickbuilder Specialization for BFSI to advance governed AI."
-  },
-  "106785574": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Investor Presentation"
-  },
-  "106785266": {
-   "category": "management_change",
-   "category_source": "rules",
-   "materiality": 40,
-   "summary": "Senior management personnel resigned from the company."
   }
  },
  "results": {
