@@ -2,12 +2,12 @@
  "name": "Tata Motors Passenger Vehicles Ltd",
  "about": "Tata Motors Group is a global automobile manufacturer. Part of the multi-national conglomerate, the Tata group, it offers a wide and diverse portfolio of cars, sports utility vehicles, etc. It has operations in India, the UK, South Korea, South Africa, China, Brazil, Austria and Slovakia through a strong global network of subsidiaries, associate companies and Joint Ventures (JVs), including Jaguar Land Rover in the UK and TMCV 40% stack [1]",
  "top_ratios": {
-  "Market Cap": "₹ 96,367 Cr.",
-  "Current Price": "₹ 262",
+  "Market Cap": "₹ 98,374 Cr.",
+  "Current Price": "₹ 267",
   "High / Low": "₹ 408 / 252",
-  "Stock P/E": "20.2",
+  "Stock P/E": "20.6",
   "Book Value": "₹ 285",
-  "Dividend Yield": "1.15 %",
+  "Dividend Yield": "1.13 %",
   "ROCE": "2.73 %",
   "ROE": "75.7 %",
   "Face Value": "₹ 2.00"
@@ -903,6 +903,12 @@
    "url": "https://www.bseindia.com/bseplus/AnnualReport/500570/5005700313.pdf"
   },
   {
+   "kind": "transcript",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d9eddc22-bae3-4ccd-a007-9491ceb20ff0.pdf"
+  },
+  {
    "kind": "ppt",
    "period": "2026-11",
    "label": "Nov 2026",
@@ -1152,13 +1158,13 @@
    "kind": "transcript",
    "period": "2023-07",
    "label": "Jul 2023",
-   "url": "https://www.tatamotors.com/wp-content/uploads/2023/07/tata-motors-group-earnings-call-transcript-q1-fy24.pdf"
+   "url": "https://aicl-mum-bucket.s3.ap-south-1.amazonaws.com/Production/www-tatamotors-com-NEW/wp-content/uploads/2024/01/q1fy24-earnings-call-transcript.pdf"
   },
   {
    "kind": "transcript",
    "period": "2023-07",
    "label": "Jul 2023",
-   "url": "https://aicl-mum-bucket.s3.ap-south-1.amazonaws.com/Production/www-tatamotors-com-NEW/wp-content/uploads/2024/01/q1fy24-earnings-call-transcript.pdf"
+   "url": "https://www.tatamotors.com/wp-content/uploads/2023/07/tata-motors-group-earnings-call-transcript-q1-fy24.pdf"
   },
   {
    "kind": "ppt",

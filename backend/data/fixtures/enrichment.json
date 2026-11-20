@@ -1,5 +1,77 @@
 {
  "announcements": {
+  "106867206": {
+   "category": "postal_ballot",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Notice of Postal Ballot"
+  },
+  "106867124": {
+   "category": "insider_trading",
+   "category_source": "llm",
+   "materiality": 5,
+   "summary": "A designated person submitted a trading plan approved by the company."
+  },
+  "106867119": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Allotment of 37828  Shares"
+  },
+  "106866640": {
+   "category": "earnings_call",
+   "category_source": "rules",
+   "materiality": 15,
+   "summary": "Transcript"
+  },
+  "106866549": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 65,
+   "summary": "Subsidiary Paytm Singapore approved a partnership investing up to INR 200 crore in Funding Societies' subsidiaries."
+  },
+  "106866543": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 65,
+   "summary": "Subsidiary Paytm Singapore approved a partnership investing up to INR 200 crore in Funding Societies' subsidiaries."
+  },
+  "106866537": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 65,
+   "summary": "Subsidiary Paytm Singapore approved a partnership investing up to INR 200 crore in Funding Societies' subsidiaries."
+  },
+  "106866520": {
+   "category": "investor_meetings",
+   "category_source": "llm",
+   "materiality": 2,
+   "summary": "Company executives participated in the Morgan Stanley 25th Annual Asia-Pacific Summit in Singapore."
+  },
+  "106866374": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Copy of Newspaper Publication regarding the IEPF Statutory Reminder letters for Third Interim Dividend 2019-20"
+  },
+  "106866359": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Copy of Newspaper Publication regarding the opening of another special window for re-lodgement of transfer request of physical shares"
+  },
+  "106866348": {
+   "category": "credit_rating",
+   "category_source": "rules",
+   "materiality": 10,
+   "summary": "CRISIL reaffirmed ICICI Bank's credit ratings at CRISIL AAA/Stable and CRISIL AA+/Stable for various bonds."
+  },
+  "106866337": {
+   "category": "earnings_call",
+   "category_source": "rules",
+   "materiality": 15,
+   "summary": "Transcript"
+  },
   "106866054": {
    "category": "earnings_call",
    "category_source": "rules",
