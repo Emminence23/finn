@@ -1,5 +1,41 @@
 {
  "announcements": {
+  "106868151": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Copy of Newspaper Publication regarding dispatch of Notice of Postal Ballot"
+  },
+  "106868149": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 20,
+   "summary": "The company made an additional investment in the common units of its wholly owned subsidiary, Meesho Networks LLC."
+  },
+  "106867839": {
+   "category": "postal_ballot",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Voting results"
+  },
+  "106867693": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "'Newspaper Advertisement - Disclosure under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015'"
+  },
+  "106867596": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
+  "106867590": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
   "106867206": {
    "category": "postal_ballot",
    "category_source": "rules",
@@ -3239,90 +3275,6 @@
    "category_source": "rules",
    "materiality": 3,
    "summary": "Allotment of 357938  Shares"
-  },
-  "106786868": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Presentation"
-  },
-  "106786848": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 1071542  Shares"
-  },
-  "106786607": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 2,
-   "summary": "Company executives participated in the J.P. Morgan India Conference 2026 in Mumbai; no unpublished price sensitive information shared."
-  },
-  "106786596": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Please note that the Company executives will be participating in the Institutional Investors' Meeting - BofA Asia Pacific Conference 2026, scheduled to be held on September 24, 2026 at Hong Kong. It is expected that the meeting with the investors will be on one-on-one basis"
-  },
-  "106786577": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 5,
-   "summary": "Company shared the investor presentation made at the 43rd Annual General Meeting held on September 21, 2026."
-  },
-  "106786559": {
-   "category": "agm_egm",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Proceedings of Annual General Meeting held on September 21, 2026"
-  },
-  "106786558": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Update on participation in the investor conference held on 21st September 2026"
-  },
-  "106786496": {
-   "category": "postal_ballot",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Vodafone Idea Limited has enclosed Notice of Postal Ballot seeking approval of shareholders for appointment of Mr. Anil Berera and Ms. Gopika Pant as Independent Directors of the Company"
-  },
-  "106786373": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "SES ESG reaffirmed the company's overall ESG score at 77.9 corresponding to Rating B+ based on FY 2025-26 disclosures."
-  },
-  "106786301": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Please note that the Company executives will be participating in the Institutional Investors' Meeting organized by a third party - J. P. Morgan India Financials Tour, scheduled to be held on September 24, 2026 at Mumbai"
-  },
-  "106786283": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 5,
-   "summary": "Company executives participated in an institutional investors meeting on September 21, 2026."
-  },
-  "106786262": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 1,00,596  Shares"
-  },
-  "106786221": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Copy of Newspaper Publication"
-  },
-  "106785965": {
-   "category": "press_release",
-   "category_source": "rules",
-   "materiality": 15,
-   "summary": "Persistent earned Databricks Brickbuilder Specialization for BFSI to advance governed AI."
   }
  },
  "results": {
