@@ -2,12 +2,12 @@
  "name": "Tata Steel Ltd",
  "about": "Tata Steel Ltd is Asia's first integrated private steel company setup in 1907. [1] The company has presence across the entire value chain of steel manufacturing from mining and processing iron ore and coal to producing and distributing finished products. [2] The company has a target to increase domestic steelmaking capacity to 30 MnTPA by 2025. [3]",
  "top_ratios": {
-  "Market Cap": "₹ 2,22,207 Cr.",
-  "Current Price": "₹ 178",
+  "Market Cap": "₹ 2,03,419 Cr.",
+  "Current Price": "₹ 163",
   "High / Low": "₹ 224 / 160",
-  "Stock P/E": "18.7",
+  "Stock P/E": "17.1",
   "Book Value": "₹ 83.1",
-  "Dividend Yield": "2.25 %",
+  "Dividend Yield": "2.35 %",
   "ROCE": "12.5 %",
   "ROE": "11.7 %",
   "Face Value": "₹ 1.00"
@@ -912,13 +912,19 @@
    "kind": "ppt",
    "period": "2026-11",
    "label": "Nov 2026",
-   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5a739d21-7ea5-4c1a-b220-45f77e240c2e.pdf"
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=60bf73b2-f86e-42e5-a0aa-22f361c13e57.pdf"
   },
   {
    "kind": "recording",
    "period": "2026-11",
    "label": "Nov 2026",
    "url": "https://www.youtube.com/watch?v=ObB5CVe8KeA"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5a739d21-7ea5-4c1a-b220-45f77e240c2e.pdf"
   },
   {
    "kind": "ppt",

@@ -1,5 +1,83 @@
 {
  "announcements": {
+  "106868768": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of Analyst/ Institutional Investor Meeting"
+  },
+  "106868466": {
+   "category": "press_release",
+   "category_source": "llm",
+   "materiality": 75,
+   "summary": "L&T subsidiary Vyoma.AI secured a large order to deploy additional NVIDIA B300 GPUs at its Chennai campus."
+  },
+  "106868415": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Investor Presentation"
+  },
+  "106868414": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
+  "106868413": {
+   "category": "press_release",
+   "category_source": "rules",
+   "materiality": 60,
+   "summary": "Tata Steel issued a press release regarding its comprehensive strategic agreement with APL Apollo promoters."
+  },
+  "106868408": {
+   "category": "litigation",
+   "category_source": "llm",
+   "materiality": 15,
+   "summary": "Persistent Systems reported a cybersecurity incident at its US-based immigration law firm, confirming its own systems are secure."
+  },
+  "106868407": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 90,
+   "summary": "Tata Steel approved acquiring a 26.38% stake in APL Apollo Tubes for approximately Rs 15,510.61 crores."
+  },
+  "106868406": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 90,
+   "summary": "Tata Steel approved acquiring a 26.38% equity stake in APL Apollo Tubes for approximately Rs 15,510.61 crores."
+  },
+  "106868405": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 90,
+   "summary": "Tata Steel board approved acquiring a 26.38% stake in APL Apollo Tubes for approximately Rs 15,510.61 crores."
+  },
+  "106868388": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 90,
+   "summary": "Tata Steel approved transferring its tubes business to APL Apollo Tubes on a slump sale basis for up to Rs 11,700 crores."
+  },
+  "106868387": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 90,
+   "summary": "Tata Steel approved transferring its tubes business to APL Apollo Tubes for up to Rs 11,700 crores."
+  },
+  "106868386": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 85,
+   "summary": "Tata Steel approved the divestment of its entire equity stake in Tata Steel Colors Private Limited."
+  },
+  "106868385": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 90,
+   "summary": "Tata Steel board approved transferring its tubes business to APL Apollo Tubes for up to Rs 11,700 crores."
+  },
   "106868151": {
    "category": "unclassified",
    "category_source": "rules",
@@ -3161,54 +3239,6 @@
    "category_source": "rules",
    "materiality": 3,
    "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106790019": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Presentation"
-  },
-  "106789883": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 2,
-   "summary": "Company executives participated in the CITIC CLSA Investors' Forum 2026 in Hong Kong; no unpublished price sensitive information shared."
-  },
-  "106789853": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106789535": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106789524": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106789434": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106789054": {
-   "category": "press_release",
-   "category_source": "llm",
-   "materiality": 5,
-   "summary": "TCS renewed its title partnership with Jaguar TCS Racing and expanded its role as official AI partner."
-  },
-  "106789018": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Analyst(s)/Investor(s) meet"
   }
  },
  "results": {
