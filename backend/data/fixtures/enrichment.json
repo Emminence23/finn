@@ -1,5 +1,47 @@
 {
  "announcements": {
+  "106869586": {
+   "category": "press_release",
+   "category_source": "rules",
+   "materiality": 30,
+   "summary": "Tata Motors Passenger Vehicles announced an average price increase of 0.5% across cars and SUVs effective December 1, 2026."
+  },
+  "106869583": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "This is to inform you that the management representatives would be meeting the members of the Promoter(s) & Promoter(s) Group on Friday, 27th November 2026, 4.00 pm (IST) onwards in Mumbai, to brief them on the performance of the Company for the quarter and half year ended 30th September 2026"
+  },
+  "106869480": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Analyst(s)/Investor(s) meet"
+  },
+  "106869314": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
+  "106869293": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 85,
+   "summary": "Tata Steel acquired a 9.91% equity stake in APL Apollo Tubes Limited for approximately Rs. 5,825 crore."
+  },
+  "106869069": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Find enclosed communication with respect to the institutional investor meeting to be held on 27th November 2026"
+  },
+  "106868969": {
+   "category": "credit_rating",
+   "category_source": "rules",
+   "materiality": 10,
+   "summary": "ICRA reaffirmed the [ICRA]AAA (Stable) and [ICRA]A1+ ratings on Titan Company Limited's facilities totaling Rs. 20,750 crore."
+  },
   "106868768": {
    "category": "investor_meetings",
    "category_source": "rules",
@@ -3185,60 +3227,6 @@
    "category_source": "rules",
    "materiality": 20,
    "summary": "Shri Y Srinivasa Rao superannuated as Executive Director; Shri Chitmouj Gowri Shankar appointed as General Manager and Head of HPVP."
-  },
-  "106792267": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Presentation"
-  },
-  "106792247": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106792186": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 2,
-   "summary": "Company executives participated in the BofA Asia Pacific Conference 2026 in Hong Kong; no unpublished price sensitive information shared."
-  },
-  "106792072": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Copy of Newspaper Publication"
-  },
-  "106792004": {
-   "category": "investor_meetings",
-   "category_source": "llm",
-   "materiality": 2,
-   "summary": "Company executives participated in the J.P. Morgan India Financials Tour in Mumbai; no unpublished price sensitive information shared."
-  },
-  "106791952": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106791947": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 14669  Shares under Aarti Industries Limited PSOP 2022"
-  },
-  "106790746": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 284605  Shares"
-  },
-  "106790631": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
   }
  },
  "results": {
