@@ -2,10 +2,10 @@
  "name": "Aarti Industries Ltd",
  "about": "Aarti Industries Ltd, the flagship company of the Aarti group, manufacturing organic and inorganic chemicals at its major facilities in Vapi, Jhagadia, Dahej and Kutch, in Gujarat and in Tarapur in Maharashtra. The company has a strong market position in the NCB-based specialty chemicals segment. [1]",
  "top_ratios": {
-  "Market Cap": "₹ 16,300 Cr.",
-  "Current Price": "₹ 449",
+  "Market Cap": "₹ 15,806 Cr.",
+  "Current Price": "₹ 436",
   "High / Low": "₹ 552 / 338",
-  "Stock P/E": "26.9",
+  "Stock P/E": "26.0",
   "Book Value": "₹ 173",
   "Dividend Yield": "0.22 %",
   "ROCE": "6.86 %",
@@ -91,7 +91,7 @@
     "2026-09": 11.0
    },
    "Other Income": {
-    "2023-09": 0.0,
+    "2023-09": -0.0,
     "2023-12": 8.0,
     "2024-03": -1.0,
     "2024-06": 6.0,
@@ -912,13 +912,19 @@
    "kind": "ppt",
    "period": "2026-11",
    "label": "Nov 2026",
-   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=779fec81-cb4f-47e5-bc21-3f9683367f92.pdf"
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a1c9ce4a-cb5f-46a1-9817-1f8a5435997a.pdf"
   },
   {
    "kind": "recording",
    "period": "2026-11",
    "label": "Nov 2026",
    "url": "https://d9bnjb3uan3b2.cloudfront.net/Q2_FY_2027_Concall_Audio_e1169d25a4.mp3"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-11",
+   "label": "Nov 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=779fec81-cb4f-47e5-bc21-3f9683367f92.pdf"
   },
   {
    "kind": "ppt",

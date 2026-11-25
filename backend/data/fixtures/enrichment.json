@@ -1,5 +1,53 @@
 {
  "announcements": {
+  "106870358": {
+   "category": "investor_meetings",
+   "category_source": "llm",
+   "materiality": 2,
+   "summary": "ICICI Bank scheduled an investor meet with Macquarie Annual India Tour on December 1, 2026."
+  },
+  "106870309": {
+   "category": "fund_raise",
+   "category_source": "rules",
+   "materiality": 40,
+   "summary": "Bajaj Finance allotted 1,42,700 secured redeemable non-convertible debentures aggregating to Rs. 1440.75 crore on private placement."
+  },
+  "106870229": {
+   "category": "M&A",
+   "category_source": "rules",
+   "materiality": 65,
+   "summary": "Tata Steel acquired 2,77,38,075 equity shares of APL Apollo Tubes Limited through an on-market block deal."
+  },
+  "106870220": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Investor Presentation"
+  },
+  "106870219": {
+   "category": "press_release",
+   "category_source": "llm",
+   "materiality": 50,
+   "summary": "Larsen & Toubro won an order to develop a 300 MW / 900 MWh Battery Energy Storage System in Gujarat."
+  },
+  "106870069": {
+   "category": "management_change",
+   "category_source": "rules",
+   "materiality": 10,
+   "summary": "Ms. K G Vijayalakshmi, Executive Director, superannuated from senior management of BHEL on November 24, 2026."
+  },
+  "106869840": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
+  "106869755": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
   "106869586": {
    "category": "press_release",
    "category_source": "rules",
@@ -3143,90 +3191,6 @@
    "category_source": "rules",
    "materiality": 45,
    "summary": "NCLT order approving amalgamation of Sesa Care with Dabur India uploaded on the website."
-  },
-  "106795115": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 30,
-   "summary": "ICICI Bank received a GST show cause notice and demand amounting to ₹16,75,96,536."
-  },
-  "106795047": {
-   "category": "credit_rating",
-   "category_source": "rules",
-   "materiality": 10,
-   "summary": "CARE Ratings and CRISIL assigned CARE AAA/Stable and CRISIL AAA/Stable ratings to Reliance Industries."
-  },
-  "106795006": {
-   "category": "credit_rating",
-   "category_source": "rules",
-   "materiality": 10,
-   "summary": "CARE Ratings and CRISIL assigned CARE AAA/Stable and CRISIL AAA/Stable ratings to Reliance Industries."
-  },
-  "106794864": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106794853": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106794802": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106794761": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Schedule of meet"
-  },
-  "106794647": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Presentation"
-  },
-  "106794266": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Copy of Newspaper Publication"
-  },
-  "106794072": {
-   "category": "M&A",
-   "category_source": "rules",
-   "materiality": 50,
-   "summary": "One 97 Communications increased shareholding in Little Internet to 77.42% and invested INR 100 crore in Paytm Money."
-  },
-  "106794054": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106793066": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "Allotment of 1897180   Shares"
-  },
-  "106792875": {
-   "category": "M&A",
-   "category_source": "rules",
-   "materiality": 45,
-   "summary": "NCLT pronounced order approving amalgamation of Sesa Care Private Limited into Dabur India Limited."
-  },
-  "106792636": {
-   "category": "management_change",
-   "category_source": "rules",
-   "materiality": 20,
-   "summary": "Shri Y Srinivasa Rao superannuated as Executive Director; Shri Chitmouj Gowri Shankar appointed as General Manager and Head of HPVP."
   }
  },
  "results": {
@@ -4412,6 +4376,18 @@
   }
  },
  "people": {
+  "106870069": [
+   {
+    "name": "K G Vijayalakshmi",
+    "role": "Executive Director (Receivable Management)",
+    "direction": "outgoing",
+    "effective_date": "2026-11-24",
+    "is_senior": true,
+    "bio": null,
+    "prior_roles": [],
+    "education": []
+   }
+  ],
   "106861614": [
    {
     "name": "Chandrakant Vallabhaji Gogri",
@@ -6095,33 +6071,6 @@
      }
     ],
     "education": []
-   }
-  ],
-  "106792636": [
-   {
-    "name": "Y Srinivasa Rao",
-    "role": "Executive Director (HPEP), Hyderabad",
-    "direction": "outgoing",
-    "effective_date": "2026-09-24",
-    "is_senior": true,
-    "bio": null,
-    "prior_roles": [],
-    "education": []
-   },
-   {
-    "name": "Chittimouj Gowri Shankar",
-    "role": "General Manager & Head (HPVP), Visakhapatnam",
-    "direction": "incoming",
-    "effective_date": "2026-09-25",
-    "is_senior": true,
-    "bio": "Has been appointed as the new Head of Heavy Plate & Vessels Plant (HPVP), Visakhapatnam. He will report to Director (IS & P).",
-    "prior_roles": [],
-    "education": [
-     {
-      "school": "B. Tech (Computer Science)",
-      "program": null
-     }
-    ]
    }
   ]
  }
