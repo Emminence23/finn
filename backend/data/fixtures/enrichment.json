@@ -1,5 +1,35 @@
 {
  "announcements": {
+  "106871062": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 30,
+   "summary": "Incorporated a wholly owned subsidiary named Meesho Finance Private Limited."
+  },
+  "106871058": {
+   "category": "M&A",
+   "category_source": "llm",
+   "materiality": 30,
+   "summary": "Made an additional investment in the ordinary shares of subsidiary Kirana Club Pte. Ltd."
+  },
+  "106870784": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of Investor meet to be held on 7 December 2026"
+  },
+  "106870715": {
+   "category": "management_change",
+   "category_source": "rules",
+   "materiality": 40,
+   "summary": "Re-appointed Dr. Harsh Kumar Bhanwala as an Independent Director for a five-year term."
+  },
+  "106870553": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "This is to inform you that the Company through its representatives, will be participating in the meeting as per enclosed schedule"
+  },
   "106870358": {
    "category": "investor_meetings",
    "category_source": "llm",
@@ -3185,12 +3215,6 @@
    "category_source": "rules",
    "materiality": 3,
    "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106795450": {
-   "category": "M&A",
-   "category_source": "rules",
-   "materiality": 45,
-   "summary": "NCLT order approving amalgamation of Sesa Care with Dabur India uploaded on the website."
   }
  },
  "results": {
@@ -4376,6 +4400,70 @@
   }
  },
  "people": {
+  "106870715": [
+   {
+    "name": "Harsh Kumar Bhanwala",
+    "role": "Independent Director",
+    "direction": "reappointed",
+    "effective_date": "2027-01-25",
+    "is_senior": true,
+    "bio": "Dr. Harsh Kumar Bhanwala has a vast experience of 40 years in areas such as Board governance & management, Finance, Rural development, promoting & supporting sustainable agriculture, and supervision & development of Rural Cooperative Banks and Regional Rural Banks.",
+    "prior_roles": [
+     {
+      "company": "National Bank for Agriculture and Rural Development (NABARD)",
+      "title": "Chairman",
+      "start_year": 2013,
+      "end_year": 2020
+     },
+     {
+      "company": "India Infrastructure Finance Company Ltd. (IIFCL)",
+      "title": "Chairman cum Managing Director",
+      "start_year": null,
+      "end_year": null
+     },
+     {
+      "company": "India Infrastructure Finance Company Ltd. (IIFCL)",
+      "title": "Executive Director",
+      "start_year": null,
+      "end_year": null
+     },
+     {
+      "company": "Delhi State Cooperative Bank",
+      "title": "Managing Director",
+      "start_year": null,
+      "end_year": null
+     },
+     {
+      "company": "Capital India Finance Limited",
+      "title": "Executive Chairman",
+      "start_year": null,
+      "end_year": null
+     },
+     {
+      "company": "Banker’s Institute of Rural Development (BIRD), Lucknow",
+      "title": "Chairman",
+      "start_year": null,
+      "end_year": null
+     },
+     {
+      "company": "NABARD Consultancy Services (NABCONS)",
+      "title": "Chairman",
+      "start_year": null,
+      "end_year": null
+     }
+    ],
+    "education": [
+     {
+      "school": "National Dairy Research Institute (NDRI), Karnal",
+      "program": "B.Sc. in Dairy Technology"
+     },
+     {
+      "school": "IIM, Ahmedabad",
+      "program": "Postgraduate in Management"
+     }
+    ]
+   }
+  ],
   "106870069": [
    {
     "name": "K G Vijayalakshmi",
