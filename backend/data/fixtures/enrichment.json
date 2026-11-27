@@ -1,5 +1,65 @@
 {
  "announcements": {
+  "106872720": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "The company's ESOP trust is conducting secondary market purchases to meet upcoming employee stock vesting commitments."
+  },
+  "106872635": {
+   "category": "litigation",
+   "category_source": "rules",
+   "materiality": 15,
+   "summary": "Received an EPFO order demanding Rs. 36,36,548 including damages and penalty for the period of 2012-2019."
+  },
+  "106872611": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "The Company vide its letter no. APL/SEC/57/2026-27/44 dated 23rd November 2026 had informed that the Company, through its representatives, would be participating in a One - on -One meeting with Capital International, an Institutional Investor, at Mumbai on 27th November 2026, 11.00 a.m. IST onwards. We wish to inform you that the said meeting has been cancelled due to unforeseen exigencies"
+  },
+  "106872569": {
+   "category": "litigation",
+   "category_source": "llm",
+   "materiality": 40,
+   "summary": "Received a GST demand order in appeal amounting to Rs. 36,80,41,563 including tax, interest, and penalty."
+  },
+  "106872506": {
+   "category": "credit_rating",
+   "category_source": "rules",
+   "materiality": 75,
+   "summary": "S&P downgraded Tata Motors Passenger Vehicles and JLR long-term issuer credit ratings due to weaker performance."
+  },
+  "106872481": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Allotment of 907815  Shares"
+  },
+  "106872081": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "CFC Finlease independently assigned an unsolicited ESG rating of 75 to the company based on public information."
+  },
+  "106872067": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Investor Presentation"
+  },
+  "106871823": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Redemption of Commercial Paper"
+  },
+  "106871807": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of meet"
+  },
   "106871062": {
    "category": "M&A",
    "category_source": "llm",

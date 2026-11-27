@@ -2,12 +2,12 @@
  "name": "Asian Paints Ltd",
  "about": "Asian Paints is the largest home decor company in India. The 80+yr old company has major brands like Asian Paints, Apco, etc under its umbrella. The co. is into wall paints, wall coverings, waterproofing, texture painting, wall stickers, mechanized tools, adhesives, modular kitchens, sanitaryware, lightings, soft furnishings, and uPVC windows.",
  "top_ratios": {
-  "Market Cap": "₹ 2,44,519 Cr.",
-  "Current Price": "₹ 2,549",
+  "Market Cap": "₹ 2,42,831 Cr.",
+  "Current Price": "₹ 2,532",
   "High / Low": "₹ 2,986 / 2,115",
-  "Stock P/E": "49.3",
+  "Stock P/E": "49.0",
   "Book Value": "₹ 227",
-  "Dividend Yield": "1.05 %",
+  "Dividend Yield": "1.08 %",
   "ROCE": "26.3 %",
   "ROE": "21.8 %",
   "Face Value": "₹ 1.00"
@@ -912,13 +912,19 @@
    "kind": "ppt",
    "period": "2026-11",
    "label": "Nov 2026",
-   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=83b2bead-08c8-4789-a658-7985de0c772f.pdf"
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f5876333-cc21-4ae5-9c33-cc08d62aa1f5.pdf"
   },
   {
    "kind": "recording",
    "period": "2026-11",
    "label": "Nov 2026",
    "url": "https://www.asianpaints.com/content/dam/asianpaints/website/secondary-navigation/investors/financial-results-2/2026-2027/Q2/asian-paints-q2-and-h1-f27-rec.mp3"
+  },
+  {
+   "kind": "ppt",
+   "period": "2026-10",
+   "label": "Oct 2026",
+   "url": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=83b2bead-08c8-4789-a658-7985de0c772f.pdf"
   },
   {
    "kind": "transcript",
