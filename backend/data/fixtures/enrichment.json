@@ -1,5 +1,35 @@
 {
  "announcements": {
+  "106873211": {
+   "category": "credit_rating",
+   "category_source": "rules",
+   "materiality": 40,
+   "summary": "S&P Global assigned new rating excluding government support of BBBrxg/A-2rxg to ICICI Bank."
+  },
+  "106873210": {
+   "category": "credit_rating",
+   "category_source": "rules",
+   "materiality": 40,
+   "summary": "CARE Ratings withdrew credit rating following debt facility repayment and lender certificates."
+  },
+  "106872866": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Copy of Newspaper Publication"
+  },
+  "106872860": {
+   "category": "investor_meetings",
+   "category_source": "rules",
+   "materiality": 5,
+   "summary": "Schedule of Analysts / Institutional Investors Meeting"
+  },
+  "106872810": {
+   "category": "unclassified",
+   "category_source": "rules",
+   "materiality": 3,
+   "summary": "Copy of Newspaper Publication"
+  },
   "106872720": {
    "category": "unclassified",
    "category_source": "rules",
@@ -3239,42 +3269,6 @@
    "category_source": "rules",
    "materiality": 3,
    "summary": "Newspaper publication regarding special window for transfer and dematerialization of physical shares of HDFC Bank Limited"
-  },
-  "106798992": {
-   "category": "M&A",
-   "category_source": "rules",
-   "materiality": 40,
-   "summary": "ITC acquired remaining shares of Sproutlife Foods, making it a 100% wholly owned subsidiary."
-  },
-  "106798883": {
-   "category": "investor_meetings",
-   "category_source": "rules",
-   "materiality": 5,
-   "summary": "Presentation"
-  },
-  "106798804": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106798080": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106797709": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
-  },
-  "106797555": {
-   "category": "unclassified",
-   "category_source": "rules",
-   "materiality": 3,
-   "summary": "The Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015"
   }
  },
  "results": {
